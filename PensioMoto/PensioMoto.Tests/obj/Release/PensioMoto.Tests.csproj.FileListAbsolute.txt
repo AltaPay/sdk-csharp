@@ -1,0 +1,8 @@
+C:\Users\thomas\Documents\Visual Studio 2008\Projects\PensioMoto\PensioMoto.Tests\obj\Release\ResolveAssemblyReference.cache
+C:\Users\thomas\Documents\Visual Studio 2008\Projects\PensioMoto\PensioMoto.Tests\bin\Release\PensioMoto.Tests.dll
+C:\Users\thomas\Documents\Visual Studio 2008\Projects\PensioMoto\PensioMoto.Tests\bin\Release\PensioMoto.Tests.pdb
+C:\Users\thomas\Documents\Visual Studio 2008\Projects\PensioMoto\PensioMoto.Tests\bin\Release\nunit.framework.dll
+C:\Users\thomas\Documents\Visual Studio 2008\Projects\PensioMoto\PensioMoto.Tests\obj\Release\PensioMoto.Tests.dll
+C:\Users\thomas\Documents\Visual Studio 2008\Projects\PensioMoto\PensioMoto.Tests\obj\Release\PensioMoto.Tests.pdb
+C:\Users\thomas\Documents\Visual Studio 2008\Projects\PensioMoto\PensioMoto.Tests\bin\Release\PensioMoto.dll
+C:\Users\thomas\Documents\Visual Studio 2008\Projects\PensioMoto\PensioMoto.Tests\bin\Release\PensioMoto.pdb
