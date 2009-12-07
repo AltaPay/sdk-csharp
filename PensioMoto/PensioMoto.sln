@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PensioMoto", "PensioMoto\Pe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PensioMoto.Tests", "PensioMoto.Tests\PensioMoto.Tests.csproj", "{3A49B441-7FCE-40AA-893D-B61D5E41DA62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFormApp", "TestFormApp\TestFormApp.csproj", "{4BC5005B-02E1-4750-8E93-309C38C958EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{3A49B441-7FCE-40AA-893D-B61D5E41DA62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A49B441-7FCE-40AA-893D-B61D5E41DA62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A49B441-7FCE-40AA-893D-B61D5E41DA62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BC5005B-02E1-4750-8E93-309C38C958EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BC5005B-02E1-4750-8E93-309C38C958EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BC5005B-02E1-4750-8E93-309C38C958EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BC5005B-02E1-4750-8E93-309C38C958EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
