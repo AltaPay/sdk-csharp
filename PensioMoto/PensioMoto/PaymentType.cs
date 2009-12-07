@@ -5,7 +5,8 @@ using System.Text;
 
 namespace PensioMoto
 {
-    public class Class1
+    public enum PaymentType
     {
+        payment, paymentAndCapture, recurring
     }
 }
