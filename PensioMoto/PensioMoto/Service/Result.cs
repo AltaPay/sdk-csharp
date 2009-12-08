@@ -7,6 +7,6 @@ namespace PensioMoto.Service
 {
     public enum Result
     {
-        Success, Failed, Error, AbortedByUser
+        Success, Failed, Error, SystemError, AbortedByUser
     }
 }

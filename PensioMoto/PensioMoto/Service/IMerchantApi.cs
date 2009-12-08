@@ -8,16 +8,16 @@ namespace PensioMoto.Service
 	public interface IMerchantApi
 	{
 		PaymentResult ReservationOfFixedAmountMOTO(string shopOrderId,
-			float amount,
+			double amount,
 			int currency,
 			PaymentType paymentType,
-			int pan,
+			string pan,
 			int expiryMonth,
 			int expiryYear,
 			int cvc);
 
 		PaymentResult ReservationOfFixedAmountMOTO(string shopOrderId,
-			float amount,
+			double amount,
 			int currency,
 			PaymentType paymentType,
 			string creditCardToken,
