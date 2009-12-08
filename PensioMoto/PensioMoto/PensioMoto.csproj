@@ -49,7 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CardStatus.cs" />
+    <Compile Include="Service\CardStatus.cs" />
     <Compile Include="IMotoDialogue.cs" />
     <Compile Include="MotoForm.cs">
       <SubType>Form</SubType>
@@ -57,10 +57,12 @@
     <Compile Include="MotoForm.Designer.cs">
       <DependentUpon>MotoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PaymentResult.cs" />
-    <Compile Include="PaymentType.cs" />
+    <Compile Include="Service\Payment.cs" />
+    <Compile Include="Service\PaymentResult.cs" />
+    <Compile Include="Service\PaymentType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Result.cs" />
+    <Compile Include="Service\Result.cs" />
+    <Compile Include="Service\IMerchantApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">

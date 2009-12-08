@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PensioMoto
+namespace PensioMoto.Service
 {
     public enum CardStatus
     {

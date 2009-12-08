@@ -7,3 +7,4 @@ C:\Users\anton\Documents\Visual Studio 2008\Projects\PensioMoto\TestFormApp\obj\
 C:\Users\anton\Documents\Visual Studio 2008\Projects\PensioMoto\TestFormApp\obj\Debug\TestFormApp.csproj.GenerateResource.Cache
 C:\Users\anton\Documents\Visual Studio 2008\Projects\PensioMoto\TestFormApp\obj\Debug\TestFormApp.exe
 C:\Users\anton\Documents\Visual Studio 2008\Projects\PensioMoto\TestFormApp\obj\Debug\TestFormApp.pdb
+C:\Users\anton\Documents\Visual Studio 2008\Projects\PensioMoto\TestFormApp\bin\Debug\TestFormApp.exe.config

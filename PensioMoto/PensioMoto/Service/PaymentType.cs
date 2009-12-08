@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PensioMoto
+namespace PensioMoto.Service
 {
-    public enum Result
+    public enum PaymentType
     {
-        Success, Failed, Error, AbortedByUser
+        payment, paymentAndCapture, recurring
     }
 }

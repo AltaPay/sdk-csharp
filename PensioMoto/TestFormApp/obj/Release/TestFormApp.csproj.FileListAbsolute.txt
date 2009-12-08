@@ -1,0 +1,10 @@
+C:\Users\anton\Documents\Visual Studio 2008\Projects\PensioMoto\TestFormApp\bin\Release\TestFormApp.exe.config
+C:\Users\anton\Documents\Visual Studio 2008\Projects\PensioMoto\TestFormApp\bin\Release\TestFormApp.exe
+C:\Users\anton\Documents\Visual Studio 2008\Projects\PensioMoto\TestFormApp\bin\Release\TestFormApp.pdb
+C:\Users\anton\Documents\Visual Studio 2008\Projects\PensioMoto\TestFormApp\bin\Release\PensioMoto.dll
+C:\Users\anton\Documents\Visual Studio 2008\Projects\PensioMoto\TestFormApp\bin\Release\PensioMoto.pdb
+C:\Users\anton\Documents\Visual Studio 2008\Projects\PensioMoto\TestFormApp\obj\Release\ResolveAssemblyReference.cache
+C:\Users\anton\Documents\Visual Studio 2008\Projects\PensioMoto\TestFormApp\obj\Release\TestFormApp.Properties.Resources.resources
+C:\Users\anton\Documents\Visual Studio 2008\Projects\PensioMoto\TestFormApp\obj\Release\TestFormApp.csproj.GenerateResource.Cache
+C:\Users\anton\Documents\Visual Studio 2008\Projects\PensioMoto\TestFormApp\obj\Release\TestFormApp.exe
+C:\Users\anton\Documents\Visual Studio 2008\Projects\PensioMoto\TestFormApp\obj\Release\TestFormApp.pdb
