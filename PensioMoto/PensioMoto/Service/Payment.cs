@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.InteropServices;
 
 namespace PensioMoto.Service
 {
+	[GuidAttribute("81534a3f-1233-4fb3-b83e-88d44fe9607d")]
+	[ComVisible(true)]
 	public class Payment
 	{
 		public int PaymentId { get; set; }
