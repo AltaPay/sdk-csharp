@@ -78,7 +78,12 @@ namespace PensioMoto.Service
 			XPathNavigator navigator = xpathDoc.CreateNavigator();
 
 			PaymentResult result = new PaymentResult();
-			if (!ResponseHasSystemError(navigator))
+			if (ResponseHasSystemError(navigator))
+			{
+				result.Result = Result.SystemError;
+				result.ResultMessage = navigator.SelectSingleNode("/APIResponse/Header/ErrorMessage").ToString();
+			}
+			else
 			{
 				result.Result = (Result)Enum.Parse(typeof(Result), navigator.SelectSingleNode("/APIResponse/Body/Result").ToString());
 				if (result.Result != Result.Success)
@@ -86,12 +91,7 @@ namespace PensioMoto.Service
 					result.ResultMessage = navigator.SelectSingleNode("/APIResponse/Body/CardHolderErrorMessage").ToString();
 				}
 			}
-			else
-			{
-				result.Result = Result.SystemError;
-				result.ResultMessage = navigator.SelectSingleNode("/APIResponse/Header/ErrorMessage").ToString();
-			}
-			SetPaymentOnResult(navigator, result);
+			SetPaymentOnResultIfExists(navigator.SelectSingleNode("/APIResponse/Body/Transactions/Transaction"), result);
 			
 			return result;
 		}
@@ -101,22 +101,21 @@ namespace PensioMoto.Service
 			return navigator.SelectSingleNode("/APIResponse/Header/ErrorCode").ToString() != "0";
 		}
 
-		private static void SetPaymentOnResult(XPathNavigator navigator, PaymentResult result)
+		private static void SetPaymentOnResultIfExists(XPathNavigator navigator, PaymentResult result)
 		{
-
-			if (navigator.SelectSingleNode("/APIResponse/Body/Transactions/Transaction") != null)
+			if (navigator != null)
 			{
 				result.Payment = new Payment();
-				result.Payment.PaymentId = int.Parse(navigator.SelectSingleNode("/APIResponse/Body/Transactions/Transaction/TransactionId").ToString());
-				result.Payment.ShopOrderId = navigator.SelectSingleNode("/APIResponse/Body/Transactions/Transaction/ShopOrderId").ToString();
-				result.Payment.Terminal = navigator.SelectSingleNode("/APIResponse/Body/Transactions/Transaction/Terminal").ToString();
-				if (navigator.SelectSingleNode("/APIResponse/Body/Transactions/Transaction/ReservedAmount").ToString().Length > 0)
-					result.Payment.ReservedAmount = double.Parse(navigator.SelectSingleNode("/APIResponse/Body/Transactions/Transaction/ReservedAmount").ToString(), CultureInfo.InvariantCulture);
-				if (navigator.SelectSingleNode("/APIResponse/Body/Transactions/Transaction/CapturedAmount").ToString().Length > 0)
-					result.Payment.CapturedAmount = double.Parse(navigator.SelectSingleNode("/APIResponse/Body/Transactions/Transaction/CapturedAmount").ToString(), CultureInfo.InvariantCulture);
-				result.Payment.PaymentStatus = navigator.SelectSingleNode("/APIResponse/Body/Transactions/Transaction/TransactionStatus").ToString();
-				result.Payment.CreditCardToken = navigator.SelectSingleNode("/APIResponse/Body/Transactions/Transaction/CreditCardToken").ToString();
-				result.Payment.CreditCardMaskedPan = navigator.SelectSingleNode("/APIResponse/Body/Transactions/Transaction/CreditCardMaskedPan").ToString();
+				result.Payment.PaymentId = int.Parse(navigator.SelectSingleNode("TransactionId").ToString());
+				result.Payment.ShopOrderId = navigator.SelectSingleNode("ShopOrderId").ToString();
+				result.Payment.Terminal = navigator.SelectSingleNode("Terminal").ToString();
+				if (navigator.SelectSingleNode("ReservedAmount").ToString().Length > 0)
+					result.Payment.ReservedAmount = double.Parse(navigator.SelectSingleNode("ReservedAmount").ToString(), CultureInfo.InvariantCulture);
+				if (navigator.SelectSingleNode("CapturedAmount").ToString().Length > 0)
+					result.Payment.CapturedAmount = double.Parse(navigator.SelectSingleNode("CapturedAmount").ToString(), CultureInfo.InvariantCulture);
+				result.Payment.PaymentStatus = navigator.SelectSingleNode("TransactionStatus").ToString();
+				result.Payment.CreditCardToken = navigator.SelectSingleNode("CreditCardToken").ToString();
+				result.Payment.CreditCardMaskedPan = navigator.SelectSingleNode("CreditCardMaskedPan").ToString();
 			}
 		}
 
