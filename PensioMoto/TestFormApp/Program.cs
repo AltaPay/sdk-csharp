@@ -17,8 +17,6 @@ namespace TestFormApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MotoForm());
-
-            
         }
     }
 }

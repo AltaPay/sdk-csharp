@@ -26,7 +26,8 @@ namespace PensioMoto.Service
 			_password = password;
 		}
 
-		public PaymentResult ReservationOfFixedAmountMOTO(string shopOrderId, 
+		public PaymentResult ReservationOfFixedAmountMOTO(
+            string shopOrderId, 
 			double amount, 
 			int currency, 
 			PaymentType paymentType, 
@@ -49,7 +50,13 @@ namespace PensioMoto.Service
 			return GetResultFromUrl(url);
 		}
 
-		public PaymentResult ReservationOfFixedAmountMOTO(string shopOrderId, double amount, int currency, PaymentType paymentType, string creditCardToken, int cvc)
+		public PaymentResult ReservationOfFixedAmountMOTO(
+            string shopOrderId, 
+            double amount, 
+            int currency, 
+            PaymentType paymentType, 
+            string creditCardToken, 
+            int cvc)
 		{
 			string url = _gatewayUrl + "reservationOfFixedAmountMOTO" +
 				"?terminal=" + _terminal +
