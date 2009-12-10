@@ -45,7 +45,7 @@ namespace PensioMoto
 
 		public void SetCreditCard(string maskedPan, string cardToken)
 		{
-			throw new NotImplementedException();
+			_view.SetCreditCard(maskedPan, cardToken);
 		}
 
 		public PaymentResult Show()

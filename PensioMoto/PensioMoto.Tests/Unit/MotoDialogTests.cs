@@ -41,5 +41,13 @@ namespace PensioMoto.Tests.Unit
 
 			_api.Verify(a => a.Initialize("gatewayurl", "terminal", "apiusername", "apipassword"));
 		}
+
+		[Test]
+		public void WhenCallingSetCreditCardOnMotoDialogCallSetCreditCardOnView()
+		{
+			_motoDialog.SetCreditCard("maskedpan", "cardtoken");
+
+			_view.Verify(v => v.SetCreditCard("maskedpan", "cardtoken"));
+		}
 	}
 }
