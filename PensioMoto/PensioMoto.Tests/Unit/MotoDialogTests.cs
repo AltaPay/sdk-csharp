@@ -45,9 +45,9 @@ namespace PensioMoto.Tests.Unit
 		[Test]
 		public void WhenCallingSetCreditCardOnMotoDialogCallSetCreditCardOnView()
 		{
-			_motoDialog.SetCreditCard("maskedpan", "cardtoken");
+			_motoDialog.AddCreditCard("maskedpan", "cardtoken");
 
-			_view.Verify(v => v.SetCreditCard("maskedpan", "cardtoken"));
+			_view.Verify(v => v.AddCreditCard("maskedpan", "cardtoken"));
 		}
 
 		[Test]

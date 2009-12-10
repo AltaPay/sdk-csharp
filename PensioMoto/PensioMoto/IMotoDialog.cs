@@ -12,7 +12,7 @@ namespace PensioMoto
 		void Initialize(string gatewayUrl, string apiUsername, string apiPassword,
 			string terminal, string orderId,
 			double amount, int currency, PaymentType paymentType);
-		void SetCreditCard(string maskedPan, string cardToken);
+		void AddCreditCard(string maskedPan, string cardToken);
 		PaymentResult Show();
 	}
 }

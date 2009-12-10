@@ -45,9 +45,9 @@ namespace PensioMoto
 			_paymentType = paymentType;
 		}
 
-		public void SetCreditCard(string maskedPan, string cardToken)
+		public void AddCreditCard(string maskedPan, string cardToken)
 		{
-			_view.SetCreditCard(maskedPan, cardToken);
+			_view.AddCreditCard(maskedPan, cardToken);
 		}
 
 		public PaymentResult Show()

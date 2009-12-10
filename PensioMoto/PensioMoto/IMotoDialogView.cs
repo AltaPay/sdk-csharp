@@ -10,7 +10,7 @@ namespace PensioMoto
 	public interface IMotoDialogView
 	{
 		void Initialize(IMotoController controller, string orderId, double amount, PaymentType paymentType);
-		void SetCreditCard(string maskedPan, string cardToken);
+		void AddCreditCard(string maskedPan, string cardToken);
 		void ShowBlocking();
 		void Close();
 		void EnableView(string status);

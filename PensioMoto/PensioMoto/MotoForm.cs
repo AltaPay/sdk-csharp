@@ -34,7 +34,7 @@ namespace PensioMoto
 			_controller = controller;
 		}
 
-		public void SetCreditCard(string maskedPan, string cardToken)
+		public void AddCreditCard(string maskedPan, string cardToken)
 		{
 			_existingPans.Add(new ExistingCreditCard { CardToken=cardToken, MaskedPan=maskedPan });
 		}
