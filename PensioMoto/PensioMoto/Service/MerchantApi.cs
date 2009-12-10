@@ -18,7 +18,7 @@ namespace PensioMoto.Service
 		private string _username;
 		private string _password;
 
-		public MerchantApi(string gatewayUrl, string terminal, string username, string password)
+		public void Initialize(string gatewayUrl, string terminal, string username, string password)
 		{
 			_gatewayUrl = gatewayUrl;
 			_terminal = terminal;

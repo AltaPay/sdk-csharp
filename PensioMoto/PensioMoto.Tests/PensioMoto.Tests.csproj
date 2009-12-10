@@ -40,13 +40,16 @@
       <HintPath>..\libraries\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1Tests.cs" />
     <Compile Include="Integration\MerchantApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Unit\MotoDialogTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PensioMoto\PensioMoto.csproj">
