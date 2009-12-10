@@ -81,13 +81,13 @@ namespace PensioMoto
 		private void SubmitExistingCard_Click(object sender, EventArgs e)
 		{
 			DisableView();
-			_controller.PayUsingExistingCreditCard(ExistingPans.SelectedValue.ToString(), int.Parse(existingCvc.Text));
+			_controller.PayUsingExistingCreditCard(ExistingPans.SelectedValue.ToString(), existingCvc.Text);
 		}
 
 		private void SubmitNewCard_Click(object sender, EventArgs e)
 		{
 			DisableView();
-			_controller.PayUsingNewCreditCard(newPan.Text, int.Parse(ExpiryMonth.Text), int.Parse(ExpiryYear.Text), int.Parse(newCvc.Text));
+			_controller.PayUsingNewCreditCard(newPan.Text, int.Parse(ExpiryMonth.Text), int.Parse(ExpiryYear.Text), newCvc.Text);
 		}
 
 		protected class ExistingCreditCard

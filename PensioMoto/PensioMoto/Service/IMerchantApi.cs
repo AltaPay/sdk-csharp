@@ -9,20 +9,22 @@ namespace PensioMoto.Service
 	{
 		void Initialize(string gatewayUrl, string terminal, string username, string password);
 
-		PaymentResult ReservationOfFixedAmountMOTO(string shopOrderId,
+		PaymentResult ReservationOfFixedAmountMOTO(
+            string shopOrderId,
 			double amount,
 			int currency,
 			PaymentType paymentType,
 			string pan,
 			int expiryMonth,
 			int expiryYear,
-			int cvc);
+			string cvc);
 
-		PaymentResult ReservationOfFixedAmountMOTO(string shopOrderId,
+		PaymentResult ReservationOfFixedAmountMOTO(
+            string shopOrderId,
 			double amount,
 			int currency,
 			PaymentType paymentType,
 			string creditCardToken,
-			int cvc);
+			string cvc);
 	}
 }

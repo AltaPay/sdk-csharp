@@ -133,13 +133,12 @@ namespace PensioMoto.Tests.Integration
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount)
 		{
-			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, PaymentType.paymentAndCapture, "4111000011110000", 1, 2012, 123);
+			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, PaymentType.paymentAndCapture, "4111000011110000", 1, 2012, "123");
 		}
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, string cardToken)
 		{
-			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, PaymentType.payment, cardToken, 123);
+			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, PaymentType.payment, cardToken, "123");
 		}
-
 	}
 }

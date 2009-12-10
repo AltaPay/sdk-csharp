@@ -9,9 +9,15 @@ namespace PensioMoto
 {
 	public interface IMotoDialog
 	{
-		void Initialize(string gatewayUrl, string apiUsername, string apiPassword,
-			string terminal, string orderId,
-			double amount, int currency, PaymentType paymentType);
+		void Initialize(
+			string gatewayUrl, 
+			string apiUsername, 
+			string apiPassword,
+			string terminal, 
+			string orderId,
+			double amount, 
+			int currency, 
+			PaymentType paymentType);
 		void AddCreditCard(string maskedPan, string cardToken);
 		PaymentResult Show();
 	}

@@ -58,12 +58,12 @@ namespace PensioMoto
 			return (PaymentResult)_queue.Dequeue();
 		}
 
-		public void PayUsingExistingCreditCard(string cardToken, int cvc)
+		public void PayUsingExistingCreditCard(string cardToken, string cvc)
 		{
 			HandlePaymentResult(_merchantApi.ReservationOfFixedAmountMOTO(_orderId, _amount, _currency, _paymentType, cardToken, cvc));
 		}
 
-		public void PayUsingNewCreditCard(string pan, int expiryMonth, int expiryYear, int cvc)
+		public void PayUsingNewCreditCard(string pan, int expiryMonth, int expiryYear, string cvc)
 		{
 			HandlePaymentResult(_merchantApi.ReservationOfFixedAmountMOTO(_orderId, _amount, _currency, _paymentType, pan, expiryMonth, expiryYear, cvc));
 		}

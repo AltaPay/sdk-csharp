@@ -7,8 +7,8 @@ namespace PensioMoto
 {
 	public interface IMotoController
 	{
-		void PayUsingExistingCreditCard(string cardToken, int cvc);
-		void PayUsingNewCreditCard(string pan, int expiryMonth, int expiryYear, int cvc);
+		void PayUsingExistingCreditCard(string cardToken, string cvc);
+		void PayUsingNewCreditCard(string pan, int expiryMonth, int expiryYear, string cvc);
 		void Cancel();
 	}
 }

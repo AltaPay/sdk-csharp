@@ -34,7 +34,7 @@ namespace PensioMoto.Service
 			string pan, 
 			int expiryMonth, 
 			int expiryYear, 
-			int cvc)
+			string cvc)
 		{
 			string url = _gatewayUrl + "reservationOfFixedAmountMOTO" +
 				"?terminal=" + _terminal +
@@ -45,7 +45,7 @@ namespace PensioMoto.Service
 				"&cardnum=" + pan +
 				"&emonth=" + expiryMonth.ToString() +
 				"&eyear=" + expiryYear.ToString() +
-				"&cvc=" + cvc.ToString();
+				"&cvc=" + cvc;
 
 			return GetResultFromUrl(url);
 		}
@@ -56,7 +56,7 @@ namespace PensioMoto.Service
             int currency, 
             PaymentType paymentType, 
             string creditCardToken, 
-            int cvc)
+            string cvc)
 		{
 			string url = _gatewayUrl + "reservationOfFixedAmountMOTO" +
 				"?terminal=" + _terminal +
@@ -65,8 +65,8 @@ namespace PensioMoto.Service
 				"&currency=" + currency.ToString() +
 				"&type=" + paymentType.ToString() +
 				"&credit_card_token=" + creditCardToken +
-				"&cvc=" + cvc.ToString();
-			//throw new Exception(url);
+				"&cvc=" + cvc;
+
 			return GetResultFromUrl(url);
 		}
 
