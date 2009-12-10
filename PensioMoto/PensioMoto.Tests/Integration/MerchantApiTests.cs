@@ -110,7 +110,7 @@ namespace PensioMoto.Tests.Integration
 		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithACreditCardToken()
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
-
+			
 			Assert.NotNull(result.Payment.CreditCardToken);
 		}
 

@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlockingQueue.cs" />
+    <Compile Include="IMotoController.cs" />
     <Compile Include="IMotoDialog.cs" />
     <Compile Include="IMotoDialogView.cs" />
     <Compile Include="MotoDialog.cs" />
