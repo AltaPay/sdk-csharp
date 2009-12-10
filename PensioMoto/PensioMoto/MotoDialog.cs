@@ -18,6 +18,7 @@ namespace PensioMoto
 		private IMotoDialogView _view;
 		private IMerchantApi _merchantApi;
 		private BlockingQueue _queue;
+		private PaymentResult _lastResult;
 
 		public MotoDialog(IMotoDialogView view, IMerchantApi merchantApi)
 		{
@@ -70,11 +71,15 @@ namespace PensioMoto
 		public void Cancel()
 		{
 			_view.Close();
-			_queue.Enqueue(null);
+			if (_lastResult != null)
+				_queue.Enqueue(_lastResult);
+			else
+				_queue.Enqueue(new PaymentResult { Result = Result.AbortedByUser });
 		}
 
 		private void HandlePaymentResult(PaymentResult result)
 		{
+			_lastResult = result;
 			if (result.Result == Result.Success)
 			{
 				_view.Close();

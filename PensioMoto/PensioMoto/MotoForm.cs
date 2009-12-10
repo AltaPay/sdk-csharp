@@ -95,5 +95,10 @@ namespace PensioMoto
 			public string CardToken { get; set; }
 			public string MaskedPan { get; set; }
 		}
+
+		private void Cancel_Click(object sender, EventArgs e)
+		{
+			_controller.Cancel();
+		}
 	}
 }

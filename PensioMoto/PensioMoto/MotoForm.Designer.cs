@@ -41,7 +41,9 @@
 			this.label6 = new System.Windows.Forms.Label();
 			this.newCvc = new System.Windows.Forms.TextBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.SubmitExistingCard = new System.Windows.Forms.Button();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.SubmitNewCard = new System.Windows.Forms.Button();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.PaymentType = new System.Windows.Forms.TextBox();
 			this.label9 = new System.Windows.Forms.Label();
@@ -49,10 +51,8 @@
 			this.label8 = new System.Windows.Forms.Label();
 			this.OrderId = new System.Windows.Forms.TextBox();
 			this.label7 = new System.Windows.Forms.Label();
-			this.SubmitExistingCard = new System.Windows.Forms.Button();
 			this.Cancel = new System.Windows.Forms.Button();
 			this.Status = new System.Windows.Forms.TextBox();
-			this.SubmitNewCard = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -171,6 +171,16 @@
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Existing Cards";
 			// 
+			// SubmitExistingCard
+			// 
+			this.SubmitExistingCard.Location = new System.Drawing.Point(213, 157);
+			this.SubmitExistingCard.Name = "SubmitExistingCard";
+			this.SubmitExistingCard.Size = new System.Drawing.Size(75, 23);
+			this.SubmitExistingCard.TabIndex = 13;
+			this.SubmitExistingCard.Text = "Submit";
+			this.SubmitExistingCard.UseVisualStyleBackColor = true;
+			this.SubmitExistingCard.Click += new System.EventHandler(this.SubmitExistingCard_Click);
+			// 
 			// groupBox2
 			// 
 			this.groupBox2.Controls.Add(this.label2);
@@ -188,6 +198,16 @@
 			this.groupBox2.TabIndex = 11;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "New card";
+			// 
+			// SubmitNewCard
+			// 
+			this.SubmitNewCard.Location = new System.Drawing.Point(142, 157);
+			this.SubmitNewCard.Name = "SubmitNewCard";
+			this.SubmitNewCard.Size = new System.Drawing.Size(75, 23);
+			this.SubmitNewCard.TabIndex = 13;
+			this.SubmitNewCard.Text = "Submit";
+			this.SubmitNewCard.UseVisualStyleBackColor = true;
+			this.SubmitNewCard.Click += new System.EventHandler(this.SubmitNewCard_Click);
 			// 
 			// groupBox3
 			// 
@@ -255,16 +275,6 @@
 			this.label7.TabIndex = 0;
 			this.label7.Text = "Order id:";
 			// 
-			// SubmitExistingCard
-			// 
-			this.SubmitExistingCard.Location = new System.Drawing.Point(213, 157);
-			this.SubmitExistingCard.Name = "SubmitExistingCard";
-			this.SubmitExistingCard.Size = new System.Drawing.Size(75, 23);
-			this.SubmitExistingCard.TabIndex = 13;
-			this.SubmitExistingCard.Text = "Submit";
-			this.SubmitExistingCard.UseVisualStyleBackColor = true;
-			this.SubmitExistingCard.Click += new System.EventHandler(this.SubmitExistingCard_Click);
-			// 
 			// Cancel
 			// 
 			this.Cancel.Location = new System.Drawing.Point(485, 273);
@@ -273,6 +283,7 @@
 			this.Cancel.TabIndex = 14;
 			this.Cancel.Text = "Cancel";
 			this.Cancel.UseVisualStyleBackColor = true;
+			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
 			// 
 			// Status
 			// 
@@ -281,16 +292,6 @@
 			this.Status.Size = new System.Drawing.Size(467, 20);
 			this.Status.TabIndex = 15;
 			this.Status.Text = "Awaiting user input.....";
-			// 
-			// SubmitNewCard
-			// 
-			this.SubmitNewCard.Location = new System.Drawing.Point(142, 157);
-			this.SubmitNewCard.Name = "SubmitNewCard";
-			this.SubmitNewCard.Size = new System.Drawing.Size(75, 23);
-			this.SubmitNewCard.TabIndex = 13;
-			this.SubmitNewCard.Text = "Submit";
-			this.SubmitNewCard.UseVisualStyleBackColor = true;
-			this.SubmitNewCard.Click += new System.EventHandler(this.SubmitNewCard_Click);
 			// 
 			// MotoForm
 			// 
