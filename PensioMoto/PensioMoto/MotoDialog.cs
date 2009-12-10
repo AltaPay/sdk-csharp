@@ -12,10 +12,15 @@ namespace PensioMoto
 	[ComVisible(true)]
 	public class MotoDialog : IMotoDialog
 	{
+		private string _gatewayUrl;
+		private string _apiUsername;
+		private string _apiPassword;
 		private string _terminal;
 		private string _orderId;
 		private float _amount;
 		private PaymentType _paymentType;
+		
+		private int _currency;
 
 		public void Initialize(string gatewayUrl, 
 			string apiUsername, 
@@ -26,10 +31,14 @@ namespace PensioMoto
 			int currency, 
 			PaymentType paymentType)
 		{
+			_gatewayUrl = gatewayUrl;
+			_apiUsername = apiUsername;
+			_apiPassword = apiPassword;
+			_terminal = terminal;
 			_orderId = orderId;
 			_amount = amount;
+			_currency = currency;
 			_paymentType = paymentType;
-			_terminal = terminal;
 		}
 
 		public void SetCreditCard(string maskedPan, string cardToken)
