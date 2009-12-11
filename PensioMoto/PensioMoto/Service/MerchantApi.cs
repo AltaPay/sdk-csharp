@@ -10,6 +10,7 @@ namespace PensioMoto.Service
 {
 	public class MerchantApi : IMerchantApi
 	{
+		private XmlSerializer _apiResponseDeserializer;
 		private string _gatewayUrl;
 		private string _terminal;
 		private string _username;
@@ -17,6 +18,8 @@ namespace PensioMoto.Service
 
 		public void Initialize(string gatewayUrl, string terminal, string username, string password)
 		{
+			_apiResponseDeserializer = new XmlSerializer(typeof(ApiResponse));
+
 			_gatewayUrl = gatewayUrl;
 			_terminal = terminal;
 			_username = username;
@@ -73,20 +76,30 @@ namespace PensioMoto.Service
 			request.Credentials = new NetworkCredential(_username, _password);
 			WebResponse response = request.GetResponse();
 
-			XmlSerializer serializer = new XmlSerializer(typeof(ApiResponse));
-			ApiResponse apiResponse = (ApiResponse)serializer.Deserialize(response.GetResponseStream());
+			ApiResponse apiResponse = (ApiResponse)_apiResponseDeserializer.Deserialize(response.GetResponseStream());
 
 			return GetResultFromXml(apiResponse);
 		}
 
 		private PaymentResult GetResultFromXml(ApiResponse apiResponse)
 		{
-			return new PaymentResult
+			if(apiResponse.Header.ErrorCode == 0)
 			{
-				Result = (apiResponse.Header.ErrorCode == 0 ?(Result)Enum.Parse(typeof(Result), apiResponse.Body.Result) : Result.SystemError),
-				ResultMessage = (apiResponse.Header.ErrorCode == 0 ? apiResponse.Body.CardHolderErrorMessage : apiResponse.Header.ErrorMessage),
-				Payment = (apiResponse.Body.Transactions != null ? GetPayment(apiResponse.Body.Transactions[0]) : null)
-			};
+				return new PaymentResult
+				{
+					Result = (Result)Enum.Parse(typeof(Result), apiResponse.Body.Result),
+					ResultMessage = apiResponse.Body.CardHolderErrorMessage,
+					Payment = (apiResponse.Body.Transactions != null ? GetPayment(apiResponse.Body.Transactions[0]) : null)
+				};
+			}
+			else
+			{
+				return new PaymentResult
+				{
+					Result = Result.SystemError,
+					ResultMessage = apiResponse.Header.ErrorMessage
+				};
+			}
 		}
 
 		private Payment GetPayment(Transaction transaction)
