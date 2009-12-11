@@ -89,7 +89,7 @@ namespace PensioMoto.Service
 				{
 					Result = (Result)Enum.Parse(typeof(Result), apiResponse.Body.Result),
 					ResultMessage = apiResponse.Body.CardHolderErrorMessage,
-					Payment = (apiResponse.Body.Transactions != null ? GetPayment(apiResponse.Body.Transactions[0]) : null)
+					Payment = (apiResponse.Body.Transactions != null ? apiResponse.Body.Transactions[0] : null)
 				};
 			}
 			else
@@ -100,21 +100,6 @@ namespace PensioMoto.Service
 					ResultMessage = apiResponse.Header.ErrorMessage
 				};
 			}
-		}
-
-		private Payment GetPayment(Transaction transaction)
-		{
-			return new Payment
-			{
-				PaymentId = transaction.TransactionId,
-				ShopOrderId = transaction.ShopOrderId,
-				Terminal = transaction.Terminal,
-				ReservedAmount = transaction.ReservedAmount,
-				CapturedAmount = transaction.CapturedAmount,
-				PaymentStatus = transaction.TransactionStatus,
-				CreditCardToken = transaction.CreditCardToken,
-				CreditCardMaskedPan = transaction.CreditCardMaskedPan
-			};
 		}
 	}
 }

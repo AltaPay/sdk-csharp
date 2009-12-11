@@ -1,10 +1,13 @@
 ﻿
+using System.Xml.Serialization;
 namespace PensioMoto.Service.Dto
 {
 	public class Body
 	{
 		public string Result { get; set; }
 		public string CardHolderErrorMessage { get; set; }
-		public Transaction[] Transactions { get; set; }
+
+		[XmlArrayItem(ElementName="Transaction")]
+		public Payment[] Transactions { get; set; }
 	}
 }

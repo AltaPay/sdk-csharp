@@ -4,12 +4,15 @@ using System.Globalization;
 
 namespace PensioMoto.Service.Dto
 {
-	public class Transaction
+	public class Payment
 	{
-		public int TransactionId { get; set; }
+		[XmlElement(ElementName = "TransactionId")]
+		public int PaymentId { get; set; }
 		public string ShopOrderId { get; set; }
 		public string Terminal { get; set; }
-		public string TransactionStatus { get; set; }
+
+		[XmlElement(ElementName = "TransactionStatus")]
+		public string PaymentStatus { get; set; }
 		public string CreditCardToken { get; set; }
 		public string CreditCardMaskedPan { get; set; }
 

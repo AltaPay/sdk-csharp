@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using PensioMoto.Service.Dto;
 
 namespace PensioMoto.Service
 {
