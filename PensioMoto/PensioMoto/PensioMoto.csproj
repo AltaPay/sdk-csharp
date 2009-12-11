@@ -55,6 +55,7 @@
     <Compile Include="IMotoController.cs" />
     <Compile Include="IMotoDialog.cs" />
     <Compile Include="IMotoDialogView.cs" />
+    <Compile Include="Moto.cs" />
     <Compile Include="MotoDialog.cs" />
     <Compile Include="MotoForm.cs">
       <SubType>Form</SubType>
