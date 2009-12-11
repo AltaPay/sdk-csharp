@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
-using System.Xml;
-using System.Xml.Serialization;
-using System.IO;
-using System.Xml.XPath;
 using System.Globalization;
+using System.IO;
+using System.Net;
+using System.Xml.Serialization;
+using System.Xml.XPath;
+using PensioMoto.Service.Dto;
 
 namespace PensioMoto.Service
 {
@@ -76,56 +73,35 @@ namespace PensioMoto.Service
 			request.Credentials = new NetworkCredential(_username, _password);
 			WebResponse response = request.GetResponse();
 
-			XPathDocument xpathDoc = new XPathDocument(response.GetResponseStream());
-			return GetResultFromXml(xpathDoc);
+			XmlSerializer serializer = new XmlSerializer(typeof(ApiResponse));
+			ApiResponse apiResponse = (ApiResponse)serializer.Deserialize(response.GetResponseStream());
+
+			return GetResultFromXml(apiResponse);
 		}
 
-		private PaymentResult GetResultFromXml(XPathDocument xpathDoc)
+		private PaymentResult GetResultFromXml(ApiResponse apiResponse)
 		{
-			XPathNavigator navigator = xpathDoc.CreateNavigator();
-
-			PaymentResult result = new PaymentResult();
-			if (ResponseHasSystemError(navigator))
+			return new PaymentResult
 			{
-				result.Result = Result.SystemError;
-				result.ResultMessage = navigator.SelectSingleNode("/APIResponse/Header/ErrorMessage").ToString();
-			}
-			else
-			{
-				result.Result = (Result)Enum.Parse(typeof(Result), navigator.SelectSingleNode("/APIResponse/Body/Result").ToString());
-				if (result.Result != Result.Success)
-				{
-					result.ResultMessage = navigator.SelectSingleNode("/APIResponse/Body/CardHolderErrorMessage").ToString();
-				}
-			}
-			SetPaymentOnResultIfExists(navigator.SelectSingleNode("/APIResponse/Body/Transactions/Transaction"), result);
-			
-			return result;
+				Result = (apiResponse.Header.ErrorCode == 0 ?(Result)Enum.Parse(typeof(Result), apiResponse.Body.Result) : Result.SystemError),
+				ResultMessage = (apiResponse.Header.ErrorCode == 0 ? apiResponse.Body.CardHolderErrorMessage : apiResponse.Header.ErrorMessage),
+				Payment = (apiResponse.Body.Transactions != null ? GetPayment(apiResponse.Body.Transactions[0]) : null)
+			};
 		}
 
-		private static bool ResponseHasSystemError(XPathNavigator navigator)
+		private Payment GetPayment(Transaction transaction)
 		{
-			return navigator.SelectSingleNode("/APIResponse/Header/ErrorCode").ToString() != "0";
-		}
-
-		private static void SetPaymentOnResultIfExists(XPathNavigator navigator, PaymentResult result)
-		{
-			if (navigator != null)
+			return new Payment
 			{
-				result.Payment = new Payment();
-				result.Payment.PaymentId = int.Parse(navigator.SelectSingleNode("TransactionId").ToString());
-				result.Payment.ShopOrderId = navigator.SelectSingleNode("ShopOrderId").ToString();
-				result.Payment.Terminal = navigator.SelectSingleNode("Terminal").ToString();
-				if (navigator.SelectSingleNode("ReservedAmount").ToString().Length > 0)
-					result.Payment.ReservedAmount = double.Parse(navigator.SelectSingleNode("ReservedAmount").ToString(), CultureInfo.InvariantCulture);
-				if (navigator.SelectSingleNode("CapturedAmount").ToString().Length > 0)
-					result.Payment.CapturedAmount = double.Parse(navigator.SelectSingleNode("CapturedAmount").ToString(), CultureInfo.InvariantCulture);
-				result.Payment.PaymentStatus = navigator.SelectSingleNode("TransactionStatus").ToString();
-				result.Payment.CreditCardToken = navigator.SelectSingleNode("CreditCardToken").ToString();
-				result.Payment.CreditCardMaskedPan = navigator.SelectSingleNode("CreditCardMaskedPan").ToString();
-			}
+				PaymentId = transaction.TransactionId,
+				ShopOrderId = transaction.ShopOrderId,
+				Terminal = transaction.Terminal,
+				ReservedAmount = transaction.ReservedAmount,
+				CapturedAmount = transaction.CapturedAmount,
+				PaymentStatus = transaction.TransactionStatus,
+				CreditCardToken = transaction.CreditCardToken,
+				CreditCardMaskedPan = transaction.CreditCardMaskedPan
+			};
 		}
-
-		
 	}
 }

@@ -63,6 +63,10 @@
     <Compile Include="MotoForm.Designer.cs">
       <DependentUpon>MotoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Service\Dto\ApiResponse.cs" />
+    <Compile Include="Service\Dto\Body.cs" />
+    <Compile Include="Service\Dto\Header.cs" />
+    <Compile Include="Service\Dto\Transaction.cs" />
     <Compile Include="Service\MerchantApi.cs" />
     <Compile Include="Service\Payment.cs" />
     <Compile Include="Service\PaymentResult.cs" />

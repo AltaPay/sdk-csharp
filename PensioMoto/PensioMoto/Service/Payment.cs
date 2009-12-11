@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.InteropServices;
 
 namespace PensioMoto.Service
@@ -16,7 +13,7 @@ namespace PensioMoto.Service
 		public string CreditCardToken { get; set; }
 		public string CreditCardMaskedPan { get; set; }
 		public string Terminal { get; set; }
-		public double ReservedAmount { get; set; }
-		public double CapturedAmount { get; set; }
+		public Decimal ReservedAmount { get; set; }
+		public Decimal CapturedAmount { get; set; }
 	}
 }
