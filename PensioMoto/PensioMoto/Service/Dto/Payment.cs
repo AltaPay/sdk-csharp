@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Xml.Serialization;
 using System.Globalization;
+using System.Runtime.InteropServices;
 
 namespace PensioMoto.Service.Dto
 {
+	[ComVisible(true)]
 	public class Payment
 	{
 		[XmlElement(ElementName = "TransactionId")]

@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using PensioMoto.Service;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using PensioMoto.Service.Dto;
 
 namespace PensioMoto
 {
-	public class Moto : IMotoDialog
+	[ComVisible(true)]
+	public class Moto
 	{
 		MotoDialog _dialog;
 
@@ -15,9 +19,9 @@ namespace PensioMoto
 			_dialog = new MotoDialog(new MotoForm(), new MerchantApi());
 		}
 
-		public void Initialize(string gatewayUrl, string apiUsername, string apiPassword, string terminal, string orderId, double amount, int currency, PensioMoto.Service.PaymentType paymentType)
+		public void Initialize(string gatewayUrl, string apiUsername, string apiPassword, string terminal, string orderId, double amount, int currency, string paymentType)
 		{
-			_dialog.Initialize(gatewayUrl, apiUsername, apiPassword, terminal, orderId, amount, currency, paymentType);
+			_dialog.Initialize(gatewayUrl, apiUsername, apiPassword, terminal, orderId, amount, currency, (PaymentType)Enum.Parse(typeof(PaymentType), paymentType));
 		}
 
 		public void AddCreditCard(string maskedPan, string cardToken)
@@ -25,9 +29,24 @@ namespace PensioMoto
 			_dialog.AddCreditCard(maskedPan, cardToken);
 		}
 
-		public PensioMoto.Service.PaymentResult Show()
+		public ComPaymentResult Show()
 		{
-			return _dialog.Show();
+			return new ComPaymentResult(_dialog.Show());
+		}
+	}
+
+	[ComVisible(true)]
+	public class ComPaymentResult
+	{
+		public string Result { get; set; }
+		public string ResultMessage { get; set; }
+		public Payment Payment { get; set; }
+
+		public ComPaymentResult(PaymentResult result)
+		{
+			Result = result.Result.ToString();
+			ResultMessage = result.ResultMessage;
+			Payment = result.Payment;
 		}
 	}
 }
