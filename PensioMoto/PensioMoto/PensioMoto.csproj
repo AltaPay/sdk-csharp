@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlockingQueue.cs" />
+    <Compile Include="Dummy.cs" />
     <Compile Include="IMotoController.cs" />
     <Compile Include="IMotoDialog.cs" />
     <Compile Include="IMotoDialogView.cs" />
