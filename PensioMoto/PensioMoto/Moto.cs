@@ -10,6 +10,7 @@ using PensioMoto.Service.Dto;
 namespace PensioMoto
 {
 	[ComVisible(true)]
+	[ClassInterface(ClassInterfaceType.None)]
 	[GuidAttribute("81dac6af-1e5a-4327-a9ef-18a6f180627c")]
 	public class Moto
 	{
