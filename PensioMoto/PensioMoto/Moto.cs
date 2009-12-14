@@ -12,7 +12,7 @@ namespace PensioMoto
 	[ComVisible(true)]
 	[ClassInterface(ClassInterfaceType.None)]
 	[GuidAttribute("81dac6af-1e5a-4327-a9ef-18a6f180627c")]
-	public class Moto
+	public class Moto : IMoto
 	{
 		MotoDialog _dialog;
 
@@ -21,19 +21,16 @@ namespace PensioMoto
 			_dialog = new MotoDialog(new MotoForm(), new MerchantApi());
 		}
 
-		[DispIdAttribute(1)]
 		public void Initialize(string gatewayUrl, string apiUsername, string apiPassword, string terminal, string orderId, double amount, int currency, string paymentType)
 		{
 			_dialog.Initialize(gatewayUrl, apiUsername, apiPassword, terminal, orderId, amount, currency, (PaymentType)Enum.Parse(typeof(PaymentType), paymentType));
 		}
 
-		[DispIdAttribute(2)]
 		public void AddCreditCard(string maskedPan, string cardToken)
 		{
 			_dialog.AddCreditCard(maskedPan, cardToken);
 		}
 
-		[DispIdAttribute(3)]
 		public ComPaymentResult Show()
 		{
 			return new ComPaymentResult(_dialog.Show());
@@ -57,5 +54,19 @@ namespace PensioMoto
 			ResultMessage = result.ResultMessage;
 			Payment = result.Payment;
 		}
+	}
+
+	[ComVisible(true)]
+	[GuidAttribute("a19a1e88-592a-44c9-99ea-0daa12cd47e1")]
+	public interface IMoto
+	{
+		[DispIdAttribute(1)]
+		void Initialize(string gatewayUrl, string apiUsername, string apiPassword, string terminal, string orderId, double amount, int currency, string paymentType);
+
+		[DispIdAttribute(2)]
+		void AddCreditCard(string maskedPan, string cardToken);
+
+		[DispIdAttribute(3)]
+		ComPaymentResult Show();
 	}
 }
