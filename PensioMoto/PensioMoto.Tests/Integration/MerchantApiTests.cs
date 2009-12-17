@@ -61,7 +61,8 @@ namespace PensioMoto.Tests.Integration
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
 
-			Assert.IsTrue(result.Payment.PaymentId > 0);
+			Assert.IsNotNull(result.Payment.PaymentId);
+			Assert.IsTrue(result.Payment.PaymentId.Length > 0);
 		}
 
 		[Test]

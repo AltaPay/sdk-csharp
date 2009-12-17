@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -52,11 +54,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlockingQueue.cs" />
-    <Compile Include="Dummy.cs" />
+    <Compile Include="Com\ComPayment.cs" />
+    <Compile Include="Com\ComPaymentResult.cs" />
+    <Compile Include="Com\IComPaymentResult.cs" />
+    <Compile Include="Com\IMerchant.cs" />
+    <Compile Include="Com\IMoto.cs" />
+    <Compile Include="Com\IPayment.cs" />
     <Compile Include="IMotoController.cs" />
     <Compile Include="IMotoDialog.cs" />
     <Compile Include="IMotoDialogView.cs" />
-    <Compile Include="Moto.cs" />
+    <Compile Include="Com\Merchant.cs" />
+    <Compile Include="Com\Moto.cs" />
     <Compile Include="MotoDialog.cs" />
     <Compile Include="MotoForm.cs">
       <SubType>Form</SubType>
