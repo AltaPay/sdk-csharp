@@ -27,17 +27,17 @@ namespace PensioMoto
 
 		public IComPaymentResult Capture(string paymentId, double amount)
 		{
-			return getMockPaymentResult(paymentId, amount);
+			return new ComPaymentResult(_merchantApi.Capture(paymentId, amount));
 		}
 
 		public IComPaymentResult Refund(string paymentId, double amount)
 		{
-			return getMockPaymentResult(paymentId, amount);
+			return new ComPaymentResult(_merchantApi.Refund(paymentId, amount));
 		}
 
 		public IComPaymentResult Release(string paymentId)
 		{
-			return getMockPaymentResult(paymentId, 0);
+			return new ComPaymentResult(_merchantApi.Release(paymentId));
 		}
 
 		public IComPaymentResult Split(string paymentId, double amount)
@@ -47,7 +47,7 @@ namespace PensioMoto
 
 		public IComPaymentResult GetPayment(string paymentId)
 		{
-			return getMockPaymentResult(paymentId, 0);
+			return new ComPaymentResult(_merchantApi.GetPayment(paymentId));
 		}
 
 		public IComPaymentResult CaptureRecurring(string recurringPaymentId, double amount)

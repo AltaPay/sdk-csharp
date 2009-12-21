@@ -3,7 +3,6 @@ using PensioMoto.Service.Dto;
 
 namespace PensioMoto.Service
 {
-	[ComVisible(true)]
     public class PaymentResult
     {
         public Result Result { get; set; }

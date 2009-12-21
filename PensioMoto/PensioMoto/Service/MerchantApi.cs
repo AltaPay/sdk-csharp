@@ -36,9 +36,7 @@ namespace PensioMoto.Service
 			int expiryYear, 
 			string cvc)
 		{
-			string url = _gatewayUrl + "reservationOfFixedAmountMOTO" +
-				"?terminal=" + _terminal +
-				"&shop_orderid=" + shopOrderId +
+			string parameters = "&shop_orderid=" + shopOrderId +
 				"&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture) +
 				"&currency=" + currency.ToString() +
 				"&type=" + paymentType.ToString() +
@@ -47,7 +45,7 @@ namespace PensioMoto.Service
 				"&eyear=" + expiryYear.ToString() +
 				"&cvc=" + cvc;
 
-			return GetResultFromUrl(url);
+			return GetResultFromUrl("reservationOfFixedAmountMOTO", parameters);
 		}
 
 		public PaymentResult ReservationOfFixedAmountMOTO(
@@ -58,24 +56,63 @@ namespace PensioMoto.Service
             string creditCardToken, 
             string cvc)
 		{
-			string url = _gatewayUrl + "reservationOfFixedAmountMOTO" +
-				"?terminal=" + _terminal +
-				"&shop_orderid=" + shopOrderId +
+			string parameters = "&shop_orderid=" + shopOrderId +
 				"&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture) +
 				"&currency=" + currency.ToString() +
 				"&type=" + paymentType.ToString() +
 				"&credit_card_token=" + creditCardToken +
 				"&cvc=" + cvc;
 
-			return GetResultFromUrl(url);
+			return GetResultFromUrl("reservationOfFixedAmountMOTO", parameters);
 		}
 
-		private PaymentResult GetResultFromUrl(string url)
+		public PaymentResult Capture(string paymentId, double amount)
 		{
-			WebRequest request = WebRequest.Create(url);
+			return GetResultFromUrl("captureReservation",
+				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture));
+		}
+
+		public PaymentResult Refund(string paymentId, double amount)
+		{
+			return GetResultFromUrl("refundCapturedReservation",
+				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture));
+		}
+
+		public PaymentResult Release(string paymentId)
+		{
+			return GetResultFromUrl("releaseReservation",
+				"&transaction_id=" + paymentId);
+		}
+
+		public PaymentResult Split(string paymentId, double amount)
+		{
+			throw new NotImplementedException();
+		}
+
+		public PaymentResult GetPayment(string paymentId)
+		{
+			return GetResultFromUrl("transactions",
+				"&transaction=" + paymentId);
+		}
+
+		public PaymentResult CaptureRecurring(string recurringPaymentId, double amount)
+		{
+			throw new NotImplementedException();
+		}
+
+		public PaymentResult PreauthRecurring(string recurringPaymentId, double amount)
+		{
+			throw new NotImplementedException();
+		}
+
+		private PaymentResult GetResultFromUrl(string method, string parameters)
+		{
+			WebRequest request = WebRequest.Create(_gatewayUrl + method + 
+					"?terminal=" + _terminal + 
+					parameters);
 			request.Credentials = new NetworkCredential(_username, _password);
 			WebResponse response = request.GetResponse();
-
+			
 			ApiResponse apiResponse = (ApiResponse)_apiResponseDeserializer.Deserialize(response.GetResponseStream());
 
 			return GetResultFromXml(apiResponse);
@@ -83,14 +120,18 @@ namespace PensioMoto.Service
 
 		private PaymentResult GetResultFromXml(ApiResponse apiResponse)
 		{
-			if(apiResponse.Header.ErrorCode == 0)
+			if (apiResponse.Header.ErrorCode == 0)
 			{
-				return new PaymentResult
+				PaymentResult result = new PaymentResult
 				{
-					Result = (Result)Enum.Parse(typeof(Result), apiResponse.Body.Result),
 					ResultMessage = apiResponse.Body.CardHolderErrorMessage,
 					Payment = (apiResponse.Body.Transactions != null ? apiResponse.Body.Transactions[0] : null)
 				};
+
+				if (!String.IsNullOrEmpty(apiResponse.Body.Result))
+					result.Result = (Result)Enum.Parse(typeof(Result), apiResponse.Body.Result);
+
+				return result;
 			}
 			else
 			{

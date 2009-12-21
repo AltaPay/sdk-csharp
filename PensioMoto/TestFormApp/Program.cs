@@ -27,12 +27,18 @@ namespace TestFormApp
 		{
 			IMotoDialog dialog = new MotoDialog(new MotoForm(), new MerchantApi());
 			dialog.Initialize("http://gateway.testserver.pensio.com/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal", Guid.NewGuid().ToString(), 42.42, 208, PaymentType.payment);
+			IMerchantApi api = new MerchantApi();
+			api.Initialize("http://gateway.testserver.pensio.com/merchant.php/API/", "Pensio Test Terminal","shop api", "testpassword");
 
 			dialog.AddCreditCard("411100******0000", "156d557b225920dc3a231f777e44c975c1e6fe70");
 
 			PaymentResult result = dialog.Show();
 
+			
+
 			MessageBox.Show(result.Result.ToString());
+
+			MessageBox.Show(api.GetPayment(result.Payment.PaymentId).Payment.PaymentId);
 		}
 	}
 }

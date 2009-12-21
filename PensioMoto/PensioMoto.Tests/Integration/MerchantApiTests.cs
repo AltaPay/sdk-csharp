@@ -22,7 +22,7 @@ namespace PensioMoto.Tests.Integration
 		public void CallingMerchantApiWithSuccessfulParametersReturnsSuccessfulResult()
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
-
+			
 			Assert.AreEqual(Result.Success, result.Result);
 		}
 
