@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
+using PensioMoto.Service.Dto;
 
 namespace PensioMoto
 {
@@ -25,5 +26,17 @@ namespace PensioMoto
 		public double ReservedAmount { get; set; }
 
 		public double CapturedAmount { get; set; }
+
+		public ComPayment(Payment payment)
+		{
+			CapturedAmount = (double)payment.CapturedAmount;
+			CreditCardMaskedPan = payment.CreditCardMaskedPan;
+			CreditCardToken = payment.CreditCardToken;
+			PaymentId = payment.PaymentId;
+			PaymentStatus = payment.PaymentStatus;
+			ReservedAmount = (double)payment.ReservedAmount;
+			ShopOrderId = payment.ShopOrderId;
+			Terminal = payment.Terminal;
+		}
 	}
 }

@@ -53,6 +53,27 @@ namespace PensioMoto.Tests.Integration
 			Assert.AreEqual(createPaymentResult.Payment.PaymentId, result.Payment.PaymentId);
 		}
 
+		[Test]
+		public void SplitPaymentReturnsSuccess()
+		{
+			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.payment);
+			SplitPaymentResult result = _api.Split(createPaymentResult.Payment.PaymentId, 1.00);
+
+			Assert.AreEqual(Result.Success, result.Result);
+		}
+
+		[Test]
+		public void SplitPaymentReturnsAllThreePayments()
+		{
+			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.payment);
+			SplitPaymentResult result = _api.Split(createPaymentResult.Payment.PaymentId, 1.00);
+
+			Assert.AreEqual(createPaymentResult.Payment.PaymentId, result.Payment.PaymentId);
+			Assert.AreEqual("split", result.Payment.PaymentStatus);
+			Assert.AreEqual("preauth", result.SplitPayment1.PaymentStatus);
+			Assert.AreEqual("preauth", result.SplitPayment2.PaymentStatus);
+		}
+
 		private PaymentResult ReserveAmount(double amount, PaymentType type)
 		{
 			return _api.ReservationOfFixedAmountMOTO("csharptest"+Guid.NewGuid().ToString(),

@@ -45,7 +45,7 @@ namespace PensioMoto.Service
 				"&eyear=" + expiryYear.ToString() +
 				"&cvc=" + cvc;
 
-			return GetResultFromUrl("reservationOfFixedAmountMOTO", parameters);
+			return new PaymentResult(GetResultFromUrl("reservationOfFixedAmountMOTO", parameters));
 		}
 
 		public PaymentResult ReservationOfFixedAmountMOTO(
@@ -63,36 +63,37 @@ namespace PensioMoto.Service
 				"&credit_card_token=" + creditCardToken +
 				"&cvc=" + cvc;
 
-			return GetResultFromUrl("reservationOfFixedAmountMOTO", parameters);
+			return new PaymentResult(GetResultFromUrl("reservationOfFixedAmountMOTO", parameters));
 		}
 
 		public PaymentResult Capture(string paymentId, double amount)
 		{
-			return GetResultFromUrl("captureReservation",
-				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture));
+			return new PaymentResult(GetResultFromUrl("captureReservation",
+				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
 		}
 
 		public PaymentResult Refund(string paymentId, double amount)
 		{
-			return GetResultFromUrl("refundCapturedReservation",
-				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture));
+			return new PaymentResult(GetResultFromUrl("refundCapturedReservation",
+				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
 		}
 
 		public PaymentResult Release(string paymentId)
 		{
-			return GetResultFromUrl("releaseReservation",
-				"&transaction_id=" + paymentId);
+			return new PaymentResult(GetResultFromUrl("releaseReservation",
+				"&transaction_id=" + paymentId));
 		}
 
-		public PaymentResult Split(string paymentId, double amount)
+		public SplitPaymentResult Split(string paymentId, double amount)
 		{
-			throw new NotImplementedException();
+			return new SplitPaymentResult(GetResultFromUrl("splitTransaction",
+				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
 		}
 
 		public PaymentResult GetPayment(string paymentId)
 		{
-			return GetResultFromUrl("transactions",
-				"&transaction=" + paymentId);
+			return new PaymentResult(GetResultFromUrl("transactions",
+				"&transaction=" + paymentId));
 		}
 
 		public PaymentResult CaptureRecurring(string recurringPaymentId, double amount)
@@ -105,7 +106,7 @@ namespace PensioMoto.Service
 			throw new NotImplementedException();
 		}
 
-		private PaymentResult GetResultFromUrl(string method, string parameters)
+		private ApiResponse GetResultFromUrl(string method, string parameters)
 		{
 			WebRequest request = WebRequest.Create(_gatewayUrl + method + 
 					"?terminal=" + _terminal + 
@@ -115,32 +116,8 @@ namespace PensioMoto.Service
 			
 			ApiResponse apiResponse = (ApiResponse)_apiResponseDeserializer.Deserialize(response.GetResponseStream());
 
-			return GetResultFromXml(apiResponse);
+			return apiResponse;
 		}
 
-		private PaymentResult GetResultFromXml(ApiResponse apiResponse)
-		{
-			if (apiResponse.Header.ErrorCode == 0)
-			{
-				PaymentResult result = new PaymentResult
-				{
-					ResultMessage = apiResponse.Body.CardHolderErrorMessage,
-					Payment = (apiResponse.Body.Transactions != null ? apiResponse.Body.Transactions[0] : null)
-				};
-
-				if (!String.IsNullOrEmpty(apiResponse.Body.Result))
-					result.Result = (Result)Enum.Parse(typeof(Result), apiResponse.Body.Result);
-
-				return result;
-			}
-			else
-			{
-				return new PaymentResult
-				{
-					Result = Result.SystemError,
-					ResultMessage = apiResponse.Header.ErrorMessage
-				};
-			}
-		}
 	}
 }
