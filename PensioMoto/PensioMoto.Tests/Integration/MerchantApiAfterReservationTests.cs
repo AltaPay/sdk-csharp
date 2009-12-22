@@ -63,6 +63,18 @@ namespace PensioMoto.Tests.Integration
 		}
 
 		[Test]
+		public void SplitPaymentReturnsOnlyOnePaymentWhenSplitFails()
+		{
+			PaymentResult createPaymentResult = ReserveAmount(42, PaymentType.payment);
+			SplitPaymentResult result = _api.Split(createPaymentResult.Payment.PaymentId, 10.66);
+
+			Assert.AreEqual(Result.Failed, result.Result);
+			Assert.IsNull(result.Payment);
+			Assert.IsNull(result.SplitPayment1);
+			Assert.IsNull(result.SplitPayment2);
+		}
+
+		[Test]
 		public void SplitPaymentReturnsAllThreePayments()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.payment);

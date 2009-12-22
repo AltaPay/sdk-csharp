@@ -22,8 +22,11 @@ namespace PensioMoto.Service
 		{
 			if (apiResponse.Header.ErrorCode == 0)
 			{
-				SplitPayment1 = apiResponse.Body.Transactions[1];
-				SplitPayment2 = apiResponse.Body.Transactions[2];
+				if (apiResponse.Body.Transactions != null)
+				{
+					SplitPayment1 = apiResponse.Body.Transactions[1];
+					SplitPayment2 = apiResponse.Body.Transactions[2];
+				}
 			}
 		}
 	}
