@@ -5,7 +5,7 @@ using System.Text;
 using PensioMoto.Service;
 using System.Runtime.InteropServices;
 
-namespace PensioMoto.Com
+namespace PensioMoto
 {
 	[ComVisible(true)]
 	[ClassInterface(ClassInterfaceType.None)]

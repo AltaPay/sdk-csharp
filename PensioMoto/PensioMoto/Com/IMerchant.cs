@@ -13,9 +13,9 @@ namespace PensioMoto
 		IComPaymentResult Capture(string paymentId, double amount);
 		IComPaymentResult Refund(string paymentId, double amount);
 		IComPaymentResult Release(string paymentId);
-		IComPaymentResult Split(string paymentId, double amount);
+		IComSplitPaymentResult Split(string paymentId, double amount);
 		IComPaymentResult GetPayment(string paymentId);
-		IComPaymentResult CaptureRecurring(string recurringPaymentId, double amount);
-		IComPaymentResult PreauthRecurring(string recurringPaymentId, double amount);
+		IComRecurringResult CaptureRecurring(string recurringPaymentId, double amount);
+		IComRecurringResult PreauthRecurring(string recurringPaymentId, double amount);
 	}
 }

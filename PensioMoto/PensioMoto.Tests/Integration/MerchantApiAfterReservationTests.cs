@@ -74,6 +74,46 @@ namespace PensioMoto.Tests.Integration
 			Assert.AreEqual("preauth", result.SplitPayment2.PaymentStatus);
 		}
 
+		[Test]
+		public void CaptureReccurringPaymentReturnsSuccess()
+		{
+			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.recurring);
+			RecurringResult result = _api.CaptureRecurring(createPaymentResult.Payment.PaymentId, 1.00);
+
+			Assert.AreEqual(Result.Success, result.Result);
+		}
+
+		[Test]
+		public void CaptureRecurringReturnsBothPayments()
+		{
+			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.recurring);
+			RecurringResult result = _api.CaptureRecurring(createPaymentResult.Payment.PaymentId, 1.00);
+
+			Assert.AreEqual(createPaymentResult.Payment.PaymentId, result.Payment.PaymentId);
+			Assert.AreEqual("recurring_confirmed", result.Payment.PaymentStatus);
+			Assert.AreEqual("captured", result.RecurringPayment.PaymentStatus);
+		}
+
+		[Test]
+		public void PreauthReccurringPaymentReturnsSuccess()
+		{
+			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.recurring);
+			RecurringResult result = _api.PreauthRecurring(createPaymentResult.Payment.PaymentId, 1.00);
+
+			Assert.AreEqual(Result.Success, result.Result);
+		}
+
+		[Test]
+		public void PreauthRecurringReturnsBothPayments()
+		{
+			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.recurring);
+			RecurringResult result = _api.PreauthRecurring(createPaymentResult.Payment.PaymentId, 1.00);
+
+			Assert.AreEqual(createPaymentResult.Payment.PaymentId, result.Payment.PaymentId);
+			Assert.AreEqual("recurring_confirmed", result.Payment.PaymentStatus);
+			Assert.AreEqual("preauth", result.RecurringPayment.PaymentStatus);
+		}
+
 		private PaymentResult ReserveAmount(double amount, PaymentType type)
 		{
 			return _api.ReservationOfFixedAmountMOTO("csharptest"+Guid.NewGuid().ToString(),

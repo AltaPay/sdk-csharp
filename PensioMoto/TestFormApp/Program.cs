@@ -26,7 +26,7 @@ namespace TestFormApp
 		public MyApplicationContext()
 		{
 			IMotoDialog dialog = new MotoDialog(new MotoForm(), new MerchantApi());
-			dialog.Initialize("http://gateway.testserver.pensio.com/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal", Guid.NewGuid().ToString(), 42.42, 208, PaymentType.payment);
+			dialog.Initialize("http://gateway.testserver.pensio.com/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal", Guid.NewGuid().ToString(), 42.42, 208, PaymentType.recurring);
 			IMerchantApi api = new MerchantApi();
 			api.Initialize("http://gateway.testserver.pensio.com/merchant.php/API/", "Pensio Test Terminal","shop api", "testpassword");
 
@@ -38,7 +38,7 @@ namespace TestFormApp
 
 			MessageBox.Show(result.Result.ToString());
 
-			MessageBox.Show(api.GetPayment(result.Payment.PaymentId).Payment.PaymentId);
+			MessageBox.Show(api.CaptureRecurring(result.Payment.PaymentId, 1.00).Payment.PaymentId);
 		}
 	}
 }

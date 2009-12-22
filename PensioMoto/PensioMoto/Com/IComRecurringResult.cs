@@ -7,9 +7,8 @@ using System.Runtime.InteropServices;
 namespace PensioMoto
 {
 	[ComVisible(true)]
-	public interface IComSplitPaymentResult : IComPaymentResult
+	public interface IComRecurringResult : IComPaymentResult
 	{
-		IPayment SplitPayment1 { get; set; }
-		IPayment SplitPayment2 { get; set; }
+		IPayment RecurringPayment { get; set; }
 	}
 }

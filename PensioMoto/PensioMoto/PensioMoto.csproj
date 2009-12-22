@@ -54,10 +54,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlockingQueue.cs" />
+    <Compile Include="Com\ComRecurringResult.cs" />
     <Compile Include="Com\ComPayment.cs" />
     <Compile Include="Com\ComPaymentResult.cs" />
     <Compile Include="Com\ComSplitPaymentResult.cs" />
     <Compile Include="Com\IComPaymentResult.cs" />
+    <Compile Include="Com\IComRecurringResult.cs" />
     <Compile Include="Com\IComSplitPaymentResult.cs" />
     <Compile Include="Com\IMerchant.cs" />
     <Compile Include="Com\IMoto.cs" />
@@ -82,6 +84,7 @@
     <Compile Include="Service\PaymentResult.cs" />
     <Compile Include="Service\PaymentType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\RecurringResult.cs" />
     <Compile Include="Service\Result.cs" />
     <Compile Include="Service\IMerchantApi.cs" />
     <Compile Include="Service\SplitPaymentResult.cs" />

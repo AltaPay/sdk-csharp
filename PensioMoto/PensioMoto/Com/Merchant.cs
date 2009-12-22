@@ -40,9 +40,9 @@ namespace PensioMoto
 			return new ComPaymentResult(_merchantApi.Release(paymentId));
 		}
 
-		public IComPaymentResult Split(string paymentId, double amount)
+		public IComSplitPaymentResult Split(string paymentId, double amount)
 		{
-			return getMockPaymentResult(paymentId, amount);
+			return new ComSplitPaymentResult(_merchantApi.Split(paymentId, amount));
 		}
 
 		public IComPaymentResult GetPayment(string paymentId)
@@ -50,14 +50,14 @@ namespace PensioMoto
 			return new ComPaymentResult(_merchantApi.GetPayment(paymentId));
 		}
 
-		public IComPaymentResult CaptureRecurring(string recurringPaymentId, double amount)
+		public IComRecurringResult CaptureRecurring(string recurringPaymentId, double amount)
 		{
-			return getMockPaymentResult("5", amount);
+			return new ComRecurringResult(_merchantApi.CaptureRecurring(recurringPaymentId, amount));
 		}
 
-		public IComPaymentResult PreauthRecurring(string recurringPaymentId, double amount)
+		public IComRecurringResult PreauthRecurring(string recurringPaymentId, double amount)
 		{
-			return getMockPaymentResult("5", amount);
+			return new ComRecurringResult(_merchantApi.PreauthRecurring(recurringPaymentId, amount));
 		}
 
 		private IComPaymentResult getMockPaymentResult(string paymentId, double amount)

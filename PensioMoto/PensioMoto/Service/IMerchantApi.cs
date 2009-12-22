@@ -32,7 +32,7 @@ namespace PensioMoto.Service
 		PaymentResult Release(string paymentId);
 		SplitPaymentResult Split(string paymentId, double amount);
 		PaymentResult GetPayment(string paymentId);
-		PaymentResult CaptureRecurring(string recurringPaymentId, double amount);
-		PaymentResult PreauthRecurring(string recurringPaymentId, double amount);
+		RecurringResult CaptureRecurring(string recurringPaymentId, double amount);
+		RecurringResult PreauthRecurring(string recurringPaymentId, double amount);
 	}
 }

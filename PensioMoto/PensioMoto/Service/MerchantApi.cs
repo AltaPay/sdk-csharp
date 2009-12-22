@@ -96,21 +96,24 @@ namespace PensioMoto.Service
 				"&transaction=" + paymentId));
 		}
 
-		public PaymentResult CaptureRecurring(string recurringPaymentId, double amount)
+		public RecurringResult CaptureRecurring(string recurringPaymentId, double amount)
 		{
-			throw new NotImplementedException();
+			return new RecurringResult(GetResultFromUrl("captureRecurring",
+				"&transaction_id=" + recurringPaymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
 		}
 
-		public PaymentResult PreauthRecurring(string recurringPaymentId, double amount)
+		public RecurringResult PreauthRecurring(string recurringPaymentId, double amount)
 		{
-			throw new NotImplementedException();
+			return new RecurringResult(GetResultFromUrl("preauthRecurring",
+				"&transaction_id=" + recurringPaymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
 		}
 
 		private ApiResponse GetResultFromUrl(string method, string parameters)
 		{
-			WebRequest request = WebRequest.Create(_gatewayUrl + method + 
-					"?terminal=" + _terminal + 
-					parameters);
+			string url = _gatewayUrl + method +
+					"?terminal=" + _terminal +
+					parameters;
+			WebRequest request = WebRequest.Create(url);
 			request.Credentials = new NetworkCredential(_username, _password);
 			WebResponse response = request.GetResponse();
 			
