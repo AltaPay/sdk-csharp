@@ -54,6 +54,14 @@ namespace PensioMoto.Tests.Integration
 		}
 
 		[Test]
+		public void GetNonExistingPaymentReturnsNullPayment()
+		{
+			PaymentResult result = _api.GetPayment("-1");
+
+			Assert.IsNull(result.Payment);
+		}
+
+		[Test]
 		public void SplitPaymentReturnsSuccess()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.payment);
