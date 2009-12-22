@@ -19,7 +19,7 @@ namespace PensioMoto.Service
 			if (apiResponse.Header.ErrorCode == 0)
 			{
 				ResultMessage = apiResponse.Body.CardHolderErrorMessage;
-				Payment = (apiResponse.Body.Transactions != null ? apiResponse.Body.Transactions[0] : null);
+				Payment = (apiResponse.Body.Transactions != null && apiResponse.Body.Transactions.Length > 0 ? apiResponse.Body.Transactions[0] : null);
 
 				if (!String.IsNullOrEmpty(apiResponse.Body.Result))
 					Result = (Result)Enum.Parse(typeof(Result), apiResponse.Body.Result);
