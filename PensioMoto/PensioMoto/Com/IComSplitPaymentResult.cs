@@ -7,8 +7,12 @@ using System.Runtime.InteropServices;
 namespace PensioMoto
 {
 	[ComVisible(true)]
-	public interface IComSplitPaymentResult : IComPaymentResult
+	public interface IComSplitPaymentResult
 	{
+		string Result { get; set; }
+		string ResultMessage { get; set; }
+		IPayment Payment { get; set; }
+
 		IPayment SplitPayment1 { get; set; }
 		IPayment SplitPayment2 { get; set; }
 	}

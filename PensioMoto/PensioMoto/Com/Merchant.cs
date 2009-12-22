@@ -35,7 +35,7 @@ namespace PensioMoto
 			return new ComPaymentResult(_merchantApi.Refund(paymentId, amount));
 		}
 
-		public IComPaymentResult Release(string paymentId)
+		public IComPaymentResult ReleaseReservation(string paymentId)
 		{
 			return new ComPaymentResult(_merchantApi.Release(paymentId));
 		}

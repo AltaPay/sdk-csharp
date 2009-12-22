@@ -12,7 +12,7 @@ namespace PensioMoto
 		void Initialize(string gatewayUrl, string apiUsername, string apiPassword, string terminal);
 		IComPaymentResult Capture(string paymentId, double amount);
 		IComPaymentResult Refund(string paymentId, double amount);
-		IComPaymentResult Release(string paymentId);
+		IComPaymentResult ReleaseReservation(string paymentId);
 		IComSplitPaymentResult Split(string paymentId, double amount);
 		IComPaymentResult GetPayment(string paymentId);
 		IComRecurringResult CaptureRecurring(string recurringPaymentId, double amount);
