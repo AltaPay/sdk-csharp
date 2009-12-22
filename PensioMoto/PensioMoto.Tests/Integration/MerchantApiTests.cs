@@ -15,7 +15,7 @@ namespace PensioMoto.Tests.Integration
 		public void Setup()
 		{
 			_api = new MerchantApi();
-			_api.Initialize("http://gateway.testserver.pensio.com/merchant.php/API/", "Pensio Test Terminal", "shop api", "testpassword");
+			_api.Initialize("http://gateway.testserver.pensio.com/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal");
 		}
 
 		[Test]

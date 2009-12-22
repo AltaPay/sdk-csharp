@@ -22,7 +22,7 @@ namespace PensioMoto
 
 		public void Initialize(string gatewayUrl, string apiUsername, string apiPassword, string terminal)
 		{
-			_merchantApi.Initialize(gatewayUrl, terminal, apiUsername, apiPassword);
+			_merchantApi.Initialize(gatewayUrl, apiUsername, apiPassword, terminal);
 		}
 
 		public IComPaymentResult Capture(string paymentId, double amount)
@@ -58,25 +58,6 @@ namespace PensioMoto
 		public IComRecurringResult PreauthRecurring(string recurringPaymentId, double amount)
 		{
 			return new ComRecurringResult(_merchantApi.PreauthRecurring(recurringPaymentId, amount));
-		}
-
-		private IComPaymentResult getMockPaymentResult(string paymentId, double amount)
-		{
-			return new ComPaymentResult(new PaymentResult()
-			{
-				Result = Result.Success,
-				Payment = new Payment
-				{
-					CapturedAmountString = amount.ToString("0.##", CultureInfo.InvariantCulture),
-					ReservedAmountString = amount.ToString("0.##", CultureInfo.InvariantCulture),
-					PaymentId = paymentId,
-					CreditCardMaskedPan = "444444******4444",
-					CreditCardToken = "abcdefghijklmn",
-					ShopOrderId = "TST00001",
-					Terminal = "Test terminal"
-				}
-			});
-			
 		}
 	}
 }

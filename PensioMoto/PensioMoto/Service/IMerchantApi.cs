@@ -7,7 +7,7 @@ namespace PensioMoto.Service
 {
 	public interface IMerchantApi
 	{
-		void Initialize(string gatewayUrl, string terminal, string username, string password);
+		void Initialize(string gatewayUrl, string username, string password, string terminal);
 
 		PaymentResult ReservationOfFixedAmountMOTO(
             string shopOrderId,

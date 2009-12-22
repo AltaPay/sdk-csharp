@@ -16,7 +16,7 @@ namespace PensioMoto.Service
 		private string _username;
 		private string _password;
 
-		public void Initialize(string gatewayUrl, string terminal, string username, string password)
+		public void Initialize(string gatewayUrl, string username, string password, string terminal)
 		{
 			_apiResponseDeserializer = new XmlSerializer(typeof(ApiResponse));
 
