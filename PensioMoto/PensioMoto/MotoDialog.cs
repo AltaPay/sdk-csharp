@@ -37,7 +37,7 @@ namespace PensioMoto
 			PaymentType paymentType)
 		{
 			_view.Initialize(this, orderId, amount, paymentType);
-			_merchantApi.Initialize(gatewayUrl, terminal, apiUsername, apiPassword);
+			_merchantApi.Initialize(gatewayUrl, apiUsername, apiPassword, terminal);
 
 			_orderId = orderId;
 			_amount = amount;
