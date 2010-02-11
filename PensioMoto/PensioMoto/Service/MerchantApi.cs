@@ -110,16 +110,26 @@ namespace PensioMoto.Service
 
 		private ApiResponse GetResultFromUrl(string method, string parameters)
 		{
-			string url = _gatewayUrl + method +
-					"?terminal=" + _terminal +
-					parameters;
-			WebRequest request = WebRequest.Create(url);
-			request.Credentials = new NetworkCredential(_username, _password);
-			WebResponse response = request.GetResponse();
-			
-			ApiResponse apiResponse = (ApiResponse)_apiResponseDeserializer.Deserialize(response.GetResponseStream());
+			try
+			{
+				string url = _gatewayUrl + method +
+						"?terminal=" + _terminal +
+						parameters;
+				WebRequest request = WebRequest.Create(url);
+				request.Credentials = new NetworkCredential(_username, _password);
+				WebResponse response = request.GetResponse();
 
-			return apiResponse;
+				ApiResponse apiResponse = (ApiResponse)_apiResponseDeserializer.Deserialize(response.GetResponseStream());
+				return apiResponse;
+			}
+			catch (Exception exception)
+			{
+				ApiResponse response = new ApiResponse();
+				response.Header = new Header();
+				response.Header.ErrorMessage = exception.Message;
+				response.Header.ErrorCode = 1;
+				return response;
+			}
 		}
 
 	}
