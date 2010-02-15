@@ -37,6 +37,14 @@ namespace PensioMoto.Tests.Integration
 		}
 
 		[Test]
+		public void RefundPaymentReturnsRefundedAmount()
+		{
+			PaymentResult result = _api.Refund(ReserveAmount(1.23, PaymentType.paymentAndCapture).Payment.PaymentId, 1.11);
+
+			Assert.AreEqual(1.11, result.Payment.RefundedAmount);
+		}
+
+		[Test]
 		public void ReleasePaymentReturnsSuccess()
 		{
 			PaymentResult result = _api.Release(ReserveAmount(1.23, PaymentType.payment).Payment.PaymentId);

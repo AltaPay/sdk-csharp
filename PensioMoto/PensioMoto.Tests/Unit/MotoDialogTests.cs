@@ -39,7 +39,7 @@ namespace PensioMoto.Tests.Unit
 			_motoDialog.Initialize("gatewayurl", "apiusername", "apipassword", "terminal", "orderid",
 				42.42, 208, PaymentType.payment);
 
-			_api.Verify(a => a.Initialize("gatewayurl", "terminal", "apiusername", "apipassword"));
+			_api.Verify(a => a.Initialize("gatewayurl", "apiusername", "apipassword", "terminal"));
 		}
 
 		[Test]

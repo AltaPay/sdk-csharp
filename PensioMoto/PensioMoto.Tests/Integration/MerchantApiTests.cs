@@ -124,6 +124,14 @@ namespace PensioMoto.Tests.Integration
 		}
 
 		[Test]
+		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithCardStatus()
+		{
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
+
+			Assert.AreEqual("Valid", result.Payment.CardStatus);
+		}
+
+		[Test]
 		public void CallingMerchantApiWithCardTokenResultsInSuccessfullResult()
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);

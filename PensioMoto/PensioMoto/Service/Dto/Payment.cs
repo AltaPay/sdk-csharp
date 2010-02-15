@@ -13,6 +13,7 @@ namespace PensioMoto.Service.Dto
 
 		[XmlElement(ElementName = "TransactionStatus")]
 		public string PaymentStatus { get; set; }
+		public string CardStatus { get; set; }
 		public string CreditCardToken { get; set; }
 		public string CreditCardMaskedPan { get; set; }
 
@@ -46,6 +47,21 @@ namespace PensioMoto.Service.Dto
 		}
 		[XmlElement(ElementName = "CapturedAmount")]
 		public string CapturedAmountString {get;set;}
+
+		[XmlIgnore]
+		public Decimal RefundedAmount
+		{
+			get
+			{
+				Decimal result = new Decimal();
+				if (Decimal.TryParse(RefundedAmountString, NumberStyles.Currency, CultureInfo.CreateSpecificCulture("en-GB"), out result))
+					return result;
+				else
+					return new Decimal(0);
+			}
+		}
+		[XmlElement(ElementName = "RefundedAmount")]
+		public string RefundedAmountString { get; set; }
 	}
 
 }

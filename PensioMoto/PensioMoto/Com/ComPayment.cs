@@ -19,6 +19,8 @@ namespace PensioMoto
 
 		public string PaymentStatus { get; set; }
 
+		public string CardStatus { get; set; }
+
 		public string CreditCardToken { get; set; }
 
 		public string CreditCardMaskedPan { get; set; }
@@ -27,13 +29,17 @@ namespace PensioMoto
 
 		public double CapturedAmount { get; set; }
 
+		public double RefundedAmount { get; set; }
+
 		public ComPayment(Payment payment)
 		{
 			CapturedAmount = (double)payment.CapturedAmount;
+			RefundedAmount = (double)payment.RefundedAmount;
 			CreditCardMaskedPan = payment.CreditCardMaskedPan;
 			CreditCardToken = payment.CreditCardToken;
 			PaymentId = payment.PaymentId;
 			PaymentStatus = payment.PaymentStatus;
+			CardStatus = payment.CardStatus;
 			ReservedAmount = (double)payment.ReservedAmount;
 			ShopOrderId = payment.ShopOrderId;
 			Terminal = payment.Terminal;
