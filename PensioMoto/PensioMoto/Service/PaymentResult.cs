@@ -8,6 +8,7 @@ namespace PensioMoto.Service
     {
         public Result Result { get; set; }
 		public string ResultMessage { get; set; }
+		public string ResultMerchantMessage { get; set; }
 		public Payment Payment { get; set; }
 
 		public PaymentResult()
@@ -19,6 +20,7 @@ namespace PensioMoto.Service
 			if (apiResponse.Header.ErrorCode == 0)
 			{
 				ResultMessage = apiResponse.Body.CardHolderErrorMessage;
+				ResultMerchantMessage = apiResponse.Body.MerchantErrorMessage;
 				Payment = (apiResponse.Body.Transactions != null && apiResponse.Body.Transactions.Length > 0 ? apiResponse.Body.Transactions[0] : null);
 
 				if (!String.IsNullOrEmpty(apiResponse.Body.Result))

@@ -18,7 +18,7 @@ namespace PensioMoto
 		public ComPaymentResult(PaymentResult result)
 		{
 			Result = result.Result.ToString();
-			ResultMessage = result.ResultMessage;
+			ResultMessage = result.ResultMerchantMessage;
 			if (result.Result == PensioMoto.Service.Result.Success)
 			{
 				Payment = new ComPayment(result.Payment);

@@ -77,13 +77,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\PensioMoto\PensioMoto.csproj">
       <Project>{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}</Project>
       <Name>PensioMoto</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,6 +5,7 @@ using System.Text;
 using PensioMoto.Service;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace PensioMoto
 {
@@ -86,7 +87,9 @@ namespace PensioMoto
 				_queue.Enqueue(result);
 			}
 			else
-				_view.EnableView("Payment "+result.Result.ToString().ToLower());
+			{
+				_view.EnableView("Payment " + result.Result.ToString().ToLower() + ": " + result.ResultMerchantMessage);
+			}
 		}
 	}
 }

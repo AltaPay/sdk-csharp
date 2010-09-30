@@ -94,73 +94,73 @@ namespace PensioMoto.Tests.Unit
 		[Test]
 		public void WhenCallingShowOnMotoDialogCallShowOnViewAndWaitForToPayWithNewCreditCardButItFailsWaitForUserInputToCancel()
 		{
-			SetupResults(new PaymentResult { Result = Result.Failed }, false);
+			SetupResults(new PaymentResult { Result = Result.Failed, ResultMerchantMessage = "merchant error message" }, false);
 
 			InitializePayment();
 			_motoDialog.Show();
 
 			_view.Verify(v => v.ShowBlocking());
-			_view.Verify(v => v.EnableView("Payment failed"));
+			_view.Verify(v => v.EnableView("Payment failed: merchant error message"));
 			_view.Verify(v => v.Close());
 		}
 
 		[Test]
 		public void WhenCallingShowOnMotoDialogCallShowOnViewAndWaitForToPayWithExisitingCreditCardButItFailsWaitForUserInputToCancel()
 		{
-			SetupResults(new PaymentResult { Result = Result.Failed }, true);
+			SetupResults(new PaymentResult { Result = Result.Failed, ResultMerchantMessage = "merchant error message" }, true);
 
 			InitializePayment();
 			_motoDialog.Show();
 
 			_view.Verify(v => v.ShowBlocking());
-			_view.Verify(v => v.EnableView("Payment failed"));
+			_view.Verify(v => v.EnableView("Payment failed: merchant error message"));
 			_view.Verify(v => v.Close());
 		}
 
 		[Test]
 		public void OnPaymentErrorForNewCreditCardShowErrorStatus()
 		{
-			SetupResults(new PaymentResult { Result = Result.Error }, false);
+			SetupResults(new PaymentResult { Result = Result.Error, ResultMerchantMessage = "merchant error message" }, false);
 
 			InitializePayment();
 			_motoDialog.Show();
 
-			_view.Verify(v => v.EnableView("Payment error"));
+			_view.Verify(v => v.EnableView("Payment error: merchant error message"));
 		}
 
 		[Test]
 		public void OnPaymentErrorForExistingCreditCardShowErrorStatus()
 		{
-			SetupResults(new PaymentResult { Result = Result.Error }, true);
+			SetupResults(new PaymentResult { Result = Result.Error, ResultMerchantMessage = "merchant error message" }, true);
 
 			InitializePayment();
 			_motoDialog.Show();
 
-			_view.Verify(v => v.EnableView("Payment error"));
+			_view.Verify(v => v.EnableView("Payment error: merchant error message"));
 		}
 
 		[Test]
 		public void OnPaymentErrorForNewCreditCardShowSystemErrorStatus()
 		{
-			SetupResults(new PaymentResult { Result = Result.SystemError }, false);
+			SetupResults(new PaymentResult { Result = Result.SystemError, ResultMerchantMessage = "merchant error message" }, false);
 
 			InitializePayment();
 			_motoDialog.Show();
 
 			_view.Verify(v => v.ShowBlocking());
-			_view.Verify(v => v.EnableView("Payment systemerror"));
+			_view.Verify(v => v.EnableView("Payment systemerror: merchant error message"));
 			_view.Verify(v => v.Close());
 		}
 
 		[Test]
 		public void OnPaymentErrorForExistingCreditCardShowSystemErrorStatus()
 		{
-			SetupResults(new PaymentResult { Result = Result.SystemError}, true);
+			SetupResults(new PaymentResult { Result = Result.SystemError, ResultMerchantMessage = "merchant error message" }, true);
 
 			InitializePayment();
 			_motoDialog.Show();
 
-			_view.Verify(v => v.EnableView("Payment systemerror"));
+			_view.Verify(v => v.EnableView("Payment systemerror: merchant error message"));
 		}
 
 		[Test]
