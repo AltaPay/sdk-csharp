@@ -62,6 +62,9 @@ namespace PensioMoto.Service.Dto
 		}
 		[XmlElement(ElementName = "RefundedAmount")]
 		public string RefundedAmountString { get; set; }
+
+		public string AddressVerification { get; set; }
+		public string AddressVerificationDescription { get; set; }
 	}
 
 }

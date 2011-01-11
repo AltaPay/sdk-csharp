@@ -60,7 +60,7 @@ namespace PensioMoto.Tests.Unit
 
 			_view.Verify(v => v.ShowBlocking());
 			_view.Verify(v => v.Close());
-			_api.Verify(a => a.ReservationOfFixedAmountMOTO("orderid", 42.42, 208, PaymentType.payment, "1234", 1, 2010, "123"));
+			_api.Verify(a => a.ReservationOfFixedAmountMOTO("orderid", 42.42, 208, PaymentType.payment, "1234", 1, 2010, "123", null));
 		}
 
 		
@@ -75,7 +75,7 @@ namespace PensioMoto.Tests.Unit
 
 			_view.Verify(v => v.ShowBlocking());
 			_view.Verify(v => v.Close());
-			_api.Verify(a => a.ReservationOfFixedAmountMOTO("orderid", 42.42, 208, PaymentType.payment, "token", "123"));
+			_api.Verify(a => a.ReservationOfFixedAmountMOTO("orderid", 42.42, 208, PaymentType.payment, "token", "123", null));
 		}
 
 		[Test]
@@ -227,16 +227,16 @@ namespace PensioMoto.Tests.Unit
 		{
 			if (!setupExisting)
 			{
-				_view.Setup(v => v.ShowBlocking()).Callback(() => _motoDialog.PayUsingNewCreditCard("1234", 1, 2010, "123"));
+				_view.Setup(v => v.ShowBlocking()).Callback(() => _motoDialog.PayUsingNewCreditCard("1234", 1, 2010, "123", null));
 			}
 			else
 			{
-				_view.Setup(v => v.ShowBlocking()).Callback(() => _motoDialog.PayUsingExistingCreditCard("token", "123"));
+				_view.Setup(v => v.ShowBlocking()).Callback(() => _motoDialog.PayUsingExistingCreditCard("token", "123", null));
 			}
 			
-			_api.Setup(a => a.ReservationOfFixedAmountMOTO(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<PaymentType>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()))
+			_api.Setup(a => a.ReservationOfFixedAmountMOTO(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<PaymentType>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<AvsInfo>()))
 				.Returns(result);
-			_api.Setup(a => a.ReservationOfFixedAmountMOTO(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<PaymentType>(), It.IsAny<string>(), It.IsAny<string>()))
+			_api.Setup(a => a.ReservationOfFixedAmountMOTO(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<PaymentType>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<AvsInfo>()))
 				.Returns(result);
 			_view.Setup(v => v.EnableView(It.IsAny<string>())).Callback(() => _motoDialog.Cancel());
 		}

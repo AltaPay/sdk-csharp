@@ -39,6 +39,28 @@ namespace PensioMoto
 			_existingPans.Add(new ExistingCreditCard { CardToken=cardToken, MaskedPan=maskedPan });
 		}
 
+		public void SetAvsInfo(
+			string firstName
+			, string lastName
+			, string address
+			, string postalCode
+			, string city
+			, string region
+			, string country
+			, string phone
+			, string email)
+		{
+			FirstName.Text = firstName;
+			LastName.Text = lastName;
+			Address.Text = address;
+			PostalCode.Text = postalCode;
+			City.Text = city;
+			Region.Text = region;
+			Country.Text = country;
+			Phone.Text = phone;
+			Email.Text = email;
+		}
+
 		public void ShowBlocking()
 		{
 			ShowDialog();
@@ -81,13 +103,29 @@ namespace PensioMoto
 		private void SubmitExistingCard_Click(object sender, EventArgs e)
 		{
 			DisableView();
-			_controller.PayUsingExistingCreditCard(ExistingPans.SelectedValue.ToString(), existingCvc.Text);
+			_controller.PayUsingExistingCreditCard(ExistingPans.SelectedValue.ToString(), existingCvc.Text, getAvsInfo());
 		}
 
 		private void SubmitNewCard_Click(object sender, EventArgs e)
 		{
 			DisableView();
-			_controller.PayUsingNewCreditCard(newPan.Text, int.Parse(ExpiryMonth.Text), int.Parse(ExpiryYear.Text), newCvc.Text);
+			_controller.PayUsingNewCreditCard(newPan.Text, int.Parse(ExpiryMonth.Text), int.Parse(ExpiryYear.Text), newCvc.Text, getAvsInfo());
+		}
+
+		private AvsInfo getAvsInfo()
+		{
+			return new AvsInfo
+			{
+				Address = Address.Text
+				, City = City.Text
+				, Country = Country.Text
+				, Email = Email.Text
+				, FirstName = FirstName.Text
+				, LastName = LastName.Text
+				, Phone = Phone.Text
+				, PostalCode = PostalCode.Text
+				, Region = Region.Text
+			};
 		}
 
 		protected class ExistingCreditCard
@@ -99,6 +137,27 @@ namespace PensioMoto
 		private void Cancel_Click(object sender, EventArgs e)
 		{
 			_controller.Cancel();
+		}
+
+		private void tabPage2_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void newForm_KeyUp(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				SubmitNewCard_Click(sender,e);
+			}
+		}
+
+		private void existingForm_KeyUp(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				SubmitExistingCard_Click(sender, e);
+			}
 		}
 	}
 }

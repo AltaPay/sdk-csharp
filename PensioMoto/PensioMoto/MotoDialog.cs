@@ -51,6 +51,11 @@ namespace PensioMoto
 			_view.AddCreditCard(maskedPan, cardToken);
 		}
 
+		public void SetAvsInfo(string firstName, string lastName, string address, string postalCode, string city, string region, string country, string phone, string email)
+		{
+			_view.SetAvsInfo(firstName, lastName, address, postalCode, city, region, country, phone, email);
+		}
+
 		public PaymentResult Show()
 		{
 			Thread t = new Thread(new ThreadStart(() => _view.ShowBlocking()));
@@ -59,14 +64,14 @@ namespace PensioMoto
 			return (PaymentResult)_queue.Dequeue();
 		}
 
-		public void PayUsingExistingCreditCard(string cardToken, string cvc)
+		public void PayUsingExistingCreditCard(string cardToken, string cvc, AvsInfo avsInfo)
 		{
-			HandlePaymentResult(_merchantApi.ReservationOfFixedAmountMOTO(_orderId, _amount, _currency, _paymentType, cardToken, cvc));
+			HandlePaymentResult(_merchantApi.ReservationOfFixedAmountMOTO(_orderId, _amount, _currency, _paymentType, cardToken, cvc, avsInfo));
 		}
 
-		public void PayUsingNewCreditCard(string pan, int expiryMonth, int expiryYear, string cvc)
+		public void PayUsingNewCreditCard(string pan, int expiryMonth, int expiryYear, string cvc, AvsInfo avsInfo)
 		{
-			HandlePaymentResult(_merchantApi.ReservationOfFixedAmountMOTO(_orderId, _amount, _currency, _paymentType, pan, expiryMonth, expiryYear, cvc));
+			HandlePaymentResult(_merchantApi.ReservationOfFixedAmountMOTO(_orderId, _amount, _currency, _paymentType, pan, expiryMonth, expiryYear, cvc, avsInfo));
 		}
 
 		public void Cancel()

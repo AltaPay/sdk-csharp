@@ -19,5 +19,7 @@ namespace PensioMoto
 		double ReservedAmount { get; set; }
 		double CapturedAmount { get; set; }
 		double RefundedAmount { get; set; }
+		string AddressVerification { get; set; }
+		string AddressVerificationDescription { get; set; }
 	}
 }

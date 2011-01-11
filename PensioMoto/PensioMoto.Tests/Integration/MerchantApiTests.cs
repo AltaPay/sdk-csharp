@@ -15,7 +15,7 @@ namespace PensioMoto.Tests.Integration
 		public void Setup()
 		{
 			_api = new MerchantApi();
-			_api.Initialize("http://gateway.testserver.pensio.com/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal");
+			_api.Initialize("https://ci.gateway.pensio.com/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal");
 		}
 
 		[Test]
@@ -33,7 +33,6 @@ namespace PensioMoto.Tests.Integration
 
 			Assert.AreEqual(Result.Failed, result.Result);
 			Assert.AreEqual("Card Declined", result.ResultMessage);
-			Assert.IsNull(result.Payment);
 		}
 
 		[Test]
@@ -43,7 +42,6 @@ namespace PensioMoto.Tests.Integration
 
 			Assert.AreEqual(Result.Error, result.Result);
 			Assert.AreEqual("Expected System Error", result.ResultMessage);
-			Assert.IsNull(result.Payment);
 		}
 
 		[Test]
@@ -52,7 +50,7 @@ namespace PensioMoto.Tests.Integration
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), -3.34);
 
 			Assert.AreEqual(Result.SystemError, result.Result);
-			Assert.AreEqual("You can not create a Payment with an amount less than or equal to 0", result.ResultMessage);
+			Assert.AreEqual("The amount was negative or zero", result.ResultMessage);
 			Assert.IsNull(result.Payment);
 		}
 
@@ -140,14 +138,33 @@ namespace PensioMoto.Tests.Integration
 			Assert.AreEqual(Result.Success, secondResult.Result);
 		}
 
+		[Test]
+		public void CallingMerchantApiWithAvsInfoReturnsAvsResult()
+		{
+			AvsInfo avsInfo = new AvsInfo
+			{
+				Address = "Albertslund"
+			};
+
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 3.34, avsInfo);
+
+			Assert.AreEqual("A", result.Payment.AddressVerification);
+			Assert.AreEqual("Address matches, but zip code does not", result.Payment.AddressVerificationDescription);
+		}
+
+		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, AvsInfo avsInfo)
+		{
+			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, PaymentType.payment, "4111000011110000", 1, 2012, "123", avsInfo);
+		}
+
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount)
 		{
-			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, PaymentType.paymentAndCapture, "4111000011110000", 1, 2012, "123");
+			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, PaymentType.paymentAndCapture, "4111000011110000", 1, 2012, "123", null);
 		}
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, string cardToken)
 		{
-			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, PaymentType.payment, cardToken, "123");
+			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, PaymentType.payment, cardToken, "123", null);
 		}
 	}
 }

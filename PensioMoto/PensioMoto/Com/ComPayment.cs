@@ -31,6 +31,10 @@ namespace PensioMoto
 
 		public double RefundedAmount { get; set; }
 
+		public string AddressVerification { get; set; }
+
+		public string AddressVerificationDescription { get; set; }
+
 		public ComPayment(Payment payment)
 		{
 			CapturedAmount = (double)payment.CapturedAmount;
@@ -43,6 +47,8 @@ namespace PensioMoto
 			ReservedAmount = (double)payment.ReservedAmount;
 			ShopOrderId = payment.ShopOrderId;
 			Terminal = payment.Terminal;
+			AddressVerification = payment.AddressVerification;
+			AddressVerificationDescription = payment.AddressVerificationDescription;
 		}
 	}
 }

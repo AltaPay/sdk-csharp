@@ -145,7 +145,7 @@ namespace PensioMoto.Tests.Integration
 		private PaymentResult ReserveAmount(double amount, PaymentType type)
 		{
 			return _api.ReservationOfFixedAmountMOTO("csharptest"+Guid.NewGuid().ToString(),
-				amount, 208, type, "4111000011110000", 1, 2012, "123");
+				amount, 208, type, "4111000011110000", 1, 2012, "123", null);
 		}
 	}
 }

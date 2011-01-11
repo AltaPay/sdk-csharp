@@ -76,6 +76,7 @@
     <Compile Include="MotoForm.Designer.cs">
       <DependentUpon>MotoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Service\AvsInfo.cs" />
     <Compile Include="Service\Dto\ApiResponse.cs" />
     <Compile Include="Service\Dto\Body.cs" />
     <Compile Include="Service\Dto\Header.cs" />

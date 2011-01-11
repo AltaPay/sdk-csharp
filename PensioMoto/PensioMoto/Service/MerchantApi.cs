@@ -34,7 +34,8 @@ namespace PensioMoto.Service
 			string pan, 
 			int expiryMonth, 
 			int expiryYear, 
-			string cvc)
+			string cvc,
+			AvsInfo avsInfo)
 		{
 			string parameters = "&shop_orderid=" + shopOrderId +
 				"&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture) +
@@ -43,9 +44,28 @@ namespace PensioMoto.Service
 				"&cardnum=" + pan +
 				"&emonth=" + expiryMonth.ToString() +
 				"&eyear=" + expiryYear.ToString() +
-				"&cvc=" + cvc;
+				"&cvc=" + cvc +
+				getAvsInfoParameters(avsInfo);
 
 			return new PaymentResult(GetResultFromUrl("reservationOfFixedAmountMOTO", parameters));
+		}
+
+		private string getAvsInfoParameters(AvsInfo avsInfo)
+		{
+			if (avsInfo != null)
+			{
+				return "&billing_firstname=" + avsInfo.FirstName
+					+ "&billing_lastname=" + avsInfo.LastName
+					+ "&billing_address=" + avsInfo.Address
+					+ "&billing_city=" + avsInfo.City
+					+ "&billing_country=" + avsInfo.Country
+					+ "&billing_region=" + avsInfo.Region
+					+ "&billing_postal=" + avsInfo.PostalCode
+					+ "&email=" + avsInfo.Email
+					+ "&customer_phone=" + avsInfo.Phone;
+			}
+			else
+				return "";
 		}
 
 		public PaymentResult ReservationOfFixedAmountMOTO(
@@ -53,15 +73,17 @@ namespace PensioMoto.Service
             double amount, 
             int currency, 
             PaymentType paymentType, 
-            string creditCardToken, 
-            string cvc)
+            string creditCardToken,
+			string cvc,
+			AvsInfo avsInfo)
 		{
 			string parameters = "&shop_orderid=" + shopOrderId +
 				"&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture) +
 				"&currency=" + currency.ToString() +
 				"&type=" + paymentType.ToString() +
 				"&credit_card_token=" + creditCardToken +
-				"&cvc=" + cvc;
+				"&cvc=" + cvc +
+				getAvsInfoParameters(avsInfo);
 
 			return new PaymentResult(GetResultFromUrl("reservationOfFixedAmountMOTO", parameters));
 		}

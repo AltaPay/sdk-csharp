@@ -17,7 +17,8 @@ namespace PensioMoto.Service
 			string pan,
 			int expiryMonth,
 			int expiryYear,
-			string cvc);
+			string cvc,
+			AvsInfo avsInfo);
 
 		PaymentResult ReservationOfFixedAmountMOTO(
             string shopOrderId,
@@ -25,7 +26,8 @@ namespace PensioMoto.Service
 			int currency,
 			PaymentType paymentType,
 			string creditCardToken,
-			string cvc);
+			string cvc,
+			AvsInfo avsInfo);
 
 		PaymentResult Capture(string paymentId, double amount);
 		PaymentResult Refund(string paymentId, double amount);

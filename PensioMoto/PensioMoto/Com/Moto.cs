@@ -30,9 +30,15 @@ namespace PensioMoto
 			_dialog.AddCreditCard(maskedPan, cardToken);
 		}
 
+		public void SetAvsInfo(string firstName, string lastName, string address, string postalCode, string city, string region, string country, string phone, string email)
+		{
+			_dialog.SetAvsInfo(firstName, lastName, address, postalCode, city, region, country, phone, email);
+		}
+
 		public IComPaymentResult Show()
 		{
 			return new ComPaymentResult(_dialog.Show());
 		}
 	}
 }
+

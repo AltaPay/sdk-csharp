@@ -19,6 +19,9 @@ namespace PensioMoto
 			int currency, 
 			PaymentType paymentType);
 		void AddCreditCard(string maskedPan, string cardToken);
+
+		void SetAvsInfo(string firstName, string lastName, string address, string postalCode, string city, string region, string country, string phone, string email);
+
 		PaymentResult Show();
 	}
 }
