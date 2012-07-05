@@ -1,0 +1,164 @@
+// Create and capture a payment
+
+IF ISCLEAR(PensioMoto) THEN
+CREATE(PensioMoto);
+
+PensioMoto.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
+'shop api','testpassword','Pensio Test Terminal','wah',42, 208, 'payment');
+
+IF ISCLEAR(Merchant) THEN
+CREATE(Merchant);
+
+Merchant.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
+'shop api','testpassword','Pensio Test Terminal');
+
+Result := PensioMoto.Show;
+
+IF Result.Result = 'Success' THEN
+MESSAGE('Paymentid: '+FORMAT(Result.Payment.PaymentId)+' maskedpan:'+Result.Payment.CreditCardMaskedPan
++ ' token:'+Result.Payment.CreditCardToken)
+ELSE
+MESSAGE(Result.Result+' '+Result.ResultMessage);
+
+Result := Merchant.Capture(Result.Payment.PaymentId,42);
+
+IF Result.Result = 'Success' THEN
+MESSAGE('New payment status: '+FORMAT(Result.Payment.PaymentStatus))
+ELSE
+MESSAGE(Result.Result+' '+Result.ResultMessage);
+
+
+
+// Create and release a payment
+
+IF ISCLEAR(PensioMoto) THEN
+CREATE(PensioMoto);
+
+PensioMoto.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
+'shop api','testpassword','Pensio Test Terminal','wah',42, 208, 'payment');
+
+IF ISCLEAR(Merchant) THEN
+CREATE(Merchant);
+
+Merchant.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
+'shop api','testpassword','Pensio Test Terminal');
+
+Result := PensioMoto.Show;
+
+IF Result.Result = 'Success' THEN
+MESSAGE('Paymentid: '+FORMAT(Result.Payment.PaymentId)+' maskedpan:'+Result.Payment.CreditCardMaskedPan
++ ' token:'+Result.Payment.CreditCardToken)
+ELSE
+MESSAGE(Result.Result+' '+Result.ResultMessage);
+
+Result := Merchant.ReleaseReservation(Result.Payment.PaymentId);
+
+IF Result.Result = 'Success' THEN
+MESSAGE('New payment status: '+FORMAT(Result.Payment.PaymentStatus))
+ELSE
+MESSAGE(Result.Result+' '+Result.ResultMessage);
+
+// Create, capture and refund a payment
+
+
+IF ISCLEAR(PensioMoto) THEN
+CREATE(PensioMoto);
+
+PensioMoto.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
+'shop api','testpassword','Pensio Test Terminal','wah',42, 208, 'payment');
+
+IF ISCLEAR(Merchant) THEN
+CREATE(Merchant);
+
+Merchant.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
+'shop api','testpassword','Pensio Test Terminal');
+
+Result := PensioMoto.Show;
+
+IF Result.Result = 'Success' THEN
+MESSAGE('Paymentid: '+FORMAT(Result.Payment.PaymentId)+' maskedpan:'+Result.Payment.CreditCardMaskedPan
++ ' token:'+Result.Payment.CreditCardToken)
+ELSE
+MESSAGE(Result.Result+' '+Result.ResultMessage);
+
+Merchant.Capture(Result.Payment.PaymentId, 42);
+Result := Merchant.Refund(Result.Payment.PaymentId, 42);
+
+IF Result.Result = 'Success' THEN
+MESSAGE('New payment status: '+FORMAT(Result.Payment.PaymentStatus))
+ELSE
+MESSAGE(Result.Result+' '+Result.ResultMessage);
+
+// Create and split payment
+
+IF ISCLEAR(PensioMoto) THEN
+CREATE(PensioMoto);
+
+PensioMoto.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
+'shop api','testpassword','Pensio Test Terminal','wah',42, 208, 'payment');
+
+IF ISCLEAR(Merchant) THEN
+CREATE(Merchant);
+
+Merchant.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
+'shop api','testpassword','Pensio Test Terminal');
+
+Result := PensioMoto.Show;
+
+IF Result.Result = 'Success' THEN
+MESSAGE('Paymentid: '+FORMAT(Result.Payment.PaymentId)+' maskedpan:'+Result.Payment.CreditCardMaskedPan
++ ' token:'+Result.Payment.CreditCardToken)
+ELSE
+MESSAGE(Result.Result+' '+Result.ResultMessage);
+
+MESSAGE(format(Merchant.Split(Result.Payment.PaymentId, 20).SplitPayment2.ReservedAmount));
+
+// Create recurring and capture recurring
+
+
+IF ISCLEAR(PensioMoto) THEN
+CREATE(PensioMoto);
+
+PensioMoto.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
+'shop api','testpassword','Pensio Test Terminal','wah',42, 208, 'recurring');
+
+IF ISCLEAR(Merchant) THEN
+CREATE(Merchant);
+
+Merchant.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
+'shop api','testpassword','Pensio Test Terminal');
+
+Result := PensioMoto.Show;
+
+IF Result.Result = 'Success' THEN
+MESSAGE('Paymentid: '+FORMAT(Result.Payment.PaymentId)+' maskedpan:'+Result.Payment.CreditCardMaskedPan
++ ' token:'+Result.Payment.CreditCardToken)
+ELSE
+MESSAGE(Result.Result+' '+Result.ResultMessage);
+
+MESSAGE(format(Merchant.CaptureRecurring(Result.Payment.PaymentId, 20).RecurringPayment.PaymentStatus));
+
+// Create recurring and preauth recurring
+
+
+IF ISCLEAR(PensioMoto) THEN
+CREATE(PensioMoto);
+
+PensioMoto.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
+'shop api','testpassword','Pensio Test Terminal','wah',42, 208, 'recurring');
+
+IF ISCLEAR(Merchant) THEN
+CREATE(Merchant);
+
+Merchant.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
+'shop api','testpassword','Pensio Test Terminal');
+
+Result := PensioMoto.Show;
+
+IF Result.Result = 'Success' THEN
+MESSAGE('Paymentid: '+FORMAT(Result.Payment.PaymentId)+' maskedpan:'+Result.Payment.CreditCardMaskedPan
++ ' token:'+Result.Payment.CreditCardToken)
+ELSE
+MESSAGE(Result.Result+' '+Result.ResultMessage);
+
+MESSAGE(format(Merchant.PreauthRecurring(Result.Payment.PaymentId, 20).RecurringPayment.PaymentStatus));
