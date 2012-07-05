@@ -8,7 +8,6 @@ namespace PensioMoto.Service.Dto
 		public string CardHolderErrorMessage { get; set; }
 		public string MerchantErrorMessage { get; set; }
 
-		[XmlArrayItem(ElementName="Transaction")]
-		public Payment[] Transactions { get; set; }
+		
 	}
 }

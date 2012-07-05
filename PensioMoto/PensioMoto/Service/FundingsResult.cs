@@ -1,19 +1,22 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using PensioMoto.Service.Dto;
-using System;
 
 namespace PensioMoto.Service
 {
-    public class PaymentResult
+	public class FundingsResult
 		: ApiResult
-    {
-		public Payment Payment { get; set; }
+	{
+		public List<Funding> Fundings { get; set; }
+		public int Pages { get; set; }
 
-		public PaymentResult()
+		public FundingsResult()
 		{
 		}
 
-		public PaymentResult(PaymentApiResponse apiResponse)
+		public FundingsResult(FundingsApiResponse apiResponse)
 		{
 			if (apiResponse.Header.ErrorCode == 0)
 			{
@@ -23,7 +26,8 @@ namespace PensioMoto.Service
 				if (!String.IsNullOrEmpty(apiResponse.Body.Result))
 					Result = (Result)Enum.Parse(typeof(Result), apiResponse.Body.Result);
 
-				Payment = (apiResponse.Body.Transactions != null && apiResponse.Body.Transactions.Length > 0 ? apiResponse.Body.Transactions[0] : null);
+				Fundings = new List<Funding>(apiResponse.Body.Fundings.Funding);
+				Pages = apiResponse.Body.Fundings.Pages;
 			}
 			else
 			{
@@ -31,5 +35,5 @@ namespace PensioMoto.Service
 				ResultMessage = apiResponse.Header.ErrorMessage;
 			}
 		}
-    }
+	}
 }

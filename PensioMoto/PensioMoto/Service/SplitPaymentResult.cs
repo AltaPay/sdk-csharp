@@ -17,14 +17,14 @@ namespace PensioMoto.Service
 			
 		}
 
-		public SplitPaymentResult(ApiResponse apiResponse)
+		public SplitPaymentResult(PaymentApiResponse apiResponse)
 			: base(apiResponse)
 		{
 			if (apiResponse.Header.ErrorCode == 0)
 			{
 				if (apiResponse.Body.Transactions != null)
 				{
-					if(apiResponse.Body.Transactions.Length > 1)
+					if (apiResponse.Body.Transactions.Length > 1)
 						SplitPayment1 = apiResponse.Body.Transactions[1];
 					if (apiResponse.Body.Transactions.Length > 2)
 						SplitPayment2 = apiResponse.Body.Transactions[2];

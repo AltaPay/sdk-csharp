@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
+using PensioMoto.Com;
 
 namespace PensioMoto
 {
@@ -17,5 +18,6 @@ namespace PensioMoto
 		IComPaymentResult GetPayment(string paymentId);
 		IComRecurringResult CaptureRecurring(string recurringPaymentId, double amount);
 		IComRecurringResult PreauthRecurring(string recurringPaymentId, double amount);
+		IComFundingsResult GetFundings(int page);
 	}
 }

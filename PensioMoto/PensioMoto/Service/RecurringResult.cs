@@ -15,7 +15,7 @@ namespace PensioMoto.Service
 		{
 		}
 
-		public RecurringResult(ApiResponse apiResponse)
+		public RecurringResult(PaymentApiResponse apiResponse)
 			:base(apiResponse)
 		{
 			if (apiResponse.Header.ErrorCode == 0 && apiResponse.Body.Transactions != null && apiResponse.Body.Transactions.Length > 1)

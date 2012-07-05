@@ -36,5 +36,7 @@ namespace PensioMoto.Service
 		PaymentResult GetPayment(string paymentId);
 		RecurringResult CaptureRecurring(string recurringPaymentId, double amount);
 		RecurringResult PreauthRecurring(string recurringPaymentId, double amount);
+
+		FundingsResult getFundings(int page);
 	}
 }

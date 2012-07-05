@@ -16,13 +16,14 @@ namespace PensioMoto.Tests.Integration
 		public void Setup()
 		{
 			_api = new MerchantApi();
-			_api.Initialize("http://gateway.testserver.pensio.com/merchant.php/API/",
+			_api.Initialize("http://10.101.97.14/merchant.php/API/",
 				"shop api", "testpassword", "Pensio Test Terminal");
 		}
 
 		[Test]
 		public void CapturePaymentReturnsSuccess()
 		{
+			//throw new Exception(ReserveAmount(1.23, PaymentType.payment).ResultMessage);
 			PaymentResult result = _api.Capture(ReserveAmount(1.23, PaymentType.payment).Payment.PaymentId, 1.23);
 			
 			Assert.AreEqual(Result.Success, result.Result);
@@ -79,14 +80,15 @@ namespace PensioMoto.Tests.Integration
 		}
 
 		[Test]
-		public void SplitPaymentReturnsOnlyOnePaymentWhenSplitFails()
+		public void SplitPaymentReturnsTwoPaymentWhenSplitFails()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(42, PaymentType.payment);
 			SplitPaymentResult result = _api.Split(createPaymentResult.Payment.PaymentId, 10.66);
 
 			Assert.AreEqual(Result.Failed, result.Result);
-			Assert.IsNull(result.Payment);
-			Assert.IsNull(result.SplitPayment1);
+			
+			Assert.IsNotNull(result.Payment);
+			Assert.IsNotNull(result.SplitPayment1);
 			Assert.IsNull(result.SplitPayment2);
 		}
 

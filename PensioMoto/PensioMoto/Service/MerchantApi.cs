@@ -10,7 +10,6 @@ namespace PensioMoto.Service
 {
 	public class MerchantApi : IMerchantApi
 	{
-		private XmlSerializer _apiResponseDeserializer;
 		private string _gatewayUrl;
 		private string _terminal;
 		private string _username;
@@ -18,8 +17,6 @@ namespace PensioMoto.Service
 
 		public void Initialize(string gatewayUrl, string username, string password, string terminal)
 		{
-			_apiResponseDeserializer = new XmlSerializer(typeof(ApiResponse));
-
 			_gatewayUrl = gatewayUrl;
 			_terminal = terminal;
 			_username = username;
@@ -47,7 +44,7 @@ namespace PensioMoto.Service
 				"&cvc=" + cvc +
 				getAvsInfoParameters(avsInfo);
 
-			return new PaymentResult(GetResultFromUrl("reservationOfFixedAmountMOTO", parameters));
+			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("reservationOfFixedAmountMOTO", parameters));
 		}
 
 		private string getAvsInfoParameters(AvsInfo avsInfo)
@@ -85,52 +82,52 @@ namespace PensioMoto.Service
 				"&cvc=" + cvc +
 				getAvsInfoParameters(avsInfo);
 
-			return new PaymentResult(GetResultFromUrl("reservationOfFixedAmountMOTO", parameters));
+			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("reservationOfFixedAmountMOTO", parameters));
 		}
 
 		public PaymentResult Capture(string paymentId, double amount)
 		{
-			return new PaymentResult(GetResultFromUrl("captureReservation",
+			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("captureReservation",
 				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
 		}
 
 		public PaymentResult Refund(string paymentId, double amount)
 		{
-			return new PaymentResult(GetResultFromUrl("refundCapturedReservation",
+			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("refundCapturedReservation",
 				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
 		}
 
 		public PaymentResult Release(string paymentId)
 		{
-			return new PaymentResult(GetResultFromUrl("releaseReservation",
+			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("releaseReservation",
 				"&transaction_id=" + paymentId));
 		}
 
 		public SplitPaymentResult Split(string paymentId, double amount)
 		{
-			return new SplitPaymentResult(GetResultFromUrl("splitTransaction",
+			return new SplitPaymentResult(GetResultFromUrl<PaymentApiResponse>("splitTransaction",
 				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
 		}
 
 		public PaymentResult GetPayment(string paymentId)
 		{
-			return new PaymentResult(GetResultFromUrl("transactions",
+			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("transactions",
 				"&transaction=" + paymentId));
 		}
 
 		public RecurringResult CaptureRecurring(string recurringPaymentId, double amount)
 		{
-			return new RecurringResult(GetResultFromUrl("captureRecurring",
+			return new RecurringResult(GetResultFromUrl<PaymentApiResponse>("captureRecurring",
 				"&transaction_id=" + recurringPaymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
 		}
 
 		public RecurringResult PreauthRecurring(string recurringPaymentId, double amount)
 		{
-			return new RecurringResult(GetResultFromUrl("preauthRecurring",
+			return new RecurringResult(GetResultFromUrl<PaymentApiResponse>("preauthRecurring",
 				"&transaction_id=" + recurringPaymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
 		}
 
-		private ApiResponse GetResultFromUrl(string method, string parameters)
+		private T GetResultFromUrl<T>(string method, string parameters) where T : ApiResponse, new()
 		{
 			try
 			{
@@ -140,19 +137,29 @@ namespace PensioMoto.Service
 				WebRequest request = WebRequest.Create(url);
 				request.Credentials = new NetworkCredential(_username, _password);
 				WebResponse response = request.GetResponse();
-
-				ApiResponse apiResponse = (ApiResponse)_apiResponseDeserializer.Deserialize(response.GetResponseStream());
+				T apiResponse = ConvertXml<T>(response.GetResponseStream());
 				return apiResponse;
 			}
 			catch (Exception exception)
 			{
-				ApiResponse response = new ApiResponse();
+				T response = new T();
 				response.Header = new Header();
-				response.Header.ErrorMessage = exception.Message;
+				response.Header.ErrorMessage = exception.Message + "\n" + exception.StackTrace + "\n"+exception.InnerException.Message;
 				response.Header.ErrorCode = 1;
 				return response;
 			}
 		}
 
+		public T ConvertXml<T>(Stream xml)
+		{
+			var serializer = new XmlSerializer(typeof(T));
+			return (T)serializer.Deserialize(xml);
+		}
+
+		public FundingsResult getFundings(int page)
+		{
+			return new FundingsResult(GetResultFromUrl<FundingsApiResponse>("fundingList",
+				"&page=" + page));
+		}
 	}
 }

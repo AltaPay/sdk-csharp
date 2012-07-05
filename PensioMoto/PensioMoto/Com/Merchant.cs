@@ -6,6 +6,7 @@ using PensioMoto.Service;
 using System.Runtime.InteropServices;
 using PensioMoto.Service.Dto;
 using System.Globalization;
+using PensioMoto.Com;
 
 namespace PensioMoto
 {
@@ -58,6 +59,11 @@ namespace PensioMoto
 		public IComRecurringResult PreauthRecurring(string recurringPaymentId, double amount)
 		{
 			return new ComRecurringResult(_merchantApi.PreauthRecurring(recurringPaymentId, amount));
+		}
+
+		public IComFundingsResult GetFundings(int page)
+		{
+			return new ComFundingsResult(_merchantApi.getFundings(page));
 		}
 	}
 }

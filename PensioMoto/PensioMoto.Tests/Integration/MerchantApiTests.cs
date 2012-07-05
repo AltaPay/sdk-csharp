@@ -15,7 +15,8 @@ namespace PensioMoto.Tests.Integration
 		public void Setup()
 		{
 			_api = new MerchantApi();
-			_api.Initialize("https://ci.gateway.pensio.com/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal");
+			//_api.Initialize("https://ci.gateway.pensio.com/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal");
+			_api.Initialize("http://10.101.97.14/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal");
 		}
 
 		[Test]
@@ -42,16 +43,6 @@ namespace PensioMoto.Tests.Integration
 
 			Assert.AreEqual(Result.Error, result.Result);
 			Assert.AreEqual("Expected System Error", result.ResultMessage);
-		}
-
-		[Test]
-		public void CallingMerchantApiWithInvalidParametersReturnsSystemErrorResultAndErrorMessage()
-		{
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), -3.34);
-
-			Assert.AreEqual(Result.SystemError, result.Result);
-			Assert.AreEqual("The amount was negative or zero", result.ResultMessage);
-			Assert.IsNull(result.Payment);
 		}
 
 		[Test]
@@ -118,7 +109,7 @@ namespace PensioMoto.Tests.Integration
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
 
-			Assert.AreEqual("411100******0000", result.Payment.CreditCardMaskedPan);
+			Assert.AreEqual("411100******0002", result.Payment.CreditCardMaskedPan);
 		}
 
 		[Test]
@@ -154,12 +145,12 @@ namespace PensioMoto.Tests.Integration
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, AvsInfo avsInfo)
 		{
-			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, PaymentType.payment, "4111000011110000", 1, 2012, "123", avsInfo);
+			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, PaymentType.payment, "4111000011110002", 1, 2018, "123", avsInfo);
 		}
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount)
 		{
-			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, PaymentType.paymentAndCapture, "4111000011110000", 1, 2012, "123", null);
+			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, PaymentType.paymentAndCapture, "4111000011110002", 1, 2018, "123", null);
 		}
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, string cardToken)
