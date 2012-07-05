@@ -17,5 +17,8 @@ namespace PensioMoto.Com
 		string Amount { get; }
 		string CreatedDate { get; }
 		string DownloadLink { get; }
+
+		int getLineCount();
+		IFundingLine getLine(int i);
 	}
 }

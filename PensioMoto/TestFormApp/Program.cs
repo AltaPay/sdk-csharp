@@ -23,6 +23,7 @@ namespace TestFormApp
 			api.Initialize("http://10.101.97.14/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal");
 
 			IComFundingsResult result = api.GetFundings(1);
+			MessageBox.Show(result.getFunding(0).getLine(0).Id);
 			
 			int a = 0;
 			a++;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using PensioMoto.Service.Dto;
+using System.Net;
 
 namespace PensioMoto.Service
 {
@@ -16,7 +17,7 @@ namespace PensioMoto.Service
 		{
 		}
 
-		public FundingsResult(FundingsApiResponse apiResponse)
+		public FundingsResult(FundingsApiResponse apiResponse, NetworkCredential networkCredential)
 		{
 			if (apiResponse.Header.ErrorCode == 0)
 			{
@@ -27,6 +28,10 @@ namespace PensioMoto.Service
 					Result = (Result)Enum.Parse(typeof(Result), apiResponse.Body.Result);
 
 				Fundings = new List<Funding>(apiResponse.Body.Fundings.Funding);
+				foreach (Funding funding in Fundings)
+				{
+					funding.inject(networkCredential);
+				}
 				Pages = apiResponse.Body.Fundings.Pages;
 			}
 			else

@@ -159,7 +159,7 @@ namespace PensioMoto.Service
 		public FundingsResult getFundings(int page)
 		{
 			return new FundingsResult(GetResultFromUrl<FundingsApiResponse>("fundingList",
-				"&page=" + page));
+				"&page=" + page), new NetworkCredential(_username, _password));
 		}
 	}
 }

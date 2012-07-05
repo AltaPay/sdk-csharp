@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlockingQueue.cs" />
+    <Compile Include="Com\FundingLine.cs" />
     <Compile Include="Com\ComFundingsResult.cs" />
     <Compile Include="Com\ComRecurringResult.cs" />
     <Compile Include="Com\ComPayment.cs" />
@@ -64,9 +65,11 @@
     <Compile Include="Com\IComRecurringResult.cs" />
     <Compile Include="Com\IComSplitPaymentResult.cs" />
     <Compile Include="Com\IFunding.cs" />
+    <Compile Include="Com\IFundingLine.cs" />
     <Compile Include="Com\IMerchant.cs" />
     <Compile Include="Com\IMoto.cs" />
     <Compile Include="Com\IPayment.cs" />
+    <Compile Include="CSVReader.cs" />
     <Compile Include="IMotoController.cs" />
     <Compile Include="IMotoDialog.cs" />
     <Compile Include="IMotoDialogView.cs" />
@@ -100,6 +103,7 @@
     <Compile Include="Service\Result.cs" />
     <Compile Include="Service\IMerchantApi.cs" />
     <Compile Include="Service\SplitPaymentResult.cs" />
+    <Compile Include="StringConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">
