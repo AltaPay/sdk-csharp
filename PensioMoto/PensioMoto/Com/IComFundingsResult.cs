@@ -5,8 +5,9 @@ using System.Text;
 using System.Collections;
 using System.Runtime.InteropServices;
 
-namespace PensioMoto.Com
+namespace PensioMoto
 {
+	[ComVisible(true)]
 	[InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]
 	public interface IComFundingsResult
 	{

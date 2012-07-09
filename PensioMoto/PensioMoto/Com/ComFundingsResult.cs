@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using PensioMoto.Service;
 using PensioMoto.Service.Dto;
+using System.Runtime.InteropServices;
 
-namespace PensioMoto.Com
+namespace PensioMoto
 {
+	[ComVisible(true)]
 	public class ComFundingsResult
 		: IComFundingsResult
 	{

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PensioMoto.Com
+namespace PensioMoto
 {
 	public class FundingLine
 		: IFundingLine

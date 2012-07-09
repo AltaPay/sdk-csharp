@@ -15,10 +15,12 @@ namespace PensioMoto.Service
 
 		public FundingsResult()
 		{
+			Fundings = new List<Funding>();
 		}
 
 		public FundingsResult(FundingsApiResponse apiResponse, NetworkCredential networkCredential)
 		{
+			Fundings = new List<Funding>();
 			if (apiResponse.Header.ErrorCode == 0)
 			{
 				ResultMessage = apiResponse.Body.CardHolderErrorMessage;

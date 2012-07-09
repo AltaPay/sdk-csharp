@@ -4,7 +4,6 @@ using System.Linq;
 using System.Windows.Forms;
 using PensioMoto;
 using PensioMoto.Service;
-using PensioMoto.Com;
 
 namespace TestFormApp
 {
