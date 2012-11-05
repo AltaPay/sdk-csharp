@@ -144,7 +144,14 @@ namespace PensioMoto.Service
 			{
 				T response = new T();
 				response.Header = new Header();
-				response.Header.ErrorMessage = exception.Message + "\n" + exception.StackTrace + "\n"+exception.InnerException.Message;
+				if (exception.InnerException != null)
+				{
+					response.Header.ErrorMessage = exception.Message + "\n" + exception.StackTrace + "\n" + exception.InnerException.Message;
+				}
+				else
+				{
+					response.Header.ErrorMessage = exception.Message + "\n" + exception.StackTrace;
+				}
 				response.Header.ErrorCode = 1;
 				return response;
 			}
