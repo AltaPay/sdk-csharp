@@ -60,6 +60,7 @@ namespace PensioMoto.Service.Dto
 				lines = new List<IFundingLine>();
 				foreach (DataRow dr in table.Rows)
 				{
+					string hat = getDataString(dr, "Exchange Rate");
 					FundingLine line = new FundingLine
 					{
 						Date = getDataString(dr,"Date")
@@ -90,7 +91,18 @@ namespace PensioMoto.Service.Dto
 		{
 			if (dr.Table.Columns.Contains(column))
 			{
-				return dr[column].ToString();
+				try
+				{
+					if(dr[column].GetType() == typeof(Single))
+					{
+						return dr.Field<Single>(column).ToString("F");
+					}
+					return dr.Field<String>(column);
+				}
+				catch(Exception)
+				{
+					return dr[column].ToString();
+				}
 			}
 			else
 			{

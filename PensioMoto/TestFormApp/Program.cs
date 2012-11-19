@@ -21,11 +21,11 @@ namespace TestFormApp
 			Merchant api = new Merchant();
 			api.Initialize("http://10.101.97.14/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal");
 
-			api.CaptureWithIdentifier("73", 10, "whatisthis");
-			api.RefundWithIdentifier("73", 10, "whatisthis2");
+			//api.CaptureWithIdentifier("73", 10, "whatisthis");
+			//api.RefundWithIdentifier("73", 10, "whatisthis2");
 
-			//IComFundingsResult result = api.GetFundings(1);
-			//MessageBox.Show(result.getFunding(0).getLine(0).Id);
+			IComFundingsResult result = api.GetFundings(1);
+			MessageBox.Show(result.getFunding(0).getLine(0).ExchangeRate);
 			
 			int a = 0;
 			a++;
