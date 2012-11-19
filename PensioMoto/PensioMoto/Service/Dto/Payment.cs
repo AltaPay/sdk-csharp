@@ -65,6 +65,9 @@ namespace PensioMoto.Service.Dto
 
 		public string AddressVerification { get; set; }
 		public string AddressVerificationDescription { get; set; }
+
+		[XmlArrayItem(ElementName = "ReconciliationIdentifier")]
+		public ReconciliationIdentifier[] ReconciliationIdentifiers { get; set; }
 	}
 
 }

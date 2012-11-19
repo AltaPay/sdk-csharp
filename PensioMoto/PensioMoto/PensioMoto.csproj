@@ -90,6 +90,7 @@
     <Compile Include="Service\Dto\FundingsBody.cs" />
     <Compile Include="Service\Dto\PaymentApiResponse.cs" />
     <Compile Include="Service\Dto\PaymentBody.cs" />
+    <Compile Include="Service\Dto\ReconciliationIdentifier.cs" />
     <Compile Include="Service\FundingsResult.cs" />
     <Compile Include="Service\Dto\ApiResponse.cs" />
     <Compile Include="Service\Dto\Body.cs" />

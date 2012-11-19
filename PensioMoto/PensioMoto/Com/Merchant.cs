@@ -30,9 +30,19 @@ namespace PensioMoto
 			return new ComPaymentResult(_merchantApi.Capture(paymentId, amount));
 		}
 
+		public IComPaymentResult CaptureWithIdentifier(string paymentId, double amount, string reconciliationIdentifier)
+		{
+			return new ComPaymentResult(_merchantApi.Capture(paymentId, amount, reconciliationIdentifier));
+		}
+
 		public IComPaymentResult Refund(string paymentId, double amount)
 		{
 			return new ComPaymentResult(_merchantApi.Refund(paymentId, amount));
+		}
+
+		public IComPaymentResult RefundWithIdentifier(string paymentId, double amount, string reconciliationIdentifier)
+		{
+			return new ComPaymentResult(_merchantApi.Refund(paymentId, amount, reconciliationIdentifier));
 		}
 
 		public IComPaymentResult ReleaseReservation(string paymentId)

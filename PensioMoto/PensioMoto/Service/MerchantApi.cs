@@ -85,10 +85,22 @@ namespace PensioMoto.Service
 			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("reservationOfFixedAmountMOTO", parameters));
 		}
 
+		public PaymentResult Capture(string paymentId, double amount, string reconciliationIdentifier)
+		{
+			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("captureReservation",
+				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture) + "&reconciliation_identifier="+reconciliationIdentifier));
+		}
+
 		public PaymentResult Capture(string paymentId, double amount)
 		{
 			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("captureReservation",
 				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
+		}
+
+		public PaymentResult Refund(string paymentId, double amount, string reconciliationIdentifier)
+		{
+			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("refundCapturedReservation",
+				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture) + "&reconciliation_identifier=" + reconciliationIdentifier));
 		}
 
 		public PaymentResult Refund(string paymentId, double amount)

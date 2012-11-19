@@ -11,7 +11,9 @@ namespace PensioMoto
 	{
 		void Initialize(string gatewayUrl, string apiUsername, string apiPassword, string terminal);
 		IComPaymentResult Capture(string paymentId, double amount);
+		IComPaymentResult CaptureWithIdentifier(string paymentId, double amount, string reconciliationIdentifier);
 		IComPaymentResult Refund(string paymentId, double amount);
+		IComPaymentResult RefundWithIdentifier(string paymentId, double amount, string reconciliationIdentifier);
 		IComPaymentResult ReleaseReservation(string paymentId);
 		IComSplitPaymentResult Split(string paymentId, double amount);
 		IComPaymentResult GetPayment(string paymentId);

@@ -30,7 +30,9 @@ namespace PensioMoto.Service
 			AvsInfo avsInfo);
 
 		PaymentResult Capture(string paymentId, double amount);
+		PaymentResult Capture(string paymentId, double amount, string reconciliationIdentifier);
 		PaymentResult Refund(string paymentId, double amount);
+		PaymentResult Refund(string paymentId, double amount, string reconciliationIdentifier);
 		PaymentResult Release(string paymentId);
 		SplitPaymentResult Split(string paymentId, double amount);
 		PaymentResult GetPayment(string paymentId);
@@ -38,5 +40,7 @@ namespace PensioMoto.Service
 		RecurringResult PreauthRecurring(string recurringPaymentId, double amount);
 
 		FundingsResult getFundings(int page);
+
+		
 	}
 }
