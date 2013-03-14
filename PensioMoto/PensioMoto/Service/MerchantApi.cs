@@ -64,6 +64,27 @@ namespace PensioMoto.Service
 			else
 				return "";
 		}
+		
+		private string getOrderLinesParameters(PensioOrderLines orderLines)
+		{
+			string parameters = "";
+			int lineNumber = 0;
+			foreach(PensioOrderLine orderLine in orderLines.Lines)
+			{
+				parameters += "&orderLines["+lineNumber+"][itemId]=" + orderLine.ItemId;
+				parameters += "&orderLines["+lineNumber+"][quantity]=" + orderLine.Quantity;
+				parameters += "&orderLines["+lineNumber+"][taxPercent]=" + orderLine.TaxPercent;
+				parameters += "&orderLines["+lineNumber+"][unitCode]=" + orderLine.UnitCode;
+				parameters += "&orderLines["+lineNumber+"][unitPrice]=" + orderLine.UnitPrice;
+				parameters += "&orderLines["+lineNumber+"][description]=" + orderLine.Description;
+				parameters += "&orderLines["+lineNumber+"][discount]=" + orderLine.Discount;
+				parameters += "&orderLines["+lineNumber+"][goodsType]=" + orderLine.GoodsType;
+				
+				lineNumber++;
+			}
+			
+			return parameters;
+		}
 
 		public PaymentResult ReservationOfFixedAmountMOTO(
             string shopOrderId, 
@@ -95,6 +116,12 @@ namespace PensioMoto.Service
 		{
 			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("captureReservation",
 				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
+		}
+		
+		public PaymentResult Capture(string paymentId, double amount, PensioOrderLines orderLines)
+		{
+			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("captureReservation",
+				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture) + getOrderLinesParameters(orderLines)));
 		}
 
 		public PaymentResult Refund(string paymentId, double amount, string reconciliationIdentifier)

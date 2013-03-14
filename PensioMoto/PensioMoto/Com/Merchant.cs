@@ -34,6 +34,11 @@ namespace PensioMoto
 		{
 			return new ComPaymentResult(_merchantApi.Capture(paymentId, amount, reconciliationIdentifier));
 		}
+		
+		public IComPaymentResult CaptureWithOrderLines(string paymentId, double amount, PensioOrderLines orderLines)
+		{
+			return new ComPaymentResult(_merchantApi.Capture(paymentId, amount, orderLines));
+		}		
 
 		public IComPaymentResult Refund(string paymentId, double amount)
 		{
