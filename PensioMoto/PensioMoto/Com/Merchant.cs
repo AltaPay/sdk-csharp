@@ -6,6 +6,7 @@ using PensioMoto.Service;
 using System.Runtime.InteropServices;
 using PensioMoto.Service.Dto;
 using System.Globalization;
+using PensioMoto.Com;
 
 namespace PensioMoto
 {
@@ -35,9 +36,9 @@ namespace PensioMoto
 			return new ComPaymentResult(_merchantApi.Capture(paymentId, amount, reconciliationIdentifier));
 		}
 		
-		public IComPaymentResult CaptureWithOrderLines(string paymentId, double amount, PensioOrderLines orderLines)
+		public IComPaymentResult CaptureWithPaymentDetails(string paymentId, double amount, IPaymentDetails paymentDetails)
 		{
-			return new ComPaymentResult(_merchantApi.Capture(paymentId, amount, orderLines));
+			return new ComPaymentResult(_merchantApi.Capture(paymentId, amount, (PaymentDetails)paymentDetails));
 		}		
 
 		public IComPaymentResult Refund(string paymentId, double amount)
@@ -78,6 +79,16 @@ namespace PensioMoto
 		public IComFundingsResult GetFundings(int page)
 		{
 			return new ComFundingsResult(_merchantApi.getFundings(page));
+		}
+
+		public IComPaymentResult CaptureWithOrderlines(string paymentId, double amount, IPaymentDetails paymentDetails)
+		{
+			return new ComPaymentResult(_merchantApi.Capture(paymentId, amount, (PaymentDetails)paymentDetails));
+		}
+
+		public IPaymentDetails CreatePaymentDetails()
+		{
+			return new PaymentDetails();
 		}
 	}
 }

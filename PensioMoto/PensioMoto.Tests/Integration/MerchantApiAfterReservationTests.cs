@@ -17,7 +17,7 @@ namespace PensioMoto.Tests.Integration
 		{
 			_api = new MerchantApi();
 			_api.Initialize("http://10.101.97.14/merchant.php/API/",
-				"shop api", "testpassword", "Pensio Test Terminal");
+				"integration api", "1234", "Pensio Soap Test Terminal");
 		}
 
 		[Test]
@@ -26,6 +26,24 @@ namespace PensioMoto.Tests.Integration
 			//throw new Exception(ReserveAmount(1.23, PaymentType.payment).ResultMessage);
 			PaymentResult result = _api.Capture(ReserveAmount(1.23, PaymentType.payment).Payment.PaymentId, 1.23);
 			
+			Assert.AreEqual(Result.Success, result.Result);
+		}
+
+		[Test]
+		public void CapturePaymentWithOrderLinesReturnsSuccess()
+		{
+			//throw new Exception(ReserveAmount(1.23, PaymentType.payment).ResultMessage);
+			PaymentDetails orderLines = new PaymentDetails();
+			orderLines.AddOrderLine("Ninja", "N1", 1.0, 0.25, "kg", 100.00, 10, "item");
+			PaymentResult r = ReserveAmount(1.23, PaymentType.payment);
+
+			if (r.Result != Result.Success)
+			{
+				throw new Exception(r.ResultMessage);
+			}
+			
+			PaymentResult result = _api.Capture(r.Payment.PaymentId, 1.23, orderLines);
+
 			Assert.AreEqual(Result.Success, result.Result);
 		}
 

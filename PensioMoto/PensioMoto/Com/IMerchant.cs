@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
+using PensioMoto.Com;
 
 namespace PensioMoto
 {
@@ -12,6 +13,8 @@ namespace PensioMoto
 		void Initialize(string gatewayUrl, string apiUsername, string apiPassword, string terminal);
 		IComPaymentResult Capture(string paymentId, double amount);
 		IComPaymentResult CaptureWithIdentifier(string paymentId, double amount, string reconciliationIdentifier);
+		IComPaymentResult CaptureWithPaymentDetails(string paymentId, double amount, IPaymentDetails paymentDetails);
+		IPaymentDetails CreatePaymentDetails();
 		IComPaymentResult Refund(string paymentId, double amount);
 		IComPaymentResult RefundWithIdentifier(string paymentId, double amount, string reconciliationIdentifier);
 		IComPaymentResult ReleaseReservation(string paymentId);

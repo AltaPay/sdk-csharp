@@ -30,6 +30,7 @@ namespace PensioMoto.Service
 			AvsInfo avsInfo);
 
 		PaymentResult Capture(string paymentId, double amount);
+		PaymentResult Capture(string paymentId, double amount, PaymentDetails orderLines);
 		PaymentResult Capture(string paymentId, double amount, string reconciliationIdentifier);
 		PaymentResult Refund(string paymentId, double amount);
 		PaymentResult Refund(string paymentId, double amount, string reconciliationIdentifier);

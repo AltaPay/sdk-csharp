@@ -65,11 +65,11 @@ namespace PensioMoto.Service
 				return "";
 		}
 		
-		private string getOrderLinesParameters(PensioOrderLines orderLines)
+		private string getPaymentDetailsParameters(PaymentDetails paymentDetails)
 		{
 			string parameters = "";
 			int lineNumber = 0;
-			foreach(PensioOrderLine orderLine in orderLines.Lines)
+			foreach (PaymentOrderLine orderLine in paymentDetails.getLines())
 			{
 				parameters += "&orderLines["+lineNumber+"][itemId]=" + orderLine.ItemId;
 				parameters += "&orderLines["+lineNumber+"][quantity]=" + orderLine.Quantity;
@@ -82,7 +82,17 @@ namespace PensioMoto.Service
 				
 				lineNumber++;
 			}
-			
+
+			if (paymentDetails.ReconciliationIdentifier != null)
+			{
+				parameters += "&reconciliation_identifier=" + paymentDetails.ReconciliationIdentifier;
+			}
+
+			if (paymentDetails.InvoiceNumber != null)
+			{
+				parameters += "&invoice_number=" + paymentDetails.InvoiceNumber;
+			}
+
 			return parameters;
 		}
 
@@ -118,10 +128,10 @@ namespace PensioMoto.Service
 				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
 		}
 		
-		public PaymentResult Capture(string paymentId, double amount, PensioOrderLines orderLines)
+		public PaymentResult Capture(string paymentId, double amount, PaymentDetails paymentDetails)
 		{
 			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("captureReservation",
-				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture) + getOrderLinesParameters(orderLines)));
+				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture) + getPaymentDetailsParameters(paymentDetails)));
 		}
 
 		public PaymentResult Refund(string paymentId, double amount, string reconciliationIdentifier)
@@ -207,5 +217,6 @@ namespace PensioMoto.Service
 			return new FundingsResult(GetResultFromUrl<FundingsApiResponse>("fundingList",
 				"&page=" + page), new NetworkCredential(_username, _password));
 		}
+
 	}
 }

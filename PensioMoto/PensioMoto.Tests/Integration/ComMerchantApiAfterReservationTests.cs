@@ -1,0 +1,48 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using NUnit.Framework;
+using PensioMoto.Service;
+using PensioMoto.Com;
+
+namespace PensioMoto.Tests.Integration
+{
+	[TestFixture]
+	public class ComMerchantApiAfterReservationTests
+	{
+		IMerchant _api;
+		MerchantApi _merchantApi;
+
+		[SetUp]
+		public void Setup()
+		{
+			_api = new Merchant();
+			_api.Initialize("http://10.101.97.14/merchant.php/API/",
+				"integration api", "1234", "Pensio Soap Test Terminal");
+
+			_merchantApi = new MerchantApi();
+			_merchantApi.Initialize("http://10.101.97.14/merchant.php/API/",
+				"integration api", "1234", "Pensio Soap Test Terminal");
+		}
+
+		[Test]
+		public void CapturePaymentWithOrderLinesReturnsSuccess()
+		{
+			//throw new Exception(ReserveAmount(1.23, PaymentType.payment).ResultMessage);
+			IPaymentDetails paymentDetails = _api.CreatePaymentDetails();
+			paymentDetails.AddOrderLine("Ninja", "N1", 1.0, 0.25, "kg", 100.00, 10, "item");
+			PaymentResult r = ReserveAmount(1.23, PaymentType.payment);
+			
+			IComPaymentResult result = _api.CaptureWithPaymentDetails(r.Payment.PaymentId, 1.23, paymentDetails);
+
+			Assert.AreEqual("Success", result.Result);
+		}
+
+		private PaymentResult ReserveAmount(double amount, PaymentType type)
+		{
+			return _merchantApi.ReservationOfFixedAmountMOTO("csharptest" + Guid.NewGuid().ToString(),
+				amount, 208, type, "4111000011110000", 1, 2012, "123", null);
+		}
+	}
+}

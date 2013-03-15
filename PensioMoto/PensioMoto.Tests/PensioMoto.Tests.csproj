@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Integration\ComMerchantApiAfterReservationTests.cs" />
     <Compile Include="Integration\FundingListTests.cs" />
     <Compile Include="Integration\MerchantApiAfterReservationTests.cs" />
     <Compile Include="Integration\MerchantApiTests.cs" />

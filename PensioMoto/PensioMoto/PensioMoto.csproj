@@ -61,6 +61,7 @@
     <Compile Include="Com\ComPaymentResult.cs" />
     <Compile Include="Com\ComSplitPaymentResult.cs" />
     <Compile Include="Com\IComFundingsResult.cs" />
+    <Compile Include="Com\IPaymentDetails.cs" />
     <Compile Include="Com\IComPaymentResult.cs" />
     <Compile Include="Com\IComRecurringResult.cs" />
     <Compile Include="Com\IComSplitPaymentResult.cs" />
@@ -97,6 +98,8 @@
     <Compile Include="Service\Dto\Header.cs" />
     <Compile Include="Service\Dto\Payment.cs" />
     <Compile Include="Service\MerchantApi.cs" />
+    <Compile Include="Service\PaymentOrderLine.cs" />
+    <Compile Include="Service\PaymentDetails.cs" />
     <Compile Include="Service\PaymentResult.cs" />
     <Compile Include="Service\PaymentType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
