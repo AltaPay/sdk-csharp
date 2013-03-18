@@ -17,6 +17,7 @@ namespace PensioMoto.Service
 
 		public string ReconciliationIdentifier { get; set; }
 		public string InvoiceNumber { get; set; }
+		public double SalesTax { get; set; }
 
 		public void AddOrderLine(string Description
 			, string ItemId

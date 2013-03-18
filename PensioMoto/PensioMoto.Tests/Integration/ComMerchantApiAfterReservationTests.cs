@@ -32,6 +32,7 @@ namespace PensioMoto.Tests.Integration
 			//throw new Exception(ReserveAmount(1.23, PaymentType.payment).ResultMessage);
 			IPaymentDetails paymentDetails = _api.CreatePaymentDetails();
 			paymentDetails.AddOrderLine("Ninja", "N1", 1.0, 0.25, "kg", 100.00, 10, "item");
+			paymentDetails.SalesTax = 12.34;
 			PaymentResult r = ReserveAmount(1.23, PaymentType.payment);
 			
 			IComPaymentResult result = _api.CaptureWithPaymentDetails(r.Payment.PaymentId, 1.23, paymentDetails);

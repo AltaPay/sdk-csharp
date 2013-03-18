@@ -72,12 +72,12 @@ namespace PensioMoto.Service
 			foreach (PaymentOrderLine orderLine in paymentDetails.getLines())
 			{
 				parameters += "&orderLines["+lineNumber+"][itemId]=" + orderLine.ItemId;
-				parameters += "&orderLines["+lineNumber+"][quantity]=" + orderLine.Quantity;
-				parameters += "&orderLines["+lineNumber+"][taxPercent]=" + orderLine.TaxPercent;
+				parameters += "&orderLines["+lineNumber+"][quantity]=" + orderLine.Quantity.ToString("0.##", CultureInfo.InvariantCulture);
+				parameters += "&orderLines["+lineNumber+"][taxPercent]=" + orderLine.TaxPercent.ToString("0.##", CultureInfo.InvariantCulture);
 				parameters += "&orderLines["+lineNumber+"][unitCode]=" + orderLine.UnitCode;
-				parameters += "&orderLines["+lineNumber+"][unitPrice]=" + orderLine.UnitPrice;
+				parameters += "&orderLines["+lineNumber+"][unitPrice]=" + orderLine.UnitPrice.ToString("0.##", CultureInfo.InvariantCulture);
 				parameters += "&orderLines["+lineNumber+"][description]=" + orderLine.Description;
-				parameters += "&orderLines["+lineNumber+"][discount]=" + orderLine.Discount;
+				parameters += "&orderLines["+lineNumber+"][discount]=" + orderLine.Discount.ToString("0.##", CultureInfo.InvariantCulture);
 				parameters += "&orderLines["+lineNumber+"][goodsType]=" + orderLine.GoodsType;
 				
 				lineNumber++;
@@ -91,6 +91,11 @@ namespace PensioMoto.Service
 			if (paymentDetails.InvoiceNumber != null)
 			{
 				parameters += "&invoice_number=" + paymentDetails.InvoiceNumber;
+			}
+
+			if (paymentDetails.SalesTax != 0)
+			{
+				parameters += "&sales_tax=" + paymentDetails.SalesTax.ToString("0.##", CultureInfo.InvariantCulture);
 			}
 
 			return parameters;
