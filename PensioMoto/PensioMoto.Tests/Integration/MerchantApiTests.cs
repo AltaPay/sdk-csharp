@@ -16,7 +16,7 @@ namespace PensioMoto.Tests.Integration
 		{
 			_api = new MerchantApi();
 			//_api.Initialize("https://ci.gateway.pensio.com/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal");
-			_api.Initialize("http://10.101.97.14/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal");
+			_api.Initialize("http://gateway4.anton.earth.pensio.com/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal");
 		}
 
 		[Test]
@@ -142,6 +142,29 @@ namespace PensioMoto.Tests.Integration
 			Assert.AreEqual("A", result.Payment.AddressVerification);
 			Assert.AreEqual("Address matches, but zip code does not", result.Payment.AddressVerificationDescription);
 		}
+
+        [Test]
+        public void WahNoaNoa()
+        {
+            PaymentDetails details = new PaymentDetails();
+            
+            details.AddOrderLine("Beautiful linen dress with print", "2-1099-1", 1, 0, "ROSEBUD", 274.5, 0, "item");
+            details.AddOrderLine("Striped leggings", "2-1357-1", 1, 0, "LIGHT ARO", 74.5, 0, "item");
+            details.AddOrderLine("Gorgeous tunic with brodery anglaise", "2-1135-1", 1, 0, "PURPLE", 214.5, 0, "item");
+            details.AddOrderLine("Cool cotton trousers with stretch", "2-1127-1", 1, 0, "WALNUT", 249.5, 0, "item");
+            details.AddOrderLine("Cotton dress with print and short slee", "2-1277-1", 1, 0, "DOE", 449, 0, "item");
+            details.AddOrderLine("Striped, long-sleeved T-shirt", "2-0177-11", 1, 0, "CHALK", 99.5, 0, "item");
+            details.AddOrderLine("Cool cotton trousers with stretch", "2-1127-1", 1, 0, "WALNUT", 249.5, 0, "item");
+            details.AddOrderLine("T-shirt I many colours", "1-2766-1", 1, 0, "IBIS", 89.5, 0, "item");
+            details.AddOrderLine("Striped leggings", "2-1357-1", 1, 0, "LIGHT ARO", 74.5, 0, "item");
+            details.AddOrderLine("Pretty printed sleeveless cotton top", "2-1060-1", 1, 0, "PURPLE", 189.5, 0, "item");
+            details.AddOrderLine("Feminine patterned cotton shirt", "2-0856-1", 1, 0, "STONE", 199.5, 0, "item");
+            details.AddOrderLine("Striped, long-sleeved T-shirt", "2-0177-9", 1, 0, "LIGHT NEC", 99.5, 0, "item");
+            details.AddOrderLine("Freight", "", 1, 0, "", 0, 0, "shipment");
+            PaymentResult res = _api.Capture("59", 2039, details);
+
+            Console.Out.WriteLine("test: " + res.ResultMessage);
+        }
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, AvsInfo avsInfo)
 		{

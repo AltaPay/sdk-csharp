@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using PensioMoto.Service;
-using PensioMoto.Com;
+using PensioMoto;
 
 namespace PensioMoto.Tests.Integration
 {

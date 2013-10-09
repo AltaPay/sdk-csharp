@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace PensioMoto.Com
+namespace PensioMoto
 {
 	[ComVisible(true)]
 	public interface IPaymentDetails

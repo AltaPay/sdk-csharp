@@ -6,7 +6,7 @@ using PensioMoto.Service;
 using System.Runtime.InteropServices;
 using PensioMoto.Service.Dto;
 using System.Globalization;
-using PensioMoto.Com;
+using PensioMoto;
 
 namespace PensioMoto
 {
