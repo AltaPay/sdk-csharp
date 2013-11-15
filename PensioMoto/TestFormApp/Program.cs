@@ -16,17 +16,17 @@ namespace TestFormApp
         static void Main()
         {
 			Moto moto = new Moto();
-			moto.Initialize("http://10.101.97.14/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal", Guid.NewGuid().ToString(), 42.42, 208, "payment");
+			moto.Initialize("http://gateway4.patrick.earth.pensio.com/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal", Guid.NewGuid().ToString(), 42.42, 208, "payment");
 
 			Merchant api = new Merchant();
-			api.Initialize("http://10.101.97.14/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal");
+			api.Initialize("http://gateway4.patrick.earth.pensio.com/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal");
 
 			//api.CaptureWithIdentifier("73", 10, "whatisthis");
 			//api.RefundWithIdentifier("73", 10, "whatisthis2");
 
-			IComFundingsResult result = api.GetFundings(1);
-			MessageBox.Show(result.getFunding(0).getLine(0).ExchangeRate);
-			
+			//IComFundingsResult result = api.GetFundings(1);
+			//MessageBox.Show(result.getFunding(0).getLine(0).ExchangeRate);
+			moto.Show();
 			int a = 0;
 			a++;
 			/*

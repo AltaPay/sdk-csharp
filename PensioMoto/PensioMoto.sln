@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C# Express 2008
+# Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PensioMoto", "PensioMoto\PensioMoto.csproj", "{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PensioMoto.Tests", "PensioMoto.Tests\PensioMoto.Tests.csproj", "{3A49B441-7FCE-40AA-893D-B61D5E41DA62}"
@@ -13,10 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3A49B441-7FCE-40AA-893D-B61D5E41DA62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3A49B441-7FCE-40AA-893D-B61D5E41DA62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A49B441-7FCE-40AA-893D-B61D5E41DA62}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -25,6 +21,13 @@ Global
 		{4BC5005B-02E1-4750-8E93-309C38C958EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BC5005B-02E1-4750-8E93-309C38C958EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BC5005B-02E1-4750-8E93-309C38C958EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = TestFormApp\TestFormApp.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
