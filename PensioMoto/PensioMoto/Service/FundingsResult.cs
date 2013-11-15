@@ -39,7 +39,8 @@ namespace PensioMoto.Service
 			else
 			{
 				Result = Result.SystemError;
-				ResultMessage = apiResponse.Header.ErrorMessage;
+				ResultMerchantMessage = apiResponse.Header.ErrorMessage;
+				ResultMessage = "An error occurred";
 			}
 		}
 	}
