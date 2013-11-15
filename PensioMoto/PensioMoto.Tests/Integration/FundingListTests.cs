@@ -27,7 +27,7 @@ namespace PensioMoto.Tests.Integration
 
 			Assert.AreEqual(Result.Success, result.Result);
 			Assert.AreEqual(1, result.Pages);
-			Assert.AreEqual(1, result.Fundings);
+			Assert.AreEqual(1, result.Fundings.Count);
 		}
 	}
 }
