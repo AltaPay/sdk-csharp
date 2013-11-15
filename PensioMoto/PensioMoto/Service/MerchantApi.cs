@@ -185,11 +185,21 @@ namespace PensioMoto.Service
 		{
 			try
 			{
-				string url = _gatewayUrl + method +
-						"?terminal=" + _terminal +
-						parameters;
-				WebRequest request = WebRequest.Create(url);
+				WebRequest request = WebRequest.Create(String.Format("{0}{1}", _gatewayUrl, method));
 				request.Credentials = new NetworkCredential(_username, _password);
+				
+				HttpWebRequest http = (HttpWebRequest)request;
+				http.Method = "POST";
+				http.ContentType = "application/x-www-form-urlencoded";
+				
+				string encodedData = String.Format("terminal={0}{1}", _terminal, parameters);
+				Byte[] postBytes = System.Text.Encoding.ASCII.GetBytes(encodedData);
+				http.ContentLength = postBytes.Length;
+				
+				Stream requestStream = request.GetRequestStream();
+				requestStream.Write(postBytes, 0, postBytes.Length);
+				requestStream.Close();
+				
 				WebResponse response = request.GetResponse();
 				T apiResponse = ConvertXml<T>(response.GetResponseStream());
 				return apiResponse;
