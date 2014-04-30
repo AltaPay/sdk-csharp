@@ -17,7 +17,7 @@ namespace PensioMoto.Tests.Integration
 		{
 			_api = new MerchantApi();
 			_api.Initialize("http://gateway.dev.pensio.com/merchant.php/API/",
-				"integration api", "1234", "Pensio Soap Test Terminal");
+				"integration api", "1234", "AltaPay Soap Test Terminal");
 		}
 
 		[Test]
@@ -125,7 +125,7 @@ namespace PensioMoto.Tests.Integration
 		[Test]
 		public void CaptureReccurringPaymentReturnsSuccess()
 		{
-			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.recurring);
+			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.subscription);
 			RecurringResult result = _api.CaptureRecurring(createPaymentResult.Payment.PaymentId, 1.00);
 
 			Assert.AreEqual(Result.Success, result.Result);
@@ -134,7 +134,7 @@ namespace PensioMoto.Tests.Integration
 		[Test]
 		public void CaptureRecurringReturnsBothPayments()
 		{
-			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.recurring);
+			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.subscription);
 			RecurringResult result = _api.CaptureRecurring(createPaymentResult.Payment.PaymentId, 1.00);
 
 			Assert.AreEqual(createPaymentResult.Payment.PaymentId, result.Payment.PaymentId);
@@ -145,7 +145,7 @@ namespace PensioMoto.Tests.Integration
 		[Test]
 		public void PreauthReccurringPaymentReturnsSuccess()
 		{
-			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.recurring);
+			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.subscription);
 			RecurringResult result = _api.PreauthRecurring(createPaymentResult.Payment.PaymentId, 1.00);
 
 			Assert.AreEqual(Result.Success, result.Result);
@@ -154,7 +154,7 @@ namespace PensioMoto.Tests.Integration
 		[Test]
 		public void PreauthRecurringReturnsBothPayments()
 		{
-			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.recurring);
+			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.subscription);
 			RecurringResult result = _api.PreauthRecurring(createPaymentResult.Payment.PaymentId, 1.00);
 
 			Assert.AreEqual(createPaymentResult.Payment.PaymentId, result.Payment.PaymentId);
@@ -164,8 +164,15 @@ namespace PensioMoto.Tests.Integration
 
 		private PaymentResult ReserveAmount(double amount, PaymentType type)
 		{
-			return _api.ReservationOfFixedAmountMOTO("csharptest"+Guid.NewGuid().ToString(),
+			PaymentResult result = _api.ReservationOfFixedAmountMOTO("csharptest"+Guid.NewGuid().ToString(),
 				amount, 208, type, "4111000011110000", 1, 2012, "123", null);
+			
+			if(result.Result != Result.Success)
+			{
+				throw new Exception("The result was: "+result.Result+", message: "+result.ResultMerchantMessage);
+			}
+			
+			return result;
 		}
 	}
 }

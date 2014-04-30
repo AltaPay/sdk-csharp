@@ -5,13 +5,13 @@ IF ISCLEAR(PensioMoto) THEN
 CREATE(PensioMoto);
 
 PensioMoto.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
-'shop api','testpassword','Pensio Test Terminal','wah',42, 208, 'payment');
+'shop api','testpassword','AltaPay Soap Test Terminal','wah',42, 208, 'payment');
 
 IF ISCLEAR(Merchant) THEN
 CREATE(Merchant);
 
 Merchant.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
-'shop api','testpassword','Pensio Test Terminal');
+'shop api','testpassword','AltaPay Soap Test Terminal');
 
 Result := PensioMoto.Show;
 
@@ -36,13 +36,13 @@ IF ISCLEAR(PensioMoto) THEN
 CREATE(PensioMoto);
 
 PensioMoto.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
-'shop api','testpassword','Pensio Test Terminal','wah',42, 208, 'payment');
+'shop api','testpassword','AltaPay Soap Test Terminal','wah',42, 208, 'payment');
 
 IF ISCLEAR(Merchant) THEN
 CREATE(Merchant);
 
 Merchant.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
-'shop api','testpassword','Pensio Test Terminal');
+'shop api','testpassword','AltaPay Soap Test Terminal');
 
 Result := PensioMoto.Show;
 
@@ -66,13 +66,13 @@ IF ISCLEAR(PensioMoto) THEN
 CREATE(PensioMoto);
 
 PensioMoto.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
-'shop api','testpassword','Pensio Test Terminal','wah',42, 208, 'payment');
+'shop api','testpassword','AltaPay Soap Test Terminal','wah',42, 208, 'payment');
 
 IF ISCLEAR(Merchant) THEN
 CREATE(Merchant);
 
 Merchant.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
-'shop api','testpassword','Pensio Test Terminal');
+'shop api','testpassword','AltaPay Soap Test Terminal');
 
 Result := PensioMoto.Show;
 
@@ -96,13 +96,13 @@ IF ISCLEAR(PensioMoto) THEN
 CREATE(PensioMoto);
 
 PensioMoto.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
-'shop api','testpassword','Pensio Test Terminal','wah',42, 208, 'payment');
+'shop api','testpassword','AltaPay Soap Test Terminal','wah',42, 208, 'payment');
 
 IF ISCLEAR(Merchant) THEN
 CREATE(Merchant);
 
 Merchant.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
-'shop api','testpassword','Pensio Test Terminal');
+'shop api','testpassword','AltaPay Soap Test Terminal');
 
 Result := PensioMoto.Show;
 
@@ -121,13 +121,13 @@ IF ISCLEAR(PensioMoto) THEN
 CREATE(PensioMoto);
 
 PensioMoto.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
-'shop api','testpassword','Pensio Test Terminal','wah',42, 208, 'recurring');
+'shop api','testpassword','AltaPay Soap Test Terminal','wah',42, 208, 'recurring');
 
 IF ISCLEAR(Merchant) THEN
 CREATE(Merchant);
 
 Merchant.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
-'shop api','testpassword','Pensio Test Terminal');
+'shop api','testpassword','AltaPay Soap Test Terminal');
 
 Result := PensioMoto.Show;
 
@@ -146,13 +146,13 @@ IF ISCLEAR(PensioMoto) THEN
 CREATE(PensioMoto);
 
 PensioMoto.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
-'shop api','testpassword','Pensio Test Terminal','wah',42, 208, 'recurring');
+'shop api','testpassword','AltaPay Soap Test Terminal','wah',42, 208, 'recurring');
 
 IF ISCLEAR(Merchant) THEN
 CREATE(Merchant);
 
 Merchant.Initialize('http://gateway.testserver.pensio.com/merchant.php/API/',
-'shop api','testpassword','Pensio Test Terminal');
+'shop api','testpassword','AltaPay Soap Test Terminal');
 
 Result := PensioMoto.Show;
 

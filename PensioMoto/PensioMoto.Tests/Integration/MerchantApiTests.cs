@@ -15,8 +15,8 @@ namespace PensioMoto.Tests.Integration
 		public void Setup()
 		{
 			_api = new MerchantApi();
-			//_api.Initialize("https://ci.gateway.pensio.com/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal");
-			_api.Initialize("http://gateway.dev.pensio.com/merchant.php/API/", "shop api", "testpassword", "Pensio Test Terminal");
+			//_api.Initialize("https://ci.gateway.pensio.com/merchant.php/API/", "shop api", "testpassword", "AltaPay Soap Test Terminal");
+			_api.Initialize("http://gateway.dev.pensio.com/merchant.php/API/", "shop api", "testpassword", "AltaPay Soap Test Terminal");
 		}
 
 		[Test]
@@ -68,7 +68,7 @@ namespace PensioMoto.Tests.Integration
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
 
-			Assert.AreEqual("Pensio Test Terminal", result.Payment.Terminal);
+			Assert.AreEqual("AltaPay Soap Test Terminal", result.Payment.Terminal);
 		}
 
 

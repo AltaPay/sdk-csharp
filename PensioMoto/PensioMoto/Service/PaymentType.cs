@@ -7,6 +7,6 @@ namespace PensioMoto.Service
 {
     public enum PaymentType
     {
-        payment, paymentAndCapture, recurring
+        payment, paymentAndCapture, subscription, subscriptionAndCharge, verifyCard
     }
 }
