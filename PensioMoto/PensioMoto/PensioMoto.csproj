@@ -106,6 +106,16 @@
     <Compile Include="Service\IMerchantApi.cs" />
     <Compile Include="Service\SplitPaymentResult.cs" />
     <Compile Include="StringConverter.cs" />
+    <Compile Include="Service\PaymentRequest.cs" />
+    <Compile Include="Service\PaymentRequestConfig.cs" />
+    <Compile Include="Service\CustomerInfo.cs" />
+    <Compile Include="Service\CustomerAddress.cs" />
+    <Compile Include="Service\ShippingType.cs" />
+    <Compile Include="Service\AccountOffer.cs" />
+    <Compile Include="Service\Currency.cs" />
+    <Compile Include="Service\Dto\PaymentRequestApiResponse.cs" />
+    <Compile Include="Service\Dto\PaymentRequestBody.cs" />
+    <Compile Include="Service\PaymentRequestResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">

@@ -180,7 +180,22 @@ namespace PensioMoto.Service
 			return new RecurringResult(GetResultFromUrl<PaymentApiResponse>("preauthRecurring",
 				"&transaction_id=" + recurringPaymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
 		}
-
+		
+		public FundingsResult getFundings(int page)
+		{
+			return new FundingsResult(GetResultFromUrl<FundingsApiResponse>("fundingList",
+				"&page=" + page), new NetworkCredential(_username, _password));
+		}
+		
+		public PaymentRequestResult CreatePaymentRequest(PaymentRequest request)
+		{
+			string parameters = "&shop_orderid=" + request.ShopOrderId
+			    + "&amount=" + request.Amount.ToString("0.##", CultureInfo.InvariantCulture) 
+			    + "&currency=" + request.Currency;
+			// Remember the terminal
+			return new PaymentRequestResult(GetResultFromUrl<PaymentRequestApiResponse>("createPaymentRequest", parameters));
+		}
+		
 		private T GetResultFromUrl<T>(string method, string parameters) where T : ApiResponse, new()
 		{
 			try
@@ -226,12 +241,5 @@ namespace PensioMoto.Service
 			var serializer = new XmlSerializer(typeof(T));
 			return (T)serializer.Deserialize(xml);
 		}
-
-		public FundingsResult getFundings(int page)
-		{
-			return new FundingsResult(GetResultFromUrl<FundingsApiResponse>("fundingList",
-				"&page=" + page), new NetworkCredential(_username, _password));
-		}
-
 	}
 }

@@ -51,6 +51,7 @@
     <Compile Include="Integration\MerchantApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\MotoDialogTests.cs" />
+    <Compile Include="Integration\CreatePaymentRequestTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PensioMoto\PensioMoto.csproj">
