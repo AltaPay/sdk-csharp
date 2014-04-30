@@ -12,8 +12,6 @@ namespace PensioMoto
 	public class ComFundingsResult
 		: IComFundingsResult
 	{
-		private int pos = -1;
-
 		public ComFundingsResult(FundingsResult result)
 		{
 			Result = result.Result.ToString();
