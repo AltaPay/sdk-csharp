@@ -25,6 +25,6 @@ namespace PensioMoto.Service
 		public double UnitPrice { get; set; }
 		public double Discount { get; set; }
 		// Must be one of: shipment|handling|item
-		public string GoodsType { get; set; }
+		public GoodsType GoodsType { get; set; }
 	}
 }

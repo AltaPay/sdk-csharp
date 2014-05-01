@@ -95,24 +95,7 @@ namespace PensioMoto.Service
 		
 		private Dictionary<string,Object> getPaymentDetailsParameters(Dictionary<string,Object> parameters, PaymentDetails paymentDetails)
 		{
-			int lineNumber = 0;
-			Dictionary<string,Object> orderLinesParam = new Dictionary<string,Object>();
-			foreach (PaymentOrderLine orderLine in paymentDetails.getLines())
-			{
-				Dictionary<string,Object> orderLineParam = new Dictionary<string,Object>();
-				orderLineParam.Add("itemId", orderLine.ItemId);
-				orderLineParam.Add("quantity", orderLine.Quantity);
-				orderLineParam.Add("taxPercent", orderLine.TaxPercent);
-				orderLineParam.Add("unitCode", orderLine.UnitCode);
-				orderLineParam.Add("unitPrice", orderLine.UnitPrice);
-				orderLineParam.Add("description", orderLine.Description);
-				orderLineParam.Add("discount", orderLine.Discount);
-				orderLineParam.Add("goodsType", orderLine.GoodsType);
-				
-				orderLinesParam.Add(lineNumber.ToString(), orderLineParam);
-				lineNumber++;
-			}
-			parameters.Add("orderLines", orderLinesParam);
+			parameters = getOrderLines(parameters, paymentDetails.getLines());
 
 			if (paymentDetails.ReconciliationIdentifier != null)
 			{
@@ -130,6 +113,30 @@ namespace PensioMoto.Service
 			}
 			return parameters;
 		}
+		
+		private Dictionary<string,Object> getOrderLines(Dictionary<string,Object> parameters, List<PaymentOrderLine> orderLines)
+		{
+			int lineNumber = 0;
+			Dictionary<string,Object> orderLinesParam = new Dictionary<string,Object>();
+			foreach (PaymentOrderLine orderLine in orderLines)
+			{
+				Dictionary<string,Object> orderLineParam = new Dictionary<string,Object>();
+				orderLineParam.Add("itemId", orderLine.ItemId);
+				orderLineParam.Add("quantity", orderLine.Quantity);
+				orderLineParam.Add("taxPercent", orderLine.TaxPercent);
+				orderLineParam.Add("unitCode", orderLine.UnitCode);
+				orderLineParam.Add("unitPrice", orderLine.UnitPrice);
+				orderLineParam.Add("description", orderLine.Description);
+				orderLineParam.Add("discount", orderLine.Discount);
+				orderLineParam.Add("goodsType", orderLine.GoodsType);
+				
+				orderLinesParam.Add(lineNumber.ToString(), orderLineParam);
+				lineNumber++;
+			}
+			parameters.Add("orderLines", orderLinesParam);
+			return parameters;
+		}
+
 
 		public PaymentResult Capture(string paymentId, double amount, string reconciliationIdentifier)
 		{
@@ -229,10 +236,36 @@ namespace PensioMoto.Service
 		public PaymentRequestResult CreatePaymentRequest(PaymentRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+			
+			// Mandatory arguments
 			parameters.Add("terminal", request.Terminal);
 			parameters.Add("shop_orderid", request.ShopOrderId);
 			parameters.Add("amount", request.Amount);
 			parameters.Add("currency", request.Currency);
+			
+			// Config
+			parameters.Add("config", request.GetConfig().ToDictionary());
+			
+			// Optional Arguments
+			parameters.Add("language", request.Language);
+			parameters.Add("transaction_info", request.GetInfos());
+			parameters.Add("type", request.Type);
+			parameters.Add("credit_card_token", request.CreditCardToken);
+			parameters.Add("sales_reconciliation_identifier", request.SalesReconciliationIdentifier);
+			parameters.Add("sales_invoice_number", request.SalesInvoiceNumber);
+			parameters.Add("sales_tax", request.SalesTax);
+			parameters.Add("shipping_method", request.ShippingType);
+			parameters.Add("cookie", request.Cookie);
+			parameters.Add("customer_created_date", request.CustomerCreatedDate);
+			parameters.Add("organisation_number", request.OrganisationNumber);
+			parameters.Add("account_offer", request.AccountOffer);
+			
+			// Customer Info
+			parameters.Add("customer_info", request.GetCustomerInfo().ToDictionary());
+			
+			// Order lines
+			parameters = getOrderLines(parameters, request.GetLines());
+			
 			return new PaymentRequestResult(GetResultFromUrl<PaymentRequestApiResponse>("createPaymentRequest", parameters));
 		}
 		

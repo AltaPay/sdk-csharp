@@ -43,7 +43,7 @@ namespace PensioMoto.Service
 			{
 				throw new Exception("Invalid goods type, should be one of the following:  shipment, handling, item");
 			}
-			orderLine.GoodsType = goodsType;
+			orderLine.GoodsType = (GoodsType)Enum.Parse(typeof(GoodsType), goodsType);
 			
 			lines.Add(orderLine);
 		}

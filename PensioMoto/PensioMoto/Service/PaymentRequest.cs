@@ -19,36 +19,37 @@ namespace PensioMoto.Service
 		
 		// Optional parameters
 		public string Language { get; set; }
-		private Dictionary<string,string> infos = new Dictionary<string,string>();
+		private Dictionary<string,Object> infos = new Dictionary<string,Object>();
 		public PaymentType Type { get; set; }
 		public string CreditCardToken { get; set; }
 		public string SalesReconciliationIdentifier { get; set; }
 		public string SalesInvoiceNumber { get; set; }
 		public double SalesTax { get; set; }
-		public double Cookie { get; set; }
+		public string Cookie { get; set; }
 		private PaymentRequestConfig Config = new PaymentRequestConfig();
 		private CustomerInfo CustomerInfo = new CustomerInfo();
+		public string CustomerCreatedDate { get; set; }		
 		private List<PaymentOrderLine> lines = new List<PaymentOrderLine>();
 		public ShippingType ShippingType { get; set; }
 		public string OrganisationNumber { get; set; } // If the organisation_number parameter is given the organisation number field in the invoice payment form is prepopulated, and if no other payment options is enabled on the terminal the form will auto submit.
 		public AccountOffer AccountOffer { get; set; } // To require having account enabled for an invoice payment for this specific customer, set this to required. To disable account for this specific customer, set to disabled.
 		
-		public PaymentRequestConfig getConfig()
+		public PaymentRequestConfig GetConfig()
 		{
 			return Config;
 		}
 		
-		public List<PaymentOrderLine> getLines()
+		public List<PaymentOrderLine> GetLines()
 		{
 			return lines;
 		}
 		
-		public Dictionary<string,string> getInfos()
+		public Dictionary<string,Object> GetInfos()
 		{
 			return infos;
 		}
 		
-		public CustomerInfo getCustomerInfo()
+		public CustomerInfo GetCustomerInfo()
 		{
 			return CustomerInfo;
 		}
@@ -60,7 +61,7 @@ namespace PensioMoto.Service
 			, string UnitCode
 			, double UnitPrice
 			, double Discount
-			, string goodsType)
+			, GoodsType goodsType)
 		{
 			PaymentOrderLine orderLine = new PaymentOrderLine();
 			orderLine.Description = Description;
@@ -70,10 +71,6 @@ namespace PensioMoto.Service
 			orderLine.UnitCode = UnitCode;
 			orderLine.UnitPrice = UnitPrice;
 			orderLine.Discount = Discount;
-			if (goodsType != "shipment" && goodsType != "handling" && goodsType != "item")
-			{
-				throw new Exception("Invalid goods type, should be one of the following:  shipment, handling, item");
-			}
 			orderLine.GoodsType = goodsType;
 			
 			lines.Add(orderLine);

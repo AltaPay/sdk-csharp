@@ -60,7 +60,7 @@ namespace PensioMoto.Service.Dto
 				lines = new List<IFundingLine>();
 				foreach (DataRow dr in table.Rows)
 				{
-					string hat = getDataString(dr, "Exchange Rate");
+					//string hat = getDataString(dr, "Exchange Rate");
 					FundingLine line = new FundingLine
 					{
 						Date = getDataString(dr,"Date")

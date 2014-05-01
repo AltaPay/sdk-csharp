@@ -118,6 +118,8 @@
     <Compile Include="Service\Dto\PaymentRequestBody.cs" />
     <Compile Include="Service\PaymentRequestResult.cs" />
     <Compile Include="Service\ParameterHelper.cs" />
+    <Compile Include="Service\FraudService.cs" />
+    <Compile Include="Service\GoodsType.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">
