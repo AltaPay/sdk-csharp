@@ -5,11 +5,16 @@ using System.Net;
 using System.Xml.Serialization;
 using System.Xml.XPath;
 using PensioMoto.Service.Dto;
+using System.Collections.Generic;
+
 
 namespace PensioMoto.Service
 {
 	public class MerchantApi : IMerchantApi
 	{
+		// Dependency
+		private ParameterHelper ParameterHelper = new ParameterHelper();
+		
 		private string _gatewayUrl;
 		private string _terminal;
 		private string _username;
@@ -34,73 +39,21 @@ namespace PensioMoto.Service
 			string cvc,
 			AvsInfo avsInfo)
 		{
-			string parameters = "&shop_orderid=" + shopOrderId +
-				"&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture) +
-				"&currency=" + currency.ToString() +
-				"&type=" + paymentType.ToString() +
-				"&cardnum=" + pan +
-				"&emonth=" + expiryMonth.ToString() +
-				"&eyear=" + expiryYear.ToString() +
-				"&cvc=" + cvc +
-				getAvsInfoParameters(avsInfo);
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+			parameters.Add("terminal", _terminal);
+			parameters.Add("shop_orderid", shopOrderId);
+			parameters.Add("amount", amount);
+			parameters.Add("currency", currency);
+			parameters.Add("type", paymentType);
+			parameters.Add("cardnum", pan);
+			parameters.Add("emonth", expiryMonth);
+			parameters.Add("eyear", expiryYear);
+			parameters.Add("cvc", cvc);
+			parameters = getAvsInfoParameters(parameters, avsInfo);
 
 			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("reservationOfFixedAmountMOTO", parameters));
 		}
-
-		private string getAvsInfoParameters(AvsInfo avsInfo)
-		{
-			if (avsInfo != null)
-			{
-				return "&billing_firstname=" + avsInfo.FirstName
-					+ "&billing_lastname=" + avsInfo.LastName
-					+ "&billing_address=" + avsInfo.Address
-					+ "&billing_city=" + avsInfo.City
-					+ "&billing_country=" + avsInfo.Country
-					+ "&billing_region=" + avsInfo.Region
-					+ "&billing_postal=" + avsInfo.PostalCode
-					+ "&email=" + avsInfo.Email
-					+ "&customer_phone=" + avsInfo.Phone;
-			}
-			else
-				return "";
-		}
 		
-		private string getPaymentDetailsParameters(PaymentDetails paymentDetails)
-		{
-			string parameters = "";
-			int lineNumber = 0;
-			foreach (PaymentOrderLine orderLine in paymentDetails.getLines())
-			{
-				parameters += "&orderLines["+lineNumber+"][itemId]=" + orderLine.ItemId;
-				parameters += "&orderLines["+lineNumber+"][quantity]=" + orderLine.Quantity.ToString("0.##", CultureInfo.InvariantCulture);
-				parameters += "&orderLines["+lineNumber+"][taxPercent]=" + orderLine.TaxPercent.ToString("0.##", CultureInfo.InvariantCulture);
-				parameters += "&orderLines["+lineNumber+"][unitCode]=" + orderLine.UnitCode;
-				parameters += "&orderLines["+lineNumber+"][unitPrice]=" + orderLine.UnitPrice.ToString("0.##", CultureInfo.InvariantCulture);
-				parameters += "&orderLines["+lineNumber+"][description]=" + orderLine.Description;
-				parameters += "&orderLines["+lineNumber+"][discount]=" + orderLine.Discount.ToString("0.##", CultureInfo.InvariantCulture);
-				parameters += "&orderLines["+lineNumber+"][goodsType]=" + orderLine.GoodsType;
-				
-				lineNumber++;
-			}
-
-			if (paymentDetails.ReconciliationIdentifier != null)
-			{
-				parameters += "&reconciliation_identifier=" + paymentDetails.ReconciliationIdentifier;
-			}
-
-			if (paymentDetails.InvoiceNumber != null)
-			{
-				parameters += "&invoice_number=" + paymentDetails.InvoiceNumber;
-			}
-
-			if (paymentDetails.SalesTax != 0)
-			{
-				parameters += "&sales_tax=" + paymentDetails.SalesTax.ToString("0.##", CultureInfo.InvariantCulture);
-			}
-
-			return parameters;
-		}
-
 		public PaymentResult ReservationOfFixedAmountMOTO(
             string shopOrderId, 
             double amount, 
@@ -110,93 +63,180 @@ namespace PensioMoto.Service
 			string cvc,
 			AvsInfo avsInfo)
 		{
-			string parameters = "&shop_orderid=" + shopOrderId +
-				"&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture) +
-				"&currency=" + currency.ToString() +
-				"&type=" + paymentType.ToString() +
-				"&credit_card_token=" + creditCardToken +
-				"&cvc=" + cvc +
-				getAvsInfoParameters(avsInfo);
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+			parameters.Add("terminal", _terminal);
+			parameters.Add("shop_orderid", shopOrderId);
+			parameters.Add("amount", amount);
+			parameters.Add("currency", currency);
+			parameters.Add("type", paymentType);
+			parameters.Add("credit_card_token", creditCardToken);
+			parameters.Add("cvc", cvc);
+			parameters = getAvsInfoParameters(parameters, avsInfo);
 
 			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("reservationOfFixedAmountMOTO", parameters));
+		}
+		
+		private Dictionary<string,Object> getAvsInfoParameters(Dictionary<string,Object> parameters, AvsInfo avsInfo)
+		{
+			if (avsInfo != null)
+			{
+				parameters.Add("billing_firstname", avsInfo.FirstName);
+				parameters.Add("billing_lastname", avsInfo.LastName);
+				parameters.Add("billing_address", avsInfo.Address);
+				parameters.Add("billing_city", avsInfo.City);
+				parameters.Add("billing_country", avsInfo.Country);
+				parameters.Add("billing_region", avsInfo.Region);
+				parameters.Add("billing_postal", avsInfo.PostalCode);
+				parameters.Add("email", avsInfo.Email);
+				parameters.Add("customer_phone", avsInfo.Phone);
+			}
+			return parameters;
+		}
+		
+		private Dictionary<string,Object> getPaymentDetailsParameters(Dictionary<string,Object> parameters, PaymentDetails paymentDetails)
+		{
+			int lineNumber = 0;
+			Dictionary<string,Object> orderLinesParam = new Dictionary<string,Object>();
+			foreach (PaymentOrderLine orderLine in paymentDetails.getLines())
+			{
+				Dictionary<string,Object> orderLineParam = new Dictionary<string,Object>();
+				orderLineParam.Add("itemId", orderLine.ItemId);
+				orderLineParam.Add("quantity", orderLine.Quantity);
+				orderLineParam.Add("taxPercent", orderLine.TaxPercent);
+				orderLineParam.Add("unitCode", orderLine.UnitCode);
+				orderLineParam.Add("unitPrice", orderLine.UnitPrice);
+				orderLineParam.Add("description", orderLine.Description);
+				orderLineParam.Add("discount", orderLine.Discount);
+				orderLineParam.Add("goodsType", orderLine.GoodsType);
+				
+				orderLinesParam.Add(lineNumber.ToString(), orderLineParam);
+				lineNumber++;
+			}
+			parameters.Add("orderLines", orderLinesParam);
+
+			if (paymentDetails.ReconciliationIdentifier != null)
+			{
+				parameters.Add ("reconciliation_identifier", paymentDetails.ReconciliationIdentifier);
+			}
+
+			if (paymentDetails.InvoiceNumber != null)
+			{
+				parameters.Add("invoice_number", paymentDetails.InvoiceNumber);
+			}
+
+			if (paymentDetails.SalesTax != 0)
+			{
+				parameters.Add("sales_tax", paymentDetails.SalesTax);
+			}
+			return parameters;
 		}
 
 		public PaymentResult Capture(string paymentId, double amount, string reconciliationIdentifier)
 		{
-			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("captureReservation",
-				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture) + "&reconciliation_identifier="+reconciliationIdentifier));
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+			parameters.Add("transaction_id", paymentId);
+			parameters.Add("amount", amount);
+			parameters.Add("reconciliation_identifier", reconciliationIdentifier);
+			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("captureReservation", parameters));
 		}
 
 		public PaymentResult Capture(string paymentId, double amount)
 		{
-			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("captureReservation",
-				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+			parameters.Add("transaction_id", paymentId);
+			parameters.Add("amount", amount);
+			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("captureReservation", parameters));
 		}
 		
 		public PaymentResult Capture(string paymentId, double amount, PaymentDetails paymentDetails)
 		{
-			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("captureReservation",
-				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture) + getPaymentDetailsParameters(paymentDetails)));
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+			parameters.Add("transaction_id", paymentId);
+			parameters.Add("amount", amount);
+			parameters = getPaymentDetailsParameters(parameters, paymentDetails);
+			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("captureReservation", parameters));
 		}
 
 		public PaymentResult Refund(string paymentId, double amount, string reconciliationIdentifier)
 		{
-			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("refundCapturedReservation",
-				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture) + "&reconciliation_identifier=" + reconciliationIdentifier));
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+			parameters.Add("transaction_id", paymentId);
+			parameters.Add("amount", amount);
+			parameters.Add("reconciliation_identifier", reconciliationIdentifier);
+			
+			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("refundCapturedReservation", parameters));
 		}
 
 		public PaymentResult Refund(string paymentId, double amount)
 		{
-			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("refundCapturedReservation",
-				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+			parameters.Add("transaction_id", paymentId);
+			parameters.Add("amount", amount);
+			
+			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("refundCapturedReservation", parameters));
 		}
 
 		public PaymentResult Release(string paymentId)
 		{
-			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("releaseReservation",
-				"&transaction_id=" + paymentId));
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+			parameters.Add("transaction_id", paymentId);
+			
+			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("releaseReservation", parameters));
 		}
 
 		public SplitPaymentResult Split(string paymentId, double amount)
 		{
-			return new SplitPaymentResult(GetResultFromUrl<PaymentApiResponse>("splitTransaction",
-				"&transaction_id=" + paymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+			parameters.Add("transaction_id", paymentId);
+			parameters.Add("amount", amount);
+			
+			return new SplitPaymentResult(GetResultFromUrl<PaymentApiResponse>("splitTransaction", parameters));
 		}
 
 		public PaymentResult GetPayment(string paymentId)
 		{
-			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("transactions",
-				"&transaction=" + paymentId));
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+			parameters.Add("transaction_id", paymentId);
+			
+			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("transactions", parameters));
 		}
 
 		public RecurringResult CaptureRecurring(string recurringPaymentId, double amount)
 		{
-			return new RecurringResult(GetResultFromUrl<PaymentApiResponse>("captureRecurring",
-				"&transaction_id=" + recurringPaymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+			parameters.Add("transaction_id", recurringPaymentId);
+			parameters.Add("amount", amount);
+			
+			return new RecurringResult(GetResultFromUrl<PaymentApiResponse>("captureRecurring",parameters));
 		}
 
 		public RecurringResult PreauthRecurring(string recurringPaymentId, double amount)
 		{
-			return new RecurringResult(GetResultFromUrl<PaymentApiResponse>("preauthRecurring",
-				"&transaction_id=" + recurringPaymentId + "&amount=" + amount.ToString("0.##", CultureInfo.InvariantCulture)));
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+			parameters.Add("transaction_id", recurringPaymentId);
+			parameters.Add("amount", amount);
+			
+			return new RecurringResult(GetResultFromUrl<PaymentApiResponse>("preauthRecurring", parameters));
 		}
 		
 		public FundingsResult getFundings(int page)
 		{
-			return new FundingsResult(GetResultFromUrl<FundingsApiResponse>("fundingList",
-				"&page=" + page), new NetworkCredential(_username, _password));
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+			parameters.Add("page", page);
+			return new FundingsResult(GetResultFromUrl<FundingsApiResponse>("fundingList",parameters), new NetworkCredential(_username, _password));
 		}
 		
 		public PaymentRequestResult CreatePaymentRequest(PaymentRequest request)
 		{
-			string parameters = "&shop_orderid=" + request.ShopOrderId
-			    + "&amount=" + request.Amount.ToString("0.##", CultureInfo.InvariantCulture) 
-			    + "&currency=" + request.Currency;
-			// Remember the terminal
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+			parameters.Add("terminal", request.Terminal);
+			parameters.Add("shop_orderid", request.ShopOrderId);
+			parameters.Add("amount", request.Amount);
+			parameters.Add("currency", request.Currency);
 			return new PaymentRequestResult(GetResultFromUrl<PaymentRequestApiResponse>("createPaymentRequest", parameters));
 		}
 		
-		private T GetResultFromUrl<T>(string method, string parameters) where T : ApiResponse, new()
+		private T GetResultFromUrl<T>(string method, Dictionary<string,Object> parameters) where T : ApiResponse, new()
 		{
 			try
 			{
@@ -207,7 +247,7 @@ namespace PensioMoto.Service
 				http.Method = "POST";
 				http.ContentType = "application/x-www-form-urlencoded";
 				
-				string encodedData = String.Format("terminal={0}{1}", _terminal, parameters);
+				string encodedData = ParameterHelper.Convert(parameters);
 				Byte[] postBytes = System.Text.Encoding.ASCII.GetBytes(encodedData);
 				http.ContentLength = postBytes.Length;
 				

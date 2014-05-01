@@ -10,7 +10,7 @@ namespace PensioMoto.Tests.Integration
 	[TestFixture]
 	public class MerchantApiAfterReservationTests
 	{
-		IMerchantApi _api;
+		MerchantApi _api;
 
 		[SetUp]
 		public void Setup()

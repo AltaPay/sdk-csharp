@@ -49,6 +49,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlockingQueue.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Service\Dto\PaymentRequestApiResponse.cs" />
     <Compile Include="Service\Dto\PaymentRequestBody.cs" />
     <Compile Include="Service\PaymentRequestResult.cs" />
+    <Compile Include="Service\ParameterHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">
