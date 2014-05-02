@@ -11,17 +11,17 @@ namespace PensioMoto.Service
 		public string CustomerPhone { get; set; }
 		public string BankName { get; set; }
 		public string BankPhone { get; set; }
-		private CustomerAddress BillingAddress = new CustomerAddress();
-		private CustomerAddress ShippingAddress = new CustomerAddress();
+		private CustomerAddress billingAddress = new CustomerAddress();
+		private CustomerAddress shippingAddress = new CustomerAddress();
 		
-		public CustomerAddress GetBillingAddress()
+		public CustomerAddress BillingAddress
 		{
-			return BillingAddress;
+			get { return billingAddress; }
 		}
 		
-		public CustomerAddress GetShippingAddress()
+		public CustomerAddress ShippingAddress
 		{
-			return ShippingAddress;
+			get { return shippingAddress; }
 		}
 		
 		public Dictionary<string,object> ToDictionary()
@@ -34,21 +34,21 @@ namespace PensioMoto.Service
 			parameters.Add("bank_name", BankName); //The name of the bank where the credit card was issued.	string
 			parameters.Add("bank_phone", BankPhone); //The phone number of the bank where the credit card was issued.	String
 			
-			parameters.Add("billing_firstname", GetBillingAddress().Firstname); //The first name for the customer's billing address.	String
-			parameters.Add("billing_lastname", GetBillingAddress().Lastname); //The last name for the customer's billing address.	String
-			parameters.Add("billing_city", GetBillingAddress().City); //The city of the customer's billing address.	string
-			parameters.Add("billing_region", GetBillingAddress().Region); //The region of the customer's billing address.	string
-			parameters.Add("billing_postal", GetBillingAddress().PostalCode); //The postal code of the customer's billing address.	string
-			parameters.Add("billing_country", GetBillingAddress().Country); //The country of the customer's billing address as a 2 character ISO-3166 country code.	[a-zA-Z]{2}
-			parameters.Add("billing_address", GetBillingAddress().Address); //The street address of the customer's billing address.	string
+			parameters.Add("billing_firstname", billingAddress.Firstname); //The first name for the customer's billing address.	String
+			parameters.Add("billing_lastname", billingAddress.Lastname); //The last name for the customer's billing address.	String
+			parameters.Add("billing_city", billingAddress.City); //The city of the customer's billing address.	string
+			parameters.Add("billing_region", billingAddress.Region); //The region of the customer's billing address.	string
+			parameters.Add("billing_postal", billingAddress.PostalCode); //The postal code of the customer's billing address.	string
+			parameters.Add("billing_country", billingAddress.Country); //The country of the customer's billing address as a 2 character ISO-3166 country code.	[a-zA-Z]{2}
+			parameters.Add("billing_address", billingAddress.Address); //The street address of the customer's billing address.	string
 			
-			parameters.Add("shipping_firstname", GetShippingAddress().Firstname); //The first name for the customer's shipping address.	String
-			parameters.Add("shipping_lastname", GetShippingAddress().Lastname); //The last name for the customer's shipping address.	String
-			parameters.Add("shipping_address", GetShippingAddress().Address); //The street address of the customer's shipping address.	string
-			parameters.Add("shipping_city", GetShippingAddress().City); //The city of the customer's shipping address.	string
-			parameters.Add("shipping_region", GetShippingAddress().Region); //The region of the customer's shipping address.	string
-			parameters.Add("shipping_postal", GetShippingAddress().PostalCode); //The postal code of the customer's shipping address.	string
-			parameters.Add("shipping_country", GetShippingAddress().Country); //The country of the customer's shipping address as a 2 character ISO-3166 country code.	[a-zA-Z]{2}
+			parameters.Add("shipping_firstname", shippingAddress.Firstname); //The first name for the customer's shipping address.	String
+			parameters.Add("shipping_lastname", shippingAddress.Lastname); //The last name for the customer's shipping address.	String
+			parameters.Add("shipping_address", shippingAddress.Address); //The street address of the customer's shipping address.	string
+			parameters.Add("shipping_city", shippingAddress.City); //The city of the customer's shipping address.	string
+			parameters.Add("shipping_region", shippingAddress.Region); //The region of the customer's shipping address.	string
+			parameters.Add("shipping_postal", shippingAddress.PostalCode); //The postal code of the customer's shipping address.	string
+			parameters.Add("shipping_country", shippingAddress.Country); //The country of the customer's shipping address as a 2 character ISO-3166 country code.	[a-zA-Z]{2}
 			
 			return parameters;
 		}

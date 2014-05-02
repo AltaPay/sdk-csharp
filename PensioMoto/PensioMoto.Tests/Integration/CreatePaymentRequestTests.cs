@@ -66,18 +66,18 @@ namespace PensioMoto.Tests.Integration
 			paymentRequest.CustomerInfo.CustomerPhone = "+4512345678";
 			paymentRequest.CustomerInfo.BankName = "Gotham Bank";
 			paymentRequest.CustomerInfo.BankPhone = "666 666 666";
-			paymentRequest.CustomerInfo.GetBillingAddress().Address = "101 Night Street";
-			paymentRequest.CustomerInfo.GetBillingAddress().City = "Gotham City";
-			paymentRequest.CustomerInfo.GetBillingAddress().Country = "Bat Country";
-			paymentRequest.CustomerInfo.GetBillingAddress().Firstname = "Bruce";
-			paymentRequest.CustomerInfo.GetBillingAddress().Lastname = "Wayne";
-			paymentRequest.CustomerInfo.GetBillingAddress().Region = "Dark Region";
-			paymentRequest.CustomerInfo.GetShippingAddress().Address = "42 Joker Avenue";
-			paymentRequest.CustomerInfo.GetShippingAddress().City = "Big Smile City";
-			paymentRequest.CustomerInfo.GetShippingAddress().Country = "Laughistan";
-			paymentRequest.CustomerInfo.GetShippingAddress().Firstname = "Jack";
-			paymentRequest.CustomerInfo.GetShippingAddress().Lastname = "Napier";
-			paymentRequest.CustomerInfo.GetShippingAddress().Region = "Umbrella Neighbourhood";
+			paymentRequest.CustomerInfo.BillingAddress.Address = "101 Night Street";
+			paymentRequest.CustomerInfo.BillingAddress.City = "Gotham City";
+			paymentRequest.CustomerInfo.BillingAddress.Country = "Bat Country";
+			paymentRequest.CustomerInfo.BillingAddress.Firstname = "Bruce";
+			paymentRequest.CustomerInfo.BillingAddress.Lastname = "Wayne";
+			paymentRequest.CustomerInfo.BillingAddress.Region = "Dark Region";
+			paymentRequest.CustomerInfo.ShippingAddress.Address = "42 Joker Avenue";
+			paymentRequest.CustomerInfo.ShippingAddress.City = "Big Smile City";
+			paymentRequest.CustomerInfo.ShippingAddress.Country = "Laughistan";
+			paymentRequest.CustomerInfo.ShippingAddress.Firstname = "Jack";
+			paymentRequest.CustomerInfo.ShippingAddress.Lastname = "Napier";
+			paymentRequest.CustomerInfo.ShippingAddress.Region = "Umbrella Neighbourhood";
 			
 			// Many other optional parameters
 			paymentRequest.Cookie = "thecookie=isgood";
