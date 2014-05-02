@@ -261,7 +261,7 @@ namespace PensioMoto.Service
 			parameters.Add("account_offer", request.AccountOffer);
 			
 			// Customer Info
-			parameters.Add("customer_info", request.GetCustomerInfo().ToDictionary());
+			parameters.Add("customer_info", request.CustomerInfo.ToDictionary());
 			
 			// Order lines
 			parameters = getOrderLines(parameters, request.GetLines());

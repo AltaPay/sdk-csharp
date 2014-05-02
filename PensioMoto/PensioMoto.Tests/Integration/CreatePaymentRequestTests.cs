@@ -61,23 +61,23 @@ namespace PensioMoto.Tests.Integration
 			paymentRequest.CustomerCreatedDate = "2010-12-24 21:00:00";
 			
 			// Customer Data
-			paymentRequest.GetCustomerInfo().Email = "customer@email.com";
-			paymentRequest.GetCustomerInfo().Username = "leatheruser";
-			paymentRequest.GetCustomerInfo().CustomerPhone = "+4512345678";
-			paymentRequest.GetCustomerInfo().BankName = "Gotham Bank";
-			paymentRequest.GetCustomerInfo().BankPhone = "666 666 666";
-			paymentRequest.GetCustomerInfo().GetBillingAddress().Address = "101 Night Street";
-			paymentRequest.GetCustomerInfo().GetBillingAddress().City = "Gotham City";
-			paymentRequest.GetCustomerInfo().GetBillingAddress().Country = "Bat Country";
-			paymentRequest.GetCustomerInfo().GetBillingAddress().Firstname = "Bruce";
-			paymentRequest.GetCustomerInfo().GetBillingAddress().Lastname = "Wayne";
-			paymentRequest.GetCustomerInfo().GetBillingAddress().Region = "Dark Region";
-			paymentRequest.GetCustomerInfo().GetShippingAddress().Address = "42 Joker Avenue";
-			paymentRequest.GetCustomerInfo().GetShippingAddress().City = "Big Smile City";
-			paymentRequest.GetCustomerInfo().GetShippingAddress().Country = "Laughistan";
-			paymentRequest.GetCustomerInfo().GetShippingAddress().Firstname = "Jack";
-			paymentRequest.GetCustomerInfo().GetShippingAddress().Lastname = "Napier";
-			paymentRequest.GetCustomerInfo().GetShippingAddress().Region = "Umbrella Neighbourhood";
+			paymentRequest.CustomerInfo.Email = "customer@email.com";
+			paymentRequest.CustomerInfo.Username = "leatheruser";
+			paymentRequest.CustomerInfo.CustomerPhone = "+4512345678";
+			paymentRequest.CustomerInfo.BankName = "Gotham Bank";
+			paymentRequest.CustomerInfo.BankPhone = "666 666 666";
+			paymentRequest.CustomerInfo.GetBillingAddress().Address = "101 Night Street";
+			paymentRequest.CustomerInfo.GetBillingAddress().City = "Gotham City";
+			paymentRequest.CustomerInfo.GetBillingAddress().Country = "Bat Country";
+			paymentRequest.CustomerInfo.GetBillingAddress().Firstname = "Bruce";
+			paymentRequest.CustomerInfo.GetBillingAddress().Lastname = "Wayne";
+			paymentRequest.CustomerInfo.GetBillingAddress().Region = "Dark Region";
+			paymentRequest.CustomerInfo.GetShippingAddress().Address = "42 Joker Avenue";
+			paymentRequest.CustomerInfo.GetShippingAddress().City = "Big Smile City";
+			paymentRequest.CustomerInfo.GetShippingAddress().Country = "Laughistan";
+			paymentRequest.CustomerInfo.GetShippingAddress().Firstname = "Jack";
+			paymentRequest.CustomerInfo.GetShippingAddress().Lastname = "Napier";
+			paymentRequest.CustomerInfo.GetShippingAddress().Region = "Umbrella Neighbourhood";
 			
 			// Many other optional parameters
 			paymentRequest.Cookie = "thecookie=isgood";

@@ -27,7 +27,7 @@ namespace PensioMoto.Service
 		public double SalesTax { get; set; }
 		public string Cookie { get; set; }
 		private PaymentRequestConfig config = new PaymentRequestConfig();
-		private CustomerInfo CustomerInfo = new CustomerInfo();
+		private CustomerInfo customerInfo = new CustomerInfo();
 		public string CustomerCreatedDate { get; set; }		
 		private List<PaymentOrderLine> lines = new List<PaymentOrderLine>();
 		public ShippingType ShippingType { get; set; }
@@ -49,9 +49,9 @@ namespace PensioMoto.Service
 			return infos;
 		}
 		
-		public CustomerInfo GetCustomerInfo()
+		public CustomerInfo CustomerInfo
 		{
-			return CustomerInfo;
+			get { return customerInfo; }
 		}
 		
 		public void AddOrderLine(string Description
