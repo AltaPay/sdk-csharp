@@ -42,6 +42,7 @@ namespace PensioMoto.Service
 			configParams.Add("callback_open", CallbackOpenUrl);
 			configParams.Add("callback_notification", CallbackNotificationUrl);
 			configParams.Add("callback_verify_order", CallbackVerifyOrderUrl);
+			configParams.Add("fraud_service", FraudService.ToString().ToLower());
 			
 			return configParams;
 		}

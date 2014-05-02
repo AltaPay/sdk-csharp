@@ -57,7 +57,7 @@ namespace PensioMoto.Tests.Integration
 			paymentRequest.Config.CallbackVerifyOrderUrl  = "http://demoshop.pensio.com/VerifyOrder";
 			
 			// Fraud-service and params
-			paymentRequest.Config.FraudService = FraudService.test;
+			paymentRequest.Config.FraudService = FraudService.Test;
 			paymentRequest.CustomerCreatedDate = "2010-12-24 21:00:00";
 			
 			// Customer Data
@@ -92,7 +92,7 @@ namespace PensioMoto.Tests.Integration
 			paymentRequest.Type = PaymentType.payment;
 			
 			// Orderlines and TransactionInfo
-			paymentRequest.AddOrderLine("The Item Desc", "itemId1", 10, 10, "unitCode", 500, 0.00, GoodsType.item);
+			paymentRequest.AddOrderLine("The Item Desc", "itemId1", 10, 10, "unitCode", 500, 0.00, GoodsType.Item);
 			paymentRequest.AddInfo("auxinfo1", "auxvalue1");
 			
 			// And make the actual invocation.

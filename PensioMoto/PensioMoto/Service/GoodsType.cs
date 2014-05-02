@@ -4,7 +4,9 @@ namespace PensioMoto
 {
 	public enum GoodsType
 	{
-		shipment,handling,item
+		Shipment,
+		Handling,
+		Item
 	}
 }
 

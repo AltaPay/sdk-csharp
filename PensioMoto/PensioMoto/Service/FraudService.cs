@@ -4,7 +4,10 @@ namespace PensioMoto.Service
 {
 	public enum FraudService
 	{
-		none,maxmind,red,test
+		None,
+		Maxmind,
+		Red,
+		Test
 	}
 }
 

@@ -128,7 +128,7 @@ namespace PensioMoto.Service
 				orderLineParam.Add("unitPrice", orderLine.UnitPrice);
 				orderLineParam.Add("description", orderLine.Description);
 				orderLineParam.Add("discount", orderLine.Discount);
-				orderLineParam.Add("goodsType", orderLine.GoodsType);
+				orderLineParam.Add("goodsType", orderLine.GoodsType.ToString().ToLower());
 				
 				orderLinesParam.Add(lineNumber.ToString(), orderLineParam);
 				lineNumber++;
@@ -259,6 +259,7 @@ namespace PensioMoto.Service
 			parameters.Add("customer_created_date", request.CustomerCreatedDate);
 			parameters.Add("organisation_number", request.OrganisationNumber);
 			parameters.Add("account_offer", request.AccountOffer);
+			//parameters.Add("fraud_service", request.Config.
 			
 			// Customer Info
 			parameters.Add("customer_info", request.CustomerInfo.ToDictionary());
