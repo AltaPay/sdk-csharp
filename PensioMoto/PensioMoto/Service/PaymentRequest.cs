@@ -26,7 +26,7 @@ namespace PensioMoto.Service
 		public string SalesInvoiceNumber { get; set; }
 		public double SalesTax { get; set; }
 		public string Cookie { get; set; }
-		private PaymentRequestConfig Config = new PaymentRequestConfig();
+		private PaymentRequestConfig config = new PaymentRequestConfig();
 		private CustomerInfo CustomerInfo = new CustomerInfo();
 		public string CustomerCreatedDate { get; set; }		
 		private List<PaymentOrderLine> lines = new List<PaymentOrderLine>();
@@ -34,9 +34,9 @@ namespace PensioMoto.Service
 		public string OrganisationNumber { get; set; } // If the organisation_number parameter is given the organisation number field in the invoice payment form is prepopulated, and if no other payment options is enabled on the terminal the form will auto submit.
 		public AccountOffer AccountOffer { get; set; } // To require having account enabled for an invoice payment for this specific customer, set this to required. To disable account for this specific customer, set to disabled.
 		
-		public PaymentRequestConfig GetConfig()
+		public PaymentRequestConfig Config
 		{
-			return Config;
+			get { return config; }
 		}
 		
 		public List<PaymentOrderLine> GetLines()

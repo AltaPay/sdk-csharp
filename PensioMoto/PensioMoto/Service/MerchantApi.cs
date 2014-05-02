@@ -244,7 +244,7 @@ namespace PensioMoto.Service
 			parameters.Add("currency", request.Currency);
 			
 			// Config
-			parameters.Add("config", request.GetConfig().ToDictionary());
+			parameters.Add("config", request.Config.ToDictionary());
 			
 			// Optional Arguments
 			parameters.Add("language", request.Language);

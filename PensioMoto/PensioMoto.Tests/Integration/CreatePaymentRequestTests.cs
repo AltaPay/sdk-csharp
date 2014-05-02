@@ -48,16 +48,16 @@ namespace PensioMoto.Tests.Integration
 			paymentRequest.Currency = Currency.EUR;
 			
 			// All the callback configs
-			paymentRequest.GetConfig().CallbackFormUrl         = "http://demoshop.pensio.com/Form";
-			paymentRequest.GetConfig().CallbackOkUrl           = "http://demoshop.pensio.com/Ok";
-			paymentRequest.GetConfig().CallbackFailUrl         = "http://demoshop.pensio.com/Fail";
-			paymentRequest.GetConfig().CallbackRedirectUrl     = "http://demoshop.pensio.com/Redirect";
-			paymentRequest.GetConfig().CallbackNotificationUrl = "http://demoshop.pensio.com/Notification";
-			paymentRequest.GetConfig().CallbackOpenUrl         = "http://demoshop.pensio.com/Open";
-			paymentRequest.GetConfig().CallbackVerifyOrderUrl  = "http://demoshop.pensio.com/VerifyOrder";
+			paymentRequest.Config.CallbackFormUrl         = "http://demoshop.pensio.com/Form";
+			paymentRequest.Config.CallbackOkUrl           = "http://demoshop.pensio.com/Ok";
+			paymentRequest.Config.CallbackFailUrl         = "http://demoshop.pensio.com/Fail";
+			paymentRequest.Config.CallbackRedirectUrl     = "http://demoshop.pensio.com/Redirect";
+			paymentRequest.Config.CallbackNotificationUrl = "http://demoshop.pensio.com/Notification";
+			paymentRequest.Config.CallbackOpenUrl         = "http://demoshop.pensio.com/Open";
+			paymentRequest.Config.CallbackVerifyOrderUrl  = "http://demoshop.pensio.com/VerifyOrder";
 			
 			// Fraud-service and params
-			paymentRequest.GetConfig().FraudService = FraudService.test;
+			paymentRequest.Config.FraudService = FraudService.test;
 			paymentRequest.CustomerCreatedDate = "2010-12-24 21:00:00";
 			
 			// Customer Data
