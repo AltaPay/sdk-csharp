@@ -103,7 +103,7 @@ namespace PensioMoto.Tests.Integration
 			Assert.IsNotEmpty(result.Url);
 			Assert.IsNotEmpty(result.DynamicJavascriptUrl);
 			
-			System.Diagnostics.Process.Start(result.Url);
+			// System.Diagnostics.Process.Start(result.Url);
 		}
 	}
 }

@@ -21,7 +21,7 @@ namespace PensioMoto.Service
 		public string ReconciliationIdentifier { get; set; }
 		public string InvoiceNumber { get; set; }
 		public double SalesTax { get; set; }
-
+		
 		public void AddOrderLine(string Description
 			, string ItemId
 			, double Quantity
@@ -31,6 +31,24 @@ namespace PensioMoto.Service
 			, double Discount
 			, string goodsType)
 		{
+			goodsType = goodsType.ToLower();
+			if (!goodsType.Equals("shipment") && !goodsType.Equals("handling") && !goodsType.Equals("item"))
+			{
+				throw new Exception("Invalid goods type, should be one of the following:  shipment, handling, item");
+			}
+			
+			AddOrderLine(Description, ItemId, Quantity, TaxPercent, UnitCode, UnitPrice, Discount, (GoodsType)Enum.Parse(typeof(GoodsType), goodsType, true));
+		}
+
+		public void AddOrderLine(string Description
+			, string ItemId
+			, double Quantity
+			, double TaxPercent
+			, string UnitCode
+			, double UnitPrice
+			, double Discount
+			, GoodsType goodsType)
+		{
 			PaymentOrderLine orderLine = new PaymentOrderLine();
 			orderLine.Description = Description;
 			orderLine.ItemId = ItemId;
@@ -39,11 +57,7 @@ namespace PensioMoto.Service
 			orderLine.UnitCode = UnitCode;
 			orderLine.UnitPrice = UnitPrice;
 			orderLine.Discount = Discount;
-			if (goodsType != "shipment" && goodsType != "handling" && goodsType != "item")
-			{
-				throw new Exception("Invalid goods type, should be one of the following:  shipment, handling, item");
-			}
-			orderLine.GoodsType = (GoodsType)Enum.Parse(typeof(GoodsType), goodsType);
+			orderLine.GoodsType = goodsType;
 			
 			lines.Add(orderLine);
 		}
