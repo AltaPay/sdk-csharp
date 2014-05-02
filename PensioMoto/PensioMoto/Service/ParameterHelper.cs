@@ -33,9 +33,10 @@ namespace PensioMoto
 				else
 				{
 					string val = null;
-					if(parameter.Value.GetType() == typeof(Double))
+					Type paramType = parameter.Value.GetType();
+					if(paramType == typeof(Double) || paramType == typeof(Single) || paramType == typeof(Decimal))
 					{
-						val = string.Format("{0:0.00}", (double)parameter.Value);
+						val = string.Format("{0:0.00}", parameter.Value);
 					}
 					else
 					{

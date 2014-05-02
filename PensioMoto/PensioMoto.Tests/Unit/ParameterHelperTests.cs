@@ -56,10 +56,28 @@ namespace PensioMoto.Tests.Unit
 		[Test]
 		public void DoublesAreConvertedToTwoDecimals()
 		{
-			_parameters.Add("double", 12324.1);
+			_parameters.Add("double", 12324.1d);
 			string paramString = _helper.Convert(_parameters);
 
 			Assert.AreEqual("double=12324.10", paramString);
+		}
+		
+		[Test]
+		public void SinglesAreConvertedToTwoDecimals()
+		{
+			_parameters.Add("single", 12324.1f);
+			string paramString = _helper.Convert(_parameters);
+
+			Assert.AreEqual("single=12324.10", paramString);
+		}
+		
+		[Test]
+		public void DecimalAreConvertedToTwoDecimals()
+		{
+			_parameters.Add("decimal", 12324.1m);
+			string paramString = _helper.Convert(_parameters);
+
+			Assert.AreEqual("decimal=12324.10", paramString);
 		}
 
 		[Test]
