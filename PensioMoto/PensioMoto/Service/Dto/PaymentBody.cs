@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace PensioMoto.Service.Dto
+namespace AltaPay.Service.Dto
 {
 	public class PaymentBody
 		: Body

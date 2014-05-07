@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
-using PensioMoto.Service.Dto;
+using AltaPay.Service.Dto;
 
-namespace PensioMoto
+namespace AltaPay.Moto.Com
 {
 	[ComVisible(true)]
 	[ClassInterface(ClassInterfaceType.None)]

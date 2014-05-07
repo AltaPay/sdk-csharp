@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PensioMoto.Service;
+using AltaPay.Service;
 using System.Runtime.InteropServices;
 
-namespace PensioMoto
+namespace AltaPay.Moto.Com
 {
 	[ComVisible(true)]
 	[ClassInterface(ClassInterfaceType.None)]

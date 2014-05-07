@@ -6,9 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using PensioMoto.Service;
+using AltaPay.Service;
 
-namespace PensioMoto
+namespace AltaPay.Moto
 {
     public partial class MotoForm : Form, IMotoDialogView
     {

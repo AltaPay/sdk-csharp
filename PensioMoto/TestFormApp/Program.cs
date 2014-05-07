@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using PensioMoto;
-using PensioMoto.Service;
+using AltaPay;
+using AltaPay.Service;
+using AltaPay.Moto.Com;
 
 namespace TestFormApp
 {

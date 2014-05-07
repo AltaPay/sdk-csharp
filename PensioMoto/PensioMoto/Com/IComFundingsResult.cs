@@ -5,7 +5,7 @@ using System.Text;
 using System.Collections;
 using System.Runtime.InteropServices;
 
-namespace PensioMoto
+namespace AltaPay.Moto.Com
 {
 	[ComVisible(true)]
 	[InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]

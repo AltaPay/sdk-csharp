@@ -4,7 +4,8 @@ using System.Text;
 using System.Linq.Expressions;
 using NUnit.Framework;
 using Moq;
-using PensioMoto.Service;
+using AltaPay.Service;
+using AltaPay.Moto;
 
 namespace PensioMoto.Tests.Unit
 {

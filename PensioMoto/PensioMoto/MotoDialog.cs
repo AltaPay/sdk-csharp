@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using PensioMoto.Service;
+using AltaPay.Service;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace PensioMoto
+namespace AltaPay.Moto
 {
 	public class MotoDialog : IMotoDialog, IMotoController
 	{

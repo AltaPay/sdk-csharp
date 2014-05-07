@@ -1,4 +1,4 @@
-﻿namespace PensioMoto
+﻿namespace AltaPay.Moto
 {
     partial class MotoForm
     {

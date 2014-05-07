@@ -1,6 +1,6 @@
 using System;
 
-namespace PensioMoto.Service.Dto
+namespace AltaPay.Service.Dto
 {
 	public class PaymentRequestBody
 		: Body

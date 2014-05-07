@@ -8,7 +8,7 @@
     <ProjectGuid>{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PensioMoto</RootNamespace>
+    <RootNamespace>AltaPay</RootNamespace>
     <AssemblyName>PensioMoto</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -1,8 +1,8 @@
 using System;
-using PensioMoto.Service.Dto;
+using AltaPay.Service.Dto;
 
 
-namespace PensioMoto.Service
+namespace AltaPay.Service
 {
     public class PaymentRequestResult
 		: ApiResult

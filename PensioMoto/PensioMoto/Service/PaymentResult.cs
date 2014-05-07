@@ -1,8 +1,8 @@
 ﻿using System.Runtime.InteropServices;
-using PensioMoto.Service.Dto;
+using AltaPay.Service.Dto;
 using System;
 
-namespace PensioMoto.Service
+namespace AltaPay.Service
 {
     public class PaymentResult
 		: ApiResult

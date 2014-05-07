@@ -6,11 +6,12 @@ using System.Xml.Serialization;
 using System.Net;
 using System.IO;
 using System.Data;
+using AltaPay.Moto.Com;
+using AltaPay.Moto;
 
-namespace PensioMoto.Service.Dto
+namespace AltaPay.Service
 {
-	public class Funding
-		: IFunding
+	public class Funding : IFunding
 	{
 		[XmlElement("Filename")]
 		public string Id { get;set; }

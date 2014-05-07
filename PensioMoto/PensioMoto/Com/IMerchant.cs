@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
-using PensioMoto;
+using AltaPay.Moto;
 
-namespace PensioMoto
+namespace AltaPay.Moto.Com
 {
 	[ComVisible(true)]
 	public interface IMerchant

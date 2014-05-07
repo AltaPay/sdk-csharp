@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using AltaPay.Service;
 
 namespace PensioMoto.Tests.Unit
 {

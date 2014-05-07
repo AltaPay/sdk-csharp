@@ -1,6 +1,6 @@
 using System;
 
-namespace PensioMoto.Service
+namespace AltaPay.Service
 {
 	public class CustomerAddress
 	{

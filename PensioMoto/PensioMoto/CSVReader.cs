@@ -39,7 +39,7 @@ using System.Text;
 using System.IO;
 using System.Data;
 
-namespace PensioMoto
+namespace AltaPay.Moto
 {
 	/// <summary>
 	/// Read CSV-formatted data from a file or TextReader

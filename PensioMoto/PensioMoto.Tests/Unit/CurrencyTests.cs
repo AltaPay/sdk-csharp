@@ -1,7 +1,8 @@
 using System;
 using System.Linq;
-using PensioMoto;
+using AltaPay;
 using NUnit.Framework;
+using AltaPay.Service;
 
 namespace PensioMoto.Tests.Unit
 {

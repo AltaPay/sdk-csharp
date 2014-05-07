@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
-using PensioMoto.Service;
+using AltaPay.Service;
 
-namespace PensioMoto
+
+namespace AltaPay.Moto.Com
 {
 	[ComVisible(true)]
 	[ClassInterface(ClassInterfaceType.None)]
@@ -19,7 +20,7 @@ namespace PensioMoto
 		{
 			Result = result.Result.ToString();
 			ResultMessage = result.ResultMerchantMessage;
-			if (result.Result == PensioMoto.Service.Result.Success)
+			if (result.Result == AltaPay.Service.Result.Success)
 			{
 				Payment = new ComPayment(result.Payment);
 

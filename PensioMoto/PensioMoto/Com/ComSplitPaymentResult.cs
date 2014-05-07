@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PensioMoto.Service;
+using AltaPay.Service;
 using System.Runtime.InteropServices;
 
-namespace PensioMoto
+namespace AltaPay.Moto.Com
 {
 	[ComVisible(true)]
 	[ClassInterface(ClassInterfaceType.None)]
@@ -17,7 +17,7 @@ namespace PensioMoto
 		public ComSplitPaymentResult(SplitPaymentResult result)
 			: base(result)
 		{
-			if (result.Result == PensioMoto.Service.Result.Success)
+			if (result.Result == AltaPay.Service.Result.Success)
 			{
 				SplitPayment1 = new ComPayment(result.SplitPayment1);
 				SplitPayment2 = new ComPayment(result.SplitPayment2);

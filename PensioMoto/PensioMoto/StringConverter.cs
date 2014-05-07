@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PensioMoto
+namespace AltaPay.Moto
 {
 	/// <summary>
 	/// Static class to convert strings to typed values

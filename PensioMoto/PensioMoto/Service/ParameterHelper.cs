@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Text;
 
 
-namespace PensioMoto
+namespace AltaPay.Service
 {
 	public class ParameterHelper
 	{

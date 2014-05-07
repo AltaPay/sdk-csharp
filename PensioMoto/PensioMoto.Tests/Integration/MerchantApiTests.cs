@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
-using PensioMoto.Service;
+using AltaPay.Service;
 
-namespace PensioMoto.Tests.Integration
+namespace AltaPay.Moto.Tests.Integration
 {
 	[TestFixture]
 	public class MerchantApiTests

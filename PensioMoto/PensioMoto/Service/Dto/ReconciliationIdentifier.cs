@@ -5,7 +5,7 @@ using System.Text;
 using System.Xml.Serialization;
 using System.Globalization;
 
-namespace PensioMoto.Service.Dto
+namespace AltaPay.Service.Dto
 {
 	public class ReconciliationIdentifier
 	{

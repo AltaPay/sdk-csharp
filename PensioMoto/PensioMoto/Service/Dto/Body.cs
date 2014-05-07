@@ -1,6 +1,6 @@
 ﻿
 using System.Xml.Serialization;
-namespace PensioMoto.Service.Dto
+namespace AltaPay.Service.Dto
 {
 	public class Body
 	{

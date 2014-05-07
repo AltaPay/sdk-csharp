@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PensioMoto.Service.Dto;
+using AltaPay.Service.Dto;
 
-namespace PensioMoto.Service
+namespace AltaPay.Service
 {
 	public class RecurringResult : PaymentResult
 	{

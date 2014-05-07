@@ -1,6 +1,6 @@
 using System;
 
-namespace PensioMoto
+namespace AltaPay.Service
 {
 	public enum ShippingType
 	{

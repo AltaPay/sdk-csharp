@@ -56,9 +56,9 @@
     <Compile Include="Unit\CurrencyTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PensioMoto\PensioMoto.csproj">
+    <ProjectReference Include="..\PensioMoto\AltaPayMoto.csproj">
       <Project>{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}</Project>
-      <Name>PensioMoto</Name>
+      <Name>AltaPayMoto</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

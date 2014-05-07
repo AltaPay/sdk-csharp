@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace PensioMoto.Service
+namespace AltaPay.Service
 {
 	public class PaymentRequestConfig
 	{

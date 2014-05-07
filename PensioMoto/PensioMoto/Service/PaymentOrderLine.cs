@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PensioMoto.Service
+namespace AltaPay.Service
 {
 	/**
 	* description	Description of item.	String (255)

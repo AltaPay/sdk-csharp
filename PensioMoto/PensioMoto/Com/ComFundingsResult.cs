@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PensioMoto.Service;
-using PensioMoto.Service.Dto;
+using AltaPay.Service;
+using AltaPay.Service.Dto;
 using System.Runtime.InteropServices;
 
-namespace PensioMoto
+namespace AltaPay.Moto.Com
 {
 	[ComVisible(true)]
 	public class ComFundingsResult

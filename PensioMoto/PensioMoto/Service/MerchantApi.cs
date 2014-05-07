@@ -4,11 +4,11 @@ using System.IO;
 using System.Net;
 using System.Xml.Serialization;
 using System.Xml.XPath;
-using PensioMoto.Service.Dto;
+using AltaPay.Service.Dto;
 using System.Collections.Generic;
 
 
-namespace PensioMoto.Service
+namespace AltaPay.Service
 {
 	public class MerchantApi : IMerchantApi
 	{

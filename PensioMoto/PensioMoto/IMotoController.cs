@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PensioMoto.Service;
+using AltaPay.Service;
 
-namespace PensioMoto
+namespace AltaPay.Moto
 {
 	public interface IMotoController
 	{

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PensioMoto.Service;
+using AltaPay.Service;
 using NUnit.Framework;
 
-namespace PensioMoto.Tests.Integration
+namespace AltaPay.Moto.Tests.Integration
 {
 	[TestFixture]
 	class FundingListTests

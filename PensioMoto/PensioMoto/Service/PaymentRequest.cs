@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PensioMoto;
+using AltaPay;
 using System.Runtime.InteropServices;
 
 
-namespace PensioMoto.Service
+namespace AltaPay.Service
 {
     [ClassInterface(ClassInterfaceType.None)]
 	public class PaymentRequest
