@@ -53,6 +53,7 @@
     <Compile Include="Unit\MotoDialogTests.cs" />
     <Compile Include="Integration\CreatePaymentRequestTests.cs" />
     <Compile Include="Unit\ParameterHelperTests.cs" />
+    <Compile Include="Unit\CurrencyTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PensioMoto\PensioMoto.csproj">
