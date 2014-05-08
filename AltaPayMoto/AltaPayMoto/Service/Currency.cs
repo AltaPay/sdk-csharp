@@ -214,6 +214,26 @@ namespace AltaPay.Service
 			return ShortName;
 		}
 		
+		public string GetNumericString()
+		{
+			return NumericValue.ToString("D3");
+		}
+		
+		public static Currency FromNumeric(int numericValue)
+		{
+			Currency currency = GetValues().FirstOrDefault(x=>x.NumericValue==numericValue);
+			if (currency==null)
+				throw new Exception("Unknown currency : " + numericValue);
+			return currency;
+		}
+	
+		public static Currency FromString(string shortName)
+		{
+			Currency currency = GetValues().FirstOrDefault(x=>x.ShortName==shortName);
+			if (currency==null)
+				throw new Exception("Unknown currency : " + shortName);
+			return currency;
+		}
 	}
 }
 

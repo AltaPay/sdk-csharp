@@ -55,6 +55,33 @@ namespace AltaPay.Moto.Tests.Unit
 			Assert.AreEqual(Currency.AFN.ShortName, Currency.AFN.ToString());
 			Currency.GetValues().ToList().ForEach(x=>Assert.AreEqual(x.ShortName, x.ToString()));			
 		}
+
+		
+		[Test]
+		public void FromNumeric()
+		{
+			var dkk = Currency.DKK;
+			Assert.AreSame(dkk, Currency.FromNumeric(dkk.NumericValue));
+			Currency.GetValues().ToList().ForEach(x=>Assert.AreSame(x, Currency.FromNumeric(x.NumericValue)));			
+		}
+
+		
+		[Test]
+		public void GetNumericString()
+		{
+			Assert.AreEqual("208", Currency.DKK.GetNumericString());
+			Assert.AreEqual("032", Currency.ARS.GetNumericString());
+			Assert.AreEqual("008", Currency.ALL.GetNumericString());
+		}
+
+		[Test]
+		public void FromString()
+		{
+			Assert.AreSame(Currency.DKK, Currency.FromString("DKK"));
+			Currency.GetValues().ToList().ForEach(x=>Assert.AreSame(x, Currency.FromString(x.ShortName)));			
+		}
+		
+	
 	}
 }
 
