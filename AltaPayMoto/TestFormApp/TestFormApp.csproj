@@ -79,7 +79,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PensioMoto\AltaPayMoto.csproj">
+    <ProjectReference Include="..\AltaPayMoto\AltaPayMoto.csproj">
       <Project>{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}</Project>
       <Name>AltaPayMoto</Name>
     </ProjectReference>

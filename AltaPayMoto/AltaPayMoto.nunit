@@ -1,7 +1,7 @@
 ﻿<NUnitProject>
   <Settings activeconfig="Debug" />
   <Config name="debug" binpathtype="Auto">
-    <assembly path="PensioMoto.Tests\bin\Release\PensioMoto.Tests.dll" />
+    <assembly path="AltaPayMoto.Tests/bin/Release/AltaPayMoto.Tests.dll" />
   </Config>
   <Config name="Release" binpathtype="Auto" />
 </NUnitProject>

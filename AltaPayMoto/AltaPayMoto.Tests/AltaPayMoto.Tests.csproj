@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AltaPay.Moto.Tests</RootNamespace>
-    <AssemblyName>PensioMoto.Tests</AssemblyName>
+    <AssemblyName>AltaPayMoto.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -56,7 +56,7 @@
     <Compile Include="Unit\CurrencyTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PensioMoto\AltaPayMoto.csproj">
+    <ProjectReference Include="..\AltaPayMoto\AltaPayMoto.csproj">
       <Project>{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}</Project>
       <Name>AltaPayMoto</Name>
     </ProjectReference>
