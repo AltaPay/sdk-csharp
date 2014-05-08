@@ -9,7 +9,7 @@ echo "Clearing builds"
 
 echo ""
 echo "Compiling in $CONFIGURATION mode"
-mdtool build --configuration:$CONFIGURATION PensioMoto/PensioMoto.sln
+mdtool build --configuration:$CONFIGURATION AltaPayMoto/AltaPayMoto.sln
 
 # remove tmp dir if it exists
 if [ -d "$TMP_DIR" ]; then
@@ -22,13 +22,13 @@ mkdir $TMP_DIR
 #
 # the application
 #
-cp -r PensioMoto/PensioMoto/bin/$CONFIGURATION/* $TMP_DIR
-cp PensioMoto/register.cmd $TMP_DIR
+cp -r AltaPayMoto/AltaPayMoto/bin/$CONFIGURATION/* $TMP_DIR
+cp AltaPayMoto/register.cmd $TMP_DIR
 
 #
 # source code
 #
-svn export PensioMoto/ $TMP_DIR/source
+svn export AltaPayMoto/ $TMP_DIR/source
 
 #
 # remove the output file if it exists
