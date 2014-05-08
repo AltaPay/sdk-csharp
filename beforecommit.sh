@@ -11,11 +11,11 @@ svn up
 
 echo ""
 echo "Compiling in $CONFIGURATION mode"
-mdtool build --configuration:$CONFIGURATION PensioMoto/PensioMoto.sln
+mdtool build --configuration:$CONFIGURATION AltaPayMoto/AltaPayMoto.sln
 
 echo ""
 echo "Running unit tests"
-nunit-console PensioMoto/PensioMoto.Tests/bin/$CONFIGURATION/PensioMoto.Tests.dll -run=PensioMoto.Tests.Unit
+nunit-console AltaPayMoto/AltaPayMoto.Tests/bin/$CONFIGURATION/AltaPayMoto.Tests.dll -run=AltaPay.Moto.Tests.Unit
 
 # we do not care about the nunit report at this stage
 # might as well remove it
