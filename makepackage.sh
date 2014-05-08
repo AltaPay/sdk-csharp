@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 TMP_DIR="_tmp"
-OUT="PensioMoto"
+OUT="AltaPayMoto"
 CONFIGURATION="Release"
 
 echo "Clearing builds"
