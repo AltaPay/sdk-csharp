@@ -7,7 +7,7 @@ using Moq;
 using AltaPay.Service;
 using AltaPay.Moto;
 
-namespace PensioMoto.Tests.Unit
+namespace AltaPay.Moto.Tests.Unit
 {
 	[TestFixture]
 	public class MotoDialogTests

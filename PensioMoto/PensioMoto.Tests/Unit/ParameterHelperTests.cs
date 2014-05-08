@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using AltaPay.Service;
 
-namespace PensioMoto.Tests.Unit
+namespace AltaPay.Moto.Tests.Unit
 {
 	[TestFixture]
 	public class ParameterHelperTests

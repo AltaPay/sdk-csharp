@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltaPayMoto", "PensioMoto\AltaPayMoto.csproj", "{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PensioMoto.Tests", "PensioMoto.Tests\PensioMoto.Tests.csproj", "{3A49B441-7FCE-40AA-893D-B61D5E41DA62}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltaPayMoto.Tests", "PensioMoto.Tests\AltaPayMoto.Tests.csproj", "{3A49B441-7FCE-40AA-893D-B61D5E41DA62}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFormApp", "TestFormApp\TestFormApp.csproj", "{4BC5005B-02E1-4750-8E93-309C38C958EC}"
 EndProject
