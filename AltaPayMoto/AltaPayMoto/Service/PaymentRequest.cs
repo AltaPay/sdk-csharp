@@ -20,7 +20,7 @@ namespace AltaPay.Service
 		// Optional parameters
 		public string Language { get; set; }
 		private Dictionary<string,Object> infos = new Dictionary<string,Object>();
-		public PaymentType Type { get; set; }
+		public AuthType Type { get; set; }
 		public string CreditCardToken { get; set; }
 		public string SalesReconciliationIdentifier { get; set; }
 		public string SalesInvoiceNumber { get; set; }

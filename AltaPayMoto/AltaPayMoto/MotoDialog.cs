@@ -13,7 +13,7 @@ namespace AltaPay.Moto
 	{
 		private string _orderId;
 		private double _amount;
-		private PaymentType _paymentType;
+		private AuthType _paymentType;
 		private int _currency;
 		
 		private IMotoDialogView _view;
@@ -35,7 +35,7 @@ namespace AltaPay.Moto
 			string orderId, 
 			double amount, 
 			int currency, 
-			PaymentType paymentType)
+			AuthType paymentType)
 		{
 			_view.Initialize(this, orderId, amount, paymentType);
 			_merchantApi.Initialize(gatewayUrl, apiUsername, apiPassword, terminal);

@@ -89,7 +89,7 @@ namespace AltaPay.Moto.Tests.Integration
 			paymentRequest.SalesTax = 56.93;
 			paymentRequest.ShippingType = ShippingType.Military;
 			paymentRequest.AccountOffer = AccountOffer.disabled;
-			paymentRequest.Type = PaymentType.payment;
+			paymentRequest.Type = AuthType.payment;
 			
 			// Orderlines and TransactionInfo
 			paymentRequest.AddOrderLine("The Item Desc", "itemId1", 10, 10, "unitCode", 500, 0.00, GoodsType.Item);

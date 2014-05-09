@@ -22,7 +22,7 @@ namespace AltaPay.Moto.Com
 
 		public void Initialize(string gatewayUrl, string apiUsername, string apiPassword, string terminal, string orderId, double amount, int currency, string paymentType)
 		{
-			_dialog.Initialize(gatewayUrl, apiUsername, apiPassword, terminal, orderId, amount, currency, (PaymentType)Enum.Parse(typeof(PaymentType), paymentType));
+			_dialog.Initialize(gatewayUrl, apiUsername, apiPassword, terminal, orderId, amount, currency, (AuthType)Enum.Parse(typeof(AuthType), paymentType));
 		}
 
 		public void AddCreditCard(string maskedPan, string cardToken)

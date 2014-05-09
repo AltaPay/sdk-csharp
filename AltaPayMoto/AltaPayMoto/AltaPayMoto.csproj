@@ -100,7 +100,6 @@
     <Compile Include="Service\PaymentOrderLine.cs" />
     <Compile Include="Service\PaymentDetails.cs" />
     <Compile Include="Service\PaymentResult.cs" />
-    <Compile Include="Service\PaymentType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\RecurringResult.cs" />
     <Compile Include="Service\Result.cs" />
@@ -109,17 +108,20 @@
     <Compile Include="StringConverter.cs" />
     <Compile Include="Service\PaymentRequest.cs" />
     <Compile Include="Service\PaymentRequestConfig.cs" />
-    <Compile Include="Service\CustomerInfo.cs" />
-    <Compile Include="Service\CustomerAddress.cs" />
     <Compile Include="Service\ShippingType.cs" />
     <Compile Include="Service\AccountOffer.cs" />
-    <Compile Include="Service\Currency.cs" />
     <Compile Include="Service\Dto\PaymentRequestApiResponse.cs" />
     <Compile Include="Service\Dto\PaymentRequestBody.cs" />
     <Compile Include="Service\PaymentRequestResult.cs" />
     <Compile Include="Service\ParameterHelper.cs" />
     <Compile Include="Service\FraudService.cs" />
     <Compile Include="Service\GoodsType.cs" />
+    <Compile Include="Service\NewApi\Common\MoneyAmount.cs" />
+    <Compile Include="Service\NewApi\Common\Currency.cs" />
+    <Compile Include="Service\NewApi\Common\AuthType.cs" />
+    <Compile Include="Service\NewApi\Common\CustomerAddress.cs" />
+    <Compile Include="Service\NewApi\Common\CustomerInfo.cs" />
+    <Compile Include="Service\NewApi\Common\CreditCard.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">
@@ -140,4 +142,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="Service\NewApi\" />
+  </ItemGroup>
 </Project>

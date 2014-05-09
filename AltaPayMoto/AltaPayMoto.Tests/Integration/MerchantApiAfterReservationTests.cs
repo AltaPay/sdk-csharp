@@ -24,7 +24,7 @@ namespace AltaPay.Moto.Tests.Integration
 		public void CapturePaymentReturnsSuccess()
 		{
 			//throw new Exception(ReserveAmount(1.23, PaymentType.payment).ResultMessage);
-			PaymentResult result = _api.Capture(ReserveAmount(1.23, PaymentType.payment).Payment.PaymentId, 1.23);
+			PaymentResult result = _api.Capture(ReserveAmount(1.23, AuthType.payment).Payment.PaymentId, 1.23);
 			
 			Assert.AreEqual(Result.Success, result.Result);
 		}
@@ -35,7 +35,7 @@ namespace AltaPay.Moto.Tests.Integration
 			//throw new Exception(ReserveAmount(1.23, PaymentType.payment).ResultMessage);
 			PaymentDetails orderLines = new PaymentDetails();
 			orderLines.AddOrderLine("Ninja", "N1", 1.0, 0.25, "kg", 100.00, 10, "item");
-			PaymentResult r = ReserveAmount(1.23, PaymentType.payment);
+			PaymentResult r = ReserveAmount(1.23, AuthType.payment);
 
 			if (r.Result != Result.Success)
 			{
@@ -50,7 +50,7 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void RefundPaymentReturnsSuccess()
 		{
-			PaymentResult result = _api.Refund(ReserveAmount(1.23, PaymentType.paymentAndCapture).Payment.PaymentId, 1.23);
+			PaymentResult result = _api.Refund(ReserveAmount(1.23, AuthType.paymentAndCapture).Payment.PaymentId, 1.23);
 
 			Assert.AreEqual(Result.Success, result.Result);
 		}
@@ -58,7 +58,7 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void RefundPaymentReturnsRefundedAmount()
 		{
-			PaymentResult result = _api.Refund(ReserveAmount(1.23, PaymentType.paymentAndCapture).Payment.PaymentId, 1.11);
+			PaymentResult result = _api.Refund(ReserveAmount(1.23, AuthType.paymentAndCapture).Payment.PaymentId, 1.11);
 
 			Assert.AreEqual(1.11, result.Payment.RefundedAmount);
 		}
@@ -66,7 +66,7 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void ReleasePaymentReturnsSuccess()
 		{
-			PaymentResult result = _api.Release(ReserveAmount(1.23, PaymentType.payment).Payment.PaymentId);
+			PaymentResult result = _api.Release(ReserveAmount(1.23, AuthType.payment).Payment.PaymentId);
 
 			Assert.AreEqual(Result.Success, result.Result);
 		}
@@ -74,7 +74,7 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void GetPaymentReturnsPayment()
 		{
-			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.payment);
+			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.payment);
 			PaymentResult result = _api.GetPayment(createPaymentResult.Payment.PaymentId);
 
 			Assert.AreEqual(createPaymentResult.Payment.PaymentId, result.Payment.PaymentId);
@@ -91,7 +91,7 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void SplitPaymentReturnsSuccess()
 		{
-			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.payment);
+			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.payment);
 			SplitPaymentResult result = _api.Split(createPaymentResult.Payment.PaymentId, 1.00);
 
 			Assert.AreEqual(Result.Success, result.Result);
@@ -100,7 +100,7 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void SplitPaymentReturnsTwoPaymentWhenSplitFails()
 		{
-			PaymentResult createPaymentResult = ReserveAmount(42, PaymentType.payment);
+			PaymentResult createPaymentResult = ReserveAmount(42, AuthType.payment);
 			SplitPaymentResult result = _api.Split(createPaymentResult.Payment.PaymentId, 10.66);
 
 			Assert.AreEqual(Result.Failed, result.Result);
@@ -113,7 +113,7 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void SplitPaymentReturnsAllThreePayments()
 		{
-			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.payment);
+			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.payment);
 			SplitPaymentResult result = _api.Split(createPaymentResult.Payment.PaymentId, 1.00);
 
 			Assert.AreEqual(createPaymentResult.Payment.PaymentId, result.Payment.PaymentId);
@@ -125,7 +125,7 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void CaptureReccurringPaymentReturnsSuccess()
 		{
-			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.subscription);
+			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
 			RecurringResult result = _api.CaptureRecurring(createPaymentResult.Payment.PaymentId, 1.00);
 
 			Assert.AreEqual(Result.Success, result.Result);
@@ -134,7 +134,7 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void CaptureRecurringReturnsBothPayments()
 		{
-			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.subscription);
+			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
 			RecurringResult result = _api.CaptureRecurring(createPaymentResult.Payment.PaymentId, 1.00);
 
 			Assert.AreEqual(createPaymentResult.Payment.PaymentId, result.Payment.PaymentId);
@@ -145,7 +145,7 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void PreauthReccurringPaymentReturnsSuccess()
 		{
-			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.subscription);
+			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
 			RecurringResult result = _api.PreauthRecurring(createPaymentResult.Payment.PaymentId, 1.00);
 
 			Assert.AreEqual(Result.Success, result.Result);
@@ -154,7 +154,7 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void PreauthRecurringReturnsBothPayments()
 		{
-			PaymentResult createPaymentResult = ReserveAmount(1.23, PaymentType.subscription);
+			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
 			RecurringResult result = _api.PreauthRecurring(createPaymentResult.Payment.PaymentId, 1.00);
 
 			Assert.AreEqual(createPaymentResult.Payment.PaymentId, result.Payment.PaymentId);
@@ -162,7 +162,7 @@ namespace AltaPay.Moto.Tests.Integration
 			Assert.AreEqual("preauth", result.RecurringPayment.PaymentStatus);
 		}
 
-		private PaymentResult ReserveAmount(double amount, PaymentType type)
+		private PaymentResult ReserveAmount(double amount, AuthType type)
 		{
 			PaymentResult result = _api.ReservationOfFixedAmountMOTO("csharptest"+Guid.NewGuid().ToString(),
 				amount, 208, type, "4111000011110000", 1, 2012, "123", null);

@@ -33,14 +33,14 @@ namespace AltaPay.Moto.Tests.Integration
 			IPaymentDetails paymentDetails = _api.CreatePaymentDetails();
 			paymentDetails.AddOrderLine("Ninja", "N1", 1.0, 0.25, "kg", 100.00, 10, "item");
 			paymentDetails.SalesTax = 12.34;
-			PaymentResult r = ReserveAmount(1.23, PaymentType.payment);
+			PaymentResult r = ReserveAmount(1.23, AuthType.payment);
 			
 			IComPaymentResult result = _api.CaptureWithPaymentDetails(r.Payment.PaymentId, 1.23, paymentDetails);
 
 			Assert.AreEqual("Success", result.Result);
 		}
 
-		private PaymentResult ReserveAmount(double amount, PaymentType type)
+		private PaymentResult ReserveAmount(double amount, AuthType type)
 		{
 			return _merchantApi.ReservationOfFixedAmountMOTO("csharptest" + Guid.NewGuid().ToString(),
 				amount, 208, type, "4111000011110000", 1, 2012, "123", null);

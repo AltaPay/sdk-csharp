@@ -168,17 +168,17 @@ namespace AltaPay.Moto.Tests.Integration
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, AvsInfo avsInfo)
 		{
-			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, PaymentType.payment, "4111000011110002", 1, 2018, "123", avsInfo);
+			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, AuthType.payment, "4111000011110002", 1, 2018, "123", avsInfo);
 		}
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount)
 		{
-			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, PaymentType.paymentAndCapture, "4111000011110002", 1, 2018, "123", null);
+			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, AuthType.paymentAndCapture, "4111000011110002", 1, 2018, "123", null);
 		}
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, string cardToken)
 		{
-			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, PaymentType.payment, cardToken, "123", null);
+			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, AuthType.payment, cardToken, "123", null);
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace AltaPay.Moto
 			string orderId,
 			double amount, 
 			int currency, 
-			PaymentType paymentType);
+			AuthType paymentType);
 		void AddCreditCard(string maskedPan, string cardToken);
 
 		void SetAvsInfo(string firstName, string lastName, string address, string postalCode, string city, string region, string country, string phone, string email);

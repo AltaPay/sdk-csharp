@@ -9,7 +9,7 @@ namespace AltaPay.Moto
 {
 	public interface IMotoDialogView
 	{
-		void Initialize(IMotoController controller, string orderId, double amount, PaymentType paymentType);
+		void Initialize(IMotoController controller, string orderId, double amount, AuthType paymentType);
 		void AddCreditCard(string maskedPan, string cardToken);
 		void SetAvsInfo(string firstName, string lastName, string address, string postalCode, string city, string region, string country, string phone, string email);
 		void ShowBlocking();

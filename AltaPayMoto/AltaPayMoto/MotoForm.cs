@@ -26,7 +26,7 @@ namespace AltaPay.Moto
             ExpiryYear.DataSource = new List<int>() { 2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020 };
         }
 
-		public void Initialize(IMotoController controller, string orderId, double amount, PaymentType paymentType)
+		public void Initialize(IMotoController controller, string orderId, double amount, AuthType paymentType)
 		{
 			OrderId.Text = orderId;
 			Amount.Text = amount.ToString();

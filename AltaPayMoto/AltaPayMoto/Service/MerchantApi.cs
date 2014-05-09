@@ -32,7 +32,7 @@ namespace AltaPay.Service
             string shopOrderId, 
 			double amount, 
 			int currency, 
-			PaymentType paymentType, 
+			AuthType paymentType, 
 			string pan, 
 			int expiryMonth, 
 			int expiryYear, 
@@ -58,7 +58,7 @@ namespace AltaPay.Service
             string shopOrderId, 
             double amount, 
             int currency, 
-            PaymentType paymentType, 
+            AuthType paymentType, 
             string creditCardToken,
 			string cvc,
 			AvsInfo avsInfo)
