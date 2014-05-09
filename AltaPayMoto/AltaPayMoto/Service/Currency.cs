@@ -184,7 +184,9 @@ namespace AltaPay.Service
 		public static readonly Currency USS  = new Currency(998, "USS", "US Dollar (Same day)",2);
 		public static readonly Currency XXX  = new Currency(999, "XXX", "The code assigned for transactions where no currency is involved",0);
 
-		private static Currency[] Values = null;
+		private static Currency[] values = null;
+		private static Dictionary<string,Currency> shortNameToCurrency = null;
+		private static Dictionary<int,Currency> numericToCurrencty = null;
 		
 		public int NumericValue {get; private set; }
 		public string ShortName {get; private set; }
@@ -201,12 +203,12 @@ namespace AltaPay.Service
 		}
 		
 		public static IEnumerable<Currency> GetValues() {
-			if (Values==null) {
+			if (values==null) {
 				var staticFields = typeof(Currency).GetFields(BindingFlags.Public | BindingFlags.Static);
 				var currencyValues = staticFields.Select(x=>x.GetValue(null)).Where(x=>x.GetType()==typeof(Currency));
-				Values = currencyValues.Cast<Currency>().ToArray();	
+				values = currencyValues.Cast<Currency>().ToArray();	
 			}
-			return Values; 
+			return values; 
 		}
 		
 		public override string ToString ()
@@ -221,17 +223,25 @@ namespace AltaPay.Service
 		
 		public static Currency FromNumeric(int numericValue)
 		{
-			Currency currency = GetValues().FirstOrDefault(x=>x.NumericValue==numericValue);
-			if (currency==null)
+			if (numericToCurrencty==null)
+				numericToCurrencty=GetValues().ToDictionary(x=>x.NumericValue, y=>y);
+			
+			Currency currency;
+			if (!numericToCurrencty.TryGetValue(numericValue, out currency))
 				throw new Exception("Unknown currency : " + numericValue);
+				
 			return currency;
 		}
 	
 		public static Currency FromString(string shortName)
 		{
-			Currency currency = GetValues().FirstOrDefault(x=>x.ShortName==shortName);
-			if (currency==null)
+			if (shortNameToCurrency==null)
+				shortNameToCurrency=GetValues().ToDictionary(x=>x.ShortName, y=>y);
+			
+			Currency currency;
+			if (!shortNameToCurrency.TryGetValue(shortName, out currency))
 				throw new Exception("Unknown currency : " + shortName);
+				
 			return currency;
 		}
 	}
