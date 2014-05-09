@@ -186,7 +186,7 @@ namespace AltaPay.Service
 
 		private static Currency[] values = null;
 		private static Dictionary<string,Currency> shortNameToCurrency = null;
-		private static Dictionary<int,Currency> numericToCurrencty = null;
+		private static Dictionary<int,Currency> numericToCurrency = null;
 		
 		public int NumericValue {get; private set; }
 		public string ShortName {get; private set; }
@@ -223,11 +223,11 @@ namespace AltaPay.Service
 		
 		public static Currency FromNumeric(int numericValue)
 		{
-			if (numericToCurrencty==null)
-				numericToCurrencty=GetValues().ToDictionary(x=>x.NumericValue, y=>y);
+			if (numericToCurrency==null)
+				numericToCurrency=GetValues().ToDictionary(x=>x.NumericValue, y=>y);
 			
 			Currency currency;
-			if (!numericToCurrencty.TryGetValue(numericValue, out currency))
+			if (!numericToCurrency.TryGetValue(numericValue, out currency))
 				throw new Exception("Unknown currency : " + numericValue);
 				
 			return currency;
