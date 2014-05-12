@@ -50,17 +50,23 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void RefundPaymentReturnsSuccess()
 		{
-			PaymentResult result = _api.Refund(ReserveAmount(1.23, AuthType.paymentAndCapture).Payment.PaymentId, 1.23);
-
-			Assert.AreEqual(Result.Success, result.Result);
+			var reserveResult = ReserveAmount(1.23, AuthType.paymentAndCapture);
+			var request = new RefundRequest() {
+				PaymentId = reserveResult.Payment.PaymentId,
+				Amount = Amount.Get(1.23, Currency.XXX),
+			};
+			Assert.AreEqual(Result.Success, _api.Refund(request).Result);
 		}
 
 		[Test]
 		public void RefundPaymentReturnsRefundedAmount()
 		{
-			PaymentResult result = _api.Refund(ReserveAmount(1.23, AuthType.paymentAndCapture).Payment.PaymentId, 1.11);
-
-			Assert.AreEqual(1.11, result.Payment.RefundedAmount);
+			var reserveResult = ReserveAmount(1.23, AuthType.paymentAndCapture);
+			var request = new RefundRequest() {
+				PaymentId = reserveResult.Payment.PaymentId,
+				Amount = Amount.Get(1.11, Currency.DKK),
+			};
+			Assert.AreEqual(1.11, _api.Refund(request).Payment.RefundedAmount);
 		}
 
 		[Test]

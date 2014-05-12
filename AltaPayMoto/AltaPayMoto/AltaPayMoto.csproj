@@ -116,12 +116,13 @@
     <Compile Include="Service\ParameterHelper.cs" />
     <Compile Include="Service\FraudService.cs" />
     <Compile Include="Service\GoodsType.cs" />
-    <Compile Include="Service\NewApi\Common\MoneyAmount.cs" />
     <Compile Include="Service\NewApi\Common\Currency.cs" />
     <Compile Include="Service\NewApi\Common\AuthType.cs" />
     <Compile Include="Service\NewApi\Common\CustomerAddress.cs" />
     <Compile Include="Service\NewApi\Common\CustomerInfo.cs" />
     <Compile Include="Service\NewApi\Common\CreditCard.cs" />
+    <Compile Include="Service\NewApi\Requests\RefundRequest.cs" />
+    <Compile Include="Service\NewApi\Common\Amount.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">
@@ -144,5 +145,6 @@
   -->
   <ItemGroup>
     <Folder Include="Service\NewApi\" />
+    <Folder Include="Service\NewApi\Requests\" />
   </ItemGroup>
 </Project>

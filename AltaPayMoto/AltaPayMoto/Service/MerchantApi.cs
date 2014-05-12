@@ -163,6 +163,8 @@ namespace AltaPay.Service
 			parameters = getPaymentDetailsParameters(parameters, paymentDetails);
 			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("captureReservation", parameters));
 		}
+		
+		/*
 
 		public PaymentResult Refund(string paymentId, double amount, string reconciliationIdentifier)
 		{
@@ -182,6 +184,16 @@ namespace AltaPay.Service
 			
 			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("refundCapturedReservation", parameters));
 		}
+		*/
+		
+		public PaymentResult Refund(RefundRequest request) {
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+			parameters.Add("transaction_id", request.PaymentId);
+			parameters.Add("amount", request.Amount.GetAmountString());
+			if (request.ReconciliationId!=null) parameters.Add("reconciliation_identifier", request.ReconciliationId);
+			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("refundCapturedReservation", parameters));
+		}
+		
 
 		public PaymentResult Release(string paymentId)
 		{

@@ -54,6 +54,7 @@
     <Compile Include="Integration\CreatePaymentRequestTests.cs" />
     <Compile Include="Unit\ParameterHelperTests.cs" />
     <Compile Include="Unit\CurrencyTests.cs" />
+    <Compile Include="Unit\AmountTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AltaPayMoto\AltaPayMoto.csproj">

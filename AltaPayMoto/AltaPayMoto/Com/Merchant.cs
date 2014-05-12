@@ -42,12 +42,21 @@ namespace AltaPay.Moto.Com
 
 		public IComPaymentResult Refund(string paymentId, double amount)
 		{
-			return new ComPaymentResult(_merchantApi.Refund(paymentId, amount));
+			var request = new RefundRequest { 
+				PaymentId = paymentId,
+				Amount = Amount.Get(amount, Currency.XXX)
+			};
+			return new ComPaymentResult(_merchantApi.Refund(request));
 		}
 
 		public IComPaymentResult RefundWithIdentifier(string paymentId, double amount, string reconciliationIdentifier)
 		{
-			return new ComPaymentResult(_merchantApi.Refund(paymentId, amount, reconciliationIdentifier));
+			var request = new RefundRequest { 
+				PaymentId = paymentId,
+				Amount = Amount.Get(amount, Currency.XXX),
+				ReconciliationId = reconciliationIdentifier
+			};
+			return new ComPaymentResult(_merchantApi.Refund(request));
 		}
 
 		public IComPaymentResult ReleaseReservation(string paymentId)

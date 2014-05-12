@@ -32,8 +32,9 @@ namespace AltaPay.Service
 		PaymentResult Capture(string paymentId, double amount);
 		PaymentResult Capture(string paymentId, double amount, PaymentDetails orderLines);
 		PaymentResult Capture(string paymentId, double amount, string reconciliationIdentifier);
-		PaymentResult Refund(string paymentId, double amount);
-		PaymentResult Refund(string paymentId, double amount, string reconciliationIdentifier);
+//		PaymentResult Refund(string paymentId, double amount);
+//		PaymentResult Refund(string paymentId, double amount, string reconciliationIdentifier);
+		PaymentResult Refund(RefundRequest request);
 		PaymentResult Release(string paymentId);
 		SplitPaymentResult Split(string paymentId, double amount);
 		PaymentResult GetPayment(string paymentId);
