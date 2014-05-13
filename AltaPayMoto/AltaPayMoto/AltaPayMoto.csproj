@@ -97,7 +97,6 @@
     <Compile Include="Service\Dto\Header.cs" />
     <Compile Include="Service\Dto\Payment.cs" />
     <Compile Include="Service\MerchantApi.cs" />
-    <Compile Include="Service\PaymentOrderLine.cs" />
     <Compile Include="Service\PaymentDetails.cs" />
     <Compile Include="Service\PaymentResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,8 +105,6 @@
     <Compile Include="Service\IMerchantApi.cs" />
     <Compile Include="Service\SplitPaymentResult.cs" />
     <Compile Include="StringConverter.cs" />
-    <Compile Include="Service\PaymentRequest.cs" />
-    <Compile Include="Service\PaymentRequestConfig.cs" />
     <Compile Include="Service\ShippingType.cs" />
     <Compile Include="Service\AccountOffer.cs" />
     <Compile Include="Service\Dto\PaymentRequestApiResponse.cs" />
@@ -123,6 +120,9 @@
     <Compile Include="Service\NewApi\Common\CreditCard.cs" />
     <Compile Include="Service\NewApi\Requests\RefundRequest.cs" />
     <Compile Include="Service\NewApi\Common\Amount.cs" />
+    <Compile Include="Service\NewApi\Requests\PaymentRequest.cs" />
+    <Compile Include="Service\NewApi\Common\PaymentRequestConfig.cs" />
+    <Compile Include="Service\NewApi\Common\PaymentOrderLine.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">

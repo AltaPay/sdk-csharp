@@ -114,7 +114,7 @@ namespace AltaPay.Service
 			return parameters;
 		}
 		
-		private Dictionary<string,Object> getOrderLines(Dictionary<string,Object> parameters, List<PaymentOrderLine> orderLines)
+		private Dictionary<string,Object> getOrderLines(Dictionary<string,Object> parameters, IList<PaymentOrderLine> orderLines)
 		{
 			int lineNumber = 0;
 			Dictionary<string,Object> orderLinesParam = new Dictionary<string,Object>();
@@ -252,15 +252,15 @@ namespace AltaPay.Service
 			// Mandatory arguments
 			parameters.Add("terminal", request.Terminal);
 			parameters.Add("shop_orderid", request.ShopOrderId);
-			parameters.Add("amount", request.Amount);
-			parameters.Add("currency", request.Currency);
+			parameters.Add("amount", request.Amount.GetAmountString());
+			parameters.Add("currency", request.Amount.Currency);
 			
 			// Config
 			parameters.Add("config", request.Config.ToDictionary());
 			
 			// Optional Arguments
 			parameters.Add("language", request.Language);
-			parameters.Add("transaction_info", request.GetInfos());
+			parameters.Add("transaction_info", request.PaymentInfos);
 			parameters.Add("type", request.Type);
 			parameters.Add("credit_card_token", request.CreditCardToken);
 			parameters.Add("sales_reconciliation_identifier", request.SalesReconciliationIdentifier);
@@ -277,7 +277,7 @@ namespace AltaPay.Service
 			parameters.Add("customer_info", request.CustomerInfo.ToDictionary());
 			
 			// Order lines
-			parameters = getOrderLines(parameters, request.GetLines());
+			parameters = getOrderLines(parameters, request.OrderLines);
 			
 			return new PaymentRequestResult(GetResultFromUrl<PaymentRequestApiResponse>("createPaymentRequest", parameters));
 		}
