@@ -25,6 +25,7 @@ namespace AltaPay.Moto.Tests.Integration
 		{
 			FundingsResult result = _api.getFundings(0);
 
+
 			Assert.AreEqual(Result.Success, result.Result);
 			Assert.AreEqual(1, result.Pages);
 			Assert.AreEqual(1, result.Fundings.Count);

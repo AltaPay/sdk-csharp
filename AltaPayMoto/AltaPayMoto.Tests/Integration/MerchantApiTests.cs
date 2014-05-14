@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 using AltaPay.Service;
+using AltaPay.Service.Dto;
 
 namespace AltaPay.Moto.Tests.Integration
 {
@@ -50,8 +51,8 @@ namespace AltaPay.Moto.Tests.Integration
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
 
-			Assert.IsNotNull(result.Payment.PaymentId);
-			Assert.IsTrue(result.Payment.PaymentId.Length > 0);
+			Assert.IsNotNull(result.Transaction.TransactionId);
+			Assert.IsTrue(result.Transaction.TransactionId.Length > 0);
 		}
 
 		[Test]
@@ -60,7 +61,7 @@ namespace AltaPay.Moto.Tests.Integration
 			string orderid = Guid.NewGuid().ToString();
 			PaymentResult result = GetMerchantApiResult(orderid, 1.23);
 
-			Assert.AreEqual(orderid, result.Payment.ShopOrderId);
+			Assert.AreEqual(orderid, result.Transaction.ShopOrderId);
 		}
 
 		[Test]
@@ -68,7 +69,7 @@ namespace AltaPay.Moto.Tests.Integration
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
 
-			Assert.AreEqual("AltaPay Soap Test Terminal", result.Payment.Terminal);
+			Assert.AreEqual("AltaPay Soap Test Terminal", result.Transaction.Terminal);
 		}
 
 
@@ -77,7 +78,7 @@ namespace AltaPay.Moto.Tests.Integration
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
 
-			Assert.AreEqual(1.23, result.Payment.ReservedAmount);
+			Assert.AreEqual(1.23, result.Transaction.ReservedAmount);
 		}
 
 		[Test]
@@ -85,7 +86,7 @@ namespace AltaPay.Moto.Tests.Integration
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
 
-			Assert.AreEqual(1.23, result.Payment.CapturedAmount);
+			Assert.AreEqual(1.23, result.Transaction.CapturedAmount);
 		}
 
 		[Test]
@@ -93,7 +94,7 @@ namespace AltaPay.Moto.Tests.Integration
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
 
-			Assert.AreEqual("captured", result.Payment.PaymentStatus);
+			Assert.AreEqual("captured", result.Transaction.TransactionStatus);
 		}
 
 		[Test]
@@ -101,7 +102,7 @@ namespace AltaPay.Moto.Tests.Integration
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
 			
-			Assert.NotNull(result.Payment.CreditCardToken);
+			Assert.NotNull(result.Transaction.CreditCardToken);
 		}
 
 		[Test]
@@ -109,7 +110,7 @@ namespace AltaPay.Moto.Tests.Integration
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
 
-			Assert.AreEqual("411100******0002", result.Payment.CreditCardMaskedPan);
+			Assert.AreEqual("411100******0002", result.Transaction.CreditCardMaskedPan);
 		}
 
 		[Test]
@@ -117,14 +118,14 @@ namespace AltaPay.Moto.Tests.Integration
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
 
-			Assert.AreEqual("Valid", result.Payment.CardStatus);
+			Assert.AreEqual(TransactionCardStatus.Valid, result.Transaction.CardStatus);
 		}
 
 		[Test]
 		public void CallingMerchantApiWithCardTokenResultsInSuccessfullResult()
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
-			PaymentResult secondResult = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, result.Payment.CreditCardToken);
+			PaymentResult secondResult = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, result.Transaction.CreditCardToken);
 
 			Assert.AreEqual(Result.Success, secondResult.Result);
 		}
@@ -139,8 +140,8 @@ namespace AltaPay.Moto.Tests.Integration
 
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 3.34, avsInfo);
 
-			Assert.AreEqual("A", result.Payment.AddressVerification);
-			Assert.AreEqual("Address matches, but zip code does not", result.Payment.AddressVerificationDescription);
+			Assert.AreEqual("A", result.Transaction.AddressVerification);
+			Assert.AreEqual("Address matches, but zip code does not", result.Transaction.AddressVerificationDescription);
 		}
 
         [Test]

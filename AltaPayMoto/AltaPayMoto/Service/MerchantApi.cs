@@ -51,7 +51,7 @@ namespace AltaPay.Service
 			parameters.Add("cvc", cvc);
 			parameters = getAvsInfoParameters(parameters, avsInfo);
 
-			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("reservationOfFixedAmountMOTO", parameters));
+			return new PaymentResult(GetResultFromUrl<APIResponse>("reservationOfFixedAmountMOTO", parameters));
 		}
 		
 		public PaymentResult ReservationOfFixedAmountMOTO(
@@ -73,7 +73,7 @@ namespace AltaPay.Service
 			parameters.Add("cvc", cvc);
 			parameters = getAvsInfoParameters(parameters, avsInfo);
 
-			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("reservationOfFixedAmountMOTO", parameters));
+			return new PaymentResult(GetResultFromUrl<APIResponse>("reservationOfFixedAmountMOTO", parameters));
 		}
 		
 		private Dictionary<string,Object> getAvsInfoParameters(Dictionary<string,Object> parameters, AvsInfo avsInfo)
@@ -144,7 +144,7 @@ namespace AltaPay.Service
 			parameters.Add("transaction_id", paymentId);
 			parameters.Add("amount", amount);
 			parameters.Add("reconciliation_identifier", reconciliationIdentifier);
-			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("captureReservation", parameters));
+			return new PaymentResult(GetResultFromUrl<APIResponse>("captureReservation", parameters));
 		}
 
 		public PaymentResult Capture(string paymentId, double amount)
@@ -152,7 +152,7 @@ namespace AltaPay.Service
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", paymentId);
 			parameters.Add("amount", amount);
-			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("captureReservation", parameters));
+			return new PaymentResult(GetResultFromUrl<APIResponse>("captureReservation", parameters));
 		}
 		
 		public PaymentResult Capture(string paymentId, double amount, PaymentDetails paymentDetails)
@@ -161,7 +161,7 @@ namespace AltaPay.Service
 			parameters.Add("transaction_id", paymentId);
 			parameters.Add("amount", amount);
 			parameters = getPaymentDetailsParameters(parameters, paymentDetails);
-			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("captureReservation", parameters));
+			return new PaymentResult(GetResultFromUrl<APIResponse>("captureReservation", parameters));
 		}
 		
 		/*
@@ -191,7 +191,7 @@ namespace AltaPay.Service
 			parameters.Add("transaction_id", request.PaymentId);
 			parameters.Add("amount", request.Amount.GetAmountString());
 			if (request.ReconciliationId!=null) parameters.Add("reconciliation_identifier", request.ReconciliationId);
-			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("refundCapturedReservation", parameters));
+			return new PaymentResult(GetResultFromUrl<APIResponse>("refundCapturedReservation", parameters));
 		}
 		
 
@@ -200,9 +200,9 @@ namespace AltaPay.Service
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", paymentId);
 			
-			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("releaseReservation", parameters));
+			return new PaymentResult(GetResultFromUrl<APIResponse>("releaseReservation", parameters));
 		}
-
+/*
 		public SplitPaymentResult Split(string paymentId, double amount)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
@@ -211,13 +211,14 @@ namespace AltaPay.Service
 			
 			return new SplitPaymentResult(GetResultFromUrl<PaymentApiResponse>("splitTransaction", parameters));
 		}
+		*/
 
 		public PaymentResult GetPayment(string paymentId)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", paymentId);
 			
-			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("transactions", parameters));
+			return new PaymentResult(GetResultFromUrl<APIResponse>("transactions", parameters));
 		}
 
 		public RecurringResult CaptureRecurring(string recurringPaymentId, double amount)
@@ -226,7 +227,7 @@ namespace AltaPay.Service
 			parameters.Add("transaction_id", recurringPaymentId);
 			parameters.Add("amount", amount);
 			
-			return new RecurringResult(GetResultFromUrl<PaymentApiResponse>("captureRecurring",parameters));
+			return new RecurringResult(GetResultFromUrl<APIResponse>("captureRecurring",parameters));
 		}
 
 		public RecurringResult PreauthRecurring(string recurringPaymentId, double amount)
@@ -235,14 +236,14 @@ namespace AltaPay.Service
 			parameters.Add("transaction_id", recurringPaymentId);
 			parameters.Add("amount", amount);
 			
-			return new RecurringResult(GetResultFromUrl<PaymentApiResponse>("preauthRecurring", parameters));
+			return new RecurringResult(GetResultFromUrl<APIResponse>("preauthRecurring", parameters));
 		}
 		
 		public FundingsResult getFundings(int page)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("page", page);
-			return new FundingsResult(GetResultFromUrl<FundingsApiResponse>("fundingList",parameters), new NetworkCredential(_username, _password));
+			return new FundingsResult(GetResultFromUrl<APIResponse>("fundingList",parameters), new NetworkCredential(_username, _password));
 		}
 		
 		public PaymentRequestResult CreatePaymentRequest(PaymentRequest request)
@@ -279,10 +280,10 @@ namespace AltaPay.Service
 			// Order lines
 			parameters = getOrderLines(parameters, request.OrderLines);
 			
-			return new PaymentRequestResult(GetResultFromUrl<PaymentRequestApiResponse>("createPaymentRequest", parameters));
+			return new PaymentRequestResult(GetResultFromUrl<APIResponse>("createPaymentRequest", parameters));
 		}
 		
-		private T GetResultFromUrl<T>(string method, Dictionary<string,Object> parameters) where T : ApiResponse, new()
+		private T GetResultFromUrl<T>(string method, Dictionary<string,Object> parameters) where T : APIResponse, new()
 		{
 			try
 			{

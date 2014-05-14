@@ -8,7 +8,7 @@ namespace AltaPay.Service
 	public interface IMerchantApi
 	{
 		void Initialize(string gatewayUrl, string username, string password, string terminal);
-
+		
 		PaymentResult ReservationOfFixedAmountMOTO(
             string shopOrderId,
 			double amount,
@@ -36,7 +36,7 @@ namespace AltaPay.Service
 //		PaymentResult Refund(string paymentId, double amount, string reconciliationIdentifier);
 		PaymentResult Refund(RefundRequest request);
 		PaymentResult Release(string paymentId);
-		SplitPaymentResult Split(string paymentId, double amount);
+//		SplitPaymentResult Split(string paymentId, double amount);
 		PaymentResult GetPayment(string paymentId);
 		RecurringResult CaptureRecurring(string recurringPaymentId, double amount);
 		RecurringResult PreauthRecurring(string recurringPaymentId, double amount);

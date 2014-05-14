@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace AltaPay.Service
 			
 		}
 
-		public SplitPaymentResult(PaymentApiResponse apiResponse)
+		public SplitPaymentResult(APIResponse apiResponse)
 			: base(apiResponse)
 		{
 			if (apiResponse.Header.ErrorCode == 0)
@@ -33,3 +34,4 @@ namespace AltaPay.Service
 		}
 	}
 }
+*/

@@ -1,4 +1,5 @@
-﻿
+﻿/*
+
 using System.Xml.Serialization;
 namespace AltaPay.Service.Dto
 {
@@ -11,3 +12,4 @@ namespace AltaPay.Service.Dto
 		
 	}
 }
+ */

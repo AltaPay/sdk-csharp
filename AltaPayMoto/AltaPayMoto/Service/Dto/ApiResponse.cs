@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿/*
+using System.Xml.Serialization;
 
 namespace AltaPay.Service.Dto
 {
@@ -8,3 +9,4 @@ namespace AltaPay.Service.Dto
 		public Header Header { get; set; }
 	}
 }
+ */

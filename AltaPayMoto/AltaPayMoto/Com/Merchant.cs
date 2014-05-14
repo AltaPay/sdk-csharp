@@ -63,12 +63,12 @@ namespace AltaPay.Moto.Com
 		{
 			return new ComPaymentResult(_merchantApi.Release(paymentId));
 		}
-
+/*
 		public IComSplitPaymentResult Split(string paymentId, double amount)
 		{
 			return new ComSplitPaymentResult(_merchantApi.Split(paymentId, amount));
 		}
-
+*/
 		public IComPaymentResult GetPayment(string paymentId)
 		{
 			return new ComPaymentResult(_merchantApi.GetPayment(paymentId));

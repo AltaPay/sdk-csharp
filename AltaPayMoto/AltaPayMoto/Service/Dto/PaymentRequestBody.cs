@@ -1,3 +1,4 @@
+/*
 using System;
 
 namespace AltaPay.Service.Dto
@@ -9,4 +10,4 @@ namespace AltaPay.Service.Dto
 		public string DynamicJavascriptUrl { get; set; }
 	}
 }
-
+*/

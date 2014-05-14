@@ -24,7 +24,7 @@ namespace AltaPay.Moto.Tests.Integration
 		public void CapturePaymentReturnsSuccess()
 		{
 			//throw new Exception(ReserveAmount(1.23, PaymentType.payment).ResultMessage);
-			PaymentResult result = _api.Capture(ReserveAmount(1.23, AuthType.payment).Payment.PaymentId, 1.23);
+			PaymentResult result = _api.Capture(ReserveAmount(1.23, AuthType.payment).Transaction.TransactionId, 1.23);
 			
 			Assert.AreEqual(Result.Success, result.Result);
 		}
@@ -42,7 +42,7 @@ namespace AltaPay.Moto.Tests.Integration
 				throw new Exception(r.ResultMessage);
 			}
 			
-			PaymentResult result = _api.Capture(r.Payment.PaymentId, 1.23, orderLines);
+			PaymentResult result = _api.Capture(r.Transaction.TransactionId, 1.23, orderLines);
 
 			Assert.AreEqual(Result.Success, result.Result);
 		}
@@ -52,7 +52,7 @@ namespace AltaPay.Moto.Tests.Integration
 		{
 			var reserveResult = ReserveAmount(1.23, AuthType.paymentAndCapture);
 			var request = new RefundRequest() {
-				PaymentId = reserveResult.Payment.PaymentId,
+				PaymentId = reserveResult.Transaction.TransactionId,
 				Amount = Amount.Get(1.23, Currency.XXX),
 			};
 			Assert.AreEqual(Result.Success, _api.Refund(request).Result);
@@ -63,16 +63,16 @@ namespace AltaPay.Moto.Tests.Integration
 		{
 			var reserveResult = ReserveAmount(1.23, AuthType.paymentAndCapture);
 			var request = new RefundRequest() {
-				PaymentId = reserveResult.Payment.PaymentId,
+				PaymentId = reserveResult.Transaction.TransactionId,
 				Amount = Amount.Get(1.11, Currency.DKK),
 			};
-			Assert.AreEqual(1.11, _api.Refund(request).Payment.RefundedAmount);
+			Assert.AreEqual(1.11, _api.Refund(request).Transaction.RefundedAmount);
 		}
 
 		[Test]
 		public void ReleasePaymentReturnsSuccess()
 		{
-			PaymentResult result = _api.Release(ReserveAmount(1.23, AuthType.payment).Payment.PaymentId);
+			PaymentResult result = _api.Release(ReserveAmount(1.23, AuthType.payment).Transaction.TransactionId);
 
 			Assert.AreEqual(Result.Success, result.Result);
 		}
@@ -81,9 +81,9 @@ namespace AltaPay.Moto.Tests.Integration
 		public void GetPaymentReturnsPayment()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.payment);
-			PaymentResult result = _api.GetPayment(createPaymentResult.Payment.PaymentId);
+			PaymentResult result = _api.GetPayment(createPaymentResult.Transaction.TransactionId);
 
-			Assert.AreEqual(createPaymentResult.Payment.PaymentId, result.Payment.PaymentId);
+			Assert.AreEqual(createPaymentResult.Transaction.TransactionId, result.Transaction.TransactionId);
 		}
 
 		[Test]
@@ -91,23 +91,23 @@ namespace AltaPay.Moto.Tests.Integration
 		{
 			PaymentResult result = _api.GetPayment("-1");
 
-			Assert.IsNull(result.Payment);
+			Assert.IsNull(result.Transaction);
 		}
-
+		
+		/*
 		[Test]
 		public void SplitPaymentReturnsSuccess()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.payment);
-			SplitPaymentResult result = _api.Split(createPaymentResult.Payment.PaymentId, 1.00);
+			SplitPaymentResult result = _api.Split(createPaymentResult.Payment.TransactionId, 1.00);
 
 			Assert.AreEqual(Result.Success, result.Result);
 		}
-
 		[Test]
 		public void SplitPaymentReturnsTwoPaymentWhenSplitFails()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(42, AuthType.payment);
-			SplitPaymentResult result = _api.Split(createPaymentResult.Payment.PaymentId, 10.66);
+			SplitPaymentResult result = _api.Split(createPaymentResult.Payment.TransactionId, 10.66);
 
 			Assert.AreEqual(Result.Failed, result.Result);
 			
@@ -120,19 +120,22 @@ namespace AltaPay.Moto.Tests.Integration
 		public void SplitPaymentReturnsAllThreePayments()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.payment);
-			SplitPaymentResult result = _api.Split(createPaymentResult.Payment.PaymentId, 1.00);
+			SplitPaymentResult result = _api.Split(createPaymentResult.Payment.TransactionId, 1.00);
 
-			Assert.AreEqual(createPaymentResult.Payment.PaymentId, result.Payment.PaymentId);
+			Assert.AreEqual(createPaymentResult.Payment.TransactionId, result.Payment.PaymentId);
 			Assert.AreEqual("split", result.Payment.PaymentStatus);
 			Assert.AreEqual("preauth", result.SplitPayment1.PaymentStatus);
 			Assert.AreEqual("preauth", result.SplitPayment2.PaymentStatus);
 		}
 
+		 */
+
+
 		[Test]
 		public void CaptureReccurringPaymentReturnsSuccess()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
-			RecurringResult result = _api.CaptureRecurring(createPaymentResult.Payment.PaymentId, 1.00);
+			RecurringResult result = _api.CaptureRecurring(createPaymentResult.Transaction.TransactionId, 1.00);
 
 			Assert.AreEqual(Result.Success, result.Result);
 		}
@@ -141,18 +144,18 @@ namespace AltaPay.Moto.Tests.Integration
 		public void CaptureRecurringReturnsBothPayments()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
-			RecurringResult result = _api.CaptureRecurring(createPaymentResult.Payment.PaymentId, 1.00);
+			RecurringResult result = _api.CaptureRecurring(createPaymentResult.Transaction.TransactionId, 1.00);
 
-			Assert.AreEqual(createPaymentResult.Payment.PaymentId, result.Payment.PaymentId);
-			Assert.AreEqual("recurring_confirmed", result.Payment.PaymentStatus);
-			Assert.AreEqual("captured", result.RecurringPayment.PaymentStatus);
+			Assert.AreEqual(createPaymentResult.Transaction.TransactionId, result.Transaction.TransactionId);
+			Assert.AreEqual("recurring_confirmed", result.Transaction.TransactionStatus);
+			Assert.AreEqual("captured", result.RecurringPayment.TransactionStatus);
 		}
 
 		[Test]
 		public void PreauthReccurringPaymentReturnsSuccess()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
-			RecurringResult result = _api.PreauthRecurring(createPaymentResult.Payment.PaymentId, 1.00);
+			RecurringResult result = _api.PreauthRecurring(createPaymentResult.Transaction.TransactionId, 1.00);
 
 			Assert.AreEqual(Result.Success, result.Result);
 		}
@@ -161,11 +164,11 @@ namespace AltaPay.Moto.Tests.Integration
 		public void PreauthRecurringReturnsBothPayments()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
-			RecurringResult result = _api.PreauthRecurring(createPaymentResult.Payment.PaymentId, 1.00);
+			RecurringResult result = _api.PreauthRecurring(createPaymentResult.Transaction.TransactionId, 1.00);
 
-			Assert.AreEqual(createPaymentResult.Payment.PaymentId, result.Payment.PaymentId);
-			Assert.AreEqual("recurring_confirmed", result.Payment.PaymentStatus);
-			Assert.AreEqual("preauth", result.RecurringPayment.PaymentStatus);
+			Assert.AreEqual(createPaymentResult.Transaction.TransactionId, result.Transaction.TransactionId);
+			Assert.AreEqual("recurring_confirmed", result.Transaction.TransactionStatus);
+			Assert.AreEqual("preauth", result.RecurringPayment.TransactionStatus);
 		}
 
 		private PaymentResult ReserveAmount(double amount, AuthType type)

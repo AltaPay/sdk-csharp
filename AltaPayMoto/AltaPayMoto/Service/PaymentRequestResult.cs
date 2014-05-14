@@ -14,7 +14,7 @@ namespace AltaPay.Service
 		{
 		}
 		
-		public PaymentRequestResult(PaymentRequestApiResponse apiResponse)
+		public PaymentRequestResult(APIResponse apiResponse)
 		{
 			if (apiResponse.Header.ErrorCode == 0)
 			{

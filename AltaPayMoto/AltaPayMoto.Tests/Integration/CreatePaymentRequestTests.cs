@@ -30,7 +30,6 @@ namespace AltaPay.Moto.Tests.Integration
 			};
 			
 			PaymentRequestResult result = _api.CreatePaymentRequest(paymentRequest);
-
 			Assert.AreEqual(null, result.ResultMerchantMessage);
 			Assert.AreEqual(Result.Success, result.Result);
 			Assert.IsNotEmpty(result.Url);
@@ -59,9 +58,8 @@ namespace AltaPay.Moto.Tests.Integration
 					FraudService = FraudService.Test,
 				},
 				
-				
 				// Customer Data
-				CustomerInfo = new CustomerInfo() {
+				CustomerInfo = {
 					Email = "customer@email.com",
 					Username = "leatheruser",
 					CustomerPhone = "+4512345678",

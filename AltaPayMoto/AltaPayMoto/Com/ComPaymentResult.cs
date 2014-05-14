@@ -22,7 +22,7 @@ namespace AltaPay.Moto.Com
 			ResultMessage = result.ResultMerchantMessage;
 			if (result.Result == AltaPay.Service.Result.Success)
 			{
-				Payment = new ComPayment(result.Payment);
+				Payment = new ComPayment(result.Transaction);
 
 			}
 		}

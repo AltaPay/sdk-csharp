@@ -18,7 +18,7 @@ namespace AltaPay.Moto.Com
 		IComPaymentResult Refund(string paymentId, double amount);
 		IComPaymentResult RefundWithIdentifier(string paymentId, double amount, string reconciliationIdentifier);
 		IComPaymentResult ReleaseReservation(string paymentId);
-		IComSplitPaymentResult Split(string paymentId, double amount);
+//		IComSplitPaymentResult Split(string paymentId, double amount);
 		IComPaymentResult GetPayment(string paymentId);
 		IComRecurringResult CaptureRecurring(string recurringPaymentId, double amount);
 		IComRecurringResult PreauthRecurring(string recurringPaymentId, double amount);

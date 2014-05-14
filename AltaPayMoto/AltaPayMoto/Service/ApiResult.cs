@@ -11,6 +11,6 @@ namespace AltaPay.Service
 		public Result Result { get; set; }
 		public string ResultMessage { get; set; }
 		public string ResultMerchantMessage { get; set; }
-		public Payment Payment { get; set; }
+		public Transaction Transaction { get; set; }
 	}
 }

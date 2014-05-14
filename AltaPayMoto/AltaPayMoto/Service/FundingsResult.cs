@@ -18,7 +18,7 @@ namespace AltaPay.Service
 			Fundings = new List<Funding>();
 		}
 
-		public FundingsResult(FundingsApiResponse apiResponse, NetworkCredential networkCredential)
+		public FundingsResult(APIResponse apiResponse, NetworkCredential networkCredential)
 		{
 			Fundings = new List<Funding>();
 			if (apiResponse.Header.ErrorCode == 0)
@@ -28,13 +28,14 @@ namespace AltaPay.Service
 
 				if (!String.IsNullOrEmpty(apiResponse.Body.Result))
 					Result = (Result)Enum.Parse(typeof(Result), apiResponse.Body.Result);
-
 				Fundings = new List<Funding>(apiResponse.Body.Fundings.Funding);
+				/* TODO, When implementing Com Support
 				foreach (Funding funding in Fundings)
 				{
 					funding.inject(networkCredential);
 				}
-				Pages = apiResponse.Body.Fundings.Pages;
+				*/
+				Pages = apiResponse.Body.Fundings.numberOfPages;
 			}
 			else
 			{

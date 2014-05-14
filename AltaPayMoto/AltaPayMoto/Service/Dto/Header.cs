@@ -1,4 +1,4 @@
-﻿
+﻿/*
 namespace AltaPay.Service.Dto
 {
 	public class Header
@@ -7,3 +7,4 @@ namespace AltaPay.Service.Dto
 		public string ErrorMessage { get; set; }
 	}
 }
+ */

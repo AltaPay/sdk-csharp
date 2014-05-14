@@ -7,13 +7,13 @@ namespace AltaPay.Service
     public class PaymentResult
 		: ApiResult
     {
-		public Payment Payment { get; set; }
+		public Transaction Transaction { get; set; }
 
 		public PaymentResult()
 		{
 		}
 
-		public PaymentResult(PaymentApiResponse apiResponse)
+		public PaymentResult(APIResponse apiResponse)
 		{
 			if (apiResponse.Header.ErrorCode == 0)
 			{
@@ -23,7 +23,7 @@ namespace AltaPay.Service
 				if (!String.IsNullOrEmpty(apiResponse.Body.Result))
 					Result = (Result)Enum.Parse(typeof(Result), apiResponse.Body.Result);
 
-				Payment = (apiResponse.Body.Transactions != null && apiResponse.Body.Transactions.Length > 0 ? apiResponse.Body.Transactions[0] : null);
+				Transaction = (apiResponse.Body.Transactions != null && apiResponse.Body.Transactions.Length > 0 ? apiResponse.Body.Transactions[0] : null);
 			}
 			else
 			{

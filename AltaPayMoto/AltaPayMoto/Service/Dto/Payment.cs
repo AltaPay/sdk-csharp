@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using System.Xml.Serialization;
 using System.Globalization;
 
@@ -71,3 +72,4 @@ namespace AltaPay.Service.Dto
 	}
 
 }
+ */

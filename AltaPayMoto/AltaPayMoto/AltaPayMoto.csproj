@@ -84,18 +84,7 @@
     </Compile>
     <Compile Include="Service\ApiResult.cs" />
     <Compile Include="Service\AvsInfo.cs" />
-    <Compile Include="Service\Dto\Fundings.cs" />
-    <Compile Include="Service\Dto\FundingsApiResponse.cs" />
-    <Compile Include="Service\Dto\Funding.cs" />
-    <Compile Include="Service\Dto\FundingsBody.cs" />
-    <Compile Include="Service\Dto\PaymentApiResponse.cs" />
-    <Compile Include="Service\Dto\PaymentBody.cs" />
-    <Compile Include="Service\Dto\ReconciliationIdentifier.cs" />
     <Compile Include="Service\FundingsResult.cs" />
-    <Compile Include="Service\Dto\ApiResponse.cs" />
-    <Compile Include="Service\Dto\Body.cs" />
-    <Compile Include="Service\Dto\Header.cs" />
-    <Compile Include="Service\Dto\Payment.cs" />
     <Compile Include="Service\MerchantApi.cs" />
     <Compile Include="Service\PaymentDetails.cs" />
     <Compile Include="Service\PaymentResult.cs" />
@@ -107,12 +96,9 @@
     <Compile Include="StringConverter.cs" />
     <Compile Include="Service\ShippingType.cs" />
     <Compile Include="Service\AccountOffer.cs" />
-    <Compile Include="Service\Dto\PaymentRequestApiResponse.cs" />
-    <Compile Include="Service\Dto\PaymentRequestBody.cs" />
     <Compile Include="Service\PaymentRequestResult.cs" />
     <Compile Include="Service\ParameterHelper.cs" />
     <Compile Include="Service\FraudService.cs" />
-    <Compile Include="Service\GoodsType.cs" />
     <Compile Include="Service\NewApi\Common\Currency.cs" />
     <Compile Include="Service\NewApi\Common\AuthType.cs" />
     <Compile Include="Service\NewApi\Common\CustomerAddress.cs" />
@@ -123,6 +109,21 @@
     <Compile Include="Service\NewApi\Requests\PaymentRequest.cs" />
     <Compile Include="Service\NewApi\Common\PaymentRequestConfig.cs" />
     <Compile Include="Service\NewApi\Common\PaymentOrderLine.cs" />
+    <Compile Include="Service\NewApi\Common\GoodsType.cs" />
+    <Compile Include="Generated\APIResponse.cs" />
+    <Compile Include="Service\Dto\ApiResponse.cs" />
+    <Compile Include="Service\Dto\Body.cs" />
+    <Compile Include="Service\Dto\Funding.cs" />
+    <Compile Include="Service\Dto\Fundings.cs" />
+    <Compile Include="Service\Dto\FundingsApiResponse.cs" />
+    <Compile Include="Service\Dto\FundingsBody.cs" />
+    <Compile Include="Service\Dto\Header.cs" />
+    <Compile Include="Service\Dto\Payment.cs" />
+    <Compile Include="Service\Dto\PaymentApiResponse.cs" />
+    <Compile Include="Service\Dto\PaymentBody.cs" />
+    <Compile Include="Service\Dto\PaymentRequestApiResponse.cs" />
+    <Compile Include="Service\Dto\PaymentRequestBody.cs" />
+    <Compile Include="Service\Dto\ReconciliationIdentifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">
@@ -131,6 +132,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="PensioKey.snk" />
+    <None Include="generate.sh" />
+    <None Include="Generated\APIResponse.xsd" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Examples\Navision examples.txt" />
@@ -146,5 +149,6 @@
   <ItemGroup>
     <Folder Include="Service\NewApi\" />
     <Folder Include="Service\NewApi\Requests\" />
+    <Folder Include="Generated\" />
   </ItemGroup>
 </Project>

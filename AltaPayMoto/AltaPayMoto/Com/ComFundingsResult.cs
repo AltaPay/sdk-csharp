@@ -21,7 +21,7 @@ namespace AltaPay.Moto.Com
 			List<IFunding> fundings = new List<IFunding>();
 			foreach(Funding funding in result.Fundings)
 			{
-				fundings.Add(funding);
+//TODO				fundings.Add(funding);
 			}
 			Fundings = fundings.ToArray();
 		}

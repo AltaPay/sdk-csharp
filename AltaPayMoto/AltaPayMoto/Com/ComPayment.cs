@@ -35,15 +35,15 @@ namespace AltaPay.Moto.Com
 
 		public string AddressVerificationDescription { get; set; }
 
-		public ComPayment(Payment payment)
+		public ComPayment(Transaction payment)
 		{
 			CapturedAmount = (double)payment.CapturedAmount;
 			RefundedAmount = (double)payment.RefundedAmount;
 			CreditCardMaskedPan = payment.CreditCardMaskedPan;
 			CreditCardToken = payment.CreditCardToken;
-			PaymentId = payment.PaymentId;
-			PaymentStatus = payment.PaymentStatus;
-			CardStatus = payment.CardStatus;
+			PaymentId = payment.TransactionId;
+			PaymentStatus = payment.TransactionStatus;
+			CardStatus = payment.CardStatus.ToString();
 			ReservedAmount = (double)payment.ReservedAmount;
 			ShopOrderId = payment.ShopOrderId;
 			Terminal = payment.Terminal;

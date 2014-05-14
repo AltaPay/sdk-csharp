@@ -35,7 +35,7 @@ namespace AltaPay.Moto.Tests.Integration
 			paymentDetails.SalesTax = 12.34;
 			PaymentResult r = ReserveAmount(1.23, AuthType.payment);
 			
-			IComPaymentResult result = _api.CaptureWithPaymentDetails(r.Payment.PaymentId, 1.23, paymentDetails);
+			IComPaymentResult result = _api.CaptureWithPaymentDetails(r.Transaction.TransactionId, 1.23, paymentDetails);
 
 			Assert.AreEqual("Success", result.Result);
 		}

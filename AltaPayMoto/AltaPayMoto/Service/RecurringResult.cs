@@ -8,14 +8,14 @@ namespace AltaPay.Service
 {
 	public class RecurringResult : PaymentResult
 	{
-		public Payment RecurringPayment { get; set; }
+		public Transaction RecurringPayment { get; set; }
 
 		public RecurringResult()
 			:base()
 		{
 		}
 
-		public RecurringResult(PaymentApiResponse apiResponse)
+		public RecurringResult(APIResponse apiResponse)
 			:base(apiResponse)
 		{
 			if (apiResponse.Header.ErrorCode == 0 && apiResponse.Body.Transactions != null && apiResponse.Body.Transactions.Length > 1)
