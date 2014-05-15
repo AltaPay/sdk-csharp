@@ -125,6 +125,7 @@
     <Compile Include="Service\Dto\ReconciliationIdentifier.cs" />
     <Compile Include="Service\NewApi\Requests\CaptureRequest.cs" />
     <Compile Include="Service\PaymentDetails.cs" />
+    <Compile Include="Service\NewApi\Requests\ReleaseRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">

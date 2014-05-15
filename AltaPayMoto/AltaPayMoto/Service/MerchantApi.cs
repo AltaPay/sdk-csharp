@@ -139,10 +139,10 @@ namespace AltaPay.Service
 		}
 		
 
-		public PaymentResult Release(string paymentId)
+		public PaymentResult Release(ReleaseRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("transaction_id", paymentId);
+			parameters.Add("transaction_id", request.PaymentId);
 			
 			return new PaymentResult(GetResultFromUrl<APIResponse>("releaseReservation", parameters));
 		}

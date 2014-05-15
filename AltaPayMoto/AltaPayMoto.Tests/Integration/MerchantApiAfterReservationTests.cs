@@ -87,7 +87,11 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void ReleasePaymentReturnsSuccess()
 		{
-			PaymentResult result = _api.Release(ReserveAmount(1.23, AuthType.payment).Transaction.TransactionId);
+			var reserveResult = ReserveAmount(1.23, AuthType.payment);
+			var request = new ReleaseRequest {
+				PaymentId = reserveResult.Transaction.TransactionId,
+			};
+			PaymentResult result = _api.Release(request);
 
 			Assert.AreEqual(Result.Success, result.Result);
 		}

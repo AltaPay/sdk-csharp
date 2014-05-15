@@ -78,7 +78,10 @@ namespace AltaPay.Moto.Com
 
 		public IComPaymentResult ReleaseReservation(string paymentId)
 		{
-			return new ComPaymentResult(_merchantApi.Release(paymentId));
+			var request = new ReleaseRequest { 
+				PaymentId = paymentId,
+			};
+			return new ComPaymentResult(_merchantApi.Release(request));
 		}
 /*
 		public IComSplitPaymentResult Split(string paymentId, double amount)

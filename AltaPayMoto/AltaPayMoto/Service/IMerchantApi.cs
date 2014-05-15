@@ -31,7 +31,7 @@ namespace AltaPay.Service
 
 		PaymentResult Capture(CaptureRequest request);
 		PaymentResult Refund(RefundRequest request);
-		PaymentResult Release(string paymentId);
+		PaymentResult Release(ReleaseRequest request);
 		PaymentResult GetPayment(string paymentId);
 		RecurringResult CaptureRecurring(string recurringPaymentId, double amount);
 		RecurringResult PreauthRecurring(string recurringPaymentId, double amount);
