@@ -182,7 +182,7 @@ namespace AltaPay.Service
 		public static readonly Currency CLF  = new Currency(990, "CLF", "Unidades de fomento",0);
 		public static readonly Currency USN  = new Currency(997, "USN", "US Dollar (Next day)",2);
 		public static readonly Currency USS  = new Currency(998, "USS", "US Dollar (Same day)",2);
-		public static readonly Currency XXX  = new Currency(999, "XXX", "The code assigned for transactions where no currency is involved",0);
+		public static readonly Currency XXX  = new Currency(999, "XXX", "The code assigned for transactions where no currency is involved",2);
 
 		private static Currency[] values = null;
 		private static Dictionary<string,Currency> shortNameToCurrency = null;

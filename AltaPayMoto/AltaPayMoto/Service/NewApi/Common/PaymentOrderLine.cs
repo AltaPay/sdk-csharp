@@ -24,7 +24,6 @@ namespace AltaPay.Service
 		public string UnitCode { get; set; }
 		public double UnitPrice { get; set; }
 		public double Discount { get; set; }
-		// Must be one of: shipment|handling|item
 		public GoodsType GoodsType { get; set; }
 	}
 }

@@ -92,28 +92,7 @@ namespace AltaPay.Service
 			}
 			return parameters;
 		}
-		
-		private Dictionary<string,Object> getPaymentDetailsParameters(Dictionary<string,Object> parameters, PaymentDetails paymentDetails)
-		{
-			parameters = getOrderLines(parameters, paymentDetails.getLines());
 
-			if (paymentDetails.ReconciliationIdentifier != null)
-			{
-				parameters.Add ("reconciliation_identifier", paymentDetails.ReconciliationIdentifier);
-			}
-
-			if (paymentDetails.InvoiceNumber != null)
-			{
-				parameters.Add("invoice_number", paymentDetails.InvoiceNumber);
-			}
-
-			if (paymentDetails.SalesTax != 0)
-			{
-				parameters.Add("sales_tax", paymentDetails.SalesTax);
-			}
-			return parameters;
-		}
-		
 		private Dictionary<string,Object> getOrderLines(Dictionary<string,Object> parameters, IList<PaymentOrderLine> orderLines)
 		{
 			int lineNumber = 0;
@@ -137,55 +116,20 @@ namespace AltaPay.Service
 			return parameters;
 		}
 
-
-		public PaymentResult Capture(string paymentId, double amount, string reconciliationIdentifier)
+		public PaymentResult Capture(CaptureRequest request)
 		{
+
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("transaction_id", paymentId);
-			parameters.Add("amount", amount);
-			parameters.Add("reconciliation_identifier", reconciliationIdentifier);
+			parameters.Add("transaction_id", request.PaymentId);
+			parameters.Add("amount", request.Amount.GetAmountString());
+			if(request.ReconciliationId!=null) parameters.Add("reconciliation_identifier", request.ReconciliationId);
+			if (request.InvoiceNumber!=null) parameters.Add("invoice_number", request.InvoiceNumber);
+			if (request.SalesTax.HasValue) parameters.Add("sales_tax", request.SalesTax);
+			getOrderLines(parameters, request.OrderLines);
+
 			return new PaymentResult(GetResultFromUrl<APIResponse>("captureReservation", parameters));
 		}
 
-		public PaymentResult Capture(string paymentId, double amount)
-		{
-			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("transaction_id", paymentId);
-			parameters.Add("amount", amount);
-			return new PaymentResult(GetResultFromUrl<APIResponse>("captureReservation", parameters));
-		}
-		
-		public PaymentResult Capture(string paymentId, double amount, PaymentDetails paymentDetails)
-		{
-			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("transaction_id", paymentId);
-			parameters.Add("amount", amount);
-			parameters = getPaymentDetailsParameters(parameters, paymentDetails);
-			return new PaymentResult(GetResultFromUrl<APIResponse>("captureReservation", parameters));
-		}
-		
-		/*
-
-		public PaymentResult Refund(string paymentId, double amount, string reconciliationIdentifier)
-		{
-			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("transaction_id", paymentId);
-			parameters.Add("amount", amount);
-			parameters.Add("reconciliation_identifier", reconciliationIdentifier);
-			
-			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("refundCapturedReservation", parameters));
-		}
-
-		public PaymentResult Refund(string paymentId, double amount)
-		{
-			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("transaction_id", paymentId);
-			parameters.Add("amount", amount);
-			
-			return new PaymentResult(GetResultFromUrl<PaymentApiResponse>("refundCapturedReservation", parameters));
-		}
-		*/
-		
 		public PaymentResult Refund(RefundRequest request) {
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", request.PaymentId);

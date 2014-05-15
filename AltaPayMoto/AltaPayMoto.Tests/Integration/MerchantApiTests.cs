@@ -147,24 +147,29 @@ namespace AltaPay.Moto.Tests.Integration
         [Test]
         public void WahNoaNoa()
         {
-            PaymentDetails details = new PaymentDetails();
-            
-            details.AddOrderLine("Beautiful linen dress with print", "2-1099-1", 1, 0, "ROSEBUD", 274.5, 0, "item");
-            details.AddOrderLine("Striped leggings", "2-1357-1", 1, 0, "LIGHT ARO", 74.5, 0, "item");
-            details.AddOrderLine("Gorgeous tunic with brodery anglaise", "2-1135-1", 1, 0, "PURPLE", 214.5, 0, "item");
-            details.AddOrderLine("Cool cotton trousers with stretch", "2-1127-1", 1, 0, "WALNUT", 249.5, 0, "item");
-            details.AddOrderLine("Cotton dress with print and short slee", "2-1277-1", 1, 0, "DOE", 449, 0, "item");
-            details.AddOrderLine("Striped, long-sleeved T-shirt", "2-0177-11", 1, 0, "CHALK", 99.5, 0, "item");
-            details.AddOrderLine("Cool cotton trousers with stretch", "2-1127-1", 1, 0, "WALNUT", 249.5, 0, "item");
-            details.AddOrderLine("T-shirt I many colours", "1-2766-1", 1, 0, "IBIS", 89.5, 0, "item");
-            details.AddOrderLine("Striped leggings", "2-1357-1", 1, 0, "LIGHT ARO", 74.5, 0, "item");
-            details.AddOrderLine("Pretty printed sleeveless cotton top", "2-1060-1", 1, 0, "PURPLE", 189.5, 0, "item");
-            details.AddOrderLine("Feminine patterned cotton shirt", "2-0856-1", 1, 0, "STONE", 199.5, 0, "item");
-            details.AddOrderLine("Striped, long-sleeved T-shirt", "2-0177-9", 1, 0, "LIGHT NEC", 99.5, 0, "item");
-            details.AddOrderLine("Freight", "", 1, 0, "", 0, 0, "shipment");
-            PaymentResult res = _api.Capture("59", 2039, details);
 
-            Console.Out.WriteLine("test: " + res.ResultMessage);
+			var request = new CaptureRequest() {
+				PaymentId =  "59",
+				Amount = Amount.Get(2039, Currency.XXX),
+				OrderLines = {
+					new PaymentOrderLine() { Description = "Beautiful linen dress with print", ItemId = "2-1099-1", Quantity = 1, TaxPercent = 0, UnitCode = "ROSEBUD", UnitPrice = 274.5, Discount = 0, GoodsType = GoodsType.Item },
+					new PaymentOrderLine() { Description = "Striped leggings", ItemId = "2-1357-1", Quantity = 1, TaxPercent = 0, UnitCode = "LIGHT ARO", UnitPrice = 74.5, Discount = 0, GoodsType = GoodsType.Item },
+					new PaymentOrderLine() { Description = "Gorgeous tunic with brodery anglaise", ItemId = "2-1135-1", Quantity = 1, TaxPercent = 0, UnitCode = "PURPLE", UnitPrice = 214.5, Discount = 0, GoodsType = GoodsType.Item },
+					new PaymentOrderLine() { Description = "Cool cotton trousers with stretch", ItemId = "2-1127-1", Quantity = 1, TaxPercent = 0, UnitCode = "WALNUT", UnitPrice = 249.5, Discount = 0, GoodsType = GoodsType.Item },
+					new PaymentOrderLine() { Description = "Cotton dress with print and short slee", ItemId = "2-1277-1", Quantity = 1, TaxPercent = 0, UnitCode = "DOE", UnitPrice = 449, Discount = 0, GoodsType = GoodsType.Item },
+					new PaymentOrderLine() { Description = "Striped, long-sleeved T-shirt", ItemId = "2-0177-11", Quantity = 1, TaxPercent = 0, UnitCode = "CHALK", UnitPrice = 99.5 , Discount = 0, GoodsType = GoodsType.Item },
+					new PaymentOrderLine() { Description = "Cool cotton trousers with stretch", ItemId = "2-1127-1", Quantity = 1, TaxPercent = 0, UnitCode = "WALNUT", UnitPrice = 249.5, Discount = 0, GoodsType = GoodsType.Item },
+					new PaymentOrderLine() { Description = "T-shirt I many colours", ItemId = "1-2766-1", Quantity = 1, TaxPercent = 0, UnitCode = "IBIS", UnitPrice = 89.5, Discount = 0, GoodsType = GoodsType.Item },
+					new PaymentOrderLine() { Description = "Striped leggings", ItemId = "2-1357-1", Quantity = 1, TaxPercent = 0, UnitCode = "LIGHT ARO", UnitPrice = 74.5, Discount = 0, GoodsType = GoodsType.Item },
+					new PaymentOrderLine() { Description = "Pretty printed sleeveless cotton top", ItemId = "2-1060-1", Quantity = 1, TaxPercent = 0, UnitCode = "PURPLE", UnitPrice = 189.5, Discount = 0, GoodsType = GoodsType.Item },
+					new PaymentOrderLine() { Description = "Feminine patterned cotton shirt", ItemId = "2-0856-1", Quantity = 1, TaxPercent = 0, UnitCode = "STONE", UnitPrice = 199.5, Discount = 0, GoodsType = GoodsType.Item },
+					new PaymentOrderLine() { Description = "Striped, long-sleeved T-shirt", ItemId = "2-0177-9", Quantity = 1, TaxPercent = 0, UnitCode = "LIGHT NEC", UnitPrice = 199.5, Discount = 0, GoodsType = GoodsType.Item },
+					new PaymentOrderLine() { Description = "Freight", ItemId = "", Quantity = 1, TaxPercent = 0, UnitCode = "", UnitPrice = 0, Discount = 0, GoodsType = GoodsType.Shipment },
+				}
+			};
+			PaymentResult result = _api.Capture( request);
+
+			Console.Out.WriteLine("test: " + result.ResultMessage);
         }
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, AvsInfo avsInfo)

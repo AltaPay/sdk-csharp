@@ -27,17 +27,34 @@ namespace AltaPay.Moto.Com
 
 		public IComPaymentResult Capture(string paymentId, double amount)
 		{
-			return new ComPaymentResult(_merchantApi.Capture(paymentId, amount));
+			var request = new CaptureRequest() {
+				PaymentId = paymentId, 
+				Amount = Amount.Get(amount, Currency.XXX)
+			};
+			return new ComPaymentResult(_merchantApi.Capture(request));
 		}
 
 		public IComPaymentResult CaptureWithIdentifier(string paymentId, double amount, string reconciliationIdentifier)
 		{
-			return new ComPaymentResult(_merchantApi.Capture(paymentId, amount, reconciliationIdentifier));
+			var request = new CaptureRequest() {
+				PaymentId = paymentId, 
+				Amount = Amount.Get(amount, Currency.XXX), 
+				ReconciliationId = reconciliationIdentifier
+			};
+			return new ComPaymentResult(_merchantApi.Capture(request));
 		}
 		
 		public IComPaymentResult CaptureWithPaymentDetails(string paymentId, double amount, IPaymentDetails paymentDetails)
 		{
-			return new ComPaymentResult(_merchantApi.Capture(paymentId, amount, (PaymentDetails)paymentDetails));
+			var request = new CaptureRequest() {
+				PaymentId = paymentId, 
+				Amount = Amount.Get(amount, Currency.XXX), 
+				ReconciliationId = paymentDetails.ReconciliationIdentifier,
+				InvoiceNumber = paymentDetails.InvoiceNumber,
+				SalesTax = paymentDetails.SalesTax,
+				OrderLines = ((PaymentDetails)paymentDetails).getLines(),
+			};
+			return new ComPaymentResult(_merchantApi.Capture(request));
 		}		
 
 		public IComPaymentResult Refund(string paymentId, double amount)
@@ -91,7 +108,15 @@ namespace AltaPay.Moto.Com
 
 		public IComPaymentResult CaptureWithOrderlines(string paymentId, double amount, IPaymentDetails paymentDetails)
 		{
-			return new ComPaymentResult(_merchantApi.Capture(paymentId, amount, (PaymentDetails)paymentDetails));
+			var request = new CaptureRequest() {
+				PaymentId = paymentId, 
+				Amount = Amount.Get(amount, Currency.XXX), 
+				ReconciliationId = paymentDetails.ReconciliationIdentifier,
+				InvoiceNumber = paymentDetails.InvoiceNumber,
+				SalesTax = paymentDetails.SalesTax,
+				OrderLines = ((PaymentDetails)paymentDetails).getLines(),
+			};
+			return new ComPaymentResult(_merchantApi.Capture(request));
 		}
 
 		public IPaymentDetails CreatePaymentDetails()

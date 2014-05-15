@@ -23,8 +23,13 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void CapturePaymentReturnsSuccess()
 		{
-			//throw new Exception(ReserveAmount(1.23, PaymentType.payment).ResultMessage);
-			PaymentResult result = _api.Capture(ReserveAmount(1.23, AuthType.payment).Transaction.TransactionId, 1.23);
+			var reserveResult = ReserveAmount(1.23, AuthType.payment);
+
+			var request = new CaptureRequest() {
+				PaymentId =  reserveResult.Transaction.TransactionId,
+				Amount = Amount.Get(1.23, Currency.DKK),
+			};
+			PaymentResult result = _api.Capture( request);
 			
 			Assert.AreEqual(Result.Success, result.Result);
 		}
@@ -32,17 +37,27 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void CapturePaymentWithOrderLinesReturnsSuccess()
 		{
-			//throw new Exception(ReserveAmount(1.23, PaymentType.payment).ResultMessage);
-			PaymentDetails orderLines = new PaymentDetails();
-			orderLines.AddOrderLine("Ninja", "N1", 1.0, 0.25, "kg", 100.00, 10, "item");
-			PaymentResult r = ReserveAmount(1.23, AuthType.payment);
+			var reserveResult = ReserveAmount(1.23, AuthType.payment);
+			if (reserveResult.Result != Result.Success)
+				throw new Exception(reserveResult.ResultMessage);
 
-			if (r.Result != Result.Success)
-			{
-				throw new Exception(r.ResultMessage);
-			}
-			
-			PaymentResult result = _api.Capture(r.Transaction.TransactionId, 1.23, orderLines);
+			var request = new CaptureRequest() {
+				PaymentId =  reserveResult.Transaction.TransactionId,
+				Amount = Amount.Get(1.23, Currency.DKK),
+				OrderLines = {
+					new PaymentOrderLine() {
+						Description = "Ninja",
+						ItemId = "N1",
+						Quantity = 1.0,
+						TaxPercent = 0.25,
+						UnitCode = "kg",
+						UnitPrice = 100.00,
+						Discount = 10,
+						GoodsType = GoodsType.Item
+					}
+				}
+			};
+			PaymentResult result = _api.Capture( request);
 
 			Assert.AreEqual(Result.Success, result.Result);
 		}

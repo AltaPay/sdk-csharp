@@ -86,7 +86,6 @@
     <Compile Include="Service\AvsInfo.cs" />
     <Compile Include="Service\FundingsResult.cs" />
     <Compile Include="Service\MerchantApi.cs" />
-    <Compile Include="Service\PaymentDetails.cs" />
     <Compile Include="Service\PaymentResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\RecurringResult.cs" />
@@ -124,6 +123,8 @@
     <Compile Include="Service\Dto\PaymentRequestApiResponse.cs" />
     <Compile Include="Service\Dto\PaymentRequestBody.cs" />
     <Compile Include="Service\Dto\ReconciliationIdentifier.cs" />
+    <Compile Include="Service\NewApi\Requests\CaptureRequest.cs" />
+    <Compile Include="Service\PaymentDetails.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">
