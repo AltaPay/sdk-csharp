@@ -164,13 +164,13 @@ namespace AltaPay.Service
 			return new RecurringResult(GetResultFromUrl<APIResponse>("chargeSubscription",parameters));
 		}
 
-		public RecurringResult PreauthRecurring(string recurringPaymentId, double amount)
+		public RecurringResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("transaction_id", recurringPaymentId);
-			parameters.Add("amount", amount);
+			parameters.Add("transaction_id", request.SubscriptionId);
+			parameters.Add("amount", request.Amount.GetAmountString());
 			
-			return new RecurringResult(GetResultFromUrl<APIResponse>("preauthRecurring", parameters));
+			return new RecurringResult(GetResultFromUrl<APIResponse>("reserveSubscriptionCharge", parameters));
 		}
 		
 		public FundingsResult getFundings(int page)

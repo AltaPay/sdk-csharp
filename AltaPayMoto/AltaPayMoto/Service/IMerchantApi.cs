@@ -35,11 +35,7 @@ namespace AltaPay.Service
 		PaymentResult GetPayment(string paymentId);
 		PaymentRequestResult CreatePaymentRequest(PaymentRequest Request);
 		RecurringResult ChargeSubscription(ChargeSubscriptionRequest request);
-
-		// Note: 	PreauthRecurring-> RecurringResult ReserveSubscriptionCharge(string subscriptionId, double amount);
-		RecurringResult PreauthRecurring(string recurringPaymentId, double amount);
-		
-
+		RecurringResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request);
 		FundingsResult getFundings(int page);
 
 		
