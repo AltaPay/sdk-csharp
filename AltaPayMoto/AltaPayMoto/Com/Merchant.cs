@@ -94,9 +94,13 @@ namespace AltaPay.Moto.Com
 			return new ComPaymentResult(_merchantApi.GetPayment(paymentId));
 		}
 
-		public IComRecurringResult CaptureRecurring(string recurringPaymentId, double amount)
+		public IComRecurringResult CaptureRecurring(string subscriptionId, double amount)
 		{
-			return new ComRecurringResult(_merchantApi.CaptureRecurring(recurringPaymentId, amount));
+			var request = new ChargeSubscriptionRequest {
+				SubscriptionId = subscriptionId,
+				Amount = Amount.Get(amount, Currency.XXX)
+			};
+			return new ComRecurringResult(_merchantApi.ChargeSubscription(request));
 		}
 
 		public IComRecurringResult PreauthRecurring(string recurringPaymentId, double amount)

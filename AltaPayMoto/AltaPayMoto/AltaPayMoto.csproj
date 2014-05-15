@@ -126,6 +126,7 @@
     <Compile Include="Service\NewApi\Requests\CaptureRequest.cs" />
     <Compile Include="Service\PaymentDetails.cs" />
     <Compile Include="Service\NewApi\Requests\ReleaseRequest.cs" />
+    <Compile Include="Service\NewApi\Requests\ChargeSubscriptionRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">

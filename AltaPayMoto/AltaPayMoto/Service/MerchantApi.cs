@@ -146,16 +146,6 @@ namespace AltaPay.Service
 			
 			return new PaymentResult(GetResultFromUrl<APIResponse>("releaseReservation", parameters));
 		}
-/*
-		public SplitPaymentResult Split(string paymentId, double amount)
-		{
-			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("transaction_id", paymentId);
-			parameters.Add("amount", amount);
-			
-			return new SplitPaymentResult(GetResultFromUrl<PaymentApiResponse>("splitTransaction", parameters));
-		}
-		*/
 
 		public PaymentResult GetPayment(string paymentId)
 		{
@@ -165,13 +155,13 @@ namespace AltaPay.Service
 			return new PaymentResult(GetResultFromUrl<APIResponse>("transactions", parameters));
 		}
 
-		public RecurringResult CaptureRecurring(string recurringPaymentId, double amount)
+		public RecurringResult ChargeSubscription(ChargeSubscriptionRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("transaction_id", recurringPaymentId);
-			parameters.Add("amount", amount);
-			
-			return new RecurringResult(GetResultFromUrl<APIResponse>("captureRecurring",parameters));
+			parameters.Add("transaction_id", request.SubscriptionId);
+			parameters.Add("amount", request.Amount.GetAmountString());
+
+			return new RecurringResult(GetResultFromUrl<APIResponse>("chargeSubscription",parameters));
 		}
 
 		public RecurringResult PreauthRecurring(string recurringPaymentId, double amount)

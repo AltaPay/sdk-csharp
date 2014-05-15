@@ -33,10 +33,12 @@ namespace AltaPay.Service
 		PaymentResult Refund(RefundRequest request);
 		PaymentResult Release(ReleaseRequest request);
 		PaymentResult GetPayment(string paymentId);
-		RecurringResult CaptureRecurring(string recurringPaymentId, double amount);
+		PaymentRequestResult CreatePaymentRequest(PaymentRequest Request);
+		RecurringResult ChargeSubscription(ChargeSubscriptionRequest request);
+
+		// Note: 	PreauthRecurring-> RecurringResult ReserveSubscriptionCharge(string subscriptionId, double amount);
 		RecurringResult PreauthRecurring(string recurringPaymentId, double amount);
 		
-		PaymentRequestResult CreatePaymentRequest(PaymentRequest Request);
 
 		FundingsResult getFundings(int page);
 

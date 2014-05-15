@@ -151,10 +151,14 @@ namespace AltaPay.Moto.Tests.Integration
 
 
 		[Test]
-		public void CaptureReccurringPaymentReturnsSuccess()
+		public void ChargeSubscriptionReturnsSuccess()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
-			RecurringResult result = _api.CaptureRecurring(createPaymentResult.Transaction.TransactionId, 1.00);
+			var request = new ChargeSubscriptionRequest() {
+				SubscriptionId = createPaymentResult.Transaction.TransactionId,
+				Amount = Amount.Get(1, Currency.XXX),
+			};
+			RecurringResult result = _api.ChargeSubscription(request);
 
 			Assert.AreEqual(Result.Success, result.Result);
 		}
@@ -163,7 +167,11 @@ namespace AltaPay.Moto.Tests.Integration
 		public void CaptureRecurringReturnsBothPayments()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
-			RecurringResult result = _api.CaptureRecurring(createPaymentResult.Transaction.TransactionId, 1.00);
+			var request = new ChargeSubscriptionRequest() {
+				SubscriptionId = createPaymentResult.Transaction.TransactionId,
+				Amount = Amount.Get(1, Currency.XXX),
+			};
+			RecurringResult result = _api.ChargeSubscription(request);
 
 			Assert.AreEqual(createPaymentResult.Transaction.TransactionId, result.Transaction.TransactionId);
 			Assert.AreEqual("recurring_confirmed", result.Transaction.TransactionStatus);
