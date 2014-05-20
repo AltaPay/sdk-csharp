@@ -130,6 +130,7 @@
     <Compile Include="Service\NewApi\Requests\ReserveSubscriptionChargeRequest.cs" />
     <Compile Include="Service\NewApi\Requests\PaymentReservationRequest.cs" />
     <Compile Include="Service\NewApi\Common\PaymentSource.cs" />
+    <Compile Include="Service\NewApi\Requests\GetFundingsRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">
@@ -138,7 +139,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="PensioKey.snk" />
-    <None Include="generate.sh" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Examples\Navision examples.txt" />

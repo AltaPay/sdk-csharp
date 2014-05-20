@@ -17,6 +17,6 @@ namespace AltaPay.Service
 		PaymentRequestResult CreatePaymentRequest(PaymentRequest Request);
 		RecurringResult ChargeSubscription(ChargeSubscriptionRequest request);
 		RecurringResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request);
-		FundingsResult getFundings(int page);
+		FundingsResult GetFundings(GetFundingsRequest request);
 	}
 }

@@ -23,8 +23,7 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void CallingMerchantApiWithSuccessfulParametersReturnsSuccessfulResult()
 		{
-			FundingsResult result = _api.getFundings(0);
-
+			FundingsResult result = _api.GetFundings( new GetFundingsRequest { Page = 0});
 
 			Assert.AreEqual(Result.Success, result.Result);
 			Assert.AreEqual(1, result.Pages);

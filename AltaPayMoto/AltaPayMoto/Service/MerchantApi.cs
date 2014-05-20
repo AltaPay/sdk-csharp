@@ -133,10 +133,10 @@ namespace AltaPay.Service
 			return new RecurringResult(GetResultFromUrl<APIResponse>("reserveSubscriptionCharge", parameters));
 		}
 		
-		public FundingsResult getFundings(int page)
+		public FundingsResult GetFundings(GetFundingsRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("page", page);
+			parameters.Add("page", request.Page);
 			return new FundingsResult(GetResultFromUrl<APIResponse>("fundingList",parameters), new NetworkCredential(_username, _password));
 		}
 		

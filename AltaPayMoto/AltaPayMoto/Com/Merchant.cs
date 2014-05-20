@@ -114,7 +114,10 @@ namespace AltaPay.Moto.Com
 
 		public IComFundingsResult GetFundings(int page)
 		{
-			return new ComFundingsResult(_merchantApi.getFundings(page));
+			var request = new GetFundingsRequest {
+				Page = page
+			};
+			return new ComFundingsResult(_merchantApi.GetFundings(request));
 		}
 
 		public IComPaymentResult CaptureWithOrderlines(string paymentId, double amount, IPaymentDetails paymentDetails)
