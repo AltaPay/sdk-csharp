@@ -139,7 +139,6 @@
   <ItemGroup>
     <None Include="PensioKey.snk" />
     <None Include="generate.sh" />
-    <None Include="Generated\APIResponse.xsd" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Examples\Navision examples.txt" />
