@@ -64,14 +64,32 @@ namespace AltaPay.Moto
 			return (PaymentResult)_queue.Dequeue();
 		}
 
-		public void PayUsingExistingCreditCard(string cardToken, string cvc, AvsInfo avsInfo)
+		public void PayUsingExistingCreditCard(string cardToken, string cvc, CustomerInfo customerInfo)
 		{
-			HandlePaymentResult(_merchantApi.ReservationOfFixedAmountMOTO(_orderId, _amount, _currency, _paymentType, cardToken, cvc, avsInfo));
+			var request = new PaymentReservationRequest() {
+				ShopOrderId =  _orderId,
+				Amount = Amount.Get(_amount, Currency.FromNumeric(_currency)),
+				PaymentType = _paymentType,
+				CreditCardToken = cardToken,
+				Cvc = cvc,
+				CustomerInfo = customerInfo,
+			};
+			HandlePaymentResult(_merchantApi.Reserve(request));
 		}
 
-		public void PayUsingNewCreditCard(string pan, int expiryMonth, int expiryYear, string cvc, AvsInfo avsInfo)
+		public void PayUsingNewCreditCard(string pan, int expiryMonth, int expiryYear, string cvc, CustomerInfo customerInfo)
 		{
-			HandlePaymentResult(_merchantApi.ReservationOfFixedAmountMOTO(_orderId, _amount, _currency, _paymentType, pan, expiryMonth, expiryYear, cvc, avsInfo));
+			var request = new PaymentReservationRequest() {
+				ShopOrderId =  _orderId,
+				Amount = Amount.Get(_amount, Currency.FromNumeric(_currency)),
+				PaymentType = _paymentType,
+				Pan=pan,
+				ExpiryMonth = expiryMonth,
+				ExpiryYear = expiryYear,
+				Cvc = cvc,
+				CustomerInfo = customerInfo,
+			};
+			HandlePaymentResult(_merchantApi.Reserve(request));
 		}
 
 		public void Cancel()

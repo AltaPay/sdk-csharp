@@ -8,8 +8,8 @@ namespace AltaPay.Moto
 {
 	public interface IMotoController
 	{
-		void PayUsingExistingCreditCard(string cardToken, string cvc, AvsInfo avsInfo);
-		void PayUsingNewCreditCard(string pan, int expiryMonth, int expiryYear, string cvc, AvsInfo avsInfo);
+		void PayUsingExistingCreditCard(string cardToken, string cvc, CustomerInfo avsInfo);
+		void PayUsingNewCreditCard(string pan, int expiryMonth, int expiryYear, string cvc, CustomerInfo avsInfo);
 		void Cancel();
 	}
 }

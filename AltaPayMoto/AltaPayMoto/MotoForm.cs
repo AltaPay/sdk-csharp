@@ -103,28 +103,30 @@ namespace AltaPay.Moto
 		private void SubmitExistingCard_Click(object sender, EventArgs e)
 		{
 			DisableView();
-			_controller.PayUsingExistingCreditCard(ExistingPans.SelectedValue.ToString(), existingCvc.Text, getAvsInfo());
+			_controller.PayUsingExistingCreditCard(ExistingPans.SelectedValue.ToString(), existingCvc.Text, getCustomerInfo());
 		}
 
 		private void SubmitNewCard_Click(object sender, EventArgs e)
 		{
 			DisableView();
-			_controller.PayUsingNewCreditCard(newPan.Text, int.Parse(ExpiryMonth.Text), int.Parse(ExpiryYear.Text), newCvc.Text, getAvsInfo());
+			_controller.PayUsingNewCreditCard(newPan.Text, int.Parse(ExpiryMonth.Text), int.Parse(ExpiryYear.Text), newCvc.Text, getCustomerInfo());
 		}
 
-		private AvsInfo getAvsInfo()
+		private CustomerInfo getCustomerInfo()
 		{
-			return new AvsInfo
+			return new CustomerInfo
 			{
-				Address = Address.Text
-				, City = City.Text
-				, Country = Country.Text
-				, Email = Email.Text
-				, FirstName = FirstName.Text
-				, LastName = LastName.Text
-				, Phone = Phone.Text
-				, PostalCode = PostalCode.Text
-				, Region = Region.Text
+				Email = Email.Text, 
+				CustomerPhone = Phone.Text, 
+				ShippingAddress = new CustomerAddress {
+					Firstname = FirstName.Text, 
+					Lastname = LastName.Text, 
+					Address = Address.Text, 
+					City = City.Text, 
+					PostalCode = PostalCode.Text, 
+					Region = Region.Text,
+					Country = Country.Text,
+				},
 			};
 		}
 

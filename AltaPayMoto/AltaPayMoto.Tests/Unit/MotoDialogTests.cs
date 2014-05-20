@@ -61,7 +61,15 @@ namespace AltaPay.Moto.Tests.Unit
 
 			_view.Verify(v => v.ShowBlocking());
 			_view.Verify(v => v.Close());
-			_api.Verify(a => a.ReservationOfFixedAmountMOTO("orderid", 42.42, 208, AuthType.payment, "1234", 1, 2010, "123", null));
+			_api.Verify(a => a.Reserve(It.Is<PaymentReservationRequest>(r=>
+            	r.ShopOrderId == "orderid" 
+			    && r.Amount.Value==42.42m
+			    && r.Amount.Currency==Currency.DKK
+			    && r.Pan == "1234"
+                && r.ExpiryMonth == 1
+				&& r.ExpiryYear == 2010	
+			    && r.Cvc == "123"
+			)));
 		}
 
 		
@@ -76,7 +84,15 @@ namespace AltaPay.Moto.Tests.Unit
 
 			_view.Verify(v => v.ShowBlocking());
 			_view.Verify(v => v.Close());
-			_api.Verify(a => a.ReservationOfFixedAmountMOTO("orderid", 42.42, 208, AuthType.payment, "token", "123", null));
+
+			_api.Verify(a => a.Reserve(It.Is<PaymentReservationRequest>( 
+					r => r.ShopOrderId == "orderid" 
+			        && r.Amount.Value==42.42m
+	                && r.Amount.Currency==Currency.DKK
+			        && r.CreditCardToken == "token"
+			        && r.Cvc == "123"
+
+			)));
 		}
 
 		[Test]
@@ -234,10 +250,10 @@ namespace AltaPay.Moto.Tests.Unit
 			{
 				_view.Setup(v => v.ShowBlocking()).Callback(() => _motoDialog.PayUsingExistingCreditCard("token", "123", null));
 			}
-			
-			_api.Setup(a => a.ReservationOfFixedAmountMOTO(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<AuthType>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<AvsInfo>()))
-				.Returns(result);
-			_api.Setup(a => a.ReservationOfFixedAmountMOTO(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<AuthType>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<AvsInfo>()))
+
+
+
+			_api.Setup(a => a.Reserve(It.IsAny<PaymentReservationRequest>()))
 				.Returns(result);
 			_view.Setup(v => v.EnableView(It.IsAny<string>())).Callback(() => _motoDialog.Cancel());
 		}

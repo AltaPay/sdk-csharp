@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 using AltaPay.Service;
-using AltaPay.Service.Dto;
+using TransactionCardStatus = AltaPay.Service.Dto.TransactionCardStatus;
+
 
 namespace AltaPay.Moto.Tests.Integration
 {
@@ -85,7 +86,6 @@ namespace AltaPay.Moto.Tests.Integration
 		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithTheCorrectCapturedAmount()
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
-
 			Assert.AreEqual(1.23, result.Transaction.CapturedAmount);
 		}
 
@@ -133,12 +133,10 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void CallingMerchantApiWithAvsInfoReturnsAvsResult()
 		{
-			AvsInfo avsInfo = new AvsInfo
-			{
-				Address = "Albertslund"
-			};
+			var customerInfo = new CustomerInfo();
+			customerInfo.BillingAddress.Address="Albertslund";
 
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 3.34, avsInfo);
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 3.34, customerInfo);
 
 			Assert.AreEqual("A", result.Transaction.AddressVerification);
 			Assert.AreEqual("Address matches, but zip code does not", result.Transaction.AddressVerificationDescription);
@@ -172,19 +170,45 @@ namespace AltaPay.Moto.Tests.Integration
 			Console.Out.WriteLine("test: " + result.ResultMessage);
         }
 
-		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, AvsInfo avsInfo)
+		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, CustomerInfo customerInfo)
 		{
-			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, AuthType.payment, "4111000011110002", 1, 2018, "123", avsInfo);
+			var request = new PaymentReservationRequest {
+				ShopOrderId = shopOrderId,
+				PaymentType = AuthType.payment,
+				Amount = Amount.Get(amount, Currency.DKK),
+				Pan = "4111000011110002",
+				ExpiryMonth = 1,
+				ExpiryYear = 2018,
+				Cvc = "123",
+				CustomerInfo = customerInfo,
+			};
+			return _api.Reserve(request);
 		}
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount)
 		{
-			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, AuthType.paymentAndCapture, "4111000011110002", 1, 2018, "123", null);
+			var request = new PaymentReservationRequest {
+				ShopOrderId = shopOrderId,
+				PaymentType = AuthType.paymentAndCapture,
+				Amount = Amount.Get(amount, Currency.DKK),
+				Pan = "4111000011110002",
+				ExpiryMonth = 1,
+				ExpiryYear = 2018,
+				Cvc = "123",
+			};
+			return _api.Reserve(request);
 		}
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, string cardToken)
 		{
-			return _api.ReservationOfFixedAmountMOTO(shopOrderId, amount, 208, AuthType.payment, cardToken, "123", null);
+			var request = new PaymentReservationRequest {
+				ShopOrderId = shopOrderId,
+				PaymentType = AuthType.payment,
+				Amount = Amount.Get(amount, Currency.DKK),
+				CreditCardToken = cardToken,
+				Cvc = "123",
+			};
+			return _api.Reserve(request);
 		}
 	}
 }

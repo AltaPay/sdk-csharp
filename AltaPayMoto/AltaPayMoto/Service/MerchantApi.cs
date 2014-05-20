@@ -28,69 +28,29 @@ namespace AltaPay.Service
 			_password = password;
 		}
 
-		public PaymentResult ReservationOfFixedAmountMOTO(
-            string shopOrderId, 
-			double amount, 
-			int currency, 
-			AuthType paymentType, 
-			string pan, 
-			int expiryMonth, 
-			int expiryYear, 
-			string cvc,
-			AvsInfo avsInfo)
+		public PaymentResult Reserve(PaymentReservationRequest request) 
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("terminal", _terminal);
-			parameters.Add("shop_orderid", shopOrderId);
-			parameters.Add("amount", amount);
-			parameters.Add("currency", currency);
-			parameters.Add("type", paymentType);
-			parameters.Add("cardnum", pan);
-			parameters.Add("emonth", expiryMonth);
-			parameters.Add("eyear", expiryYear);
-			parameters.Add("cvc", cvc);
-			parameters = getAvsInfoParameters(parameters, avsInfo);
 
-			return new PaymentResult(GetResultFromUrl<APIResponse>("reservationOfFixedAmountMOTO", parameters));
-		}
-		
-		public PaymentResult ReservationOfFixedAmountMOTO(
-            string shopOrderId, 
-            double amount, 
-            int currency, 
-            AuthType paymentType, 
-            string creditCardToken,
-			string cvc,
-			AvsInfo avsInfo)
-		{
-			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("terminal", _terminal);
-			parameters.Add("shop_orderid", shopOrderId);
-			parameters.Add("amount", amount);
-			parameters.Add("currency", currency);
-			parameters.Add("type", paymentType);
-			parameters.Add("credit_card_token", creditCardToken);
-			parameters.Add("cvc", cvc);
-			parameters = getAvsInfoParameters(parameters, avsInfo);
+			parameters.Add("shop_orderid", request.ShopOrderId);
+			parameters.Add("amount", request.Amount.GetAmountString());
+			parameters.Add("currency", request.Amount.Currency);
+			parameters.Add("type", request.PaymentType);
 
-			return new PaymentResult(GetResultFromUrl<APIResponse>("reservationOfFixedAmountMOTO", parameters));
-		}
-		
-		private Dictionary<string,Object> getAvsInfoParameters(Dictionary<string,Object> parameters, AvsInfo avsInfo)
-		{
-			if (avsInfo != null)
-			{
-				parameters.Add("billing_firstname", avsInfo.FirstName);
-				parameters.Add("billing_lastname", avsInfo.LastName);
-				parameters.Add("billing_address", avsInfo.Address);
-				parameters.Add("billing_city", avsInfo.City);
-				parameters.Add("billing_country", avsInfo.Country);
-				parameters.Add("billing_region", avsInfo.Region);
-				parameters.Add("billing_postal", avsInfo.PostalCode);
-				parameters.Add("email", avsInfo.Email);
-				parameters.Add("customer_phone", avsInfo.Phone);
+			if (request.CreditCardToken!=null) {
+				parameters.Add("credit_card_token", request.CreditCardToken);
+			} else {
+				parameters.Add("cardnum", request.Pan);
+				parameters.Add("emonth", request.ExpiryMonth);
+				parameters.Add("eyear", request.ExpiryYear);
 			}
-			return parameters;
+			parameters.Add("cvc", request.Cvc);
+
+			if (request.CustomerInfo!=null)
+				request.CustomerInfo.AddToDictionary(parameters);
+
+			return new PaymentResult(GetResultFromUrl<APIResponse>("reservationOfFixedAmount", parameters));
 		}
 
 		private Dictionary<string,Object> getOrderLines(Dictionary<string,Object> parameters, IList<PaymentOrderLine> orderLines)
@@ -209,8 +169,9 @@ namespace AltaPay.Service
 			//parameters.Add("fraud_service", request.Config.
 			
 			// Customer Info
-			parameters.Add("customer_info", request.CustomerInfo.ToDictionary());
-			
+			parameters.Add("customer_info", request.CustomerInfo.AddToDictionary(new Dictionary<string, object>()));
+
+
 			// Order lines
 			parameters = getOrderLines(parameters, request.OrderLines);
 			

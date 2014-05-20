@@ -21,10 +21,8 @@ namespace AltaPay.Service
 		}
 		
 		
-		public Dictionary<string,object> ToDictionary()
+		public Dictionary<string,object> AddToDictionary(Dictionary<string,object> parameters)
 		{
-			Dictionary<string,object> parameters = new Dictionary<string,object>();
-			
 			parameters.Add("email", Email); //The customer's email address.	string
 			parameters.Add("username", Username); //The customer's e-shop username.	string
 			parameters.Add("customer_phone", CustomerPhone); //The customer's telephone number.	string

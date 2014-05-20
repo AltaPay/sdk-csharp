@@ -207,8 +207,17 @@ namespace AltaPay.Moto.Tests.Integration
 
 		private PaymentResult ReserveAmount(double amount, AuthType type)
 		{
-			PaymentResult result = _api.ReservationOfFixedAmountMOTO("csharptest"+Guid.NewGuid().ToString(),
-				amount, 208, type, "4111000011110000", 1, 2012, "123", null);
+			var request = new PaymentReservationRequest {
+				ShopOrderId = "csharptest"+Guid.NewGuid().ToString(),
+				Amount = Amount.Get(amount, Currency.DKK),
+				PaymentType = type,
+				Pan = "4111000011110000",
+				ExpiryMonth = 1,
+				ExpiryYear = 2012,
+				Cvc = "123",
+			};
+
+			PaymentResult result = _api.Reserve(request);
 			
 			if(result.Result != Result.Success)
 			{

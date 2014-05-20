@@ -127,7 +127,9 @@
     <Compile Include="Service\PaymentDetails.cs" />
     <Compile Include="Service\NewApi\Requests\ReleaseRequest.cs" />
     <Compile Include="Service\NewApi\Requests\ChargeSubscriptionRequest.cs" />
-    <Compile Include="Service\NewApi\Requests\ReserveSubscriptionCharge.cs" />
+    <Compile Include="Service\NewApi\Requests\ReserveSubscriptionChargeRequest.cs" />
+    <Compile Include="Service\NewApi\Requests\PaymentReservationRequest.cs" />
+    <Compile Include="Service\NewApi\Common\PaymentSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">
