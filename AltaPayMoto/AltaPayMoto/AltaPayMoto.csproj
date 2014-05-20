@@ -131,6 +131,7 @@
     <Compile Include="Service\NewApi\Requests\PaymentReservationRequest.cs" />
     <Compile Include="Service\NewApi\Common\PaymentSource.cs" />
     <Compile Include="Service\NewApi\Requests\GetFundingsRequest.cs" />
+    <Compile Include="Service\NewApi\Requests\GetPaymentRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">

@@ -100,7 +100,7 @@ namespace AltaPay.Moto.Tests.Integration
 		public void GetPaymentReturnsPayment()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.payment);
-			PaymentResult result = _api.GetPayment(createPaymentResult.Transaction.TransactionId);
+			PaymentResult result = _api.GetPayment(new GetPaymentRequest { PaymentId = createPaymentResult.Transaction.TransactionId} );
 
 			Assert.AreEqual(createPaymentResult.Transaction.TransactionId, result.Transaction.TransactionId);
 		}
@@ -108,7 +108,7 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void GetNonExistingPaymentReturnsNullPayment()
 		{
-			PaymentResult result = _api.GetPayment("-1");
+			PaymentResult result = _api.GetPayment(new GetPaymentRequest { PaymentId = "-1"});
 
 			Assert.IsNull(result.Transaction);
 		}

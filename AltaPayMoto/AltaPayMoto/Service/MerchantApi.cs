@@ -107,10 +107,10 @@ namespace AltaPay.Service
 			return new PaymentResult(GetResultFromUrl<APIResponse>("releaseReservation", parameters));
 		}
 
-		public PaymentResult GetPayment(string paymentId)
+		public PaymentResult GetPayment(GetPaymentRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("transaction_id", paymentId);
+			parameters.Add("transaction_id", request.PaymentId);
 			
 			return new PaymentResult(GetResultFromUrl<APIResponse>("transactions", parameters));
 		}

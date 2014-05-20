@@ -13,7 +13,7 @@ namespace AltaPay.Service
 		PaymentResult Capture(CaptureRequest request);
 		PaymentResult Refund(RefundRequest request);
 		PaymentResult Release(ReleaseRequest request);
-		PaymentResult GetPayment(string paymentId);
+		PaymentResult GetPayment(GetPaymentRequest request);
 		PaymentRequestResult CreatePaymentRequest(PaymentRequest Request);
 		RecurringResult ChargeSubscription(ChargeSubscriptionRequest request);
 		RecurringResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request);
