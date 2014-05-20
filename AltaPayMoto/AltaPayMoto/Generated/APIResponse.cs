@@ -1917,7 +1917,7 @@ namespace AltaPay.Service.Dto {
         
         private string acquirerField;
         
-        private System.DateTime fundingDateField;
+        private string fundingDateField;
         
         private string amountField2;
         
@@ -1971,8 +1971,8 @@ namespace AltaPay.Service.Dto {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, DataType="date")]
-        public System.DateTime FundingDate {
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string FundingDate {
             get {
                 return this.fundingDateField;
             }
