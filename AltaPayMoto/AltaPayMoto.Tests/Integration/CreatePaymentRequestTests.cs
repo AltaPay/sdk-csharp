@@ -132,7 +132,6 @@ namespace AltaPay.Moto.Tests.Integration
 			// System.Diagnostics.Process.Start(result.Url);
 		}
 
-	
 		[Test]
 		public void ParseCallbackParameters() 
 		{
@@ -154,8 +153,9 @@ namespace AltaPay.Moto.Tests.Integration
 			// TODO Remove the need for the cast to the API
 			using (Stream stream = ((MerchantApi)_api).CallApi("reservationOfFixedAmount", parameters))
 			{
-				APIResponse response = _api.ParsePostBackXmlParameter(stream);
-				Assert.AreEqual(0, response.Header.ErrorCode);
+				PaymentResult paymentResult = _api.ParsePostBackXmlResponse(stream) as PaymentResult;
+				Assert.IsNotNull(paymentResult);
+				Assert.AreEqual(Result.Success, paymentResult.Result);
 			}
 		}
 	}

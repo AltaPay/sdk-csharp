@@ -178,20 +178,52 @@ namespace AltaPay.Service
 			return new PaymentRequestResult(GetResponseFromApiCall("createPaymentRequest", parameters));
 		}
 
-		
-		public APIResponse ParsePostBackXmlParameter(string parameterStr)
+
+		public ApiResult ParsePostBackXmlResponse(string responseStr)
 		{
 			using (Stream stream = new MemoryStream()) {
-				StreamWriter writer = new StreamWriter(parameterStr);
-				writer.Write(parameterStr);
+				StreamWriter writer = new StreamWriter(stream);
+				writer.Write(responseStr);
 				writer.Flush();
 				stream.Position = 0;
-				return ParsePostBackXmlParameter(stream);
+				return ParsePostBackXmlResponse(stream);
 			}
 		}
 
 
-		public APIResponse ParsePostBackXmlParameter(Stream stream)
+		public ApiResult ParsePostBackXmlResponse(Stream responseStr)
+		{
+			// Get the apiResponse
+			APIResponse apiResponse = GetApiResponse(responseStr);
+			if (apiResponse.Header.ErrorCode!=0)
+				throw new Exception("Invalid response : " + apiResponse.Header.ErrorMessage);
+
+
+			// Detect auth type 
+			if (apiResponse.Body.Transactions.Length==0)
+				throw new Exception("The response contains no transactions");
+			string authType = apiResponse.Body.Transactions[0].AuthType;
+
+			// Wrap Api Respons to proper result
+			switch (authType) 
+			{
+				case "payment":
+				case "paymentAndCapture":
+				case "recurring":
+				case "subscription":
+				case "verifyCard":
+					return new PaymentResult(apiResponse); // TODO Change this when ReservationResult is made
+
+				case "subscriptionAndCharge":
+				case "recurringAndCapture":
+					return new RecurringResult(apiResponse);
+
+				default: 
+					throw new Exception("Unhandled Authtype : " + authType);
+			}
+		}
+
+		public APIResponse GetApiResponse(Stream stream)
 		{
 			try
 			{
@@ -217,7 +249,7 @@ namespace AltaPay.Service
 		public APIResponse GetResponseFromApiCall(string method, Dictionary<string,Object> parameters)
 		{
 			using (Stream responseStream = CallApi(method, parameters)) {
-				return ParsePostBackXmlParameter(responseStream);
+				return GetApiResponse(responseStream);
 			}
 		}
 

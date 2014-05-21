@@ -23,7 +23,7 @@ namespace AltaPay.Service
 
 		FundingsResult GetFundings(GetFundingsRequest request);
 
-		APIResponse ParsePostBackXmlParameter(string parameterStr);
-		APIResponse ParsePostBackXmlParameter(Stream stream);
+		ApiResult ParsePostBackXmlResponse(string responseStr);
+		ApiResult ParsePostBackXmlResponse(Stream responseStr);
 	}
 }
