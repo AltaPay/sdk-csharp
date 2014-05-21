@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AltaPay.Service.Dto;
+using System.IO;
 
 namespace AltaPay.Service
 {
@@ -9,14 +11,19 @@ namespace AltaPay.Service
 	{
 		void Initialize(string gatewayUrl, string username, string password, string terminal);
 
-		PaymentResult Reserve(PaymentReservationRequest request);
-		PaymentResult Capture(CaptureRequest request);
-		PaymentResult Refund(RefundRequest request);
-		PaymentResult Release(ReleaseRequest request);
-		PaymentResult GetPayment(GetPaymentRequest request);
-		PaymentRequestResult CreatePaymentRequest(PaymentRequest Request);
 		RecurringResult ChargeSubscription(ChargeSubscriptionRequest request);
 		RecurringResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request);
+
+		PaymentRequestResult CreatePaymentRequest(PaymentRequest Request);
+		PaymentResult Reserve(PaymentReservationRequest request);
+		PaymentResult Release(ReleaseRequest request);
+		PaymentResult Capture(CaptureRequest request);
+		PaymentResult Refund(RefundRequest request);
+		PaymentResult GetPayment(GetPaymentRequest request);
+
 		FundingsResult GetFundings(GetFundingsRequest request);
+
+		APIResponse ParsePostBackXmlParameter(string parameterStr);
+		APIResponse ParsePostBackXmlParameter(Stream stream);
 	}
 }

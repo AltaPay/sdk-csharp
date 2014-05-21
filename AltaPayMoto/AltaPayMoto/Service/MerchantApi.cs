@@ -35,7 +35,7 @@ namespace AltaPay.Service
 			parameters.Add("terminal", _terminal);
 			parameters.Add("shop_orderid", request.ShopOrderId);
 			parameters.Add("amount", request.Amount.GetAmountString());
-			parameters.Add("currency", request.Amount.Currency);
+			parameters.Add("currency", request.Amount.Currency.GetNumericString());
 			parameters.Add("type", request.PaymentType);
 
 			if (request.CreditCardToken!=null) {
@@ -50,7 +50,7 @@ namespace AltaPay.Service
 			if (request.CustomerInfo!=null)
 				request.CustomerInfo.AddToDictionary(parameters);
 
-			return new PaymentResult(GetResultFromUrl<APIResponse>("reservationOfFixedAmount", parameters));
+			return new PaymentResult(GetResponseFromApiCall("reservationOfFixedAmount", parameters));
 		}
 
 		private Dictionary<string,Object> getOrderLines(Dictionary<string,Object> parameters, IList<PaymentOrderLine> orderLines)
@@ -87,7 +87,7 @@ namespace AltaPay.Service
 			if (request.SalesTax.HasValue) parameters.Add("sales_tax", request.SalesTax);
 			getOrderLines(parameters, request.OrderLines);
 
-			return new PaymentResult(GetResultFromUrl<APIResponse>("captureReservation", parameters));
+			return new PaymentResult(GetResponseFromApiCall("captureReservation", parameters));
 		}
 
 		public PaymentResult Refund(RefundRequest request) {
@@ -95,7 +95,7 @@ namespace AltaPay.Service
 			parameters.Add("transaction_id", request.PaymentId);
 			parameters.Add("amount", request.Amount.GetAmountString());
 			if (request.ReconciliationId!=null) parameters.Add("reconciliation_identifier", request.ReconciliationId);
-			return new PaymentResult(GetResultFromUrl<APIResponse>("refundCapturedReservation", parameters));
+			return new PaymentResult(GetResponseFromApiCall("refundCapturedReservation", parameters));
 		}
 		
 
@@ -104,7 +104,7 @@ namespace AltaPay.Service
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", request.PaymentId);
 			
-			return new PaymentResult(GetResultFromUrl<APIResponse>("releaseReservation", parameters));
+			return new PaymentResult(GetResponseFromApiCall("releaseReservation", parameters));
 		}
 
 		public PaymentResult GetPayment(GetPaymentRequest request)
@@ -112,7 +112,7 @@ namespace AltaPay.Service
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", request.PaymentId);
 			
-			return new PaymentResult(GetResultFromUrl<APIResponse>("transactions", parameters));
+			return new PaymentResult(GetResponseFromApiCall("transactions", parameters));
 		}
 
 		public RecurringResult ChargeSubscription(ChargeSubscriptionRequest request)
@@ -121,7 +121,7 @@ namespace AltaPay.Service
 			parameters.Add("transaction_id", request.SubscriptionId);
 			parameters.Add("amount", request.Amount.GetAmountString());
 
-			return new RecurringResult(GetResultFromUrl<APIResponse>("chargeSubscription",parameters));
+			return new RecurringResult(GetResponseFromApiCall("chargeSubscription",parameters));
 		}
 
 		public RecurringResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request)
@@ -130,14 +130,14 @@ namespace AltaPay.Service
 			parameters.Add("transaction_id", request.SubscriptionId);
 			parameters.Add("amount", request.Amount.GetAmountString());
 			
-			return new RecurringResult(GetResultFromUrl<APIResponse>("reserveSubscriptionCharge", parameters));
+			return new RecurringResult(GetResponseFromApiCall("reserveSubscriptionCharge", parameters));
 		}
 		
 		public FundingsResult GetFundings(GetFundingsRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("page", request.Page);
-			return new FundingsResult(GetResultFromUrl<APIResponse>("fundingList",parameters), new NetworkCredential(_username, _password));
+			return new FundingsResult(GetResponseFromApiCall("fundingList",parameters), new NetworkCredential(_username, _password));
 		}
 		
 		public PaymentRequestResult CreatePaymentRequest(PaymentRequest request)
@@ -148,7 +148,7 @@ namespace AltaPay.Service
 			parameters.Add("terminal", request.Terminal);
 			parameters.Add("shop_orderid", request.ShopOrderId);
 			parameters.Add("amount", request.Amount.GetAmountString());
-			parameters.Add("currency", request.Amount.Currency);
+			parameters.Add("currency", request.Amount.Currency.GetNumericString());
 			
 			// Config
 			parameters.Add("config", request.Config.ToDictionary());
@@ -175,50 +175,76 @@ namespace AltaPay.Service
 			// Order lines
 			parameters = getOrderLines(parameters, request.OrderLines);
 			
-			return new PaymentRequestResult(GetResultFromUrl<APIResponse>("createPaymentRequest", parameters));
+			return new PaymentRequestResult(GetResponseFromApiCall("createPaymentRequest", parameters));
 		}
+
 		
-		private T GetResultFromUrl<T>(string method, Dictionary<string,Object> parameters) where T : APIResponse, new()
+		public APIResponse ParsePostBackXmlParameter(string parameterStr)
+		{
+			using (Stream stream = new MemoryStream()) {
+				StreamWriter writer = new StreamWriter(parameterStr);
+				writer.Write(parameterStr);
+				writer.Flush();
+				stream.Position = 0;
+				return ParsePostBackXmlParameter(stream);
+			}
+		}
+
+
+		public APIResponse ParsePostBackXmlParameter(Stream stream)
 		{
 			try
 			{
-				WebRequest request = WebRequest.Create(String.Format("{0}{1}", _gatewayUrl, method));
-				request.Credentials = new NetworkCredential(_username, _password);
-				
-				HttpWebRequest http = (HttpWebRequest)request;
-				http.Method = "POST";
-				http.ContentType = "application/x-www-form-urlencoded";
-				
-				string encodedData = ParameterHelper.Convert(parameters);
-				Byte[] postBytes = System.Text.Encoding.ASCII.GetBytes(encodedData);
-				http.ContentLength = postBytes.Length;
-				
-				Stream requestStream = request.GetRequestStream();
-				requestStream.Write(postBytes, 0, postBytes.Length);
-				requestStream.Close();
-				
-				WebResponse response = request.GetResponse();
-				T apiResponse = ConvertXml<T>(response.GetResponseStream());
-				return apiResponse;
+				return ConvertXml<APIResponse>(stream);
 			}
 			catch (Exception exception)
 			{
-				T response = new T();
+				APIResponse response = new APIResponse();
 				response.Header = new Header();
+
+				response.Header.ErrorMessage = exception.Message + "\n" + exception.StackTrace;
 				if (exception.InnerException != null)
-				{
-					response.Header.ErrorMessage = exception.Message + "\n" + exception.StackTrace + "\n" + exception.InnerException.Message;
-				}
-				else
-				{
-					response.Header.ErrorMessage = exception.Message + "\n" + exception.StackTrace;
-				}
+					response.Header.ErrorMessage += "\n" + exception.InnerException.Message;
+
 				response.Header.ErrorCode = 1;
 				return response;
 			}
 		}
 
-		public T ConvertXml<T>(Stream xml)
+
+
+
+		public APIResponse GetResponseFromApiCall(string method, Dictionary<string,Object> parameters)
+		{
+			using (Stream responseStream = CallApi(method, parameters)) {
+				return ParsePostBackXmlParameter(responseStream);
+			}
+		}
+
+
+
+		public Stream CallApi(string method, Dictionary<string,Object> parameters)
+		{
+			WebRequest request = WebRequest.Create(String.Format("{0}{1}", _gatewayUrl, method));
+			request.Credentials = new NetworkCredential(_username, _password);
+
+			HttpWebRequest http = (HttpWebRequest)request;
+			http.Method = "POST";
+			http.ContentType = "application/x-www-form-urlencoded";
+
+			string encodedData = ParameterHelper.Convert(parameters);
+			Byte[] postBytes = System.Text.Encoding.ASCII.GetBytes(encodedData);
+			http.ContentLength = postBytes.Length;
+
+			Stream requestStream = request.GetRequestStream();
+			requestStream.Write(postBytes, 0, postBytes.Length);
+			requestStream.Close();
+
+			WebResponse response = request.GetResponse();
+			return response.GetResponseStream();
+		}
+
+		private T ConvertXml<T>(Stream xml)
 		{
 			var serializer = new XmlSerializer(typeof(T));
 			return (T)serializer.Deserialize(xml);

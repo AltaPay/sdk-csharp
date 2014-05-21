@@ -96,7 +96,6 @@
     <Compile Include="Service\ShippingType.cs" />
     <Compile Include="Service\AccountOffer.cs" />
     <Compile Include="Service\PaymentRequestResult.cs" />
-    <Compile Include="Service\ParameterHelper.cs" />
     <Compile Include="Service\FraudService.cs" />
     <Compile Include="Service\NewApi\Common\Currency.cs" />
     <Compile Include="Service\NewApi\Common\AuthType.cs" />
@@ -132,6 +131,7 @@
     <Compile Include="Service\NewApi\Common\PaymentSource.cs" />
     <Compile Include="Service\NewApi\Requests\GetFundingsRequest.cs" />
     <Compile Include="Service\NewApi\Requests\GetPaymentRequest.cs" />
+    <Compile Include="Service\NewApi\Helpers\ParameterHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">
@@ -156,5 +156,6 @@
     <Folder Include="Service\NewApi\" />
     <Folder Include="Service\NewApi\Requests\" />
     <Folder Include="Generated\" />
+    <Folder Include="Service\NewApi\Helpers\" />
   </ItemGroup>
 </Project>

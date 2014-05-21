@@ -4,6 +4,8 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using AltaPay.Service;
 using System.Diagnostics;
+using AltaPay.Service.Dto;
+using System.IO;
 
 
 namespace AltaPay.Moto.Tests.Integration
@@ -126,8 +128,35 @@ namespace AltaPay.Moto.Tests.Integration
 			Assert.AreEqual(Result.Success, result.Result);
 			Assert.IsNotEmpty(result.Url);
 			Assert.IsNotEmpty(result.DynamicJavascriptUrl);
-			
+
 			// System.Diagnostics.Process.Start(result.Url);
+		}
+
+	
+		[Test]
+		public void ParseCallbackParameters() 
+		{
+
+			// Make call to reserve fixed amount
+			var parameters = new Dictionary<string, object>();
+
+			parameters.Add("terminal", "AltaPay Soap Test Terminal");
+			parameters.Add("shop_orderid",  "shop api");
+			parameters.Add("amount", "123.45");
+			parameters.Add("currency", Currency.DKK.GetNumericString());
+
+			parameters.Add("cardnum", "12345");
+			parameters.Add("emonth", "10");
+			parameters.Add("eyear", "2020");
+			parameters.Add("cvc", "123");
+
+
+			// TODO Remove the need for the cast to the API
+			using (Stream stream = ((MerchantApi)_api).CallApi("reservationOfFixedAmount", parameters))
+			{
+				APIResponse response = _api.ParsePostBackXmlParameter(stream);
+				Assert.AreEqual(0, response.Header.ErrorCode);
+			}
 		}
 	}
 }

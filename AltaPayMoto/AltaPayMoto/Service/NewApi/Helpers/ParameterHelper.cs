@@ -47,6 +47,7 @@ namespace AltaPay.Service
 			}
 			return asString;
 		}
+
 	}
 }
 
