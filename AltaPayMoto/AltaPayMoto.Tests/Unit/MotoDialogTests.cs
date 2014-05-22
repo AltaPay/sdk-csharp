@@ -54,7 +54,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void WhenCallingShowOnMotoDialogCallShowOnViewAndWaitForToPayWithNewCreditCard()
 		{
-			SetupResults(new PaymentResult { Result = Result.Success }, false);
+			SetupResults(new ReservationResult { Result = Result.Success }, false);
 
 			InitializePayment();
 			_motoDialog.Show();
@@ -77,7 +77,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void WhenCallingShowOnMotoDialogCallShowOnViewAndWaitForToPayWithExisitingCreditCard()
 		{
-			SetupResults(new PaymentResult { Result = Result.Success }, true);
+			SetupResults(new ReservationResult { Result = Result.Success }, true);
 
 			InitializePayment();
 			_motoDialog.Show();
@@ -111,7 +111,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void WhenCallingShowOnMotoDialogCallShowOnViewAndWaitForToPayWithNewCreditCardButItFailsWaitForUserInputToCancel()
 		{
-			SetupResults(new PaymentResult { Result = Result.Failed, ResultMerchantMessage = "merchant error message" }, false);
+			SetupResults(new ReservationResult { Result = Result.Failed, ResultMerchantMessage = "merchant error message" }, false);
 
 			InitializePayment();
 			_motoDialog.Show();
@@ -124,7 +124,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void WhenCallingShowOnMotoDialogCallShowOnViewAndWaitForToPayWithExisitingCreditCardButItFailsWaitForUserInputToCancel()
 		{
-			SetupResults(new PaymentResult { Result = Result.Failed, ResultMerchantMessage = "merchant error message" }, true);
+			SetupResults(new ReservationResult { Result = Result.Failed, ResultMerchantMessage = "merchant error message" }, true);
 
 			InitializePayment();
 			_motoDialog.Show();
@@ -137,7 +137,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void OnPaymentErrorForNewCreditCardShowErrorStatus()
 		{
-			SetupResults(new PaymentResult { Result = Result.Error, ResultMerchantMessage = "merchant error message" }, false);
+			SetupResults(new ReservationResult { Result = Result.Error, ResultMerchantMessage = "merchant error message" }, false);
 
 			InitializePayment();
 			_motoDialog.Show();
@@ -148,7 +148,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void OnPaymentErrorForExistingCreditCardShowErrorStatus()
 		{
-			SetupResults(new PaymentResult { Result = Result.Error, ResultMerchantMessage = "merchant error message" }, true);
+			SetupResults(new ReservationResult { Result = Result.Error, ResultMerchantMessage = "merchant error message" }, true);
 
 			InitializePayment();
 			_motoDialog.Show();
@@ -159,7 +159,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void OnPaymentErrorForNewCreditCardShowSystemErrorStatus()
 		{
-			SetupResults(new PaymentResult { Result = Result.SystemError, ResultMerchantMessage = "merchant error message" }, false);
+			SetupResults(new ReservationResult { Result = Result.SystemError, ResultMerchantMessage = "merchant error message" }, false);
 
 			InitializePayment();
 			_motoDialog.Show();
@@ -172,7 +172,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void OnPaymentErrorForExistingCreditCardShowSystemErrorStatus()
 		{
-			SetupResults(new PaymentResult { Result = Result.SystemError, ResultMerchantMessage = "merchant error message" }, true);
+			SetupResults(new ReservationResult { Result = Result.SystemError, ResultMerchantMessage = "merchant error message" }, true);
 
 			InitializePayment();
 			_motoDialog.Show();
@@ -183,7 +183,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void OnPaymentSuccessReturnPaymentResult()
 		{
-			PaymentResult expected = new PaymentResult { Result = Result.Success };
+			ReservationResult expected = new ReservationResult { Result = Result.Success };
 			SetupResults(expected, true);
 
 			InitializePayment();
@@ -206,7 +206,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void OnUserCancelWhenAnErrorResultHaveBeenMadeReturnPaymentResultFromApi()
 		{
-			PaymentResult expected = new PaymentResult { Result = Result.Error };
+			ReservationResult expected = new ReservationResult { Result = Result.Error };
 			SetupResults(expected, true);
 
 			InitializePayment();
@@ -218,7 +218,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void OnUserCancelWhenAnFailedResultHaveBeenMadeReturnPaymentResultFromApi()
 		{
-			PaymentResult expected = new PaymentResult { Result = Result.Failed };
+			ReservationResult expected = new ReservationResult { Result = Result.Failed };
 			SetupResults(expected, true);
 
 			InitializePayment();
@@ -230,7 +230,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void OnUserCancelWhenASystemErrorResultHaveBeenMadeReturnPaymentResultFromApi()
 		{
-			PaymentResult expected = new PaymentResult { Result = Result.SystemError };
+			ReservationResult expected = new ReservationResult { Result = Result.SystemError };
 			SetupResults(expected, true);
 
 			InitializePayment();
@@ -240,7 +240,7 @@ namespace AltaPay.Moto.Tests.Unit
 		}
 
 	
-		private void SetupResults(PaymentResult result, bool setupExisting)
+		private void SetupResults(ReservationResult result, bool setupExisting)
 		{
 			if (!setupExisting)
 			{

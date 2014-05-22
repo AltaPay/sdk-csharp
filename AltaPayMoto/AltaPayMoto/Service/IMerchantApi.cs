@@ -15,11 +15,11 @@ namespace AltaPay.Service
 		RecurringResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request);
 
 		PaymentRequestResult CreatePaymentRequest(PaymentRequest Request);
-		PaymentResult Reserve(PaymentReservationRequest request);
-		PaymentResult Release(ReleaseRequest request);
-		PaymentResult Capture(CaptureRequest request);
-		PaymentResult Refund(RefundRequest request);
-		PaymentResult GetPayment(GetPaymentRequest request);
+		ReservationResult Reserve(PaymentReservationRequest request);
+		ReleaseResult Release(ReleaseRequest request);
+		CaptureResult Capture(CaptureRequest request);
+		RefundResult Refund(RefundRequest request);
+		GetPaymentResult GetPayment(GetPaymentRequest request);
 
 		FundingsResult GetFundings(GetFundingsRequest request);
 

@@ -28,7 +28,7 @@ namespace AltaPay.Service
 			_password = password;
 		}
 
-		public PaymentResult Reserve(PaymentReservationRequest request) 
+		public ReservationResult Reserve(PaymentReservationRequest request) 
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 
@@ -50,7 +50,7 @@ namespace AltaPay.Service
 			if (request.CustomerInfo!=null)
 				request.CustomerInfo.AddToDictionary(parameters);
 
-			return new PaymentResult(GetResponseFromApiCall("reservationOfFixedAmount", parameters));
+			return new ReservationResult(GetResponseFromApiCall("reservationOfFixedAmount", parameters));
 		}
 
 		private Dictionary<string,Object> getOrderLines(Dictionary<string,Object> parameters, IList<PaymentOrderLine> orderLines)
@@ -76,7 +76,7 @@ namespace AltaPay.Service
 			return parameters;
 		}
 
-		public PaymentResult Capture(CaptureRequest request)
+		public CaptureResult Capture(CaptureRequest request)
 		{
 
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
@@ -87,32 +87,32 @@ namespace AltaPay.Service
 			if (request.SalesTax.HasValue) parameters.Add("sales_tax", request.SalesTax);
 			getOrderLines(parameters, request.OrderLines);
 
-			return new PaymentResult(GetResponseFromApiCall("captureReservation", parameters));
+			return new CaptureResult(GetResponseFromApiCall("captureReservation", parameters));
 		}
 
-		public PaymentResult Refund(RefundRequest request) {
+		public RefundResult Refund(RefundRequest request) {
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", request.PaymentId);
 			parameters.Add("amount", request.Amount.GetAmountString());
 			if (request.ReconciliationId!=null) parameters.Add("reconciliation_identifier", request.ReconciliationId);
-			return new PaymentResult(GetResponseFromApiCall("refundCapturedReservation", parameters));
+			return new RefundResult(GetResponseFromApiCall("refundCapturedReservation", parameters));
 		}
 		
 
-		public PaymentResult Release(ReleaseRequest request)
+		public ReleaseResult Release(ReleaseRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", request.PaymentId);
 			
-			return new PaymentResult(GetResponseFromApiCall("releaseReservation", parameters));
+			return new ReleaseResult(GetResponseFromApiCall("releaseReservation", parameters));
 		}
 
-		public PaymentResult GetPayment(GetPaymentRequest request)
+		public GetPaymentResult GetPayment(GetPaymentRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", request.PaymentId);
 			
-			return new PaymentResult(GetResponseFromApiCall("transactions", parameters));
+			return new GetPaymentResult(GetResponseFromApiCall("transactions", parameters));
 		}
 
 		public RecurringResult ChargeSubscription(ChargeSubscriptionRequest request)
@@ -212,7 +212,7 @@ namespace AltaPay.Service
 				case "recurring":
 				case "subscription":
 				case "verifyCard":
-					return new PaymentResult(apiResponse); // TODO Change this when ReservationResult is made
+					return new ReservationResult(apiResponse);
 
 				case "subscriptionAndCharge":
 				case "recurringAndCapture":

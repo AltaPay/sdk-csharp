@@ -82,11 +82,9 @@
     <Compile Include="MotoForm.Designer.cs">
       <DependentUpon>MotoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Service\ApiResult.cs" />
     <Compile Include="Service\AvsInfo.cs" />
     <Compile Include="Service\FundingsResult.cs" />
     <Compile Include="Service\MerchantApi.cs" />
-    <Compile Include="Service\PaymentResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\RecurringResult.cs" />
     <Compile Include="Service\Result.cs" />
@@ -95,7 +93,6 @@
     <Compile Include="StringConverter.cs" />
     <Compile Include="Service\ShippingType.cs" />
     <Compile Include="Service\AccountOffer.cs" />
-    <Compile Include="Service\PaymentRequestResult.cs" />
     <Compile Include="Service\FraudService.cs" />
     <Compile Include="Service\NewApi\Common\Currency.cs" />
     <Compile Include="Service\NewApi\Common\AuthType.cs" />
@@ -132,6 +129,14 @@
     <Compile Include="Service\NewApi\Requests\GetFundingsRequest.cs" />
     <Compile Include="Service\NewApi\Requests\GetPaymentRequest.cs" />
     <Compile Include="Service\NewApi\Helpers\ParameterHelper.cs" />
+    <Compile Include="Service\NewApi\Result\ApiResult.cs" />
+    <Compile Include="Service\NewApi\Result\PaymentRequestResult.cs" />
+    <Compile Include="Service\NewApi\Result\ReservationResult.cs" />
+    <Compile Include="Service\NewApi\Result\PaymentResult.cs" />
+    <Compile Include="Service\NewApi\Result\ReleaseResult.cs" />
+    <Compile Include="Service\NewApi\Result\CaptureResult.cs" />
+    <Compile Include="Service\NewApi\Result\RefundResult.cs" />
+    <Compile Include="Service\NewApi\Result\GetPaymentResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">
@@ -157,5 +162,6 @@
     <Folder Include="Service\NewApi\Requests\" />
     <Folder Include="Generated\" />
     <Folder Include="Service\NewApi\Helpers\" />
+    <Folder Include="Service\NewApi\Result\" />
   </ItemGroup>
 </Project>
