@@ -83,10 +83,8 @@
       <DependentUpon>MotoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Service\AvsInfo.cs" />
-    <Compile Include="Service\FundingsResult.cs" />
     <Compile Include="Service\MerchantApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\RecurringResult.cs" />
     <Compile Include="Service\IMerchantApi.cs" />
     <Compile Include="StringConverter.cs" />
     <Compile Include="Service\NewApi\Requests\RefundRequest.cs" />
@@ -136,6 +134,10 @@
     <Compile Include="Service\NewApi\Requests\Common\FraudService.cs" />
     <Compile Include="Service\NewApi\Requests\Common\PaymentRequest.cs" />
     <Compile Include="Service\NewApi\Requests\Common\ShippingType.cs" />
+    <Compile Include="Service\NewApi\Result\ReserveSubscriptionChargeResult.cs" />
+    <Compile Include="Service\NewApi\Result\RecurringResult.cs" />
+    <Compile Include="Service\NewApi\Result\ChargeSubscriptionResult.cs" />
+    <Compile Include="Service\NewApi\Result\FundingsResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">

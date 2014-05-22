@@ -13,7 +13,7 @@ namespace AltaPay.Moto.Com
 	{
 		public IPayment RecurringPayment {get;set;}
 
-		public ComRecurringResult(RecurringResult result)
+		public ComRecurringResult(SubscriptionResult result)
 			:base(result)
 		{
 			RecurringPayment = new ComPayment(result.RecurringPayment);

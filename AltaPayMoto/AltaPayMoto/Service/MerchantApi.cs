@@ -115,22 +115,22 @@ namespace AltaPay.Service
 			return new GetPaymentResult(GetResponseFromApiCall("transactions", parameters));
 		}
 
-		public RecurringResult ChargeSubscription(ChargeSubscriptionRequest request)
+		public ChargeSubscriptionResult ChargeSubscription(ChargeSubscriptionRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", request.SubscriptionId);
 			parameters.Add("amount", request.Amount.GetAmountString());
 
-			return new RecurringResult(GetResponseFromApiCall("chargeSubscription",parameters));
+			return new ChargeSubscriptionResult(GetResponseFromApiCall("chargeSubscription",parameters));
 		}
 
-		public RecurringResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request)
+		public ReserveSubscriptionChargeResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", request.SubscriptionId);
 			parameters.Add("amount", request.Amount.GetAmountString());
 			
-			return new RecurringResult(GetResponseFromApiCall("reserveSubscriptionCharge", parameters));
+			return new ReserveSubscriptionChargeResult(GetResponseFromApiCall("reserveSubscriptionCharge", parameters));
 		}
 		
 		public FundingsResult GetFundings(GetFundingsRequest request)
@@ -216,7 +216,7 @@ namespace AltaPay.Service
 
 				case "subscriptionAndCharge":
 				case "recurringAndCapture":
-					return new RecurringResult(apiResponse);
+					return new SubscriptionResult(apiResponse);
 
 				default: 
 					throw new Exception("Unhandled Authtype : " + authType);
@@ -243,17 +243,12 @@ namespace AltaPay.Service
 			}
 		}
 
-
-
-
 		public APIResponse GetResponseFromApiCall(string method, Dictionary<string,Object> parameters)
 		{
 			using (Stream responseStream = CallApi(method, parameters)) {
 				return GetApiResponse(responseStream);
 			}
 		}
-
-
 
 		public Stream CallApi(string method, Dictionary<string,Object> parameters)
 		{

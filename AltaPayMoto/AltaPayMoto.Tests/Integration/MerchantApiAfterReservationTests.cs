@@ -158,7 +158,7 @@ namespace AltaPay.Moto.Tests.Integration
 				SubscriptionId = createPaymentResult.Transaction.TransactionId,
 				Amount = Amount.Get(1, Currency.XXX),
 			};
-			RecurringResult result = _api.ChargeSubscription(request);
+			SubscriptionResult result = _api.ChargeSubscription(request);
 
 			Assert.AreEqual(Result.Success, result.Result);
 		}
@@ -171,7 +171,7 @@ namespace AltaPay.Moto.Tests.Integration
 				SubscriptionId = createPaymentResult.Transaction.TransactionId,
 				Amount = Amount.Get(1, Currency.XXX),
 			};
-			RecurringResult result = _api.ChargeSubscription(request);
+			SubscriptionResult result = _api.ChargeSubscription(request);
 
 			Assert.AreEqual(createPaymentResult.Transaction.TransactionId, result.Transaction.TransactionId);
 			Assert.AreEqual("recurring_confirmed", result.Transaction.TransactionStatus);
@@ -186,7 +186,7 @@ namespace AltaPay.Moto.Tests.Integration
 				SubscriptionId = createPaymentResult.Transaction.TransactionId,
 				Amount = Amount.Get(1, Currency.XXX),
 			};
-			RecurringResult result = _api.ReserveSubscriptionCharge(request);
+			SubscriptionResult result = _api.ReserveSubscriptionCharge(request);
 			Assert.AreEqual(Result.Success, result.Result);
 		}
 
@@ -198,7 +198,7 @@ namespace AltaPay.Moto.Tests.Integration
 				SubscriptionId = createPaymentResult.Transaction.TransactionId,
 				Amount = Amount.Get(1, Currency.XXX),
 			};
-			RecurringResult result = _api.ReserveSubscriptionCharge(request);
+			SubscriptionResult result = _api.ReserveSubscriptionCharge(request);
 
 			Assert.AreEqual(createPaymentResult.Transaction.TransactionId, result.Transaction.TransactionId);
 			Assert.AreEqual("recurring_confirmed", result.Transaction.TransactionStatus);

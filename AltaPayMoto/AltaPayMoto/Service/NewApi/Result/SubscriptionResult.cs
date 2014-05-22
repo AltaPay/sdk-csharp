@@ -6,16 +6,16 @@ using AltaPay.Service.Dto;
 
 namespace AltaPay.Service
 {
-	public class RecurringResult : PaymentResult
+	public class SubscriptionResult : PaymentResult
 	{
 		public Transaction RecurringPayment { get; set; }
 
-		public RecurringResult()
+		public SubscriptionResult()
 			:base()
 		{
 		}
 
-		public RecurringResult(APIResponse apiResponse)
+		public SubscriptionResult(APIResponse apiResponse)
 			:base(apiResponse)
 		{
 			if (apiResponse.Header.ErrorCode == 0 && apiResponse.Body.Transactions != null && apiResponse.Body.Transactions.Length > 1)

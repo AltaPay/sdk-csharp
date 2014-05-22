@@ -11,8 +11,8 @@ namespace AltaPay.Service
 	{
 		void Initialize(string gatewayUrl, string username, string password, string terminal);
 
-		RecurringResult ChargeSubscription(ChargeSubscriptionRequest request);
-		RecurringResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request);
+		ChargeSubscriptionResult ChargeSubscription(ChargeSubscriptionRequest request);
+		ReserveSubscriptionChargeResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request);
 
 		PaymentRequestResult CreatePaymentRequest(PaymentRequest Request);
 		ReservationResult Reserve(PaymentReservationRequest request);
