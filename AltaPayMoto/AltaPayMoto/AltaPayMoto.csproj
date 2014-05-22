@@ -131,9 +131,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="PensioKey.snk" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Examples\Navision examples.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
