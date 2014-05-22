@@ -37,6 +37,7 @@ namespace AltaPay.Service
 			parameters.Add("amount", request.Amount.GetAmountString());
 			parameters.Add("currency", request.Amount.Currency.GetNumericString());
 			parameters.Add("type", request.PaymentType);
+			parameters.Add("payment_source", request.Source);
 
 			if (request.CreditCardToken!=null) {
 				parameters.Add("credit_card_token", request.CreditCardToken);

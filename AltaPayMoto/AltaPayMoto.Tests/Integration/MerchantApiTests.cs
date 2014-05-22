@@ -29,6 +29,9 @@ namespace AltaPay.Moto.Tests.Integration
 			Assert.AreEqual(Result.Success, result.Result);
 		}
 
+
+
+
 		[Test]
 		public void CallingMerchantApiWithFailParametersReturnsFailedResult()
 		{
@@ -64,6 +67,16 @@ namespace AltaPay.Moto.Tests.Integration
 
 			Assert.AreEqual(orderid, result.Transaction.ShopOrderId);
 		}
+
+		[Test]
+		public void CallingMerchantApiWithAlternativeSourceReturnsSuccessfulResult()
+		{
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23,null,PaymentSource.eCommerce);
+
+			Assert.AreEqual(Result.Success, result.Result);
+		}
+
+
 
 		[Test]
 		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithTheCorrectTerminal()
@@ -170,9 +183,10 @@ namespace AltaPay.Moto.Tests.Integration
 			Console.Out.WriteLine("test: " + result.ResultMessage);
         }
 
-		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, CustomerInfo customerInfo)
+		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, CustomerInfo customerInfo, PaymentSource source = PaymentSource.moto)
 		{
 			var request = new PaymentReservationRequest {
+				Source = source,
 				ShopOrderId = shopOrderId,
 				PaymentType = AuthType.payment,
 				Amount = Amount.Get(amount, Currency.DKK),
