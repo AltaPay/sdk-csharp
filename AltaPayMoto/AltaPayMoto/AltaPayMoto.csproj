@@ -145,7 +145,6 @@
   </Target>
   -->
   <ItemGroup>
-    <Folder Include="Service\NewApi\" />
     <Folder Include="Generated\" />
   </ItemGroup>
 </Project>
