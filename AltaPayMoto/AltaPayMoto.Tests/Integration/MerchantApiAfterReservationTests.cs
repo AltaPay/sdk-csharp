@@ -113,41 +113,6 @@ namespace AltaPay.Moto.Tests.Integration
 			Assert.IsNull(result.Transaction);
 		}
 		
-		/*
-		[Test]
-		public void SplitPaymentReturnsSuccess()
-		{
-			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.payment);
-			SplitPaymentResult result = _api.Split(createPaymentResult.Payment.TransactionId, 1.00);
-
-			Assert.AreEqual(Result.Success, result.Result);
-		}
-		[Test]
-		public void SplitPaymentReturnsTwoPaymentWhenSplitFails()
-		{
-			PaymentResult createPaymentResult = ReserveAmount(42, AuthType.payment);
-			SplitPaymentResult result = _api.Split(createPaymentResult.Payment.TransactionId, 10.66);
-
-			Assert.AreEqual(Result.Failed, result.Result);
-			
-			Assert.IsNotNull(result.Payment);
-			Assert.IsNotNull(result.SplitPayment1);
-			Assert.IsNull(result.SplitPayment2);
-		}
-
-		[Test]
-		public void SplitPaymentReturnsAllThreePayments()
-		{
-			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.payment);
-			SplitPaymentResult result = _api.Split(createPaymentResult.Payment.TransactionId, 1.00);
-
-			Assert.AreEqual(createPaymentResult.Payment.TransactionId, result.Payment.PaymentId);
-			Assert.AreEqual("split", result.Payment.PaymentStatus);
-			Assert.AreEqual("preauth", result.SplitPayment1.PaymentStatus);
-			Assert.AreEqual("preauth", result.SplitPayment2.PaymentStatus);
-		}
-
-		 */
 
 
 		[Test]
