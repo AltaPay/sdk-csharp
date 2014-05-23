@@ -42,7 +42,7 @@ namespace AltaPay.Moto.Tests.Integration
 
 		private PaymentResult ReserveAmount(double amount, AuthType type)
 		{
-			var reserveParam = new ReserveRequest {
+			var request = new ReserveRequest {
 				ShopOrderId = "csharptest" + Guid.NewGuid().ToString(),
 				Amount = Amount.Get(amount, Currency.DKK),
 				PaymentType = type,
@@ -51,7 +51,7 @@ namespace AltaPay.Moto.Tests.Integration
 				ExpiryYear = 2012,
 				Cvc = "123"
 			};
-			return _merchantApi.Reserve(reserveParam);
+			return _merchantApi.Reserve(request);
 		}
 	}
 }
