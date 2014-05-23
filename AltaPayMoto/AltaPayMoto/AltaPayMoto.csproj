@@ -89,8 +89,6 @@
     <Compile Include="Generated\APIResponse.cs" />
     <Compile Include="Com\PaymentDetails.cs" />
     <Compile Include="Service\Helpers\ParameterHelper.cs" />
-    <Compile Include="Service\Requests\CaptureRequest.cs" />
-    <Compile Include="Service\Requests\ChargeSubscriptionRequest.cs" />
     <Compile Include="Service\Requests\Common\AccountOffer.cs" />
     <Compile Include="Service\Requests\Common\Amount.cs" />
     <Compile Include="Service\Requests\Common\AuthType.cs" />
@@ -101,16 +99,9 @@
     <Compile Include="Service\Requests\Common\FraudService.cs" />
     <Compile Include="Service\Requests\Common\GoodsType.cs" />
     <Compile Include="Service\Requests\Common\PaymentOrderLine.cs" />
-    <Compile Include="Service\Requests\Common\PaymentRequest.cs" />
     <Compile Include="Service\Requests\Common\PaymentRequestConfig.cs" />
     <Compile Include="Service\Requests\Common\PaymentSource.cs" />
     <Compile Include="Service\Requests\Common\ShippingType.cs" />
-    <Compile Include="Service\Requests\GetFundingsRequest.cs" />
-    <Compile Include="Service\Requests\GetPaymentRequest.cs" />
-    <Compile Include="Service\Requests\PaymentReservationRequest.cs" />
-    <Compile Include="Service\Requests\RefundRequest.cs" />
-    <Compile Include="Service\Requests\ReleaseRequest.cs" />
-    <Compile Include="Service\Requests\ReserveSubscriptionChargeRequest.cs" />
     <Compile Include="Service\Results\ApiResult.cs" />
     <Compile Include="Service\Results\CaptureResult.cs" />
     <Compile Include="Service\Results\ChargeSubscriptionResult.cs" />
@@ -124,6 +115,15 @@
     <Compile Include="Service\Results\ReservationResult.cs" />
     <Compile Include="Service\Results\ReserveSubscriptionChargeResult.cs" />
     <Compile Include="Service\Results\SubscriptionResult.cs" />
+    <Compile Include="Service\Requests\ReserveSubscriptionChargeParam.cs" />
+    <Compile Include="Service\Requests\ReleaseParam.cs" />
+    <Compile Include="Service\Requests\RefundParam.cs" />
+    <Compile Include="Service\Requests\ReserveParam.cs" />
+    <Compile Include="Service\Requests\GetPaymentParam.cs" />
+    <Compile Include="Service\Requests\GetFundingsParam.cs" />
+    <Compile Include="Service\Requests\ChargeSubscriptionParam.cs" />
+    <Compile Include="Service\Requests\CaptureParam.cs" />
+    <Compile Include="Service\Requests\Common\PaymentRequestParam.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">
