@@ -111,19 +111,19 @@
     <Compile Include="Service\Requests\RefundRequest.cs" />
     <Compile Include="Service\Requests\ReleaseRequest.cs" />
     <Compile Include="Service\Requests\ReserveSubscriptionChargeRequest.cs" />
-    <Compile Include="Service\Result\ApiResult.cs" />
-    <Compile Include="Service\Result\CaptureResult.cs" />
-    <Compile Include="Service\Result\ChargeSubscriptionResult.cs" />
-    <Compile Include="Service\Result\Common\Result.cs" />
-    <Compile Include="Service\Result\FundingsResult.cs" />
-    <Compile Include="Service\Result\GetPaymentResult.cs" />
-    <Compile Include="Service\Result\PaymentRequestResult.cs" />
-    <Compile Include="Service\Result\PaymentResult.cs" />
-    <Compile Include="Service\Result\RefundResult.cs" />
-    <Compile Include="Service\Result\ReleaseResult.cs" />
-    <Compile Include="Service\Result\ReservationResult.cs" />
-    <Compile Include="Service\Result\ReserveSubscriptionChargeResult.cs" />
-    <Compile Include="Service\Result\SubscriptionResult.cs" />
+    <Compile Include="Service\Results\ApiResult.cs" />
+    <Compile Include="Service\Results\CaptureResult.cs" />
+    <Compile Include="Service\Results\ChargeSubscriptionResult.cs" />
+    <Compile Include="Service\Results\Common\Result.cs" />
+    <Compile Include="Service\Results\FundingsResult.cs" />
+    <Compile Include="Service\Results\GetPaymentResult.cs" />
+    <Compile Include="Service\Results\PaymentRequestResult.cs" />
+    <Compile Include="Service\Results\PaymentResult.cs" />
+    <Compile Include="Service\Results\RefundResult.cs" />
+    <Compile Include="Service\Results\ReleaseResult.cs" />
+    <Compile Include="Service\Results\ReservationResult.cs" />
+    <Compile Include="Service\Results\ReserveSubscriptionChargeResult.cs" />
+    <Compile Include="Service\Results\SubscriptionResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">
