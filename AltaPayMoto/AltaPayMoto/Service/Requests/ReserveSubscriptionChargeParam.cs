@@ -1,7 +1,7 @@
 using System;
 using AltaPay.Service;
 
-namespace AltaPay
+namespace AltaPay.Service
 {
 	public class ReserveSubscriptionChargeParam
 	{
