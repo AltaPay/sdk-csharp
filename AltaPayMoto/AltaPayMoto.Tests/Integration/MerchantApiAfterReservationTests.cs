@@ -112,8 +112,6 @@ namespace AltaPay.Moto.Tests.Integration
 
 			Assert.IsNull(result.Transaction);
 		}
-		
-
 
 		[Test]
 		public void ChargeSubscriptionReturnsSuccess()
@@ -129,7 +127,7 @@ namespace AltaPay.Moto.Tests.Integration
 		}
 
 		[Test]
-		public void CaptureRecurringReturnsBothPayments()
+		public void ChargeSubscriptionReturnsBothPayments()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
 			var chargeSubscriptionParam = new ChargeSubscriptionParam() {
@@ -144,7 +142,7 @@ namespace AltaPay.Moto.Tests.Integration
 		}
 
 		[Test]
-		public void PreauthReccurringPaymentReturnsSuccess()
+		public void ReserveSubscriptionChargeReturnsSuccess()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
 			var reserveSubscriptionParam = new ReserveSubscriptionChargeParam {
@@ -156,7 +154,7 @@ namespace AltaPay.Moto.Tests.Integration
 		}
 
 		[Test]
-		public void PreauthRecurringReturnsBothPayments()
+		public void ReserveSubscriptionChargeReturnsBothPayments()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
 			var reserveSubscriptionParam = new ReserveSubscriptionChargeParam {
