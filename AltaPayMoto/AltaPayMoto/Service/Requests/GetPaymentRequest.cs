@@ -2,7 +2,7 @@ using System;
 
 namespace AltaPay
 {
-	public class GetPaymentRequest
+	public class GetPaymentParam
 	{
 		public string PaymentId { get; set; }
 	}

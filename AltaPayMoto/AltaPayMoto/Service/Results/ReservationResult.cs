@@ -3,14 +3,14 @@ using AltaPay.Service.Dto;
 
 namespace AltaPay.Service
 {
-	public class ReservationResult : PaymentResult
+	public class ReserveResult : PaymentResult
 	{
-		public ReservationResult() 
+		public ReserveResult() 
 		{
 
 		}
 
-		public ReservationResult(APIResponse response) : base(response) 
+		public ReserveResult(APIResponse response) : base(response) 
 		{
 
 		}

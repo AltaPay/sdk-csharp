@@ -159,7 +159,7 @@ namespace AltaPay.Moto.Tests.Integration
         public void WahNoaNoa()
         {
 
-			var request = new CaptureRequest() {
+			var captureParam = new CaptureParam() {
 				PaymentId =  "59",
 				Amount = Amount.Get(2039, Currency.XXX),
 				OrderLines = {
@@ -178,14 +178,14 @@ namespace AltaPay.Moto.Tests.Integration
 					new PaymentOrderLine() { Description = "Freight", ItemId = "", Quantity = 1, TaxPercent = 0, UnitCode = "", UnitPrice = 0, Discount = 0, GoodsType = GoodsType.Shipment },
 				}
 			};
-			PaymentResult result = _api.Capture( request);
+			PaymentResult result = _api.Capture( captureParam);
 
 			Console.Out.WriteLine("test: " + result.ResultMessage);
         }
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, CustomerInfo customerInfo, PaymentSource source = PaymentSource.moto)
 		{
-			var request = new PaymentReservationRequest {
+			var reserveParam = new ReserveParam {
 				Source = source,
 				ShopOrderId = shopOrderId,
 				PaymentType = AuthType.payment,
@@ -196,12 +196,12 @@ namespace AltaPay.Moto.Tests.Integration
 				Cvc = "123",
 				CustomerInfo = customerInfo,
 			};
-			return _api.Reserve(request);
+			return _api.Reserve(reserveParam);
 		}
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount)
 		{
-			var request = new PaymentReservationRequest {
+			var reserveParam = new ReserveParam {
 				ShopOrderId = shopOrderId,
 				PaymentType = AuthType.paymentAndCapture,
 				Amount = Amount.Get(amount, Currency.DKK),
@@ -210,19 +210,19 @@ namespace AltaPay.Moto.Tests.Integration
 				ExpiryYear = 2018,
 				Cvc = "123",
 			};
-			return _api.Reserve(request);
+			return _api.Reserve(reserveParam);
 		}
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, string cardToken)
 		{
-			var request = new PaymentReservationRequest {
+			var reserveParam = new ReserveParam {
 				ShopOrderId = shopOrderId,
 				PaymentType = AuthType.payment,
 				Amount = Amount.Get(amount, Currency.DKK),
 				CreditCardToken = cardToken,
 				Cvc = "123",
 			};
-			return _api.Reserve(request);
+			return _api.Reserve(reserveParam);
 		}
 	}
 }

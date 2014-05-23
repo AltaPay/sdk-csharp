@@ -66,7 +66,7 @@ namespace AltaPay.Moto
 
 		public void PayUsingExistingCreditCard(string cardToken, string cvc, CustomerInfo customerInfo)
 		{
-			var request = new PaymentReservationRequest() {
+			var request = new ReserveParam() {
 				ShopOrderId =  _orderId,
 				Amount = Amount.Get(_amount, Currency.FromNumeric(_currency)),
 				PaymentType = _paymentType,
@@ -79,7 +79,7 @@ namespace AltaPay.Moto
 
 		public void PayUsingNewCreditCard(string pan, int expiryMonth, int expiryYear, string cvc, CustomerInfo customerInfo)
 		{
-			var request = new PaymentReservationRequest() {
+			var request = new ReserveParam() {
 				ShopOrderId =  _orderId,
 				Amount = Amount.Get(_amount, Currency.FromNumeric(_currency)),
 				PaymentType = _paymentType,

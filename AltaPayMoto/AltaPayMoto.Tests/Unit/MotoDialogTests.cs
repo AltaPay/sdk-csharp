@@ -54,14 +54,14 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void WhenCallingShowOnMotoDialogCallShowOnViewAndWaitForToPayWithNewCreditCard()
 		{
-			SetupResults(new ReservationResult { Result = Result.Success }, false);
+			SetupResults(new ReserveResult { Result = Result.Success }, false);
 
 			InitializePayment();
 			_motoDialog.Show();
 
 			_view.Verify(v => v.ShowBlocking());
 			_view.Verify(v => v.Close());
-			_api.Verify(a => a.Reserve(It.Is<PaymentReservationRequest>(r=>
+			_api.Verify(a => a.Reserve(It.Is<ReserveParam>(r=>
             	r.ShopOrderId == "orderid" 
 			    && r.Amount.Value==42.42m
 			    && r.Amount.Currency==Currency.DKK
@@ -77,7 +77,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void WhenCallingShowOnMotoDialogCallShowOnViewAndWaitForToPayWithExisitingCreditCard()
 		{
-			SetupResults(new ReservationResult { Result = Result.Success }, true);
+			SetupResults(new ReserveResult { Result = Result.Success }, true);
 
 			InitializePayment();
 			_motoDialog.Show();
@@ -85,7 +85,7 @@ namespace AltaPay.Moto.Tests.Unit
 			_view.Verify(v => v.ShowBlocking());
 			_view.Verify(v => v.Close());
 
-			_api.Verify(a => a.Reserve(It.Is<PaymentReservationRequest>( 
+			_api.Verify(a => a.Reserve(It.Is<ReserveParam>( 
 					r => r.ShopOrderId == "orderid" 
 			        && r.Amount.Value==42.42m
 	                && r.Amount.Currency==Currency.DKK
@@ -111,7 +111,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void WhenCallingShowOnMotoDialogCallShowOnViewAndWaitForToPayWithNewCreditCardButItFailsWaitForUserInputToCancel()
 		{
-			SetupResults(new ReservationResult { Result = Result.Failed, ResultMerchantMessage = "merchant error message" }, false);
+			SetupResults(new ReserveResult { Result = Result.Failed, ResultMerchantMessage = "merchant error message" }, false);
 
 			InitializePayment();
 			_motoDialog.Show();
@@ -124,7 +124,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void WhenCallingShowOnMotoDialogCallShowOnViewAndWaitForToPayWithExisitingCreditCardButItFailsWaitForUserInputToCancel()
 		{
-			SetupResults(new ReservationResult { Result = Result.Failed, ResultMerchantMessage = "merchant error message" }, true);
+			SetupResults(new ReserveResult { Result = Result.Failed, ResultMerchantMessage = "merchant error message" }, true);
 
 			InitializePayment();
 			_motoDialog.Show();
@@ -137,7 +137,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void OnPaymentErrorForNewCreditCardShowErrorStatus()
 		{
-			SetupResults(new ReservationResult { Result = Result.Error, ResultMerchantMessage = "merchant error message" }, false);
+			SetupResults(new ReserveResult { Result = Result.Error, ResultMerchantMessage = "merchant error message" }, false);
 
 			InitializePayment();
 			_motoDialog.Show();
@@ -148,7 +148,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void OnPaymentErrorForExistingCreditCardShowErrorStatus()
 		{
-			SetupResults(new ReservationResult { Result = Result.Error, ResultMerchantMessage = "merchant error message" }, true);
+			SetupResults(new ReserveResult { Result = Result.Error, ResultMerchantMessage = "merchant error message" }, true);
 
 			InitializePayment();
 			_motoDialog.Show();
@@ -159,7 +159,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void OnPaymentErrorForNewCreditCardShowSystemErrorStatus()
 		{
-			SetupResults(new ReservationResult { Result = Result.SystemError, ResultMerchantMessage = "merchant error message" }, false);
+			SetupResults(new ReserveResult { Result = Result.SystemError, ResultMerchantMessage = "merchant error message" }, false);
 
 			InitializePayment();
 			_motoDialog.Show();
@@ -172,7 +172,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void OnPaymentErrorForExistingCreditCardShowSystemErrorStatus()
 		{
-			SetupResults(new ReservationResult { Result = Result.SystemError, ResultMerchantMessage = "merchant error message" }, true);
+			SetupResults(new ReserveResult { Result = Result.SystemError, ResultMerchantMessage = "merchant error message" }, true);
 
 			InitializePayment();
 			_motoDialog.Show();
@@ -183,7 +183,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void OnPaymentSuccessReturnPaymentResult()
 		{
-			ReservationResult expected = new ReservationResult { Result = Result.Success };
+			ReserveResult expected = new ReserveResult { Result = Result.Success };
 			SetupResults(expected, true);
 
 			InitializePayment();
@@ -206,7 +206,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void OnUserCancelWhenAnErrorResultHaveBeenMadeReturnPaymentResultFromApi()
 		{
-			ReservationResult expected = new ReservationResult { Result = Result.Error };
+			ReserveResult expected = new ReserveResult { Result = Result.Error };
 			SetupResults(expected, true);
 
 			InitializePayment();
@@ -218,7 +218,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void OnUserCancelWhenAnFailedResultHaveBeenMadeReturnPaymentResultFromApi()
 		{
-			ReservationResult expected = new ReservationResult { Result = Result.Failed };
+			ReserveResult expected = new ReserveResult { Result = Result.Failed };
 			SetupResults(expected, true);
 
 			InitializePayment();
@@ -230,7 +230,7 @@ namespace AltaPay.Moto.Tests.Unit
 		[Test]
 		public void OnUserCancelWhenASystemErrorResultHaveBeenMadeReturnPaymentResultFromApi()
 		{
-			ReservationResult expected = new ReservationResult { Result = Result.SystemError };
+			ReserveResult expected = new ReserveResult { Result = Result.SystemError };
 			SetupResults(expected, true);
 
 			InitializePayment();
@@ -240,7 +240,7 @@ namespace AltaPay.Moto.Tests.Unit
 		}
 
 	
-		private void SetupResults(ReservationResult result, bool setupExisting)
+		private void SetupResults(ReserveResult result, bool setupExisting)
 		{
 			if (!setupExisting)
 			{
@@ -253,7 +253,7 @@ namespace AltaPay.Moto.Tests.Unit
 
 
 
-			_api.Setup(a => a.Reserve(It.IsAny<PaymentReservationRequest>()))
+			_api.Setup(a => a.Reserve(It.IsAny<ReserveParam>()))
 				.Returns(result);
 			_view.Setup(v => v.EnableView(It.IsAny<string>())).Callback(() => _motoDialog.Cancel());
 		}

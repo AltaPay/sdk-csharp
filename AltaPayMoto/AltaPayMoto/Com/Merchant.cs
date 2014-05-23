@@ -27,7 +27,7 @@ namespace AltaPay.Moto.Com
 
 		public IComPaymentResult Capture(string paymentId, double amount)
 		{
-			var request = new CaptureRequest() {
+			var request = new CaptureParam() {
 				PaymentId = paymentId, 
 				Amount = Amount.Get(amount, Currency.XXX)
 			};
@@ -36,7 +36,7 @@ namespace AltaPay.Moto.Com
 
 		public IComPaymentResult CaptureWithIdentifier(string paymentId, double amount, string reconciliationIdentifier)
 		{
-			var request = new CaptureRequest() {
+			var request = new CaptureParam() {
 				PaymentId = paymentId, 
 				Amount = Amount.Get(amount, Currency.XXX), 
 				ReconciliationId = reconciliationIdentifier
@@ -46,7 +46,7 @@ namespace AltaPay.Moto.Com
 		
 		public IComPaymentResult CaptureWithPaymentDetails(string paymentId, double amount, IPaymentDetails paymentDetails)
 		{
-			var request = new CaptureRequest() {
+			var request = new CaptureParam() {
 				PaymentId = paymentId, 
 				Amount = Amount.Get(amount, Currency.XXX), 
 				ReconciliationId = paymentDetails.ReconciliationIdentifier,
@@ -59,7 +59,7 @@ namespace AltaPay.Moto.Com
 
 		public IComPaymentResult Refund(string paymentId, double amount)
 		{
-			var request = new RefundRequest { 
+			var request = new RefundParam { 
 				PaymentId = paymentId,
 				Amount = Amount.Get(amount, Currency.XXX)
 			};
@@ -68,7 +68,7 @@ namespace AltaPay.Moto.Com
 
 		public IComPaymentResult RefundWithIdentifier(string paymentId, double amount, string reconciliationIdentifier)
 		{
-			var request = new RefundRequest { 
+			var request = new RefundParam { 
 				PaymentId = paymentId,
 				Amount = Amount.Get(amount, Currency.XXX),
 				ReconciliationId = reconciliationIdentifier
@@ -78,7 +78,7 @@ namespace AltaPay.Moto.Com
 
 		public IComPaymentResult ReleaseReservation(string paymentId)
 		{
-			var request = new ReleaseRequest { 
+			var request = new ReleaseParam { 
 				PaymentId = paymentId,
 			};
 			return new ComPaymentResult(_merchantApi.Release(request));
@@ -91,12 +91,12 @@ namespace AltaPay.Moto.Com
 */
 		public IComPaymentResult GetPayment(string paymentId)
 		{
-			return new ComPaymentResult(_merchantApi.GetPayment(new GetPaymentRequest {PaymentId = paymentId }));
+			return new ComPaymentResult(_merchantApi.GetPayment(new GetPaymentParam {PaymentId = paymentId }));
 		}
 
 		public IComRecurringResult CaptureRecurring(string subscriptionId, double amount)
 		{
-			var request = new ChargeSubscriptionRequest {
+			var request = new ChargeSubscriptionParam {
 				SubscriptionId = subscriptionId,
 				Amount = Amount.Get(amount, Currency.XXX)
 			};
@@ -105,7 +105,7 @@ namespace AltaPay.Moto.Com
 
 		public IComRecurringResult PreauthRecurring(string subscriptionId, double amount)
 		{
-			var request = new ReserveSubscriptionChargeRequest {
+			var request = new ReserveSubscriptionChargeParam {
 				SubscriptionId = subscriptionId,
 				Amount = Amount.Get(amount, Currency.XXX)
 			};
@@ -114,7 +114,7 @@ namespace AltaPay.Moto.Com
 
 		public IComFundingsResult GetFundings(int page)
 		{
-			var request = new GetFundingsRequest {
+			var request = new GetFundingsParam {
 				Page = page
 			};
 			return new ComFundingsResult(_merchantApi.GetFundings(request));
@@ -122,7 +122,7 @@ namespace AltaPay.Moto.Com
 
 		public IComPaymentResult CaptureWithOrderlines(string paymentId, double amount, IPaymentDetails paymentDetails)
 		{
-			var request = new CaptureRequest() {
+			var request = new CaptureParam() {
 				PaymentId = paymentId, 
 				Amount = Amount.Get(amount, Currency.XXX), 
 				ReconciliationId = paymentDetails.ReconciliationIdentifier,

@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 namespace AltaPay.Service
 {
     [ClassInterface(ClassInterfaceType.None)]
-	public class PaymentRequest
+	public class PaymentRequestParam
 	{
 		// Required Parameters
 		public string Terminal { get; set; }
@@ -34,7 +34,7 @@ namespace AltaPay.Service
 		public AccountOffer AccountOffer { get; set; } // To require having account enabled for an invoice payment for this specific customer, set this to required. To disable account for this specific customer, set to disabled.
 		
 		
-		public PaymentRequest() {
+		public PaymentRequestParam() {
 			Config = new PaymentRequestConfig();	
 			CustomerInfo = new CustomerInfo();
 			OrderLines = new List<PaymentOrderLine>();

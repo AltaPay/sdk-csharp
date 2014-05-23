@@ -25,11 +25,11 @@ namespace AltaPay.Moto.Tests.Integration
 		{
 			var reserveResult = ReserveAmount(1.23, AuthType.payment);
 
-			var request = new CaptureRequest() {
+			var captureParam = new CaptureParam() {
 				PaymentId =  reserveResult.Transaction.TransactionId,
 				Amount = Amount.Get(1.23, Currency.DKK),
 			};
-			PaymentResult result = _api.Capture( request);
+			PaymentResult result = _api.Capture( captureParam);
 			
 			Assert.AreEqual(Result.Success, result.Result);
 		}
@@ -41,7 +41,7 @@ namespace AltaPay.Moto.Tests.Integration
 			if (reserveResult.Result != Result.Success)
 				throw new Exception(reserveResult.ResultMessage);
 
-			var request = new CaptureRequest() {
+			var captureParam = new CaptureParam() {
 				PaymentId =  reserveResult.Transaction.TransactionId,
 				Amount = Amount.Get(1.23, Currency.DKK),
 				OrderLines = {
@@ -57,7 +57,7 @@ namespace AltaPay.Moto.Tests.Integration
 					}
 				}
 			};
-			PaymentResult result = _api.Capture( request);
+			PaymentResult result = _api.Capture( captureParam);
 
 			Assert.AreEqual(Result.Success, result.Result);
 		}
@@ -66,32 +66,32 @@ namespace AltaPay.Moto.Tests.Integration
 		public void RefundPaymentReturnsSuccess()
 		{
 			var reserveResult = ReserveAmount(1.23, AuthType.paymentAndCapture);
-			var request = new RefundRequest() {
+			var refundParam = new RefundParam() {
 				PaymentId = reserveResult.Transaction.TransactionId,
 				Amount = Amount.Get(1.23, Currency.XXX),
 			};
-			Assert.AreEqual(Result.Success, _api.Refund(request).Result);
+			Assert.AreEqual(Result.Success, _api.Refund(refundParam).Result);
 		}
 
 		[Test]
 		public void RefundPaymentReturnsRefundedAmount()
 		{
 			var reserveResult = ReserveAmount(1.23, AuthType.paymentAndCapture);
-			var request = new RefundRequest() {
+			var refundParam = new RefundParam() {
 				PaymentId = reserveResult.Transaction.TransactionId,
 				Amount = Amount.Get(1.11, Currency.DKK),
 			};
-			Assert.AreEqual(1.11, _api.Refund(request).Transaction.RefundedAmount);
+			Assert.AreEqual(1.11, _api.Refund(refundParam).Transaction.RefundedAmount);
 		}
 
 		[Test]
 		public void ReleasePaymentReturnsSuccess()
 		{
 			var reserveResult = ReserveAmount(1.23, AuthType.payment);
-			var request = new ReleaseRequest {
+			var releaseParam = new ReleaseParam {
 				PaymentId = reserveResult.Transaction.TransactionId,
 			};
-			PaymentResult result = _api.Release(request);
+			PaymentResult result = _api.Release(releaseParam);
 
 			Assert.AreEqual(Result.Success, result.Result);
 		}
@@ -100,7 +100,7 @@ namespace AltaPay.Moto.Tests.Integration
 		public void GetPaymentReturnsPayment()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.payment);
-			PaymentResult result = _api.GetPayment(new GetPaymentRequest { PaymentId = createPaymentResult.Transaction.TransactionId} );
+			PaymentResult result = _api.GetPayment(new GetPaymentParam { PaymentId = createPaymentResult.Transaction.TransactionId} );
 
 			Assert.AreEqual(createPaymentResult.Transaction.TransactionId, result.Transaction.TransactionId);
 		}
@@ -108,7 +108,7 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void GetNonExistingPaymentReturnsNullPayment()
 		{
-			PaymentResult result = _api.GetPayment(new GetPaymentRequest { PaymentId = "-1"});
+			PaymentResult result = _api.GetPayment(new GetPaymentParam { PaymentId = "-1"});
 
 			Assert.IsNull(result.Transaction);
 		}
@@ -119,11 +119,11 @@ namespace AltaPay.Moto.Tests.Integration
 		public void ChargeSubscriptionReturnsSuccess()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
-			var request = new ChargeSubscriptionRequest() {
+			var chargeSubscriptionParam = new ChargeSubscriptionParam() {
 				SubscriptionId = createPaymentResult.Transaction.TransactionId,
 				Amount = Amount.Get(1, Currency.XXX),
 			};
-			SubscriptionResult result = _api.ChargeSubscription(request);
+			SubscriptionResult result = _api.ChargeSubscription(chargeSubscriptionParam);
 
 			Assert.AreEqual(Result.Success, result.Result);
 		}
@@ -132,11 +132,11 @@ namespace AltaPay.Moto.Tests.Integration
 		public void CaptureRecurringReturnsBothPayments()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
-			var request = new ChargeSubscriptionRequest() {
+			var chargeSubscriptionParam = new ChargeSubscriptionParam() {
 				SubscriptionId = createPaymentResult.Transaction.TransactionId,
 				Amount = Amount.Get(1, Currency.XXX),
 			};
-			SubscriptionResult result = _api.ChargeSubscription(request);
+			SubscriptionResult result = _api.ChargeSubscription(chargeSubscriptionParam);
 
 			Assert.AreEqual(createPaymentResult.Transaction.TransactionId, result.Transaction.TransactionId);
 			Assert.AreEqual("recurring_confirmed", result.Transaction.TransactionStatus);
@@ -147,11 +147,11 @@ namespace AltaPay.Moto.Tests.Integration
 		public void PreauthReccurringPaymentReturnsSuccess()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
-			var request = new ReserveSubscriptionChargeRequest {
+			var reserveSubscriptionParam = new ReserveSubscriptionChargeParam {
 				SubscriptionId = createPaymentResult.Transaction.TransactionId,
 				Amount = Amount.Get(1, Currency.XXX),
 			};
-			SubscriptionResult result = _api.ReserveSubscriptionCharge(request);
+			SubscriptionResult result = _api.ReserveSubscriptionCharge(reserveSubscriptionParam);
 			Assert.AreEqual(Result.Success, result.Result);
 		}
 
@@ -159,11 +159,11 @@ namespace AltaPay.Moto.Tests.Integration
 		public void PreauthRecurringReturnsBothPayments()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
-			var request = new ReserveSubscriptionChargeRequest {
+			var reserveSubscriptionParam = new ReserveSubscriptionChargeParam {
 				SubscriptionId = createPaymentResult.Transaction.TransactionId,
 				Amount = Amount.Get(1, Currency.XXX),
 			};
-			SubscriptionResult result = _api.ReserveSubscriptionCharge(request);
+			SubscriptionResult result = _api.ReserveSubscriptionCharge(reserveSubscriptionParam);
 
 			Assert.AreEqual(createPaymentResult.Transaction.TransactionId, result.Transaction.TransactionId);
 			Assert.AreEqual("recurring_confirmed", result.Transaction.TransactionStatus);
@@ -172,7 +172,7 @@ namespace AltaPay.Moto.Tests.Integration
 
 		private PaymentResult ReserveAmount(double amount, AuthType type)
 		{
-			var request = new PaymentReservationRequest {
+			var reservePaymentParam = new ReserveParam {
 				ShopOrderId = "csharptest"+Guid.NewGuid().ToString(),
 				Amount = Amount.Get(amount, Currency.DKK),
 				PaymentType = type,
@@ -182,7 +182,7 @@ namespace AltaPay.Moto.Tests.Integration
 				Cvc = "123",
 			};
 
-			PaymentResult result = _api.Reserve(request);
+			PaymentResult result = _api.Reserve(reservePaymentParam);
 			
 			if(result.Result != Result.Success)
 			{

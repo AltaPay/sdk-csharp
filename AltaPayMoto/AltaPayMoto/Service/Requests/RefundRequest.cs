@@ -2,7 +2,7 @@ using System;
 
 namespace AltaPay.Service
 {
-	public class RefundRequest
+	public class RefundParam
 	{
 		public string PaymentId { get; set; }
 		public Amount Amount { get; set; }

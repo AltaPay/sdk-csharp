@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AltaPay.Service
 {
-	public class CaptureRequest
+	public class CaptureParam
 	{
 		public string PaymentId { get; set; }
 		public string ReconciliationId { get; set; }
@@ -13,7 +13,7 @@ namespace AltaPay.Service
 
 		public IList<PaymentOrderLine> OrderLines { get; set; } 
 
-		public CaptureRequest() 
+		public CaptureParam() 
 		{
 			OrderLines = new List<PaymentOrderLine>();
 		}

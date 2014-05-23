@@ -25,7 +25,7 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void CreateSimplePaymentRequest()
 		{
-			PaymentRequest paymentRequest = new PaymentRequest() {
+			PaymentRequestParam paymentRequest = new PaymentRequestParam() {
 				Terminal = 	"AltaPay Soap Test Terminal",
 				ShopOrderId = "payment-request-" + Guid.NewGuid().ToString(),
 				Amount = Amount.Get(42.34,Currency.EUR),
@@ -43,7 +43,7 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void CreateComplexPaymentRequest()
 		{
-			PaymentRequest paymentRequest = new PaymentRequest() {
+			PaymentRequestParam paymentRequest = new PaymentRequestParam() {
 				Terminal = "AltaPay Soap Test Terminal",
 				ShopOrderId = "payment-request-" + Guid.NewGuid().ToString(),
 				Amount = Amount.Get(5056.93, Currency.EUR),
@@ -153,7 +153,7 @@ namespace AltaPay.Moto.Tests.Integration
 			// TODO Remove the need for the cast to the API
 			using (Stream stream = ((MerchantApi)_api).CallApi("reservationOfFixedAmount", parameters))
 			{
-				ReservationResult paymentResult = _api.ParsePostBackXmlResponse(stream) as ReservationResult;
+				ReserveResult paymentResult = _api.ParsePostBackXmlResponse(stream) as ReserveResult;
 				Assert.IsNotNull(paymentResult);
 				Assert.AreEqual(Result.Success, paymentResult.Result);
 			}
