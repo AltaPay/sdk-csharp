@@ -52,7 +52,6 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlockingQueue.cs" />
     <Compile Include="Com\FundingLine.cs" />
     <Compile Include="Com\ComFundingsResult.cs" />
     <Compile Include="Com\ComRecurringResult.cs" />
@@ -69,23 +68,11 @@
     <Compile Include="Com\IMerchant.cs" />
     <Compile Include="Com\IMoto.cs" />
     <Compile Include="Com\IPayment.cs" />
-    <Compile Include="CSVReader.cs" />
-    <Compile Include="IMotoController.cs" />
-    <Compile Include="IMotoDialog.cs" />
-    <Compile Include="IMotoDialogView.cs" />
     <Compile Include="Com\Merchant.cs" />
     <Compile Include="Com\Moto.cs" />
-    <Compile Include="MotoDialog.cs" />
-    <Compile Include="MotoForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MotoForm.Designer.cs">
-      <DependentUpon>MotoForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Service\MerchantApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\IMerchantApi.cs" />
-    <Compile Include="StringConverter.cs" />
     <Compile Include="Generated\APIResponse.cs" />
     <Compile Include="Com\PaymentDetails.cs" />
     <Compile Include="Service\Helpers\ParameterHelper.cs" />
@@ -124,9 +111,22 @@
     <Compile Include="Service\Requests\ReleaseRequest.cs" />
     <Compile Include="Service\Requests\ReserveRequest.cs" />
     <Compile Include="Service\Requests\ReserveSubscriptionChargeRequest.cs" />
+    <Compile Include="MotoGui\IMotoController.cs" />
+    <Compile Include="MotoGui\IMotoDialog.cs" />
+    <Compile Include="MotoGui\MotoDialog.cs" />
+    <Compile Include="MotoGui\IMotoDialogView.cs" />
+    <Compile Include="MotoGui\MotoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MotoGui\MotoForm.Designer.cs">
+      <DependentUpon>MotoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\BlockingQueue.cs" />
+    <Compile Include="Common\StringConverter.cs" />
+    <Compile Include="Common\CSVReader.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MotoForm.resx">
+    <EmbeddedResource Include="MotoGui\MotoForm.resx">
       <DependentUpon>MotoForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
@@ -143,5 +143,7 @@
   -->
   <ItemGroup>
     <Folder Include="Generated\" />
+    <Folder Include="MotoGui\" />
+    <Folder Include="Common\" />
   </ItemGroup>
 </Project>
