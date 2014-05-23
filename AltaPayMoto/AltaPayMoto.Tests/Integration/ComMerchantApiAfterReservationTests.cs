@@ -42,7 +42,7 @@ namespace AltaPay.Moto.Tests.Integration
 
 		private PaymentResult ReserveAmount(double amount, AuthType type)
 		{
-			var reserveParam = new ReserveParam {
+			var reserveParam = new ReserveRequest {
 				ShopOrderId = "csharptest" + Guid.NewGuid().ToString(),
 				Amount = Amount.Get(amount, Currency.DKK),
 				PaymentType = type,

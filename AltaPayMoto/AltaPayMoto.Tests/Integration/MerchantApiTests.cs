@@ -159,7 +159,7 @@ namespace AltaPay.Moto.Tests.Integration
         public void WahNoaNoa()
         {
 
-			var captureParam = new CaptureParam() {
+			var captureParam = new CaptureRequest() {
 				PaymentId =  "59",
 				Amount = Amount.Get(2039, Currency.XXX),
 				OrderLines = {
@@ -185,7 +185,7 @@ namespace AltaPay.Moto.Tests.Integration
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, CustomerInfo customerInfo, PaymentSource source = PaymentSource.moto)
 		{
-			var reserveParam = new ReserveParam {
+			var reserveParam = new ReserveRequest {
 				Source = source,
 				ShopOrderId = shopOrderId,
 				PaymentType = AuthType.payment,
@@ -201,7 +201,7 @@ namespace AltaPay.Moto.Tests.Integration
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount)
 		{
-			var reserveParam = new ReserveParam {
+			var reserveParam = new ReserveRequest {
 				ShopOrderId = shopOrderId,
 				PaymentType = AuthType.paymentAndCapture,
 				Amount = Amount.Get(amount, Currency.DKK),
@@ -215,7 +215,7 @@ namespace AltaPay.Moto.Tests.Integration
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, string cardToken)
 		{
-			var reserveParam = new ReserveParam {
+			var reserveParam = new ReserveRequest {
 				ShopOrderId = shopOrderId,
 				PaymentType = AuthType.payment,
 				Amount = Amount.Get(amount, Currency.DKK),

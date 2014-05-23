@@ -28,7 +28,7 @@ namespace AltaPay.Service
 			_password = password;
 		}
 
-		public ReserveResult Reserve(ReserveParam param) 
+		public ReserveResult Reserve(ReserveRequest param) 
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 
@@ -77,7 +77,7 @@ namespace AltaPay.Service
 			return parameters;
 		}
 
-		public CaptureResult Capture(CaptureParam param)
+		public CaptureResult Capture(CaptureRequest param)
 		{
 
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
@@ -91,7 +91,7 @@ namespace AltaPay.Service
 			return new CaptureResult(GetResponseFromApiCall("captureReservation", parameters));
 		}
 
-		public RefundResult Refund(RefundParam param) {
+		public RefundResult Refund(RefundRequest param) {
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", param.PaymentId);
 			parameters.Add("amount", param.Amount.GetAmountString());
@@ -100,7 +100,7 @@ namespace AltaPay.Service
 		}
 		
 
-		public ReleaseResult Release(ReleaseParam param)
+		public ReleaseResult Release(ReleaseRequest param)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", param.PaymentId);
@@ -108,7 +108,7 @@ namespace AltaPay.Service
 			return new ReleaseResult(GetResponseFromApiCall("releaseReservation", parameters));
 		}
 
-		public GetPaymentResult GetPayment(GetPaymentParam param)
+		public GetPaymentResult GetPayment(GetPaymentRequest param)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", param.PaymentId);
@@ -116,7 +116,7 @@ namespace AltaPay.Service
 			return new GetPaymentResult(GetResponseFromApiCall("transactions", parameters));
 		}
 
-		public ChargeSubscriptionResult ChargeSubscription(ChargeSubscriptionParam param)
+		public ChargeSubscriptionResult ChargeSubscription(ChargeSubscriptionRequest param)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", param.SubscriptionId);
@@ -125,7 +125,7 @@ namespace AltaPay.Service
 			return new ChargeSubscriptionResult(GetResponseFromApiCall("chargeSubscription",parameters));
 		}
 
-		public ReserveSubscriptionChargeResult ReserveSubscriptionCharge(ReserveSubscriptionChargeParam param)
+		public ReserveSubscriptionChargeResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest param)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", param.SubscriptionId);
@@ -134,14 +134,14 @@ namespace AltaPay.Service
 			return new ReserveSubscriptionChargeResult(GetResponseFromApiCall("reserveSubscriptionCharge", parameters));
 		}
 		
-		public FundingsResult GetFundings(GetFundingsParam param)
+		public FundingsResult GetFundings(GetFundingsRequest param)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("page", param.Page);
 			return new FundingsResult(GetResponseFromApiCall("fundingList",parameters), new NetworkCredential(_username, _password));
 		}
 		
-		public PaymentRequestResult CreatePaymentRequest(PaymentRequestParam param)
+		public PaymentRequestResult CreatePaymentRequest(PaymentRequestRequest param)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			

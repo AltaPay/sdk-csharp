@@ -25,7 +25,7 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void CreateSimplePaymentRequest()
 		{
-			PaymentRequestParam paymentRequest = new PaymentRequestParam() {
+			PaymentRequestRequest paymentRequest = new PaymentRequestRequest() {
 				Terminal = 	"AltaPay Soap Test Terminal",
 				ShopOrderId = "payment-request-" + Guid.NewGuid().ToString(),
 				Amount = Amount.Get(42.34,Currency.EUR),
@@ -43,7 +43,7 @@ namespace AltaPay.Moto.Tests.Integration
 		[Test]
 		public void CreateComplexPaymentRequest()
 		{
-			PaymentRequestParam paymentRequest = new PaymentRequestParam() {
+			PaymentRequestRequest paymentRequest = new PaymentRequestRequest() {
 				Terminal = "AltaPay Soap Test Terminal",
 				ShopOrderId = "payment-request-" + Guid.NewGuid().ToString(),
 				Amount = Amount.Get(5056.93, Currency.EUR),

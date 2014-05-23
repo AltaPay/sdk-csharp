@@ -115,15 +115,15 @@
     <Compile Include="Service\Results\ReservationResult.cs" />
     <Compile Include="Service\Results\ReserveSubscriptionChargeResult.cs" />
     <Compile Include="Service\Results\SubscriptionResult.cs" />
-    <Compile Include="Service\Requests\ReserveSubscriptionChargeParam.cs" />
-    <Compile Include="Service\Requests\ReleaseParam.cs" />
-    <Compile Include="Service\Requests\RefundParam.cs" />
-    <Compile Include="Service\Requests\ReserveParam.cs" />
-    <Compile Include="Service\Requests\GetPaymentParam.cs" />
-    <Compile Include="Service\Requests\GetFundingsParam.cs" />
-    <Compile Include="Service\Requests\ChargeSubscriptionParam.cs" />
-    <Compile Include="Service\Requests\CaptureParam.cs" />
     <Compile Include="Service\Requests\Common\PaymentRequestParam.cs" />
+    <Compile Include="Service\Requests\CaptureRequest.cs" />
+    <Compile Include="Service\Requests\ChargeSubscriptionRequest.cs" />
+    <Compile Include="Service\Requests\GetFundingsRequest.cs" />
+    <Compile Include="Service\Requests\GetPaymentRequest.cs" />
+    <Compile Include="Service\Requests\RefundRequest.cs" />
+    <Compile Include="Service\Requests\ReleaseRequest.cs" />
+    <Compile Include="Service\Requests\ReserveRequest.cs" />
+    <Compile Include="Service\Requests\ReserveSubscriptionChargeRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MotoForm.resx">

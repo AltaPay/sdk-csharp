@@ -11,17 +11,17 @@ namespace AltaPay.Service
 	{
 		void Initialize(string gatewayUrl, string username, string password, string terminal);
 
-		ChargeSubscriptionResult ChargeSubscription(ChargeSubscriptionParam param);
-		ReserveSubscriptionChargeResult ReserveSubscriptionCharge(ReserveSubscriptionChargeParam param);
+		ChargeSubscriptionResult ChargeSubscription(ChargeSubscriptionRequest request);
+		ReserveSubscriptionChargeResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request);
 
-		PaymentRequestResult CreatePaymentRequest(PaymentRequestParam param);
-		ReserveResult Reserve(ReserveParam param);
-		ReleaseResult Release(ReleaseParam param);
-		CaptureResult Capture(CaptureParam param);
-		RefundResult Refund(RefundParam request);
-		GetPaymentResult GetPayment(GetPaymentParam param);
+		PaymentRequestResult CreatePaymentRequest(PaymentRequestRequest request);
+		ReserveResult Reserve(ReserveRequest request);
+		ReleaseResult Release(ReleaseRequest request);
+		CaptureResult Capture(CaptureRequest request);
+		RefundResult Refund(RefundRequest request);
+		GetPaymentResult GetPayment(GetPaymentRequest request);
 
-		FundingsResult GetFundings(GetFundingsParam param);
+		FundingsResult GetFundings(GetFundingsRequest request);
 
 		ApiResult ParsePostBackXmlResponse(string responseStr);
 		ApiResult ParsePostBackXmlResponse(Stream responseStr);

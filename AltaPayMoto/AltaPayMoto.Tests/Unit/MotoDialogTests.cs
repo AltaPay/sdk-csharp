@@ -61,7 +61,7 @@ namespace AltaPay.Moto.Tests.Unit
 
 			_view.Verify(v => v.ShowBlocking());
 			_view.Verify(v => v.Close());
-			_api.Verify(a => a.Reserve(It.Is<ReserveParam>(r=>
+			_api.Verify(a => a.Reserve(It.Is<ReserveRequest>(r=>
             	r.ShopOrderId == "orderid" 
 			    && r.Amount.Value==42.42m
 			    && r.Amount.Currency==Currency.DKK
@@ -85,7 +85,7 @@ namespace AltaPay.Moto.Tests.Unit
 			_view.Verify(v => v.ShowBlocking());
 			_view.Verify(v => v.Close());
 
-			_api.Verify(a => a.Reserve(It.Is<ReserveParam>( 
+			_api.Verify(a => a.Reserve(It.Is<ReserveRequest>( 
 					r => r.ShopOrderId == "orderid" 
 			        && r.Amount.Value==42.42m
 	                && r.Amount.Currency==Currency.DKK
@@ -253,7 +253,7 @@ namespace AltaPay.Moto.Tests.Unit
 
 
 
-			_api.Setup(a => a.Reserve(It.IsAny<ReserveParam>()))
+			_api.Setup(a => a.Reserve(It.IsAny<ReserveRequest>()))
 				.Returns(result);
 			_view.Setup(v => v.EnableView(It.IsAny<string>())).Callback(() => _motoDialog.Cancel());
 		}

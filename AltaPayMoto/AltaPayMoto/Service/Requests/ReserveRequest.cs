@@ -2,7 +2,7 @@ using System;
 
 namespace AltaPay.Service
 {
-	public class ReserveParam
+	public class ReserveRequest
 	{
 		public PaymentSource Source { get; set; }
 		public string ShopOrderId {get; set;}
@@ -19,7 +19,7 @@ namespace AltaPay.Service
 
 		public CustomerInfo CustomerInfo { get; set; }
 
-		public ReserveParam ()
+		public ReserveRequest ()
 		{
 			Source = PaymentSource.moto;
 			CustomerInfo = new CustomerInfo();
