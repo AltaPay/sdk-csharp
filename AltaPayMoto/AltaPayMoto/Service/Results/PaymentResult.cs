@@ -9,7 +9,7 @@ namespace AltaPay.Service
     {
 		public Transaction Payment { get; set; }
 
-		public PaymentResult()
+		public PaymentResult() : base()
 		{
 		}
 

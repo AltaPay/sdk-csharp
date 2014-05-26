@@ -9,7 +9,7 @@ namespace AltaPay.Service
 	public class SubscriptionResult : PaymentResult
 	{
 		public Transaction RecurringPayment { get; set; }
-
+		
 		public SubscriptionResult()
 			:base()
 		{

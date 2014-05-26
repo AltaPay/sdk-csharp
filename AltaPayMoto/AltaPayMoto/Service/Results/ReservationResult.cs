@@ -5,7 +5,7 @@ namespace AltaPay.Service
 {
 	public class ReserveResult : PaymentResult
 	{
-		public ReserveResult() 
+		public ReserveResult() : base()
 		{
 
 		}
