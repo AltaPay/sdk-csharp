@@ -27,7 +27,7 @@ namespace AltaPay.Moto.Tests.Integration
 
 			Assert.AreEqual(Result.Success, result.Result);
 			Assert.AreEqual(1, result.Pages);
-			Assert.AreEqual(1, result.Fundings.Count);
+			Assert.IsTrue(result.Fundings.Count>=1);
 		}
 	}
 }
