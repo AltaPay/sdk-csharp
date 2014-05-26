@@ -251,7 +251,7 @@ namespace AltaPay.Service
 			}
 		}
 
-		public Stream CallApi(string method, Dictionary<string,Object> parameters)
+		private Stream CallApi(string method, Dictionary<string,Object> parameters)
 		{
 			WebRequest request = WebRequest.Create(String.Format("{0}{1}", _gatewayUrl, method));
 			request.Credentials = new NetworkCredential(_username, _password);

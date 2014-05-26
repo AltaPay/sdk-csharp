@@ -6,6 +6,7 @@ using AltaPay.Service;
 using System.Diagnostics;
 using AltaPay.Service.Dto;
 using System.IO;
+using System.Net;
 
 
 namespace AltaPay.Moto.Tests.Integration
@@ -13,13 +14,21 @@ namespace AltaPay.Moto.Tests.Integration
 	[TestFixture]
 	public class CreatePaymentRequestTests
 	{
-		IMerchantApi _api;
+		private const string gatewayUrl = "http://gateway.dev.pensio.com/merchant.php/API/";
+		private const string username = "shop api";
+		private const string password = "testpassword";
+		private const string terminal = "AltaPay Soap Test Terminal";
+
+		private ParameterHelper ParameterHelper = new ParameterHelper();
+
+		private IMerchantApi _api;
+
 
 		[SetUp]
 		public void Setup()
 		{
 			_api = new MerchantApi();
-			_api.Initialize("http://gateway.dev.pensio.com/merchant.php/API/", "shop api", "testpassword", "AltaPay Soap Test Terminal");
+			_api.Initialize(gatewayUrl, username, password, terminal);
 		}
 
 		[Test]
@@ -149,13 +158,21 @@ namespace AltaPay.Moto.Tests.Integration
 			parameters.Add("eyear", "2020");
 			parameters.Add("cvc", "123");
 
+			string reservationResponseStr = CallApi("reservationOfFixedAmount", parameters);
+			ReserveResult paymentResult = _api.ParsePostBackXmlResponse(reservationResponseStr) as ReserveResult;
 
-			// TODO Remove the need for the cast to the API
-			using (Stream stream = ((MerchantApi)_api).CallApi("reservationOfFixedAmount", parameters))
+			Assert.IsNotNull(paymentResult);
+			Assert.AreEqual(Result.Success, paymentResult.Result);
+		}
+
+		private string CallApi(string method, Dictionary<string,Object> parameters)
+		{
+			using (WebClient wc = new WebClient())
 			{
-				ReserveResult paymentResult = _api.ParsePostBackXmlResponse(stream) as ReserveResult;
-				Assert.IsNotNull(paymentResult);
-				Assert.AreEqual(Result.Success, paymentResult.Result);
+				wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+				wc.Credentials = new NetworkCredential(username, password);
+				string parameterStr = ParameterHelper.Convert(parameters);
+				return wc.UploadString(gatewayUrl+method, parameterStr);
 			}
 		}
 	}
