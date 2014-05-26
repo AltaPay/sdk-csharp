@@ -19,7 +19,7 @@ namespace AltaPay.Service
 
 		public CustomerInfo CustomerInfo { get; set; }
 
-		public ReserveRequest ()
+		public ReserveRequest () 
 		{
 			Source = PaymentSource.moto;
 			CustomerInfo = new CustomerInfo();
