@@ -19,6 +19,8 @@ namespace AltaPay.Service
 		private string _terminal;
 		private string _username;
 		private string _password;
+		
+		private bool isInitialized = false;
 
 		public void Initialize(string gatewayUrl, string username, string password, string terminal)
 		{
@@ -26,10 +28,14 @@ namespace AltaPay.Service
 			_terminal = terminal;
 			_username = username;
 			_password = password;
+			
+			isInitialized = true;
 		}
 
 		public ReserveResult Reserve(ReserveRequest param) 
 		{
+			ThrowExceptionIfNotInitialized();
+			
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 
 			parameters.Add("terminal", _terminal);
@@ -79,6 +85,7 @@ namespace AltaPay.Service
 
 		public CaptureResult Capture(CaptureRequest param)
 		{
+			ThrowExceptionIfNotInitialized();
 
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", param.PaymentId);
@@ -91,7 +98,10 @@ namespace AltaPay.Service
 			return new CaptureResult(GetResponseFromApiCall("captureReservation", parameters));
 		}
 
-		public RefundResult Refund(RefundRequest param) {
+		public RefundResult Refund(RefundRequest param)
+		{
+			ThrowExceptionIfNotInitialized();
+			
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", param.PaymentId);
 			parameters.Add("amount", param.Amount.GetAmountString());
@@ -102,6 +112,8 @@ namespace AltaPay.Service
 
 		public ReleaseResult Release(ReleaseRequest param)
 		{
+			ThrowExceptionIfNotInitialized();
+			
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", param.PaymentId);
 			
@@ -110,6 +122,8 @@ namespace AltaPay.Service
 
 		public GetPaymentResult GetPayment(GetPaymentRequest param)
 		{
+			ThrowExceptionIfNotInitialized();
+			
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", param.PaymentId);
 			
@@ -118,6 +132,8 @@ namespace AltaPay.Service
 
 		public ChargeSubscriptionResult ChargeSubscription(ChargeSubscriptionRequest param)
 		{
+			ThrowExceptionIfNotInitialized();
+			
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", param.SubscriptionId);
 			parameters.Add("amount", param.Amount.GetAmountString());
@@ -127,6 +143,8 @@ namespace AltaPay.Service
 
 		public ReserveSubscriptionChargeResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest param)
 		{
+			ThrowExceptionIfNotInitialized();
+			
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", param.SubscriptionId);
 			parameters.Add("amount", param.Amount.GetAmountString());
@@ -136,6 +154,8 @@ namespace AltaPay.Service
 		
 		public FundingsResult GetFundings(GetFundingsRequest param)
 		{
+			ThrowExceptionIfNotInitialized();
+			
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("page", param.Page);
 			return new FundingsResult(GetResponseFromApiCall("fundingList",parameters), new NetworkCredential(_username, _password));
@@ -143,6 +163,8 @@ namespace AltaPay.Service
 		
 		public PaymentRequestResult CreatePaymentRequest(PaymentRequestRequest param)
 		{
+			ThrowExceptionIfNotInitialized();
+			
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			
 			// Mandatory arguments
@@ -192,10 +214,10 @@ namespace AltaPay.Service
 		}
 
 
-		public ApiResult ParsePostBackXmlResponse(Stream responseStr)
+		public ApiResult ParsePostBackXmlResponse(Stream responseStream)
 		{
 			// Get the apiResponse
-			APIResponse apiResponse = GetApiResponse(responseStr);
+			APIResponse apiResponse = GetApiResponse(responseStream);
 			if (apiResponse.Header.ErrorCode!=0)
 				throw new Exception("Invalid response : " + apiResponse.Header.ErrorMessage);
 
@@ -224,7 +246,7 @@ namespace AltaPay.Service
 			}
 		}
 
-		public APIResponse GetApiResponse(Stream stream)
+		private APIResponse GetApiResponse(Stream stream)
 		{
 			try
 			{
@@ -244,9 +266,10 @@ namespace AltaPay.Service
 			}
 		}
 
-		public APIResponse GetResponseFromApiCall(string method, Dictionary<string,Object> parameters)
+		private APIResponse GetResponseFromApiCall(string method, Dictionary<string,Object> parameters)
 		{
-			using (Stream responseStream = CallApi(method, parameters)) {
+			using (Stream responseStream = CallApi(method, parameters))
+			{
 				return GetApiResponse(responseStream);
 			}
 		}
@@ -276,6 +299,14 @@ namespace AltaPay.Service
 		{
 			var serializer = new XmlSerializer(typeof(T));
 			return (T)serializer.Deserialize(xml);
+		}
+		
+		private void ThrowExceptionIfNotInitialized()
+		{
+			if (!isInitialized)
+			{
+				throw new InvalidOperationException("You must call initialize before using the API");
+			}
 		}
 	}
 }
