@@ -8,7 +8,6 @@ using System.Runtime.InteropServices;
 
 namespace AltaPay.Service
 {
-    [ClassInterface(ClassInterfaceType.None)]
 	public class PaymentRequestRequest
 	{
 		// Required Parameters

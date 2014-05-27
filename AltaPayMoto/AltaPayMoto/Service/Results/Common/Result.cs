@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 
 namespace AltaPay.Service
 {
-	[ComVisible(true)]
     public enum Result
     {
         Success, Failed, Error, SystemError, AbortedByUser
