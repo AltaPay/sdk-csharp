@@ -10,14 +10,12 @@ namespace AltaPay.Service.Tests.Integration
 	[TestFixture]
 	public class MerchantApiAfterReservationTests
 	{
-		MerchantApi _api;
+		private MerchantApi _api;
 
 		[SetUp]
 		public void Setup()
 		{
-			_api = new MerchantApi();
-			_api.Initialize("http://gateway.dev.pensio.com/merchant.php/API/",
-				"integration api", "1234", "AltaPay Soap Test Terminal");
+			_api = new MerchantApi("http://gateway.dev.pensio.com/merchant.php/API/", "integration api", "1234");
 		}
 
 		[Test]
@@ -172,6 +170,7 @@ namespace AltaPay.Service.Tests.Integration
 		{
 			var request = new ReserveRequest {
 				ShopOrderId = "csharptest"+Guid.NewGuid().ToString(),
+				Terminal = "AltaPay Soap Test Terminal",
 				Amount = Amount.Get(amount, Currency.DKK),
 				PaymentType = type,
 				Pan = "4111000011110000",

@@ -16,9 +16,8 @@ namespace AltaPay.Service.Tests.Integration
 		[SetUp]
 		public void Setup()
 		{
-			_api = new MerchantApi();
-			//_api.Initialize("https://ci.gateway.pensio.com/merchant.php/API/", "shop api", "testpassword", "AltaPay Soap Test Terminal");
-			_api.Initialize("http://gateway.dev.pensio.com/merchant.php/API/", "shop api", "testpassword", "AltaPay Soap Test Terminal");
+			_api = new MerchantApi("http://gateway.dev.pensio.com/merchant.php/API/", "shop api", "testpassword");
+			// _api = new MerchantApi("https://ci.gateway.pensio.com/merchant.php/API/", "shop api", "testpassword");
 		}
 
 		[Test]
@@ -188,6 +187,7 @@ namespace AltaPay.Service.Tests.Integration
 			var request = new ReserveRequest {
 				Source = source,
 				ShopOrderId = shopOrderId,
+				Terminal = "AltaPay Soap Test Terminal",
 				PaymentType = AuthType.payment,
 				Amount = Amount.Get(amount, Currency.DKK),
 				Pan = "4111000011110002",
@@ -202,6 +202,7 @@ namespace AltaPay.Service.Tests.Integration
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount)
 		{
 			var request = new ReserveRequest {
+				Terminal = "AltaPay Soap Test Terminal",
 				ShopOrderId = shopOrderId,
 				PaymentType = AuthType.paymentAndCapture,
 				Amount = Amount.Get(amount, Currency.DKK),
@@ -216,6 +217,7 @@ namespace AltaPay.Service.Tests.Integration
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, string cardToken)
 		{
 			var request = new ReserveRequest {
+				Terminal = "AltaPay Soap Test Terminal",
 				ShopOrderId = shopOrderId,
 				PaymentType = AuthType.payment,
 				Amount = Amount.Get(amount, Currency.DKK),

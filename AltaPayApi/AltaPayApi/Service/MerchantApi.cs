@@ -16,46 +16,38 @@ namespace AltaPay.Service
 		private ParameterHelper ParameterHelper = new ParameterHelper();
 		
 		private string _gatewayUrl;
-		private string _terminal;
 		private string _username;
 		private string _password;
-		
-		private bool isInitialized = false;
 
-		public void Initialize(string gatewayUrl, string username, string password, string terminal)
+		public MerchantApi(string gatewayUrl, string username, string password) 
 		{
 			_gatewayUrl = gatewayUrl;
-			_terminal = terminal;
 			_username = username;
 			_password = password;
-			
-			isInitialized = true;
-		}
+		} 
 
-		public ReserveResult Reserve(ReserveRequest param) 
+		public ReserveResult Reserve(ReserveRequest request) 
 		{
-			ThrowExceptionIfNotInitialized();
-			
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 
-			parameters.Add("terminal", _terminal);
-			parameters.Add("shop_orderid", param.ShopOrderId);
-			parameters.Add("amount", param.Amount.GetAmountString());
-			parameters.Add("currency", param.Amount.Currency.GetNumericString());
-			parameters.Add("type", param.PaymentType);
-			parameters.Add("payment_source", param.Source);
+			parameters.Add("terminal", request.Terminal);
+			parameters.Add("shop_orderid", request.ShopOrderId);
+			parameters.Add("amount", request.Amount.GetAmountString());
+			parameters.Add("currency", request.Amount.Currency.GetNumericString());
+			parameters.Add("type", request.PaymentType);
+			parameters.Add("payment_source", request.Source);
 
-			if (param.CreditCardToken!=null) {
-				parameters.Add("credit_card_token", param.CreditCardToken);
+			if (request.CreditCardToken!=null) {
+				parameters.Add("credit_card_token", request.CreditCardToken);
 			} else {
-				parameters.Add("cardnum", param.Pan);
-				parameters.Add("emonth", param.ExpiryMonth);
-				parameters.Add("eyear", param.ExpiryYear);
+				parameters.Add("cardnum", request.Pan);
+				parameters.Add("emonth", request.ExpiryMonth);
+				parameters.Add("eyear", request.ExpiryYear);
 			}
-			parameters.Add("cvc", param.Cvc);
+			parameters.Add("cvc", request.Cvc);
 
-			if (param.CustomerInfo!=null)
-				param.CustomerInfo.AddToDictionary(parameters);
+			if (request.CustomerInfo!=null)
+				request.CustomerInfo.AddToDictionary(parameters);
 
 			return new ReserveResult(GetResponseFromApiCall("reservationOfFixedAmount", parameters));
 		}
@@ -83,120 +75,104 @@ namespace AltaPay.Service
 			return parameters;
 		}
 
-		public CaptureResult Capture(CaptureRequest param)
+		public CaptureResult Capture(CaptureRequest request)
 		{
-			ThrowExceptionIfNotInitialized();
-
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("transaction_id", param.PaymentId);
-			parameters.Add("amount", param.Amount.GetAmountString());
-			if(param.ReconciliationId!=null) parameters.Add("reconciliation_identifier", param.ReconciliationId);
-			if (param.InvoiceNumber!=null) parameters.Add("invoice_number", param.InvoiceNumber);
-			if (param.SalesTax.HasValue) parameters.Add("sales_tax", param.SalesTax);
-			getOrderLines(parameters, param.OrderLines);
+			parameters.Add("transaction_id", request.PaymentId);
+			parameters.Add("amount", request.Amount.GetAmountString());
+			if(request.ReconciliationId!=null) parameters.Add("reconciliation_identifier", request.ReconciliationId);
+			if (request.InvoiceNumber!=null) parameters.Add("invoice_number", request.InvoiceNumber);
+			if (request.SalesTax.HasValue) parameters.Add("sales_tax", request.SalesTax);
+			getOrderLines(parameters, request.OrderLines);
 
 			return new CaptureResult(GetResponseFromApiCall("captureReservation", parameters));
 		}
 
-		public RefundResult Refund(RefundRequest param)
+		public RefundResult Refund(RefundRequest request)
 		{
-			ThrowExceptionIfNotInitialized();
-			
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("transaction_id", param.PaymentId);
-			parameters.Add("amount", param.Amount.GetAmountString());
-			if (param.ReconciliationId!=null) parameters.Add("reconciliation_identifier", param.ReconciliationId);
+			parameters.Add("transaction_id", request.PaymentId);
+			parameters.Add("amount", request.Amount.GetAmountString());
+			if (request.ReconciliationId!=null) parameters.Add("reconciliation_identifier", request.ReconciliationId);
 			return new RefundResult(GetResponseFromApiCall("refundCapturedReservation", parameters));
 		}
 		
 
-		public ReleaseResult Release(ReleaseRequest param)
+		public ReleaseResult Release(ReleaseRequest request)
 		{
-			ThrowExceptionIfNotInitialized();
-			
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("transaction_id", param.PaymentId);
+			parameters.Add("transaction_id", request.PaymentId);
 			
 			return new ReleaseResult(GetResponseFromApiCall("releaseReservation", parameters));
 		}
 
-		public GetPaymentResult GetPayment(GetPaymentRequest param)
+		public GetPaymentResult GetPayment(GetPaymentRequest request)
 		{
-			ThrowExceptionIfNotInitialized();
-			
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("transaction_id", param.PaymentId);
+			parameters.Add("transaction_id", request.PaymentId);
 			
 			return new GetPaymentResult(GetResponseFromApiCall("transactions", parameters));
 		}
 
-		public ChargeSubscriptionResult ChargeSubscription(ChargeSubscriptionRequest param)
+		public ChargeSubscriptionResult ChargeSubscription(ChargeSubscriptionRequest request)
 		{
-			ThrowExceptionIfNotInitialized();
-			
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("transaction_id", param.SubscriptionId);
-			parameters.Add("amount", param.Amount.GetAmountString());
+			parameters.Add("transaction_id", request.SubscriptionId);
+			parameters.Add("amount", request.Amount.GetAmountString());
 
 			return new ChargeSubscriptionResult(GetResponseFromApiCall("chargeSubscription",parameters));
 		}
 
-		public ReserveSubscriptionChargeResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest param)
+		public ReserveSubscriptionChargeResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request)
 		{
-			ThrowExceptionIfNotInitialized();
-			
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("transaction_id", param.SubscriptionId);
-			parameters.Add("amount", param.Amount.GetAmountString());
+			parameters.Add("transaction_id", request.SubscriptionId);
+			parameters.Add("amount", request.Amount.GetAmountString());
 			
 			return new ReserveSubscriptionChargeResult(GetResponseFromApiCall("reserveSubscriptionCharge", parameters));
 		}
 		
-		public FundingsResult GetFundings(GetFundingsRequest param)
+		public FundingsResult GetFundings(GetFundingsRequest request)
 		{
-			ThrowExceptionIfNotInitialized();
-			
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("page", param.Page);
+			parameters.Add("page", request.Page);
 			return new FundingsResult(GetResponseFromApiCall("fundingList",parameters), new NetworkCredential(_username, _password));
 		}
 		
-		public PaymentRequestResult CreatePaymentRequest(PaymentRequestRequest param)
+		public PaymentRequestResult CreatePaymentRequest(PaymentRequestRequest request)
 		{
-			ThrowExceptionIfNotInitialized();
-			
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			
 			// Mandatory arguments
-			parameters.Add("terminal", param.Terminal);
-			parameters.Add("shop_orderid", param.ShopOrderId);
-			parameters.Add("amount", param.Amount.GetAmountString());
-			parameters.Add("currency", param.Amount.Currency.GetNumericString());
+			parameters.Add("terminal", request.Terminal);
+			parameters.Add("shop_orderid", request.ShopOrderId);
+			parameters.Add("amount", request.Amount.GetAmountString());
+			parameters.Add("currency", request.Amount.Currency.GetNumericString());
 			
 			// Config
-			parameters.Add("config", param.Config.ToDictionary());
+			parameters.Add("config", request.Config.ToDictionary());
 			
 			// Optional Arguments
-			parameters.Add("language", param.Language);
-			parameters.Add("transaction_info", param.PaymentInfos);
-			parameters.Add("type", param.Type);
-			parameters.Add("credit_card_token", param.CreditCardToken);
-			parameters.Add("sales_reconciliation_identifier", param.SalesReconciliationIdentifier);
-			parameters.Add("sales_invoice_number", param.SalesInvoiceNumber);
-			parameters.Add("sales_tax", param.SalesTax);
-			parameters.Add("shipping_method", param.ShippingType);
-			parameters.Add("cookie", param.Cookie);
-			parameters.Add("customer_created_date", param.CustomerCreatedDate);
-			parameters.Add("organisation_number", param.OrganisationNumber);
-			parameters.Add("account_offer", param.AccountOffer);
+			parameters.Add("language", request.Language);
+			parameters.Add("transaction_info", request.PaymentInfos);
+			parameters.Add("type", request.Type);
+			parameters.Add("credit_card_token", request.CreditCardToken);
+			parameters.Add("sales_reconciliation_identifier", request.SalesReconciliationIdentifier);
+			parameters.Add("sales_invoice_number", request.SalesInvoiceNumber);
+			parameters.Add("sales_tax", request.SalesTax);
+			parameters.Add("shipping_method", request.ShippingType);
+			parameters.Add("cookie", request.Cookie);
+			parameters.Add("customer_created_date", request.CustomerCreatedDate);
+			parameters.Add("organisation_number", request.OrganisationNumber);
+			parameters.Add("account_offer", request.AccountOffer);
 			//parameters.Add("fraud_service", request.Config.
 			
 			// Customer Info
-			parameters.Add("customer_info", param.CustomerInfo.AddToDictionary(new Dictionary<string, object>()));
+			parameters.Add("customer_info", request.CustomerInfo.AddToDictionary(new Dictionary<string, object>()));
 
 
 			// Order lines
-			parameters = getOrderLines(parameters, param.OrderLines);
+			parameters = getOrderLines(parameters, request.OrderLines);
 			
 			return new PaymentRequestResult(GetResponseFromApiCall("createPaymentRequest", parameters));
 		}
@@ -301,12 +277,5 @@ namespace AltaPay.Service
 			return (T)serializer.Deserialize(xml);
 		}
 		
-		private void ThrowExceptionIfNotInitialized()
-		{
-			if (!isInitialized)
-			{
-				throw new InvalidOperationException("You must call initialize before using the API");
-			}
-		}
 	}
 }

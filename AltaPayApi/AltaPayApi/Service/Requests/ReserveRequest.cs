@@ -5,6 +5,7 @@ namespace AltaPay.Service
 	public class ReserveRequest
 	{
 		public PaymentSource Source { get; set; }
+		public string Terminal { get; set; }
 		public string ShopOrderId {get; set;}
 		public Amount Amount { get; set; }
 		public AuthType PaymentType { get; set; }
@@ -19,7 +20,7 @@ namespace AltaPay.Service
 
 		public CustomerInfo CustomerInfo { get; set; }
 
-		public ReserveRequest () 
+		public ReserveRequest() 
 		{
 			Source = PaymentSource.moto;
 			CustomerInfo = new CustomerInfo();

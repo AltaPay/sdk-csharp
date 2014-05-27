@@ -27,8 +27,7 @@ namespace AltaPay.Service.Tests.Integration
 		[SetUp]
 		public void Setup()
 		{
-			_api = new MerchantApi();
-			_api.Initialize(gatewayUrl, username, password, terminal);
+			_api = new MerchantApi(gatewayUrl, username, password);
 		}
 
 		[Test]

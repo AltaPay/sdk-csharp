@@ -9,8 +9,6 @@ namespace AltaPay.Service
 {
 	public interface IMerchantApi
 	{
-		void Initialize(string gatewayUrl, string username, string password, string terminal);
-
 		ChargeSubscriptionResult ChargeSubscription(ChargeSubscriptionRequest request);
 		ReserveSubscriptionChargeResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request);
 
