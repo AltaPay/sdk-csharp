@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-rm AltaPayMoto/*/bin -r
+rm AltaPayApi/*/bin -r
