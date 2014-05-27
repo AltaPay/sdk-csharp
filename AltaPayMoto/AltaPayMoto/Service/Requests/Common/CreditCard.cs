@@ -1,6 +1,6 @@
 using System;
 
-namespace AltaPay
+namespace AltaPay.Service
 {
 	public class CreditCard
 	{
