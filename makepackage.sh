@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 TMP_DIR="_tmp"
-OUT="AltaPayMoto"
+OUT="AltaPayApi"
 CONFIGURATION="Release"
 
 echo "Clearing builds"
@@ -9,7 +9,7 @@ echo "Clearing builds"
 
 echo ""
 echo "Compiling in $CONFIGURATION mode"
-mdtool build --configuration:$CONFIGURATION AltaPayMoto/AltaPayMoto.sln
+mdtool build --configuration:$CONFIGURATION AltaPayApi/AltaPayApi.sln
 
 # remove tmp dir if it exists
 if [ -d "$TMP_DIR" ]; then
@@ -22,13 +22,12 @@ mkdir $TMP_DIR
 #
 # the application
 #
-cp -r AltaPayMoto/AltaPayMoto/bin/$CONFIGURATION/* $TMP_DIR
-cp AltaPayMoto/register.cmd $TMP_DIR
+cp -r AltaPayApi/AltaPayApi/bin/$CONFIGURATION/* $TMP_DIR
 
 #
 # source code
 #
-svn export AltaPayMoto/ $TMP_DIR/source
+svn export AltaPayApi/ $TMP_DIR/source
 
 #
 # remove the output file if it exists
