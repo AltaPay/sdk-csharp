@@ -55,9 +55,9 @@
     <Compile Include="Unit\AmountTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AltaPayMoto\AltaPayMoto.csproj">
+    <ProjectReference Include="..\AltaPayMoto\AltaPayApi.csproj">
       <Project>{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}</Project>
-      <Name>AltaPayMoto</Name>
+      <Name>AltaPayApi</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
