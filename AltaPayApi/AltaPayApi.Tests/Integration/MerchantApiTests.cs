@@ -6,7 +6,7 @@ using AltaPay.Service;
 using TransactionCardStatus = AltaPay.Service.Dto.TransactionCardStatus;
 
 
-namespace AltaPay.Moto.Tests.Integration
+namespace AltaPay.Service.Tests.Integration
 {
 	[TestFixture]
 	public class MerchantApiTests

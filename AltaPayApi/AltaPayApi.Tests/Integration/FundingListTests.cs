@@ -5,7 +5,7 @@ using System.Text;
 using AltaPay.Service;
 using NUnit.Framework;
 
-namespace AltaPay.Moto.Tests.Integration
+namespace AltaPay.Service.Tests.Integration
 {
 	[TestFixture]
 	class FundingListTests

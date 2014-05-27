@@ -9,7 +9,7 @@ using System.IO;
 using System.Net;
 
 
-namespace AltaPay.Moto.Tests.Integration
+namespace AltaPay.Service.Tests.Integration
 {
 	[TestFixture]
 	public class CreatePaymentRequestTests

@@ -5,7 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using AltaPay.Service;
 
-namespace AltaPay.Moto.Tests.Integration
+namespace AltaPay.Service.Tests.Integration
 {
 	[TestFixture]
 	public class MerchantApiAfterReservationTests
