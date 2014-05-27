@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltaPayApi", "AltaPayMoto\AltaPayApi.csproj", "{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltaPayApi", "AltaPayApi\AltaPayApi.csproj", "{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltaPayApi.Tests", "AltaPayMoto.Tests\AltaPayApi.Tests.csproj", "{3A49B441-7FCE-40AA-893D-B61D5E41DA62}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltaPayApi.Tests", "AltaPayApi.Tests\AltaPayApi.Tests.csproj", "{3A49B441-7FCE-40AA-893D-B61D5E41DA62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
