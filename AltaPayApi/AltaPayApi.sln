@@ -14,20 +14,19 @@ Global
 		{3A49B441-7FCE-40AA-893D-B61D5E41DA62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3A49B441-7FCE-40AA-893D-B61D5E41DA62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A49B441-7FCE-40AA-893D-B61D5E41DA62}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3A49B441-7FCE-40AA-893D-B61D5E41DA62}.Release|Any CPU.Build.0 = Release|Any CPU
 		{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = AltaPayMoto\AltaPayApi.csproj
+		StartupItem = AltaPayApi\AltaPayApi.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
 		$1.FileWidth = 120
-		$1.TabsToSpaces = False
+		$1.TabWidth = 4
 		$1.EolMarker = Windows
-		$1.inheritsSet = VisualStudio
+		$1.inheritsSet = Mono
 		$1.inheritsScope = text/plain
 		$1.scope = text/x-csharp
 		$0.CSharpFormattingPolicy = $2
