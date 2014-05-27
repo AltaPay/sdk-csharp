@@ -91,9 +91,6 @@
     <Compile Include="Service\Requests\ReleaseRequest.cs" />
     <Compile Include="Service\Requests\ReserveRequest.cs" />
     <Compile Include="Service\Requests\ReserveSubscriptionChargeRequest.cs" />
-    <Compile Include="Common\BlockingQueue.cs" />
-    <Compile Include="Common\StringConverter.cs" />
-    <Compile Include="Common\CSVReader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -105,6 +102,5 @@
   -->
   <ItemGroup>
     <Folder Include="Generated\" />
-    <Folder Include="Common\" />
   </ItemGroup>
 </Project>
