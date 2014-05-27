@@ -4,14 +4,10 @@ using System;
 
 namespace AltaPay.Service
 {
-    public class PaymentResult
+    public abstract class PaymentResult
 		: ApiResult
     {
 		public Transaction Payment { get; set; }
-
-		public PaymentResult() : base()
-		{
-		}
 
 		public PaymentResult(APIResponse apiResponse)
 		{

@@ -10,10 +10,6 @@ namespace AltaPay.Service
 		public string Url { get; set; }
 		public string DynamicJavascriptUrl { get; set; }
 		
-		public PaymentRequestResult()
-		{
-		}
-		
 		public PaymentRequestResult(APIResponse apiResponse)
 		{
 			if (apiResponse.Header.ErrorCode == 0)

@@ -6,7 +6,7 @@ using AltaPay.Service.Dto;
 
 namespace AltaPay.Service
 {
-	public class ApiResult
+	public abstract class ApiResult
 	{
 		public Result Result { get; set; }
 		public string ResultMessage { get; set; }

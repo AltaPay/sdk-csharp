@@ -13,11 +13,6 @@ namespace AltaPay.Service
 		public List<Funding> Fundings { get; set; }
 		public int Pages { get; set; }
 
-		public FundingsResult()
-		{
-			Fundings = new List<Funding>();
-		}
-
 		public FundingsResult(APIResponse apiResponse, NetworkCredential networkCredential)
 		{
 			Fundings = new List<Funding>();

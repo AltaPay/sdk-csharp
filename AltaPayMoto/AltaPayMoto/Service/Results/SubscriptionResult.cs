@@ -10,11 +10,6 @@ namespace AltaPay.Service
 	{
 		public Transaction RecurringPayment { get; set; }
 		
-		public SubscriptionResult()
-			:base()
-		{
-		}
-
 		public SubscriptionResult(APIResponse apiResponse)
 			:base(apiResponse)
 		{
