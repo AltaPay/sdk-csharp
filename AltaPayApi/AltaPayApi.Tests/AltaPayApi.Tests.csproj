@@ -8,8 +8,8 @@
     <ProjectGuid>{3A49B441-7FCE-40AA-893D-B61D5E41DA62}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AltaPay.Moto.Tests</RootNamespace>
-    <AssemblyName>AltaPayMoto.Tests</AssemblyName>
+    <RootNamespace>AltaPay.Api.Tests</RootNamespace>
+    <AssemblyName>AltaPayApi.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -55,7 +55,7 @@
     <Compile Include="Unit\AmountTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AltaPayMoto\AltaPayApi.csproj">
+    <ProjectReference Include="..\AltaPayApi\AltaPayApi.csproj">
       <Project>{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}</Project>
       <Name>AltaPayApi</Name>
     </ProjectReference>
