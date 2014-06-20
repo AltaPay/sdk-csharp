@@ -156,7 +156,7 @@ namespace AltaPay.Service
 			parameters.Add("language", request.Language);
 			parameters.Add("transaction_info", request.PaymentInfos);
 			parameters.Add("type", request.Type);
-			parameters.Add("credit_card_token", request.CreditCardToken);
+			parameters.Add("ccToken", request.CreditCardToken);
 			parameters.Add("sales_reconciliation_identifier", request.SalesReconciliationIdentifier);
 			parameters.Add("sales_invoice_number", request.SalesInvoiceNumber);
 			parameters.Add("sales_tax", request.SalesTax);
