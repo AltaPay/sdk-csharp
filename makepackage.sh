@@ -23,6 +23,7 @@ mkdir $TMP_DIR
 # the application
 #
 cp -r AltaPayApi/AltaPayApi/bin/$CONFIGURATION/* $TMP_DIR
+rm $TMP_DIR/*.mdb
 
 #
 # source code
