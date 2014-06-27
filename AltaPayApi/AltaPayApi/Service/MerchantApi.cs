@@ -114,6 +114,16 @@ namespace AltaPay.Service
 			return new GetPaymentResult(GetResponseFromApiCall("transactions", parameters));
 		}
 
+		public GetShopOrderResult GetShopOrder(GetShopOrderRequest request)
+		{
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+			parameters.Add("shop_orderid", request.ShopOrderId);
+
+			return new GetShopOrderResult(GetResponseFromApiCall("transactions", parameters));
+		}
+
+
+
 		public ChargeSubscriptionResult ChargeSubscription(ChargeSubscriptionRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
