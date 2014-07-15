@@ -155,7 +155,7 @@ namespace AltaPay.Service.Tests.Integration
 		}
 
         [Test]
-        public void WahNoaNoa()
+        public void NoaNoa_LongOrderLines()
         {
 
 			var captureRequest = new CaptureRequest() {
