@@ -18,7 +18,7 @@ namespace AltaPay.Service
 		CaptureResult Capture(CaptureRequest request);
 		RefundResult Refund(RefundRequest request);
 		GetPaymentResult GetPayment(GetPaymentRequest request);
-		GetShopOrderResult GetShopOrder(GetShopOrderRequest request);
+		GetPaymentsResult GetPayments(GetPaymentsRequest request);
 
 		FundingsResult GetFundings(GetFundingsRequest request);
 

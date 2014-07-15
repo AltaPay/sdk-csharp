@@ -4,11 +4,11 @@ using AltaPay.Service.Dto;
 
 namespace AltaPay.Service
 {
-	public class GetShopOrderResult : ApiResult
+	public class GetPaymentsResult : ApiResult
 	{
 		public IEnumerable<Transaction> Payments { get; set; }
 
-		public GetShopOrderResult(APIResponse apiResponse)
+		public GetPaymentsResult(APIResponse apiResponse)
 		{
 			if (apiResponse.Header.ErrorCode == 0)
 			{

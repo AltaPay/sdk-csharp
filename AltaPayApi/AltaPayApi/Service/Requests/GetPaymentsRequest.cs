@@ -2,7 +2,7 @@ using System;
 
 namespace AltaPay.Service
 {
-	public class GetShopOrderRequest
+	public class GetPaymentsRequest
 	{
 		public string ShopOrderId { get; set; }
 	}

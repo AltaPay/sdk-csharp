@@ -91,8 +91,8 @@
     <Compile Include="Service\Requests\ReleaseRequest.cs" />
     <Compile Include="Service\Requests\ReserveRequest.cs" />
     <Compile Include="Service\Requests\ReserveSubscriptionChargeRequest.cs" />
-    <Compile Include="Service\Results\GetShopOrderResult.cs" />
-    <Compile Include="Service\Requests\GetShopOrderRequest.cs" />
+    <Compile Include="Service\Requests\GetPaymentsRequest.cs" />
+    <Compile Include="Service\Results\GetPaymentsResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
