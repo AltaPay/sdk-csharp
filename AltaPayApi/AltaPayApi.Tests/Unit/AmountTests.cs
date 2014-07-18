@@ -3,10 +3,12 @@ using System.Linq;
 using AltaPay;
 using NUnit.Framework;
 using AltaPay.Service;
+using System.Globalization;
+using AltaPay.Api.Tests;
 
 namespace AltaPay.Service.Tests.Unit
 {
-	public class AmountTests
+	public class AmountTests : BaseTest
 	{
 		[Test]
 		public void CreationFromDecimals()
@@ -32,6 +34,8 @@ namespace AltaPay.Service.Tests.Unit
 		[Test]
 		public void GetAmountString()
 		{
+			
+			
 			Assert.AreEqual("1.23", Amount.Get(1.233m, Currency.DKK).GetAmountString());		
 			Assert.AreEqual("42.00", Amount.Get(42, Currency.DKK).GetAmountString());		
 			Assert.AreEqual("100", Amount.Get(100.12345m, Currency.VUV).GetAmountString()); 

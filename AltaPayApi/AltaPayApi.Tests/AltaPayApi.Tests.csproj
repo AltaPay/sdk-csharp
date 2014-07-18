@@ -53,6 +53,7 @@
     <Compile Include="Unit\ParameterHelperTests.cs" />
     <Compile Include="Unit\CurrencyTests.cs" />
     <Compile Include="Unit\AmountTests.cs" />
+    <Compile Include="Unit\BaseTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AltaPayApi\AltaPayApi.csproj">

@@ -36,7 +36,7 @@ namespace AltaPay.Service
 					Type paramType = parameter.Value.GetType();
 					if(paramType == typeof(Double) || paramType == typeof(Single) || paramType == typeof(Decimal))
 					{
-						val = string.Format("{0:0.00}", parameter.Value);
+						val = string.Format(Globalisation.AmountNumberFormat, "{0:0.00}", parameter.Value);
 					}
 					else
 					{

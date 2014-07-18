@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using AltaPay.Service;
+using AltaPay.Api.Tests;
 
 namespace AltaPay.Service.Tests.Unit
 {
 	[TestFixture]
-	public class ParameterHelperTests
+	public class ParameterHelperTests : BaseTest
 	{
 		private ParameterHelper _helper;
 		Dictionary<string,Object> _parameters;

@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace AltaPay.Service
 {
@@ -16,11 +17,12 @@ namespace AltaPay.Service
 		public String GetAmountString() 
 		{
 			switch(Currency.Decimals) {
-				case(0): return Value.ToString("0"); 
-				case(1): return Value.ToString(".0"); 
-				case(2): return Value.ToString(".00"); 
-				case(3): return Value.ToString(".000"); 
+				case(0): return Value.ToString("0", Globalisation.AmountNumberFormat);
+				case(1): return Value.ToString(".0", Globalisation.AmountNumberFormat); 
+				case(2): return Value.ToString(".00", Globalisation.AmountNumberFormat); 
+				case(3): return Value.ToString(".000", Globalisation.AmountNumberFormat); 
 			};
+
 			throw new Exception("Unsupported number of decimals : " + Currency.Decimals);
 		}
 		

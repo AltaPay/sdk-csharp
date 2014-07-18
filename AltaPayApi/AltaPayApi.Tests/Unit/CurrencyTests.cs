@@ -3,11 +3,12 @@ using System.Linq;
 using AltaPay;
 using NUnit.Framework;
 using AltaPay.Service;
+using AltaPay.Api.Tests;
 
 namespace AltaPay.Service.Tests.Unit
 {
 	[TestFixture]
-	public class CurrencyTests
+	public class CurrencyTests : BaseTest
 	{
 		[Test]
 		public void Values()
