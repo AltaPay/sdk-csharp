@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using AltaPay.Service;
+using AltaPay.Api.Tests;
 
 namespace AltaPay.Service.Tests.Integration
 {
 	[TestFixture]
-	public class MerchantApiAfterReservationTests
+	public class MerchantApiAfterReservationTests : BaseTest
 	{
 		private MerchantApi _api;
 

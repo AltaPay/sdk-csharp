@@ -4,12 +4,13 @@ using System.Text;
 using NUnit.Framework;
 using AltaPay.Service;
 using TransactionCardStatus = AltaPay.Service.Dto.TransactionCardStatus;
+using AltaPay.Api.Tests;
 
 
 namespace AltaPay.Service.Tests.Integration
 {
 	[TestFixture]
-	public class MerchantApiTests
+	public class MerchantApiTests : BaseTest
 	{
 		IMerchantApi _api;
 

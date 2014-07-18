@@ -7,12 +7,13 @@ using System.Diagnostics;
 using AltaPay.Service.Dto;
 using System.IO;
 using System.Net;
+using AltaPay.Api.Tests;
 
 
 namespace AltaPay.Service.Tests.Integration
 {
 	[TestFixture]
-	public class CreatePaymentRequestTests
+	public class CreatePaymentRequestTests : BaseTest
 	{
 		private const string gatewayUrl = "http://gateway.dev.pensio.com/merchant.php/API/";
 		private const string username = "shop api";
