@@ -6,11 +6,27 @@ namespace AltaPay.Api.Tests
 {
 	public abstract class BaseTest
 	{
-		[TestFixtureSetUp]
-		public void FixtureSetup()
+		[SetUp]
+		public void BaseSetup()
 		{
-			System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("da-DK");
-			System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("da-DK");
+			/**
+			 * Setting default culture to a culture with a format that does not match
+			 * what the gateway requires.
+			 * This is to ensure that we handle culture/format differences in our code.
+			 */
+			SetCultureTo("da-DK");
+		}
+		
+		/// <summary>
+		/// Sets the culture to the given culture name
+		/// </summary>
+		/// <param name="cultureName">
+		/// Something like 'en-US', 'da-DK'
+		/// </param>
+		protected void SetCultureTo(string cultureName)
+		{
+			System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo(cultureName);
+			System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(cultureName);
 		}
 	}
 }

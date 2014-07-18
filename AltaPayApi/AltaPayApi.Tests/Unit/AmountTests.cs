@@ -32,9 +32,33 @@ namespace AltaPay.Service.Tests.Unit
 		}
 		
 		[Test]
-		public void GetAmountString()
+		public void GetAmountString_EnUs_to_EnUs()
 		{
+			SetCultureTo("en-US");
 			
+			Assert.AreEqual("1.23", Amount.Get(1.233m, Currency.DKK).GetAmountString());		
+			Assert.AreEqual("42.00", Amount.Get(42, Currency.DKK).GetAmountString());		
+			Assert.AreEqual("100", Amount.Get(100.12345m, Currency.VUV).GetAmountString()); 
+			Assert.AreEqual("42.123", Amount.Get(42.123, Currency.JOD).GetAmountString());		
+			Assert.AreEqual("1000000000.12", Amount.Get(1000000000.12m, Currency.DKK).GetAmountString()); 
+		}
+		
+		[Test]
+		public void GetAmountString_DaDk_to_EnUs()
+		{
+			SetCultureTo("da-DK");
+			
+			Assert.AreEqual("1.23", Amount.Get(1.233m, Currency.DKK).GetAmountString());		
+			Assert.AreEqual("42.00", Amount.Get(42, Currency.DKK).GetAmountString());		
+			Assert.AreEqual("100", Amount.Get(100.12345m, Currency.VUV).GetAmountString()); 
+			Assert.AreEqual("42.123", Amount.Get(42.123, Currency.JOD).GetAmountString());		
+			Assert.AreEqual("1000000000.12", Amount.Get(1000000000.12m, Currency.DKK).GetAmountString()); 
+		}
+		
+		[Test]
+		public void GetAmountString_PlPl_to_EnUs()
+		{
+			SetCultureTo("pl-PL");
 			
 			Assert.AreEqual("1.23", Amount.Get(1.233m, Currency.DKK).GetAmountString());		
 			Assert.AreEqual("42.00", Amount.Get(42, Currency.DKK).GetAmountString());		
