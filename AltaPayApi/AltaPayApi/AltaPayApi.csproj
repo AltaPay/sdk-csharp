@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -82,7 +82,6 @@
     <Compile Include="Service\Results\ReservationResult.cs" />
     <Compile Include="Service\Results\ReserveSubscriptionChargeResult.cs" />
     <Compile Include="Service\Results\SubscriptionResult.cs" />
-    <Compile Include="Service\Requests\Common\PaymentRequestParam.cs" />
     <Compile Include="Service\Requests\CaptureRequest.cs" />
     <Compile Include="Service\Requests\ChargeSubscriptionRequest.cs" />
     <Compile Include="Service\Requests\GetFundingsRequest.cs" />
@@ -94,6 +93,7 @@
     <Compile Include="Service\Requests\GetPaymentsRequest.cs" />
     <Compile Include="Service\Results\GetPaymentsResult.cs" />
     <Compile Include="Service\Globalisation.cs" />
+    <Compile Include="Service\Requests\Common\PaymentRequestRequest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
