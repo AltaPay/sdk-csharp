@@ -21,5 +21,7 @@ namespace AltaPay.Service
 
 		ApiResult ParsePostBackXmlResponse(string responseStr);
 		ApiResult ParsePostBackXmlResponse(Stream responseStr);
+		MultiPaymentApiResult ParseMultiPaymentPostBackXmlResponse(string responseStr);
+		MultiPaymentApiResult ParseMultiPaymentPostBackXmlResponse(Stream responseStream);
 	}
 }

@@ -302,6 +302,49 @@ namespace AltaPay.Service
 			}
 		}
 
+		public MultiPaymentApiResult ParseMultiPaymentPostBackXmlResponse(string responseStr)
+		{
+			using (Stream stream = new MemoryStream()) {
+				StreamWriter writer = new StreamWriter(stream);
+				writer.Write(responseStr);
+				writer.Flush();
+				stream.Position = 0;
+				return ParseMultiPaymentPostBackXmlResponse(stream);
+			}
+		}
+
+		public MultiPaymentApiResult ParseMultiPaymentPostBackXmlResponse(Stream responseStream)
+		{
+			// Get the apiResponse
+			APIResponse apiResponse = GetApiResponse(responseStream);
+			if (apiResponse.Header.ErrorCode != 0)
+			{
+				throw new Exception("Invalid response : " + apiResponse.Header.ErrorMessage);
+			}
+
+			// Detect auth type 
+			if (apiResponse.Body.Transactions.Length == 0)
+			{
+				throw new Exception("The response contains no transactions");
+			}
+
+			string authType = apiResponse.Body.Transactions[0].AuthType;
+
+			switch (authType) 
+			{
+				// TO THE REVIEWER: is there any of these that does not make sense in this context?
+				case "payment":
+				case "paymentAndCapture":
+				case "recurring":
+				case "subscription":
+				case "verifyCard":
+					return new MultiPaymentApiResult(apiResponse);
+
+				default: 
+					throw new Exception("Unhandled Authtype : " + authType);
+			}
+		}
+
 		private APIResponse GetApiResponse(Stream stream)
 		{
 			try
