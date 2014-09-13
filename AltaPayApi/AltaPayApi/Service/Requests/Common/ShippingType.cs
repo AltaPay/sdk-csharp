@@ -12,8 +12,7 @@ namespace AltaPay.Service
 		Other,
 		StorePickup,
 		TwoDayService,
-		ThreeDayService,
-		NotSet
+		ThreeDayService
 	}
 }
 

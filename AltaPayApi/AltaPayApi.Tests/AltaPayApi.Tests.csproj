@@ -54,6 +54,7 @@
     <Compile Include="Unit\CurrencyTests.cs" />
     <Compile Include="Unit\AmountTests.cs" />
     <Compile Include="BaseTest.cs" />
+    <Compile Include="Integration\CreateMultiPaymentRequestTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AltaPayApi\AltaPayApi.csproj">

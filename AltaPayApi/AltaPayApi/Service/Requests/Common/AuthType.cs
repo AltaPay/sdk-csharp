@@ -4,6 +4,6 @@ namespace AltaPay.Service
 {
     public enum AuthType
     {
-		payment, paymentAndCapture, subscription, subscriptionAndCharge, verifyCard, NotSet
+		payment, paymentAndCapture, subscription, subscriptionAndCharge, verifyCard
     }
 }

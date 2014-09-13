@@ -215,7 +215,7 @@ namespace AltaPay.Service
 
 				childParam.Add("amount", child.Amount.GetAmountString());
 
-				if (child.Type != AuthType.NotSet)
+				if (child.TypeIsSet)
 				{
 					childParam.Add("type", child.Type);
 				}
@@ -235,7 +235,7 @@ namespace AltaPay.Service
 					childParam.Add("transaction_info", request.PaymentInfos);
 				}
 
-				if (child.ShippingType != ShippingType.NotSet)
+				if (child.ShippingTypeIsSet)
 				{
 					childParam.Add("shipping_method", child.ShippingType);
 				}
@@ -326,6 +326,19 @@ namespace AltaPay.Service
 		{
 			using (Stream responseStream = CallApi(method, parameters))
 			{
+				/*
+				// dumping response for debugging... this would be easier with .NET 4 as it has Stream.CopyTo(..)
+				using (var fileStream = File.Create("/tmp/multipaymentrequest_response"))
+				{
+					byte[] buffer = new byte[16 * 1024]; // Fairly arbitrary size
+					int bytesRead;
+
+					while ((bytesRead = responseStream.Read(buffer, 0, buffer.Length)) > 0)
+					{
+						fileStream.Write(buffer, 0, bytesRead);
+					}
+				}//*/
+
 				return GetApiResponse(responseStream);
 			}
 		}
@@ -340,6 +353,7 @@ namespace AltaPay.Service
 			http.ContentType = "application/x-www-form-urlencoded";
 
 			string encodedData = ParameterHelper.Convert(parameters);
+			//File.AppendAllText("/tmp/multipaymentrequest", + encodedData + "\n");
 			Byte[] postBytes = System.Text.Encoding.ASCII.GetBytes(encodedData);
 			http.ContentLength = postBytes.Length;
 
