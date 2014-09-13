@@ -96,6 +96,8 @@
     <Compile Include="Service\Requests\Common\PaymentRequestRequest.cs" />
     <Compile Include="Service\Requests\Common\MultiPaymentRequestRequest.cs" />
     <Compile Include="Service\Requests\Common\MultiPaymentRequestRequestChild.cs" />
+    <Compile Include="Service\Requests\Common\BasePaymentRequestRequest.cs" />
+    <Compile Include="Service\Results\MultiPaymentRequestResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

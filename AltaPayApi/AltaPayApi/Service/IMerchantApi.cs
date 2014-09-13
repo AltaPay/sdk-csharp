@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AltaPay.Service.Dto;
 using System.IO;
 
 namespace AltaPay.Service
@@ -13,6 +9,7 @@ namespace AltaPay.Service
 		ReserveSubscriptionChargeResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request);
 
 		PaymentRequestResult CreatePaymentRequest(PaymentRequestRequest request);
+		MultiPaymentRequestResult CreateMultiPaymentRequest(MultiPaymentRequestRequest request);
 		ReserveResult Reserve(ReserveRequest request);
 		ReleaseResult Release(ReleaseRequest request);
 		CaptureResult Capture(CaptureRequest request);

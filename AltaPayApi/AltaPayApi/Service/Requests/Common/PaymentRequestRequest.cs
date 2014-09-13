@@ -3,23 +3,12 @@ using System.Collections.Generic;
 
 namespace AltaPay.Service
 {
-	public class PaymentRequestRequest
+	public class PaymentRequestRequest : BasePaymentRequestRequest
 	{
-		// Required Parameters
-		public string Terminal { get; set; }
-		public string ShopOrderId { get; set; }
-		public Amount Amount { get; set; }
-		
 		// Optional parameters
-		public string Language { get; set; }
-		public IDictionary<string,object> PaymentInfos { get; set; }
-		public AuthType Type { get; set; }
-		public string CreditCardToken { get; set; }
 		public string SalesReconciliationIdentifier { get; set; }
 		public string SalesInvoiceNumber { get; set; }
 		public double SalesTax { get; set; }
-		public string Cookie { get; set; }
-		public PaymentRequestConfig Config { get; set; }
 		public CustomerInfo CustomerInfo { get; set; }
 		public string CustomerCreatedDate { get; set; }
 		public IList<PaymentOrderLine> OrderLines { get; set;}
@@ -28,11 +17,10 @@ namespace AltaPay.Service
 		public AccountOffer AccountOffer { get; set; } // To require having account enabled for an invoice payment for this specific customer, set this to required. To disable account for this specific customer, set to disabled.
 		
 		
-		public PaymentRequestRequest() {
-			Config = new PaymentRequestConfig();	
+		public PaymentRequestRequest()
+		{
 			CustomerInfo = new CustomerInfo();
 			OrderLines = new List<PaymentOrderLine>();
-			PaymentInfos = new Dictionary<string, object>();
 		}
 	}
 }

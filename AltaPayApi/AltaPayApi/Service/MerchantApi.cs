@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Xml.Serialization;
-using System.Xml.XPath;
 using AltaPay.Service.Dto;
 using System.Collections.Generic;
 
@@ -148,38 +146,47 @@ namespace AltaPay.Service
 			parameters.Add("page", request.Page);
 			return new FundingsResult(GetResponseFromApiCall("fundingList",parameters), new NetworkCredential(_username, _password));
 		}
-		
-		public PaymentRequestResult CreatePaymentRequest(PaymentRequestRequest request)
+
+		private Dictionary<string,Object> GetBasicCreatePaymentRequestParameters(BasePaymentRequestRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			
+
 			// Mandatory arguments
 			parameters.Add("terminal", request.Terminal);
 			parameters.Add("shop_orderid", request.ShopOrderId);
-			parameters.Add("amount", request.Amount.GetAmountString());
 			parameters.Add("currency", request.Amount.Currency.GetNumericString());
-			
+
 			// Config
 			parameters.Add("config", request.Config.ToDictionary());
-			
+
 			// Optional Arguments
 			parameters.Add("language", request.Language);
 			parameters.Add("transaction_info", request.PaymentInfos);
 			parameters.Add("type", request.Type);
 			parameters.Add("ccToken", request.CreditCardToken);
+			parameters.Add("cookie", request.Cookie);
+
+			return parameters;
+		}
+		
+		public PaymentRequestResult CreatePaymentRequest(PaymentRequestRequest request)
+		{
+			var parameters = GetBasicCreatePaymentRequestParameters(request);
+
+			// Mandatory arguments
+			parameters.Add("amount", request.Amount.GetAmountString());
+
+			// Optional Arguments
 			parameters.Add("sales_reconciliation_identifier", request.SalesReconciliationIdentifier);
 			parameters.Add("sales_invoice_number", request.SalesInvoiceNumber);
 			parameters.Add("sales_tax", request.SalesTax);
 			parameters.Add("shipping_method", request.ShippingType);
-			parameters.Add("cookie", request.Cookie);
 			parameters.Add("customer_created_date", request.CustomerCreatedDate);
 			parameters.Add("organisation_number", request.OrganisationNumber);
 			parameters.Add("account_offer", request.AccountOffer);
-			//parameters.Add("fraud_service", request.Config.
-			
+
 			// Customer Info
 			parameters.Add("customer_info", request.CustomerInfo.AddToDictionary(new Dictionary<string, object>()));
-
 
 			// Order lines
 			parameters = getOrderLines(parameters, request.OrderLines);
@@ -187,6 +194,69 @@ namespace AltaPay.Service
 			return new PaymentRequestResult(GetResponseFromApiCall("createPaymentRequest", parameters));
 		}
 
+		public MultiPaymentRequestResult CreateMultiPaymentRequest(MultiPaymentRequestRequest request)
+		{
+			var parameters = GetBasicCreatePaymentRequestParameters(request);
+
+			// Mandatory arguments
+			parameters.Add("multi", GetMultiPaymentRequestChildrenAsParameter(request));
+
+			return new MultiPaymentRequestResult(GetResponseFromApiCall("createMultiPaymentRequest", parameters));
+		}
+
+		private Dictionary<string,Object> GetMultiPaymentRequestChildrenAsParameter(MultiPaymentRequestRequest request)
+		{
+			var parameter = new Dictionary<string,Object>();
+
+			int childIndex = 0;
+			foreach (MultiPaymentRequestRequestChild child in request.Children)
+			{
+				var childParam = new Dictionary<string,Object>();
+
+				childParam.Add("amount", child.Amount.GetAmountString());
+
+				if (child.Type != AuthType.NotSet)
+				{
+					childParam.Add("type", child.Type);
+				}
+
+				if (!String.IsNullOrEmpty(child.Terminal))
+				{
+					childParam.Add("terminal", child.Terminal);
+				}
+
+				if (!String.IsNullOrEmpty(child.ShopOrderId))
+				{
+					childParam.Add("shop_orderid", child.ShopOrderId);
+				}
+
+				if (child.PaymentInfos != null && child.PaymentInfos.Count > 0)
+				{
+					childParam.Add("transaction_info", request.PaymentInfos);
+				}
+
+				if (child.ShippingType != ShippingType.NotSet)
+				{
+					childParam.Add("shipping_method", child.ShippingType);
+				}
+
+				if (!String.IsNullOrEmpty(child.SalesReconciliationIdentifier))
+				{
+					childParam.Add("sale_reconciliation_identifier", child.SalesReconciliationIdentifier);
+				}
+
+				if (child.OrderLines != null && child.OrderLines.Count > 0)
+				{
+					childParam = getOrderLines(childParam, child.OrderLines);
+				}
+
+
+				parameter.Add(childIndex.ToString(), childParam);
+				childIndex++;
+			}
+
+			return parameter;
+		}
 
 		public ApiResult ParsePostBackXmlResponse(string responseStr)
 		{
