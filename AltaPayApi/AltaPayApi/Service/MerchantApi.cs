@@ -332,10 +332,8 @@ namespace AltaPay.Service
 
 			switch (authType) 
 			{
-				// TO THE REVIEWER: is there any of these that does not make sense in this context?
 				case "payment":
 				case "paymentAndCapture":
-				case "recurring":
 				case "subscription":
 				case "verifyCard":
 					return new MultiPaymentApiResult(apiResponse);
