@@ -328,19 +328,7 @@ namespace AltaPay.Service
 				throw new Exception("The response contains no transactions");
 			}
 
-			string authType = apiResponse.Body.Transactions[0].AuthType;
-
-			switch (authType) 
-			{
-				case "payment":
-				case "paymentAndCapture":
-				case "subscription":
-				case "verifyCard":
-					return new MultiPaymentApiResult(apiResponse);
-
-				default: 
-					throw new Exception("Unhandled Authtype : " + authType);
-			}
+			return new MultiPaymentApiResult(apiResponse);
 		}
 
 		private APIResponse GetApiResponse(Stream stream)
