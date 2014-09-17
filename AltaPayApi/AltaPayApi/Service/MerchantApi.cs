@@ -323,9 +323,9 @@ namespace AltaPay.Service
 			}
 
 			// Detect auth type 
-			if (apiResponse.Body.Transactions.Length == 0)
+			if (apiResponse.Body.Actions.Length == 0)
 			{
-				throw new Exception("The response contains no transactions");
+				throw new Exception("The response contains no actions");
 			}
 
 			return new MultiPaymentApiResult(apiResponse);
@@ -355,7 +355,7 @@ namespace AltaPay.Service
 		{
 			using (Stream responseStream = CallApi(method, parameters))
 			{
-				/*
+				
 				// dumping response for debugging... this would be easier with .NET 4 as it has Stream.CopyTo(..)
 				using (var fileStream = File.Create("/tmp/multipaymentrequest_response"))
 				{

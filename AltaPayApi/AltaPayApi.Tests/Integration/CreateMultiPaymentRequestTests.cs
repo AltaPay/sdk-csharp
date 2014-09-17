@@ -34,6 +34,10 @@ namespace AltaPay.Service.Tests.Integration
 			paymentRequest.AddChild(new MultiPaymentRequestRequestChild() {
 				Amount = Amount.Get(12.34m, Currency.EUR)
 			});
+			
+			paymentRequest.AddChild(new MultiPaymentRequestRequestChild() {
+				Amount = Amount.Get(98.76m, Currency.EUR)
+			});
 
 			MultiPaymentRequestResult result = _api.CreateMultiPaymentRequest(paymentRequest);
 
