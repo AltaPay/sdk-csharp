@@ -355,7 +355,7 @@ namespace AltaPay.Service
 		{
 			using (Stream responseStream = CallApi(method, parameters))
 			{
-				
+				/*
 				// dumping response for debugging... this would be easier with .NET 4 as it has Stream.CopyTo(..)
 				using (var fileStream = File.Create("/tmp/multipaymentrequest_response"))
 				{
