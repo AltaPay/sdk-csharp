@@ -34,7 +34,7 @@ namespace AltaPay.Service
 			}
 		}
 
-		public bool HasAnyFailedPayments()
+		public bool HasAnyFailedPaymentActions()
 		{
 			foreach (var paymentAction in PaymentActions)
 			{

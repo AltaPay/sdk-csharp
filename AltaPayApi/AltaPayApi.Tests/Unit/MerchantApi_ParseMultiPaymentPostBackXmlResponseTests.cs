@@ -15,7 +15,7 @@ namespace AltaPay.Service.Tests.Unit
 			var merchantApi = new MerchantApi("url", "username", "password");
 			MultiPaymentApiResult result = merchantApi.ParseMultiPaymentPostBackXmlResponse(xmlResponse);
 			
-			Assert.AreEqual(false, result.HasAnyFailedPayments());
+			Assert.AreEqual(false, result.HasAnyFailedPaymentActions());
 			Assert.AreEqual(2, result.PaymentActions.Count);
 			
 			Assert.AreEqual(Result.Success, result.PaymentActions[0].Result);
