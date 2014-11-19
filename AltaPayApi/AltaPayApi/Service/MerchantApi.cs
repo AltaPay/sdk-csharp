@@ -4,6 +4,9 @@ using System.Net;
 using System.Xml.Serialization;
 using AltaPay.Service.Dto;
 using System.Collections.Generic;
+using System.Xml.Linq;
+using System.Xml.Schema;
+using AltaPay.Service.Loggers;
 
 
 namespace AltaPay.Service
@@ -16,13 +19,27 @@ namespace AltaPay.Service
 		private string _gatewayUrl;
 		private string _username;
 		private string _password;
-
-		public MerchantApi(string gatewayUrl, string username, string password) 
+		private IAltaPayLogger logger;
+		
+		public MerchantApi(string gatewayUrl, string username, string password) : this(gatewayUrl, username, password, null)
+		{
+		}
+		
+		public MerchantApi(string gatewayUrl, string username, string password, IAltaPayLogger logger)
 		{
 			_gatewayUrl = gatewayUrl;
 			_username = username;
 			_password = password;
-		} 
+			
+			if (logger == null)
+			{
+				this.logger = new BlackholeAltaPayLogger();
+			}
+			else
+			{
+				this.logger = logger;
+			}
+		}
 
 		public ReserveResult Reserve(ReserveRequest request) 
 		{
@@ -257,6 +274,13 @@ namespace AltaPay.Service
 
 			return parameter;
 		}
+			
+		private string StreamToString(Stream stream)
+		{
+			var sr = new StreamReader(stream);
+			stream.Position = 0;
+			return sr.ReadToEnd();
+		}
 
 		public ApiResult ParsePostBackXmlResponse(string responseStr)
 		{
@@ -269,11 +293,17 @@ namespace AltaPay.Service
 			}
 		}
 
-
 		public ApiResult ParsePostBackXmlResponse(Stream responseStream)
 		{
 			// Get the apiResponse
 			APIResponse apiResponse = GetApiResponse(responseStream);
+			if (apiResponse.Header == null)
+			{
+				logger.Error("ParsePostBackXmlResponse: Header is null - received the following...");
+				logger.Error(StreamToString(responseStream));
+				throw new Exception("Invalid response : API response header is null - check " + logger.WhereDoYouLogTo());
+			}
+			
 			if (apiResponse.Header.ErrorCode!=0)
 				throw new Exception("Invalid response : " + apiResponse.Header.ErrorMessage);
 
@@ -339,6 +369,10 @@ namespace AltaPay.Service
 			}
 			catch (Exception exception)
 			{
+				logger.Error("GetApiResponse: {0}", exception);
+				logger.Error("GetApiResponse received the following...");
+				logger.Error(StreamToString(stream));
+				
 				APIResponse response = new APIResponse();
 				response.Header = new Header();
 

@@ -57,6 +57,7 @@
     <Compile Include="Integration\CreateMultiPaymentRequestTests.cs" />
     <Compile Include="Unit\MerchantApi_ParseMultiPaymentPostBackXmlResponseTests.cs" />
     <Compile Include="Unit\MultiPaymentApiResultTests.cs" />
+    <Compile Include="Unit\MerchantApi_ParsePostBackXmlResponseTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AltaPayApi\AltaPayApi.csproj">

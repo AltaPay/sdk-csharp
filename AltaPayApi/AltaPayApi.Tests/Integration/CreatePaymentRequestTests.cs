@@ -99,7 +99,7 @@ namespace AltaPay.Service.Tests.Integration
 				// Many other optional parameters
 				CustomerCreatedDate = "2010-12-24 21:00:00",
 				Cookie = "thecookie=isgood",
-				CreditCardToken = "424242424242424242424242",
+				//CreditCardToken = "424242424242424242424242",
 				Language = "fr",
 				OrganisationNumber = "Orgnumber42",
 				SalesInvoiceNumber = "87654321",
