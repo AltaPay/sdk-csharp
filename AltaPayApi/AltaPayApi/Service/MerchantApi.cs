@@ -347,6 +347,14 @@ namespace AltaPay.Service
 		{
 			// Get the apiResponse
 			APIResponse apiResponse = GetApiResponse(responseStream);
+			
+			if (apiResponse.Header == null)
+			{
+				logger.Error("ParseMultiPaymentPostBackXmlResponse: Header is null - received the following...");
+				logger.Error(StreamToString(responseStream));
+				throw new Exception("Invalid response : API response header is null - check " + logger.WhereDoYouLogTo());
+			}
+			
 			if (apiResponse.Header.ErrorCode != 0)
 			{
 				throw new Exception("Invalid response : " + apiResponse.Header.ErrorMessage);
