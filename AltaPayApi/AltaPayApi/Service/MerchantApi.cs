@@ -94,10 +94,27 @@ namespace AltaPay.Service
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", request.PaymentId);
-			parameters.Add("amount", request.Amount.GetAmountString());
-			if(request.ReconciliationId!=null) parameters.Add("reconciliation_identifier", request.ReconciliationId);
-			if (request.InvoiceNumber!=null) parameters.Add("invoice_number", request.InvoiceNumber);
-			if (request.SalesTax.HasValue) parameters.Add("sales_tax", request.SalesTax);
+			
+			if (request.Amount != default(Amount))
+			{
+				parameters.Add("amount", request.Amount.GetAmountString());
+			}
+			
+			if (request.ReconciliationId!=null)
+			{
+				parameters.Add("reconciliation_identifier", request.ReconciliationId);
+			}
+			
+			if (request.InvoiceNumber!=null)
+			{
+				parameters.Add("invoice_number", request.InvoiceNumber);
+			}
+			
+			if (request.SalesTax.HasValue)
+			{
+				parameters.Add("sales_tax", request.SalesTax);
+			}
+			
 			getOrderLines(parameters, request.OrderLines);
 
 			return new CaptureResult(GetResponseFromApiCall("captureReservation", parameters));

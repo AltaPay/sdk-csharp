@@ -182,6 +182,23 @@ namespace AltaPay.Service.Tests.Integration
 
 			Console.Out.WriteLine("test: " + result.ResultMessage);
         }
+		
+		[Test]
+        public void Capture_DoNotSendAmountIfNotSpecified()
+        {
+			/**
+			 * This test does not really check anything, but it does
+			 * send a request to the gateway, where you can then check
+			 * that everything is as expected.
+			 */
+			
+			var captureRequest = new CaptureRequest() {
+				PaymentId =  "60"
+			};
+			PaymentResult result = _api.Capture(captureRequest);
+
+			Console.Out.WriteLine("test: " + result.ResultMessage);
+        }
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, CustomerInfo customerInfo, PaymentSource source = PaymentSource.moto)
 		{
