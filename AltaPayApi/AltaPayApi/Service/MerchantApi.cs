@@ -20,6 +20,7 @@ namespace AltaPay.Service
 		private string _username;
 		private string _password;
 		private IAltaPayLogger logger;
+		private string _sdkVersion;
 		
 		public MerchantApi(string gatewayUrl, string username, string password) : this(gatewayUrl, username, password, null)
 		{
@@ -430,6 +431,17 @@ namespace AltaPay.Service
 				return GetApiResponse(responseStream);
 			}
 		}
+		
+		private string GetSdkVersion()
+		{
+			if (String.IsNullOrEmpty(_sdkVersion))
+			{
+				Version v = this.GetType().Assembly.GetName().Version;
+				_sdkVersion = String.Format("{0}.{1}.{2}", v.Major, v.Minor, v.Build);
+			}
+			
+			return _sdkVersion;
+		}
 
 		private Stream CallApi(string method, Dictionary<string,Object> parameters)
 		{
@@ -439,6 +451,7 @@ namespace AltaPay.Service
 			HttpWebRequest http = (HttpWebRequest)request;
 			http.Method = "POST";
 			http.ContentType = "application/x-www-form-urlencoded";
+			http.Headers.Add("x-altapay-client-version", String.Format("C#SDK/{0}", GetSdkVersion()));
 
 			string encodedData = ParameterHelper.Convert(parameters);
 			//File.AppendAllText("/tmp/multipaymentrequest", + encodedData + "\n");
