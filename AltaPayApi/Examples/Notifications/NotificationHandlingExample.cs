@@ -33,9 +33,15 @@ namespace Examples
 				//
 				
 				// check the amounts against what you expect them to be and act accordingly
-				// paymentResult.Payment.CapturedAmount;
-				// paymentResult.Payment.ReservedAmount;
-				// paymentResult.Payment.RefundedAmount;
+				var reservedAmount = paymentResult.Payment.ReservedAmount;
+				var capturedAmount = paymentResult.Payment.CapturedAmount;
+				var refundedAmount = paymentResult.Payment.RefundedAmount;
+				
+				// or even better... check the ReconciliationIdentifiers, which
+				// contains information on captures and refunds (nothing else)
+				foreach (ReconciliationIdentifier refundOrCapture in paymentResult.Payment.ReconciliationIdentifiers)
+				{
+				}
 			}
 		}
 	}
