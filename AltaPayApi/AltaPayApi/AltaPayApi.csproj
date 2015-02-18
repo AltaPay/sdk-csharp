@@ -104,6 +104,7 @@
     <Compile Include="Service\Loggers\BlackholeAltaPayLogger.cs" />
     <Compile Include="Service\AltaPayLogLevel.cs" />
     <Compile Include="Service\Loggers\FileAltaPayLogger.cs" />
+    <Compile Include="Properties\SdkVersion.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

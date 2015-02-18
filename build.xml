@@ -1,0 +1,61 @@
+<project name="AltaPayApi" default="Build">
+
+    <property name="build.configuration" value="Release" />
+    <property name="tmp" value="_tmp" />
+
+    <target name="-InitializeReleaseAndVersion">
+        <tstamp>
+            <format property="pensio.release" pattern="yyyyMMdd" locale="en,GB"/>
+            <format property="pensio.version" pattern="yyyy.MM.dd" locale="en,GB"/>
+        </tstamp>
+    </target>
+
+    <target name="SetAltaPayVersion" depends="-InitializeReleaseAndVersion">
+        <echo file="AltaPayApi/AltaPayApi/Properties/SdkVersion.cs">using System;
+using System.Reflection;
+[assembly: AssemblyVersion("${pensio.version}")]
+[assembly: AssemblyFileVersion("${pensio.version}")]</echo>
+    </target>
+
+    <target name="ClearBuilds">
+        <exec executable="./clearbuilds.sh" />
+    </target>
+
+    <target name="Compile" depends="ClearBuilds">
+        <exec executable="mdtool">
+            <arg value="build" />
+            <arg value="--configuration:${build.configuration}" />
+            <arg value="AltaPayApi/AltaPayApi.sln" />
+        </exec>
+    </target>
+
+    <target name="EnsureTmp">
+        <delete dir="${tmp}"/>
+        <mkdir dir="${tmp}"/>
+        <mkdir dir="${tmp}/source"/>
+    </target>
+
+    <target name="Build" depends="SetAltaPayVersion,Compile,EnsureTmp">
+
+        <copy todir="${tmp}/">
+            <fileset dir="AltaPayApi/AltaPayApi/bin/${build.configuration}/" includes="*.dll" />
+            <fileset dir="AltaPayApi/AltaPayApi/bin/${build.configuration}/" includes="*.xml" />
+        </copy>
+
+        <copy todir="${tmp}/source">
+            <fileset dir="AltaPayApi/" includes="**/*.cs" />
+            <fileset dir="AltaPayApi/" includes="**/*.csproj" />
+            <fileset dir="AltaPayApi/" includes="**/*.sln" />
+            <fileset dir="AltaPayApi/" includes="**/*.dll" />
+            <fileset dir="AltaPayApi/" includes="**/*.xml" />
+            <fileset dir="AltaPayApi/" includes="**/*.nunit" />
+        </copy>
+
+        <zip destfile="dist/${ant.project.name}_${pensio.release}.zip">
+            <fileset dir="${tmp}">
+            </fileset>
+        </zip>
+
+        <delete dir="${tmp}" />
+    </target>
+</project>
