@@ -21,6 +21,7 @@ namespace AltaPay.Service
 		public string ItemId { get; set; }
 		public double Quantity { get; set; }
 		public double TaxPercent { get; set; }
+		public double TaxAmount { get; set; }
 		public string UnitCode { get; set; }
 		public double UnitPrice { get; set; }
 		public double Discount { get; set; }

@@ -78,6 +78,7 @@ namespace AltaPay.Service
 				orderLineParam.Add("itemId", orderLine.ItemId);
 				orderLineParam.Add("quantity", orderLine.Quantity);
 				orderLineParam.Add("taxPercent", orderLine.TaxPercent);
+				orderLineParam.Add("taxAmount", orderLine.TaxAmount);
 				orderLineParam.Add("unitCode", orderLine.UnitCode);
 				orderLineParam.Add("unitPrice", orderLine.UnitPrice);
 				orderLineParam.Add("description", orderLine.Description);
