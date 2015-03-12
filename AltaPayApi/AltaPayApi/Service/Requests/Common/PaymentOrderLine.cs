@@ -5,26 +5,55 @@ using System.Text;
 
 namespace AltaPay.Service
 {
-	/**
-	* description	Description of item.	String (255)
-	* itemId	Item number.	String (100)
-	* quantity	Quantity.	Decimal
-	* taxPercent	Decimal	Decimal
-	* unitCode	Measurement unit, e.g., kg.	String (50)
-	* unitPrice	Unit price excluding sales tax	Decimal
-	* discount	The discount in percent	Decimal
-	* goodsType	The type of order line it is. Should be one of the following	shipment|handling|item
-	*/	
 	public class PaymentOrderLine
 	{
+		protected double taxPercent = double.MinValue;
+		protected double taxAmount = double.MinValue;
+		
+		
 		public string Description { get; set; }
 		public string ItemId { get; set; }
 		public double Quantity { get; set; }
-		public double TaxPercent { get; set; }
-		public double TaxAmount { get; set; }
 		public string UnitCode { get; set; }
 		public double UnitPrice { get; set; }
 		public double Discount { get; set; }
 		public GoodsType GoodsType { get; set; }
+		
+		
+		public double TaxPercent
+		{
+			get
+			{
+				return this.taxPercent;
+			}
+			
+			set
+			{
+				if (this.taxAmount != double.MinValue)
+				{
+					throw new InvalidOperationException("You are setting TaxPercent, but TaxAmount has already been set on this orderline and you are not allowed to use both");
+				}
+				
+				this.taxPercent = value;
+			}
+		}
+		
+		public double TaxAmount
+		{
+			get
+			{
+				return this.taxAmount;
+			}
+			
+			set
+			{
+				if (this.taxPercent != double.MinValue)
+				{
+					throw new InvalidOperationException("You are setting TaxAmount, but TaxPercent has already been set on this orderline and you are not allowed to use both");
+				}
+				
+				this.taxAmount = value;
+			}
+		}
 	}
 }

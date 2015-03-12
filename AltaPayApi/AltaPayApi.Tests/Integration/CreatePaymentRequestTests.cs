@@ -140,6 +140,39 @@ namespace AltaPay.Service.Tests.Integration
 
 			// System.Diagnostics.Process.Start(result.Url);
 		}
+		
+		[Test]
+		public void DoNotSendBothTaxAmountAndTaxPercent()
+		{
+			PaymentRequestRequest paymentRequest = new PaymentRequestRequest() {
+				Terminal = "AltaPay Soap Test Terminal",
+				ShopOrderId = "payment-request-" + Guid.NewGuid().ToString(),
+				Amount = Amount.Get(5056.93, Currency.EUR),
+				Type = AuthType.payment,
+				
+				// Orderlines
+				OrderLines = {
+					new PaymentOrderLine() {
+						Description = "The Item Desc", 
+						ItemId = "itemId1",
+						Quantity = 10,
+						TaxPercent = 10,
+						UnitCode = "unitCode",
+						UnitPrice = 500,
+						Discount = 0.00,
+						GoodsType = GoodsType.Item,
+					},
+				}
+			};
+			
+			// And make the actual invocation.
+			PaymentRequestResult result = _api.CreatePaymentRequest(paymentRequest);
+			
+			Assert.AreEqual(null, result.ResultMerchantMessage);
+			Assert.AreEqual(Result.Success, result.Result);
+			Assert.IsNotEmpty(result.Url);
+			Assert.IsNotEmpty(result.DynamicJavascriptUrl);
+		}
 
 		[Test]
 		public void ParseCallbackParameters() 

@@ -77,8 +77,17 @@ namespace AltaPay.Service
 				Dictionary<string,Object> orderLineParam = new Dictionary<string,Object>();
 				orderLineParam.Add("itemId", orderLine.ItemId);
 				orderLineParam.Add("quantity", orderLine.Quantity);
-				orderLineParam.Add("taxPercent", orderLine.TaxPercent);
-				orderLineParam.Add("taxAmount", orderLine.TaxAmount);
+				
+				if (orderLine.TaxPercent != double.MinValue)
+				{
+					orderLineParam.Add("taxPercent", orderLine.TaxPercent);
+				}
+				
+				if (orderLine.TaxAmount != double.MinValue)
+				{
+					orderLineParam.Add("taxAmount", orderLine.TaxAmount);
+				}
+				
 				orderLineParam.Add("unitCode", orderLine.UnitCode);
 				orderLineParam.Add("unitPrice", orderLine.UnitPrice);
 				orderLineParam.Add("description", orderLine.Description);
