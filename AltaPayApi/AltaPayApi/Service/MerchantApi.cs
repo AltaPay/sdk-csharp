@@ -210,6 +210,7 @@ namespace AltaPay.Service
 			parameters.Add("type", request.Type);
 			parameters.Add("ccToken", request.CreditCardToken);
 			parameters.Add("cookie", request.Cookie);
+			parameters.Add("fraud_service", request.FraudService.ToString().ToLower());
 
 			return parameters;
 		}

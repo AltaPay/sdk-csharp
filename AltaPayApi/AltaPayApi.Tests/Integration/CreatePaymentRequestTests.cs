@@ -56,6 +56,7 @@ namespace AltaPay.Service.Tests.Integration
 				Terminal = "AltaPay Soap Test Terminal",
 				ShopOrderId = "payment-request-" + Guid.NewGuid().ToString(),
 				Amount = Amount.Get(5056.93, Currency.EUR),
+				FraudService = FraudService.Test,
 
 				// All the callback configs
 				Config = new PaymentRequestConfig() {
@@ -65,8 +66,7 @@ namespace AltaPay.Service.Tests.Integration
 					CallbackRedirectUrl     = "http://demoshop.pensio.com/Redirect",
 					CallbackNotificationUrl = "http://demoshop.pensio.com/Notification",
 					CallbackOpenUrl         = "http://demoshop.pensio.com/Open",
-					CallbackVerifyOrderUrl  = "http://demoshop.pensio.com/VerifyOrder",
-					FraudService = FraudService.Test,
+					CallbackVerifyOrderUrl  = "http://demoshop.pensio.com/VerifyOrder"
 				},
 				
 				// Customer Data

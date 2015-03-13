@@ -23,6 +23,8 @@ namespace AltaPay.Service.Tests.Integration
 		public void CapturePaymentReturnsSuccess()
 		{
 			var reserveResult = ReserveAmount(1.23, AuthType.payment);
+			
+			this.WaitForDataToFlowIntoReporting();
 
 			var request = new CaptureRequest() {
 				PaymentId =  reserveResult.Payment.TransactionId,
@@ -39,7 +41,9 @@ namespace AltaPay.Service.Tests.Integration
 			var reserveResult = ReserveAmount(1.23, AuthType.payment);
 			if (reserveResult.Result != Result.Success)
 				throw new Exception(reserveResult.ResultMessage);
-
+			
+			this.WaitForDataToFlowIntoReporting();
+			
 			var request = new CaptureRequest() {
 				PaymentId =  reserveResult.Payment.TransactionId,
 				Amount = Amount.Get(1.23, Currency.DKK),
@@ -65,6 +69,9 @@ namespace AltaPay.Service.Tests.Integration
 		public void RefundPaymentReturnsSuccess()
 		{
 			var reserveResult = ReserveAmount(1.23, AuthType.paymentAndCapture);
+			
+			this.WaitForDataToFlowIntoReporting();
+			
 			var request = new RefundRequest() {
 				PaymentId = reserveResult.Payment.TransactionId,
 				Amount = Amount.Get(1.23, Currency.XXX),
@@ -76,6 +83,9 @@ namespace AltaPay.Service.Tests.Integration
 		public void RefundPaymentReturnsRefundedAmount()
 		{
 			var reserveResult = ReserveAmount(1.23, AuthType.paymentAndCapture);
+			
+			this.WaitForDataToFlowIntoReporting();
+			
 			var request = new RefundRequest() {
 				PaymentId = reserveResult.Payment.TransactionId,
 				Amount = Amount.Get(1.11, Currency.DKK),
@@ -87,6 +97,9 @@ namespace AltaPay.Service.Tests.Integration
 		public void ReleasePaymentReturnsSuccess()
 		{
 			var reserveResult = ReserveAmount(1.23, AuthType.payment);
+			
+			this.WaitForDataToFlowIntoReporting();
+			
 			var request = new ReleaseRequest {
 				PaymentId = reserveResult.Payment.TransactionId,
 			};
@@ -99,6 +112,9 @@ namespace AltaPay.Service.Tests.Integration
 		public void GetPaymentReturnsPayment()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.payment);
+			
+			this.WaitForDataToFlowIntoReporting();
+			
 			PaymentResult result = _api.GetPayment(new GetPaymentRequest { PaymentId = createPaymentResult.Payment.TransactionId} );
 
 			Assert.AreEqual(createPaymentResult.Payment.TransactionId, result.Payment.TransactionId);
@@ -116,6 +132,9 @@ namespace AltaPay.Service.Tests.Integration
 		public void ChargeSubscriptionReturnsSuccess()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
+			
+			this.WaitForDataToFlowIntoReporting();
+			
 			var request = new ChargeSubscriptionRequest() {
 				SubscriptionId = createPaymentResult.Payment.TransactionId,
 				Amount = Amount.Get(1, Currency.XXX),
@@ -129,6 +148,9 @@ namespace AltaPay.Service.Tests.Integration
 		public void ChargeSubscriptionReturnsBothPayments()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
+			
+			this.WaitForDataToFlowIntoReporting();
+			
 			var request = new ChargeSubscriptionRequest() {
 				SubscriptionId = createPaymentResult.Payment.TransactionId,
 				Amount = Amount.Get(1, Currency.XXX),
@@ -144,6 +166,9 @@ namespace AltaPay.Service.Tests.Integration
 		public void ReserveSubscriptionChargeReturnsSuccess()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
+			
+			this.WaitForDataToFlowIntoReporting();
+			
 			var request = new ReserveSubscriptionChargeRequest {
 				SubscriptionId = createPaymentResult.Payment.TransactionId,
 				Amount = Amount.Get(1, Currency.XXX),
@@ -156,6 +181,9 @@ namespace AltaPay.Service.Tests.Integration
 		public void ReserveSubscriptionChargeReturnsBothPayments()
 		{
 			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
+			
+			this.WaitForDataToFlowIntoReporting();
+			
 			var request = new ReserveSubscriptionChargeRequest {
 				SubscriptionId = createPaymentResult.Payment.TransactionId,
 				Amount = Amount.Get(1, Currency.XXX),

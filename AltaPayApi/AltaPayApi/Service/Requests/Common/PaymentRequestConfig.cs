@@ -30,8 +30,6 @@ namespace AltaPay.Service
 		 */
 		public string CallbackVerifyOrderUrl {get;set;}
 		
-		public FraudService FraudService {get;set;}
-		
 		public Dictionary<string,Object> ToDictionary()
 		{
 			Dictionary<string,Object> configParams = new Dictionary<string,Object>();
@@ -42,7 +40,6 @@ namespace AltaPay.Service
 			configParams.Add("callback_open", CallbackOpenUrl);
 			configParams.Add("callback_notification", CallbackNotificationUrl);
 			configParams.Add("callback_verify_order", CallbackVerifyOrderUrl);
-			configParams.Add("fraud_service", FraudService.ToString().ToLower());
 			
 			return configParams;
 		}

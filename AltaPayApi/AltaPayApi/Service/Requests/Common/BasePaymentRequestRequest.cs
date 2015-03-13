@@ -23,6 +23,7 @@ namespace AltaPay.Service
 		public string CreditCardToken { get; set; }
 		public string Cookie { get; set; }
 		public PaymentRequestConfig Config { get; set; }
+		public FraudService FraudService { get; set; }
 	}
 }
 

@@ -28,6 +28,16 @@ namespace AltaPay.Api.Tests
 			System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo(cultureName);
 			System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(cultureName);
 		}
+		
+		protected void WaitForDataToFlowIntoReporting()
+		{
+			this.WaitForDataToFlowIntoReporting(3000);
+		}
+		
+		protected void WaitForDataToFlowIntoReporting(int milliseconds)
+		{
+			System.Threading.Thread.Sleep(milliseconds);
+		}
 	}
 }
 

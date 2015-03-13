@@ -47,7 +47,7 @@ namespace AltaPay.Service.Tests.Integration
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 5.67);
 
 			Assert.AreEqual(Result.Error, result.Result);
-			Assert.AreEqual("Expected System Error", result.ResultMessage);
+			Assert.AreEqual("Internal Error", result.ResultMessage);
 		}
 
 		[Test]
