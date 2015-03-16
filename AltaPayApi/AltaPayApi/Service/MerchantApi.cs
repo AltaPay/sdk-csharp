@@ -64,6 +64,8 @@ namespace AltaPay.Service
 
 			if (request.CustomerInfo!=null)
 				request.CustomerInfo.AddToDictionary(parameters);
+			
+			parameters.Add("fraud_service", request.FraudService.ToString().ToLower());
 
 			return new ReserveResult(GetResponseFromApiCall("reservationOfFixedAmount", parameters));
 		}

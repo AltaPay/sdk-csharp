@@ -19,6 +19,8 @@ namespace AltaPay.Service
 		public string Cvc {get; set; }
 
 		public CustomerInfo CustomerInfo { get; set; }
+		
+		public FraudService FraudService { get; set; }
 
 		public ReserveRequest() 
 		{
