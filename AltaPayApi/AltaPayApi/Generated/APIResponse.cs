@@ -506,6 +506,8 @@ namespace AltaPay.Service.Dto {
         
         private TransactionThreeDSecureResult threeDSecureResultField;
         
+        private string liableForChargebackField;
+        
         private TransactionCVVCheckResult cVVCheckResultField;
         
         private string blacklistTokenField;
@@ -649,6 +651,17 @@ namespace AltaPay.Service.Dto {
             }
             set {
                 this.threeDSecureResultField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string LiableForChargeback {
+            get {
+                return this.liableForChargebackField;
+            }
+            set {
+                this.liableForChargebackField = value;
             }
         }
         
@@ -1856,6 +1869,8 @@ namespace AltaPay.Service.Dto {
         
         private string reconciliationIdentifierEqualsField;
         
+        private string acquirerReconciliationIdentifierEqualsField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public string ShopEquals {
@@ -1919,6 +1934,17 @@ namespace AltaPay.Service.Dto {
             }
             set {
                 this.reconciliationIdentifierEqualsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string AcquirerReconciliationIdentifierEquals {
+            get {
+                return this.acquirerReconciliationIdentifierEqualsField;
+            }
+            set {
+                this.acquirerReconciliationIdentifierEqualsField = value;
             }
         }
     }
@@ -1990,6 +2016,10 @@ namespace AltaPay.Service.Dto {
         private string amountField2;
         
         private System.DateTime createdDateField1;
+        
+        private string referenceTextField;
+        
+        private string accountNumberField;
         
         private string downloadLinkField;
         
@@ -2068,6 +2098,28 @@ namespace AltaPay.Service.Dto {
             }
             set {
                 this.createdDateField1 = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string ReferenceText {
+            get {
+                return this.referenceTextField;
+            }
+            set {
+                this.referenceTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string AccountNumber {
+            get {
+                return this.accountNumberField;
+            }
+            set {
+                this.accountNumberField = value;
             }
         }
         
