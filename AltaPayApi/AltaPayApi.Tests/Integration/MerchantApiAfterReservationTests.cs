@@ -80,6 +80,19 @@ namespace AltaPay.Service.Tests.Integration
 		}
 
 		[Test]
+		public void RefundPaymentReturnsSuccess_WithoutSendingAMount()
+		{
+			var reserveResult = ReserveAmount(1.23, AuthType.paymentAndCapture);
+			
+			this.WaitForDataToFlowIntoReporting();
+			
+			var request = new RefundRequest() {
+				PaymentId = reserveResult.Payment.TransactionId,
+			};
+			Assert.AreEqual(Result.Success, _api.Refund(request).Result);
+		}
+		
+		[Test]
 		public void RefundPaymentReturnsRefundedAmount()
 		{
 			var reserveResult = ReserveAmount(1.23, AuthType.paymentAndCapture);
