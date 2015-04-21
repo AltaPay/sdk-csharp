@@ -3,18 +3,51 @@
     <property name="build.configuration" value="Release" />
     <property name="tmp" value="_tmp" />
 
+    <!--
     <target name="-InitializeReleaseAndVersion">
         <tstamp>
             <format property="pensio.release" pattern="yyyyMMdd" locale="en,GB"/>
+        </tstamp>
+        <tstamp>
             <format property="pensio.version" pattern="yyyy.MM.dd" locale="en,GB"/>
         </tstamp>
     </target>
+    -->
+    <target name="pensio.revision" description="Store git revision in ${pensio.revision}">
+        <exec executable="git" outputproperty="pensio.revision" failifexecutionfails="true" errorproperty="">
+            <arg value="describe"/>
+            <arg value="--tags"/>
+            <arg value="--always"/>
+            <arg value="HEAD"/>
+        </exec>
+        <condition property="repository.version" value="${git.revision}" else="unknown">
+            <and>
+                <isset property="git.revision"/>
+                <length string="${git.revision}" trim="yes" length="0" when="greater"/>
+            </and>
+        </condition>
+    </target>
 
-    <target name="SetAltaPayVersion" depends="-InitializeReleaseAndVersion">
+    <target name="pensio.release">
+        <exec executable="git" outputProperty="git.lastcommitdate.ci" failifexecutionfails="true">
+            <arg value="log" />
+            <arg value="-1" />
+            <arg value="--format=%ci" />
+        </exec>
+
+        <exec executable="date" outputProperty="pensio.release" failifexecutionfails="true">
+            <arg value="+%Y%m%d_%H%M%S" />
+            <arg value="-d" />
+            <arg value="${git.lastcommitdate.ci}" />
+        </exec>
+    </target>
+
+
+    <target name="SetAltaPayVersion" depends="pensio.release,pensio.revision">
         <echo file="AltaPayApi/AltaPayApi/Properties/SdkVersion.cs">using System;
 using System.Reflection;
-[assembly: AssemblyVersion("${pensio.version}")]
-[assembly: AssemblyFileVersion("${pensio.version}")]</echo>
+[assembly: AssemblyVersion("${pensio.release}.${pensio.revision}")]
+[assembly: AssemblyFileVersion("${pensio.release}.${pensio.revision}")]</echo>
     </target>
 
     <target name="ClearBuilds">
@@ -51,7 +84,7 @@ using System.Reflection;
             <fileset dir="AltaPayApi/" includes="**/*.nunit" />
         </copy>
 
-        <zip destfile="dist/${ant.project.name}_${pensio.release}.zip">
+        <zip destfile="dist/${ant.project.name}_${pensio.release}_${pensio.revision}.zip">
             <fileset dir="${tmp}">
             </fileset>
         </zip>
