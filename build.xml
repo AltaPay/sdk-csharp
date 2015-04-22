@@ -40,14 +40,20 @@
             <arg value="-d" />
             <arg value="${git.lastcommitdate.ci}" />
         </exec>
+
+        <exec executable="date" outputProperty="pensio.version" failifexecutionfails="true">
+            <arg value="+%Y.%m.%d.%H%M" />
+            <arg value="-d" />
+            <arg value="${git.lastcommitdate.ci}" />
+        </exec>
     </target>
 
 
-    <target name="SetAltaPayVersion" depends="pensio.release,pensio.revision">
+    <target name="SetAltaPayVersion" depends="pensio.release">
         <echo file="AltaPayApi/AltaPayApi/Properties/SdkVersion.cs">using System;
 using System.Reflection;
-[assembly: AssemblyVersion("${pensio.release}.${pensio.revision}")]
-[assembly: AssemblyFileVersion("${pensio.release}.${pensio.revision}")]</echo>
+[assembly: AssemblyVersion("${pensio.version}")]
+[assembly: AssemblyFileVersion("${pensio.version}")]</echo>
     </target>
 
     <target name="ClearBuilds">

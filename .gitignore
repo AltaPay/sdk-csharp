@@ -1,2 +1,9 @@
 # Created by .ignore support plugin (hsz.mobi)
 dist/*.zip
+*.pidb
+*.userprefs
+*bin/
+*test-results/
+*obj/
+*.suo
+
