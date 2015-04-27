@@ -74,7 +74,7 @@ using System.Reflection;
         <mkdir dir="${tmp}/source"/>
     </target>
 
-    <target name="Build" depends="SetAltaPayVersion,Compile,EnsureTmp">
+    <target name="Build" depends="SetAltaPayVersion,pensio.revision,Compile,EnsureTmp">
 
         <copy todir="${tmp}/">
             <fileset dir="AltaPayApi/AltaPayApi/bin/${build.configuration}/" includes="*.dll" />
