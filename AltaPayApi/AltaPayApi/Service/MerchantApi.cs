@@ -338,13 +338,18 @@ namespace AltaPay.Service
 				throw new Exception("Invalid response : API response header is null - check " + logger.WhereDoYouLogTo());
 			}
 			
-			if (apiResponse.Header.ErrorCode!=0)
+			if (apiResponse.Header.ErrorCode != 0)
+			{
 				throw new Exception("Invalid response : " + apiResponse.Header.ErrorMessage);
+			}
+
 
 
 			// Detect auth type 
-			if (apiResponse.Body.Transactions.Length==0)
+			if (apiResponse.Body.Transactions == null || apiResponse.Body.Transactions.Length == 0)
+			{
 				throw new Exception("The response contains no transactions");
+			}
 			string authType = apiResponse.Body.Transactions[0].AuthType;
 
 			// Wrap Api Respons to proper result
