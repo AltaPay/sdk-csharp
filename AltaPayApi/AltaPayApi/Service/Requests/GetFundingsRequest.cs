@@ -4,7 +4,6 @@ namespace AltaPay.Service
 {
 	public class GetFundingsRequest
 	{
-		public int Page { get; set; } 
+		public int Page { get; set; }
 	}
 }
-

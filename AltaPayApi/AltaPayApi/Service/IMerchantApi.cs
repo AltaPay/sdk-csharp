@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using AltaPay.Service.Dto;
 
 namespace AltaPay.Service
 {
@@ -18,6 +19,7 @@ namespace AltaPay.Service
 		GetPaymentsResult GetPayments(GetPaymentsRequest request);
 
 		FundingsResult GetFundings(GetFundingsRequest request);
+		FundingContentResult GetFundingContent(Funding funding);
 
 		ApiResult ParsePostBackXmlResponse(string responseStr);
 		ApiResult ParsePostBackXmlResponse(Stream responseStr);
