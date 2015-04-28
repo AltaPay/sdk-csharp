@@ -61,7 +61,7 @@ using System.Reflection;
     </target>
 
     <target name="Compile" depends="ClearBuilds">
-        <exec executable="mdtool">
+        <exec executable="mdtool" failonerror="true">
             <arg value="build" />
             <arg value="--configuration:${build.configuration}" />
             <arg value="AltaPayApi/AltaPayApi.sln" />
