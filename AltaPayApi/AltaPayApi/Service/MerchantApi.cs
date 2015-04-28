@@ -137,7 +137,10 @@ namespace AltaPay.Service
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", request.PaymentId);
-			parameters.Add("amount", request.Amount.GetAmountString());
+			if (request.Amount != null)
+			{
+				parameters.Add("amount", request.Amount.GetAmountString());
+			}
 			if (request.ReconciliationId!=null) parameters.Add("reconciliation_identifier", request.ReconciliationId);
 			return new RefundResult(GetResponseFromApiCall("refundCapturedReservation", parameters));
 		}
@@ -340,13 +343,17 @@ namespace AltaPay.Service
 				throw new Exception("Invalid response : API response header is null - check " + logger.WhereDoYouLogTo());
 			}
 			
-			if (apiResponse.Header.ErrorCode!=0)
+			if (apiResponse.Header.ErrorCode != 0)
+			{
 				throw new Exception("Invalid response : " + apiResponse.Header.ErrorMessage);
+			}
 
 
 			// Detect auth type 
-			if (apiResponse.Body.Transactions.Length==0)
+			if (apiResponse.Body.Transactions == null || apiResponse.Body.Transactions.Length == 0)
+			{
 				throw new Exception("The response contains no transactions");
+			}
 			string authType = apiResponse.Body.Transactions[0].AuthType;
 
 			// Wrap Api Respons to proper result

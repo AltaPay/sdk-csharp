@@ -12,7 +12,7 @@ namespace AltaPay.Service
 	{
 		public String fundingContent { get; set; }
 
-		public FundingContentResult(Uri url, NetworkCredential networkCredential)
+		public FundingContentResult(String url, NetworkCredential networkCredential)
 		{
 			WebRequest request = WebRequest.Create (url);
 			request.Credentials = networkCredential;
