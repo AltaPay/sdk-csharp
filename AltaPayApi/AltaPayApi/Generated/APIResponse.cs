@@ -173,6 +173,8 @@ namespace AltaPay.Service.Dto {
         
         private ResultFilter resultFilterField;
         
+        private string paymentRequestIdField;
+        
         private string urlField;
         
         private string dynamicJavascriptUrlField;
@@ -182,6 +184,8 @@ namespace AltaPay.Service.Dto {
         private bool recurringDefaultAmountSpecifiedField;
         
         private Fundings fundingsField;
+        
+        private Account[] accountsField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
@@ -429,6 +433,17 @@ namespace AltaPay.Service.Dto {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string PaymentRequestId {
+            get {
+                return this.paymentRequestIdField;
+            }
+            set {
+                this.paymentRequestIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public string Url {
             get {
                 return this.urlField;
@@ -481,6 +496,18 @@ namespace AltaPay.Service.Dto {
                 this.fundingsField = value;
             }
         }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArray(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.Xml.Serialization.XmlArrayItem(IsNullable=false, Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public Account[] Accounts {
+            get {
+                return this.accountsField;
+            }
+            set {
+                this.accountsField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -503,6 +530,10 @@ namespace AltaPay.Service.Dto {
         private string creditCardTokenField;
         
         private string creditCardMaskedPanField;
+        
+        private string giftCardTokenField;
+        
+        private string maskedGiftCardField;
         
         private TransactionThreeDSecureResult threeDSecureResultField;
         
@@ -535,6 +566,8 @@ namespace AltaPay.Service.Dto {
         private double refundedAmountField;
         
         private double recurringDefaultAmountField;
+        
+        private double surchargeAmountField;
         
         private string createdDateField;
         
@@ -640,6 +673,28 @@ namespace AltaPay.Service.Dto {
             }
             set {
                 this.creditCardMaskedPanField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string GiftCardToken {
+            get {
+                return this.giftCardTokenField;
+            }
+            set {
+                this.giftCardTokenField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string MaskedGiftCard {
+            get {
+                return this.maskedGiftCardField;
+            }
+            set {
+                this.maskedGiftCardField = value;
             }
         }
         
@@ -816,6 +871,17 @@ namespace AltaPay.Service.Dto {
             }
             set {
                 this.recurringDefaultAmountField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public double SurchargeAmount {
+            get {
+                return this.surchargeAmountField;
+            }
+            set {
+                this.surchargeAmountField = value;
             }
         }
         
@@ -1128,6 +1194,12 @@ namespace AltaPay.Service.Dto {
         
         /// <remarks/>
         CreditCardWallet,
+        
+        /// <remarks/>
+        GiftCard,
+        
+        /// <remarks/>
+        Mobile,
     }
     
     /// <remarks/>
@@ -2131,6 +2203,40 @@ namespace AltaPay.Service.Dto {
             }
             set {
                 this.downloadLinkField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class Account {
+        
+        private string currencyField2;
+        
+        private string balanceField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Currency {
+            get {
+                return this.currencyField2;
+            }
+            set {
+                this.currencyField2 = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Balance {
+            get {
+                return this.balanceField;
+            }
+            set {
+                this.balanceField = value;
             }
         }
     }
