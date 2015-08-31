@@ -42,16 +42,17 @@ namespace AltaPay.Service.Tests.Unit
 		}
 
 		[Test]
-		[ExpectedException(typeof(Exception))]
 		public void ParsePostBackXmlResponse_ErrorResponseWithoutTransactions()
 		{
-				var logger = new FileAltaPayLogger("/tmp/skarptests");
-				logger.LogLevel = AltaPayLogLevel.Error;
+			var logger = new FileAltaPayLogger("/tmp/skarptests");
+			logger.LogLevel = AltaPayLogLevel.Error;
 
-				string xmlResponse = @"<?xml version=""1.0""?> <APIResponse version=""20141202""><Header><Date>2015-04-24T13:03:21+02:00</Date><Path>/</Path><ErrorCode>0</ErrorCode><ErrorMessage></ErrorMessage></Header><Body><Result>Error</Result></Body></APIResponse>";
+			string xmlResponse = @"<?xml version=""1.0""?> <APIResponse version=""20141202""><Header><Date>2015-04-24T13:03:21+02:00</Date><Path>/</Path><ErrorCode>0</ErrorCode><ErrorMessage></ErrorMessage></Header><Body><Result>Error</Result></Body></APIResponse>";
 
-				var merchantApi = new MerchantApi("url", "username", "password", logger);
-				merchantApi.ParsePostBackXmlResponse(xmlResponse);
+			var merchantApi = new MerchantApi("url", "username", "password", logger);
+			ApiResult actual = merchantApi.ParsePostBackXmlResponse(xmlResponse);
+
+			Assert.AreEqual(Result.Error, actual.Result);
 		}
 	}
 }

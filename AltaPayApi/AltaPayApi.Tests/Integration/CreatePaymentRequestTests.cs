@@ -35,7 +35,7 @@ namespace AltaPay.Service.Tests.Integration
 		public void CreateSimplePaymentRequest()
 		{
 			PaymentRequestRequest paymentRequest = new PaymentRequestRequest() {
-				Terminal = 	"AltaPay Soap Test Terminal",
+				Terminal = 	terminal,
 				ShopOrderId = "payment-request-" + Guid.NewGuid().ToString(),
 				Amount = Amount.Get(42.34,Currency.EUR),
 			};
@@ -53,7 +53,7 @@ namespace AltaPay.Service.Tests.Integration
 		public void CreateComplexPaymentRequest()
 		{
 			PaymentRequestRequest paymentRequest = new PaymentRequestRequest() {
-				Terminal = "AltaPay Soap Test Terminal",
+				Terminal = terminal,
 				ShopOrderId = "payment-request-" + Guid.NewGuid().ToString(),
 				Amount = Amount.Get(5056.93, Currency.EUR),
 				FraudService = FraudService.Test,
@@ -145,7 +145,7 @@ namespace AltaPay.Service.Tests.Integration
 		public void DoNotSendBothTaxAmountAndTaxPercent()
 		{
 			PaymentRequestRequest paymentRequest = new PaymentRequestRequest() {
-				Terminal = "AltaPay Soap Test Terminal",
+				Terminal = terminal,
 				ShopOrderId = "payment-request-" + Guid.NewGuid().ToString(),
 				Amount = Amount.Get(5056.93, Currency.EUR),
 				Type = AuthType.payment,
@@ -181,7 +181,7 @@ namespace AltaPay.Service.Tests.Integration
 			// Make call to reserve fixed amount
 			var parameters = new Dictionary<string, object>();
 
-			parameters.Add("terminal", "AltaPay Soap Test Terminal");
+			parameters.Add("terminal", terminal);
 			parameters.Add("shop_orderid",  "shop api");
 			parameters.Add("amount", "123.45");
 			parameters.Add("currency", Currency.DKK.GetNumericString());

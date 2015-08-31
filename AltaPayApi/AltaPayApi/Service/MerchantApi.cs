@@ -349,12 +349,17 @@ namespace AltaPay.Service
 			}
 
 
+			string authType = "payment";
+
 			// Detect auth type 
-			if (apiResponse.Body.Transactions == null || apiResponse.Body.Transactions.Length == 0)
+			if (!apiResponse.Body.Result.Equals("Error"))
 			{
-				throw new Exception("The response contains no transactions");
+				if (apiResponse.Body.Transactions == null || apiResponse.Body.Transactions.Length == 0)
+				{
+					throw new Exception("The response contains no transactions");
+				}
+				authType = apiResponse.Body.Transactions[0].AuthType;
 			}
-			string authType = apiResponse.Body.Transactions[0].AuthType;
 
 			// Wrap Api Respons to proper result
 			switch (authType) 
