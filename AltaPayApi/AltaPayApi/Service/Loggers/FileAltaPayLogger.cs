@@ -18,7 +18,7 @@ namespace AltaPay.Service.Loggers
 				return false;
 			}
 			
-			return (int)LogLevel >= (int)incomingLevel;
+			return (int)incomingLevel >= (int)LogLevel;
 		}
 		
 		#region IAltaPayLogger implementation
