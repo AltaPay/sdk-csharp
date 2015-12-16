@@ -240,6 +240,7 @@ namespace AltaPay.Service
 			parameters.Add("customer_created_date", request.CustomerCreatedDate);
 			parameters.Add("organisation_number", request.OrganisationNumber);
 			parameters.Add("account_offer", request.AccountOffer);
+			parameters.Add("payment_source", request.Source);
 
 			// Customer Info
 			parameters.Add("customer_info", request.CustomerInfo.AddToDictionary(new Dictionary<string, object>()));
