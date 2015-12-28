@@ -59,6 +59,13 @@ using System.Reflection;
         </exec>
     </target>
 
+    <target name="CompileDebug" depends="ClearBuilds">
+        <exec executable="xbuild" failonerror="true">
+            <arg value="/p:Configuration=Debug" />
+            <arg value="AltaPayApi/AltaPayApi.sln" />
+        </exec>
+    </target>
+
     <target name="EnsureTmp">
         <delete dir="${tmp}"/>
         <mkdir dir="${tmp}"/>
@@ -88,4 +95,39 @@ using System.Reflection;
 
         <delete dir="${tmp}" />
     </target>
+
+
+<!--
+    PT: Unfortunately I have been unable to get the tests to run on command line.
+    I keep getting the following error...
+
+NUnit-Console version 2.6.0.0
+Copyright (C) 2002-2012 Charlie Poole.
+Copyright (C) 2002-2004 James W. Newkirk, Michael C. Two, Alexei A. Vorontsov.
+Copyright (C) 2000-2002 Philip Craig.
+All Rights Reserved.
+
+Runtime Environment - 
+   OS Version: Unix 4.1.0.40100
+  CLR Version: 4.0.30319.17020 ( Mono 4.0 ( 3.2.8 (Debian 3.2.8+dfsg-4ubuntu1.1) ) )
+
+ProcessModel: Default    DomainUsage: Single
+Execution Runtime: v3.5
+Unhandled Exception:
+System.ArgumentException: NUnit components for version 2.0.50727 of the CLR are not installed
+
+    <target name="Tests" depends="CompileDebug">
+        <!--
+            apt-get install nunit-console
+        -->
+        <!--<exec executable="nunit-console" failonerror="true"> ->
+        <exec executable="/usr/bin/cli" failonerror="true">
+            <arg value="--runtime=v3.5" />
+            <arg value="/usr/lib/nunit/nunit-console.exe" />
+            <arg value="AltaPayApi/AltaPayApi.Tests/bin/Debug/AltaPayApi.Tests.dll" />
+            <arg value="-run=AltaPay.Service.Tests.Unit" />
+            <arg value="-framework=3.5" />
+        </exec>
+    </target>
+-->
 </project>
