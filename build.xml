@@ -47,7 +47,9 @@ using System.Reflection;
     </target>
 
     <target name="ClearBuilds">
-        <exec executable="./clearbuilds.sh" />
+        <delete includeEmptyDirs="true">
+            <fileset dir="AltaPayApi" includes="**/bin/**" />
+        </delete>
     </target>
 
     <target name="Compile" depends="ClearBuilds">
