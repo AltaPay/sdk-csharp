@@ -3,16 +3,6 @@
     <property name="build.configuration" value="Release" />
     <property name="tmp" value="_tmp" />
 
-    <!--
-    <target name="-InitializeReleaseAndVersion">
-        <tstamp>
-            <format property="pensio.release" pattern="yyyyMMdd" locale="en,GB"/>
-        </tstamp>
-        <tstamp>
-            <format property="pensio.version" pattern="yyyy.MM.dd" locale="en,GB"/>
-        </tstamp>
-    </target>
-    -->
     <target name="pensio.revision" description="Store git revision in ${pensio.revision}">
         <exec executable="git" outputproperty="pensio.revision" failifexecutionfails="true" errorproperty="">
             <arg value="describe"/>
@@ -61,9 +51,8 @@ using System.Reflection;
     </target>
 
     <target name="Compile" depends="ClearBuilds">
-        <exec executable="mdtool" failonerror="true">
-            <arg value="build" />
-            <arg value="--configuration:${build.configuration}" />
+        <exec executable="xbuild" failonerror="true">
+            <arg value="/p:Configuration=${build.configuration}" />
             <arg value="AltaPayApi/AltaPayApi.sln" />
         </exec>
     </target>
