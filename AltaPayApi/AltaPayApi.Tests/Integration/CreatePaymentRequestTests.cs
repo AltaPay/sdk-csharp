@@ -15,7 +15,7 @@ namespace AltaPay.Service.Tests.Integration
 	[TestFixture]
 	public class CreatePaymentRequestTests : BaseTest
 	{
-		private const string gatewayUrl = "http://gateway.dev.pensio.com/merchant.php/API/";
+		private const string gatewayUrl = "http://gateway4.lb.dev.pensio.com/merchant.php/API/";
 		private const string username = "shop api";
 		private const string password = "testpassword";
 		private const string terminal = "AltaPay Soap Test Terminal";
