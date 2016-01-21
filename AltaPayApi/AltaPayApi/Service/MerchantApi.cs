@@ -141,7 +141,11 @@ namespace AltaPay.Service
 			{
 				parameters.Add("amount", request.Amount.GetAmountString());
 			}
-			if (request.ReconciliationId!=null) parameters.Add("reconciliation_identifier", request.ReconciliationId);
+			if (request.ReconciliationId != null)
+			{
+				parameters.Add("reconciliation_identifier", request.ReconciliationId);
+			}
+			getOrderLines(parameters, request.OrderLines);
 			return new RefundResult(GetResponseFromApiCall("refundCapturedReservation", parameters));
 		}
 		

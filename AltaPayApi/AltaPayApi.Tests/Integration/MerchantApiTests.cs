@@ -110,6 +110,30 @@ namespace AltaPay.Service.Tests.Integration
 			Assert.AreEqual("captured", result.Payment.TransactionStatus);
 		}
 
+		
+		[Test]
+		public void RefundingACapturedPayment()
+		{
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
+
+			Assert.AreEqual("captured", result.Payment.TransactionStatus);
+
+			_api.Refund(new RefundRequest(){
+				PaymentId = result.Payment.PaymentId,
+				OrderLines = new List<PaymentOrderLine>()
+				{
+					new PaymentOrderLine()
+					{
+						ItemId = "123456",
+						Description = "Test product",
+						UnitPrice = 24.33
+					}
+				}
+			});
+
+			Assert.AreEqual("refunded", result.Payment.TransactionStatus);
+		}
+
 		[Test]
 		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithACreditCardToken()
 		{
