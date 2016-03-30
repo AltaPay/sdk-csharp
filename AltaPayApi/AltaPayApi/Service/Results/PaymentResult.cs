@@ -15,6 +15,7 @@ namespace AltaPay.Service
 			{
 				ResultMessage = apiResponse.Body.CardHolderErrorMessage;
 				ResultMerchantMessage = apiResponse.Body.MerchantErrorMessage;
+				ResultMessageMustBeShown = apiResponse.Body.CardHolderMessageMustBeShown;
 
 				if (!String.IsNullOrEmpty(apiResponse.Body.Result))
 					Result = (Result)Enum.Parse(typeof(Result), apiResponse.Body.Result);
