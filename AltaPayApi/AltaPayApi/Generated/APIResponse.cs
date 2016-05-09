@@ -1569,6 +1569,10 @@ namespace AltaPay.Service.Dto {
         
         private CountryOfOrigin countryOfOriginField;
         
+        private CustomerInfoGender genderField;
+        
+        private bool genderSpecifiedField;
+        
         private CustomerInfoAddress billingAddressField;
         
         private CustomerInfoAddress shippingAddressField;
@@ -1649,6 +1653,28 @@ namespace AltaPay.Service.Dto {
             }
             set {
                 this.countryOfOriginField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public CustomerInfoGender Gender {
+            get {
+                return this.genderField;
+            }
+            set {
+                this.genderField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnore()]
+        public virtual bool GenderSpecified {
+            get {
+                return this.genderSpecifiedField;
+            }
+            set {
+                this.genderSpecifiedField = value;
             }
         }
         
@@ -1745,6 +1771,18 @@ namespace AltaPay.Service.Dto {
         
         /// <remarks/>
         PayPal,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.17020")]
+    [System.SerializableAttribute()]
+    public enum CustomerInfoGender {
+        
+        /// <remarks/>
+        M,
+        
+        /// <remarks/>
+        F,
     }
     
     /// <remarks/>
