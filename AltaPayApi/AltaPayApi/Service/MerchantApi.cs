@@ -67,6 +67,9 @@ namespace AltaPay.Service
 			
 			parameters.Add("fraud_service", request.FraudService.ToString().ToLower());
 
+			// Order lines
+			parameters = getOrderLines(parameters, request.OrderLines);
+
 			return new ReserveResult(GetResponseFromApiCall("reservationOfFixedAmount", parameters));
 		}
 
