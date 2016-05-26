@@ -64,6 +64,10 @@ namespace AltaPay.Service
 
 			if (request.CustomerInfo!=null)
 				request.CustomerInfo.AddToDictionary(parameters);
+
+			if(request.CustomerCreatedDate != null){
+				parameters.Add("customer_created_date", request.CustomerCreatedDate);
+			}
 			
 			parameters.Add("fraud_service", request.FraudService.ToString().ToLower());
 
