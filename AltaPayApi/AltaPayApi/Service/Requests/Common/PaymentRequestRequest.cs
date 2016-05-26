@@ -10,7 +10,7 @@ namespace AltaPay.Service
 		public string SalesInvoiceNumber { get; set; }
 		public double SalesTax { get; set; }
 		public CustomerInfo CustomerInfo { get; set; }
-		public string CustomerCreatedDate { get; set; }
+		public string CustomerCreatedDate { get; set; }  //This will be changed to DateTime at some point.
 		public IList<PaymentOrderLine> OrderLines { get; set;}
 		public ShippingType ShippingType { get; set; }
 		public string OrganisationNumber { get; set; } // If the organisation_number parameter is given the organisation number field in the invoice payment form is prepopulated, and if no other payment options is enabled on the terminal the form will auto submit.
