@@ -48,6 +48,10 @@ namespace AltaPay.Service
 			return asString;
 		}
 
+		public string convertDateTime(DateTime date){
+			return date.ToString();
+		}
+
 	}
 }
 
