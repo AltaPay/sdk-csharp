@@ -48,7 +48,7 @@ namespace AltaPay.Service
 			return asString;
 		}
 
-		public string convertDateTime(DateTime date){
+		public string convertDateTimeToString(DateTime date){
 			return date.ToString();
 		}
 
