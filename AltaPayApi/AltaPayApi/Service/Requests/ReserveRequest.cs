@@ -20,6 +20,9 @@ namespace AltaPay.Service
 		public string Cvc {get; set; }
 
 		public CustomerInfo CustomerInfo { get; set; }
+		/// <summary>
+		/// This will be changed to DateTime at some point.
+		/// </summary>
 		public string CustomerCreatedDate { get; set; }
 		
 		public FraudService FraudService { get; set; }
