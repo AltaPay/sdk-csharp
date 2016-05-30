@@ -49,7 +49,7 @@ namespace AltaPay.Service
 		}
 
 		public string convertDateTimeToString(DateTime date){
-			return date.ToString();
+			return date.ToString("yyyy-mm-dd");
 		}
 
 	}
