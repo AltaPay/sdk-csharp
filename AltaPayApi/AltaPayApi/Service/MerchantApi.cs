@@ -235,7 +235,44 @@ namespace AltaPay.Service
 
 			return parameters;
 		}
-		
+
+		private Dictionary<string,Object> GetCreateInvoiceReservationRequestParameters(InvoiceReservationRequest request)
+		{
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+
+			// Mandatory arguments
+			parameters.Add("terminal", request.Terminal);
+			parameters.Add("shop_orderid", request.ShopOrderId);
+			parameters.Add("amount", request.Amount.Value);
+			parameters.Add("currency", request.Amount.Currency);
+			parameters.Add("customer_info", request.CustomerInfo.AddToDictionary(new Dictionary<string, object>()));
+
+			// Optional arguments
+			parameters.Add("type", request.AuthType);
+			parameters.Add("transaction_info", request.PaymentInfos);
+			parameters.Add("accountNumber", request.AccountNumber);
+			parameters.Add("bankCode", request.BankCode);
+			parameters.Add("fraud_service", request.FraudService == null ? null : request.FraudService.ToString().ToLower());
+			parameters.Add("payment_source", request.PaymentSource);
+
+			parameters = getOrderLines(parameters, request.OrderLines);
+
+			parameters.Add("organisationNumber", request.OrganisationNumber);
+			parameters.Add("personalIdentifyNumber", request.PersonalIdentifyNumber);
+			parameters.Add("birthDate", request.BirthDate);
+
+			return parameters;
+		}
+
+		public InvoiceReservationResult CreateInvoiceReservation(InvoiceReservationRequest request)
+		{
+
+			var parameters = GetCreateInvoiceReservationRequestParameters(request);
+
+			return new InvoiceReservationResult(GetResponseFromApiCall("createInvoiceReservation", parameters));
+
+		}
+
 		public PaymentRequestResult CreatePaymentRequest(PaymentRequestRequest request)
 		{
 			var parameters = GetBasicCreatePaymentRequestParameters(request);

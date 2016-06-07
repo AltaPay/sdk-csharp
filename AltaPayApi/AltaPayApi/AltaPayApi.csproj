@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<!-- <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003"> -->
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -11,6 +12,7 @@
     <RootNamespace>AltaPay</RootNamespace>
     <AssemblyName>AltaPayApi</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <!-- <TargetFrameworkVersion>v4.5</TargetFrameworkVersion> -->
     <FileAlignment>512</FileAlignment>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
@@ -106,6 +108,8 @@
     <Compile Include="Service\Loggers\FileAltaPayLogger.cs" />
     <Compile Include="Properties\SdkVersion.cs" />
     <Compile Include="Service\Results\FundingContentResult.cs" />
+    <Compile Include="Service\Requests\Common\InvoiceReservationRequest.cs" />
+    <Compile Include="Service\Results\InvoiceReservationResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
