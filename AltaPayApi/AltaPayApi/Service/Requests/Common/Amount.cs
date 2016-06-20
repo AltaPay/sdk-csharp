@@ -46,7 +46,38 @@ namespace AltaPay.Service
 			return new Amount((decimal)_value, currency);
 		}
 
-	
+		public static Amount Get(string value, Currency currency)
+		{
+			if (value == null || value.Length == 0)
+			{
+				return Get(0.0M, currency);
+			} else
+			{
+				return Get(Decimal.Parse(value), currency);
+			}
+				
+		}
+
+		public override bool Equals(System.Object obj)
+		{
+			// If parameter is null return false:
+			if (obj == null)
+			{
+				return false;
+			}
+
+			// If parameter cannot be cast to Amount return false:
+			Amount am = obj as Amount;
+			if ((System.Object)am == null)
+			{
+				return false;
+			}
+
+			// Return true if the fields match:
+			// TODO it would be better to implement the method Equals in class Currency
+			return (this.Value == am.Value) && (this.Currency.ToString().Equals(am.Currency.ToString()));
+		}
+
 	}
 }
 

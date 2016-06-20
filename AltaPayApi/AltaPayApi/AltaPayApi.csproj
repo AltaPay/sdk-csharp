@@ -51,6 +51,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Web" />
+    <Reference Include="mscorlib" />
+    <Reference Include="LumenWorks.Framework.IO">
+      <HintPath>..\packages\LumenWorksCsvReader.3.9.1\lib\net20\LumenWorks.Framework.IO.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Service\MerchantApi.cs" />
@@ -110,6 +114,7 @@
     <Compile Include="Service\Results\FundingContentResult.cs" />
     <Compile Include="Service\Requests\Common\InvoiceReservationRequest.cs" />
     <Compile Include="Service\Results\InvoiceReservationResult.cs" />
+    <Compile Include="Service\Results\FundingRecord.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -122,5 +127,8 @@
   <ItemGroup>
     <Folder Include="Generated\" />
     <Folder Include="Service\Loggers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
