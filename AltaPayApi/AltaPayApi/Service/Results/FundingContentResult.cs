@@ -14,25 +14,40 @@ namespace AltaPay.Service
 
 		private const char csv_delimiter = ';';
 
-		public String FundingContent { get; set; }
+		//public virtual String FundingContent { get; private set; }
+
+		private String url;
+		private NetworkCredential networkCredential;
+		private String fundingContent;
 
 		public FundingContentResult(String url, NetworkCredential networkCredential)
 		{
-			WebRequest request = WebRequest.Create (url);
-			request.Credentials = networkCredential;
-			WebResponse response = request.GetResponse ();
-			Stream dataStream = response.GetResponseStream ();
-			StreamReader reader = new StreamReader (dataStream);
-			FundingContent = reader.ReadToEnd ();
-			reader.Close ();
-			response.Close ();
+			this.url = url;
+			this.networkCredential = networkCredential;
+		}
+
+		public virtual String GetFundingContent() 
+		{
+			if (this.fundingContent == null)
+			{
+				WebRequest request = WebRequest.Create(url);
+				request.Credentials = networkCredential;
+				WebResponse response = request.GetResponse();
+				Stream dataStream = response.GetResponseStream();
+				StreamReader reader = new StreamReader(dataStream);
+				fundingContent = reader.ReadToEnd();
+				reader.Close();
+				response.Close();
+			}
+
+			return this.fundingContent;
 		}
 
 		public List<FundingRecord> GetFundingRecordList ()
 		{
 			List<FundingRecord> records = new List<FundingRecord>();
 
-			using (CsvReader csv = new CsvReader(GenerateStreamFromString(this.FundingContent), true, csv_delimiter))
+			using (CsvReader csv = new CsvReader(GenerateStreamFromString(GetFundingContent()), true, csv_delimiter))
 			{
 				while (csv.ReadNextRecord())
 				{
@@ -43,7 +58,7 @@ namespace AltaPay.Service
 			return records;
 		}
 
-		public StreamReader GenerateStreamFromString(string s)
+		private StreamReader GenerateStreamFromString(string s)
 		{
 			MemoryStream stream = new MemoryStream();
 			StreamWriter writer = new StreamWriter(stream);

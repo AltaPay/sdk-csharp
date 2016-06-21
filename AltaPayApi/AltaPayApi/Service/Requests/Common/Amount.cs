@@ -53,7 +53,7 @@ namespace AltaPay.Service
 				return Get(0.0M, currency);
 			} else
 			{
-				return Get(Decimal.Parse(value), currency);
+				return Get(Decimal.Parse(value, CultureInfo.InvariantCulture), currency);
 			}
 				
 		}

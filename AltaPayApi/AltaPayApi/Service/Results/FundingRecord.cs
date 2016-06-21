@@ -69,7 +69,7 @@ namespace AltaPay.Service
 			this.Shop = fields[shop];
 
 			// returns a 1.0 decimal if there is no exchange rate:
-			this.ExchangeRate = fields[exchange_rate].Length == 0 ? 1.0M : Decimal.Parse(fields[exchange_rate]);
+			this.ExchangeRate = fields[exchange_rate].Length == 0 ? 1.0M : Decimal.Parse(fields[exchange_rate], CultureInfo.InvariantCulture);
 
 			this.PaymentAmount = Amount.Get(fields[transaction_amount], transCurr);
 			this.FundingAmount = Amount.Get(fields[settlement_amount], settCurr);
