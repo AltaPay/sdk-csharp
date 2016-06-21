@@ -65,6 +65,7 @@
     <Compile Include="Integration\FundingListTests.cs" />
     <Compile Include="Integration\CreatePaymentRequestTests.cs" />
     <Compile Include="Integration\CreateMultiPaymentRequestTests.cs" />
+    <Compile Include="Unit\FundingContentResultTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AltaPayApi\AltaPayApi.csproj">
@@ -82,5 +83,14 @@
   -->
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Unit\txt\Funding42221.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Unit\txt\Funding1.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Unit\txt\" />
   </ItemGroup>
 </Project>
