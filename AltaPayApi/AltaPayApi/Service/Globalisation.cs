@@ -12,6 +12,31 @@ namespace AltaPay
 				return (new CultureInfo("en-US")).NumberFormat;
 			}
 		}
+
+		public static CultureInfo DecimalCultureInfo
+		{
+			get
+			{
+				return CultureInfo.InvariantCulture;
+			}
+		}
+
+		public static CultureInfo DateTimeCultureInfo
+		{
+			get
+			{
+				return CultureInfo.InvariantCulture;
+			}
+		}
+
+		public static DateTimeStyles DateTimeStyle
+		{
+			get
+			{
+				return DateTimeStyles.None;
+			}
+		}
+				
 	}
 }
 

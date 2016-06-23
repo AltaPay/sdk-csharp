@@ -48,12 +48,14 @@ namespace AltaPay.Service
 
 		public static Amount Get(string value, Currency currency)
 		{
-			if (value == null || value.Length == 0)
+
+			if (String.IsNullOrEmpty(value))
 			{
 				return Get(0.0M, currency);
+
 			} else
 			{
-				return Get(Decimal.Parse(value, CultureInfo.InvariantCulture), currency);
+				return Get(Decimal.Parse(value, Globalisation.DecimalCultureInfo), currency);
 			}
 				
 		}

@@ -47,7 +47,8 @@ namespace AltaPay.Service
 		{
 			List<FundingRecord> records = new List<FundingRecord>();
 
-			using (CsvReader csv = new CsvReader(GenerateStreamFromString(GetFundingContent()), true, csv_delimiter))
+			using (StreamReader reader = GenerateStreamFromString(GetFundingContent()))
+			using (CsvReader csv = new CsvReader(reader, true, csv_delimiter))
 			{
 				while (csv.ReadNextRecord())
 				{

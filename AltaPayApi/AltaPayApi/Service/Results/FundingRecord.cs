@@ -52,7 +52,7 @@ namespace AltaPay.Service
 
 			if (fields.FieldCount != 17) // fields: a line from a CSV file
 			{
-				throw new System.ArgumentException("The number of fields in the line should be equal to 17");
+				throw new System.ArgumentException("The number of fields in the line should be equal to 17, but was " + fields.FieldCount);
 			}
 		
 			Currency settCurr = Currency.FromString(fields[settlement_currency]);
@@ -69,7 +69,7 @@ namespace AltaPay.Service
 			this.Shop = fields[shop];
 
 			// returns a 1.0 decimal if there is no exchange rate:
-			this.ExchangeRate = fields[exchange_rate].Length == 0 ? 1.0M : Decimal.Parse(fields[exchange_rate], CultureInfo.InvariantCulture);
+			this.ExchangeRate = fields[exchange_rate].Length == 0 ? 1.0M : Decimal.Parse(fields[exchange_rate], Globalisation.DecimalCultureInfo);
 
 			this.PaymentAmount = Amount.Get(fields[transaction_amount], transCurr);
 			this.FundingAmount = Amount.Get(fields[settlement_amount], settCurr);
@@ -84,16 +84,22 @@ namespace AltaPay.Service
 
 		private DateTime toDate (string date) {
 
-			Regex regex = new Regex("[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}");
-			Match match = regex.Match(date);
+			DateTime dt;
 
-			if (match.Success)
+			//Regex regex = new Regex("[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}");
+			//Match match = regex.Match(date);
+
+			if (DateTime.TryParseExact(date, "yyyy-MM-dd hh:mm:ss", Globalisation.DateTimeCultureInfo, Globalisation.DateTimeStyle, out dt))
 			{
-				return DateTime.ParseExact(date, "yyyy-MM-dd hh:mm:ss", CultureInfo.InvariantCulture);
-			}
-			else
+				return dt;
+			
+			} else if (DateTime.TryParseExact(date, "yyyy-MM-dd", Globalisation.DateTimeCultureInfo, Globalisation.DateTimeStyle, out dt))
 			{
-				return DateTime.ParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+				return dt;
+			
+			} else
+			{
+				throw new System.ArgumentException("Incorrect format for the following date: " + date);
 			}
 
 		}
