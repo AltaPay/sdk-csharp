@@ -8,6 +8,6 @@ namespace AltaPay.Service
 {
     public enum Result
     {
-		Success, Failed, Error, SystemError, AbortedByUser, Cancelled, PartialSuccess, Incomplete, Open
+		Success, Failed, Error, SystemError, AbortedByUser, Cancelled, PartialSuccess, Incomplete, Open, ChargebackEvent
     }
 }
