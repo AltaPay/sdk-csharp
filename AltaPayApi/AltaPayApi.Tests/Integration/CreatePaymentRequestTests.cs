@@ -15,10 +15,6 @@ namespace AltaPay.Service.Tests.Integration
 	[TestFixture]
 	public class CreatePaymentRequestTests : BaseTest
 	{
-		private const string gatewayUrl = "http://gateway.dev.pensio.com/merchant.php/API/";
-		private const string username = "shop api";
-		private const string password = "testpassword";
-		private const string terminal = "AltaPay Soap Test Terminal";
 
 		private ParameterHelper ParameterHelper = new ParameterHelper();
 
@@ -28,15 +24,15 @@ namespace AltaPay.Service.Tests.Integration
 		[SetUp]
 		public void Setup()
 		{
-			_api = new MerchantApi(gatewayUrl, username, password);
+			_api = new MerchantApi(GatewayConstants.gatewayUrl, GatewayConstants.username, GatewayConstants.password);
 		}
 
 		[Test]
 		public void CreateSimplePaymentRequest()
 		{
 			PaymentRequestRequest paymentRequest = new PaymentRequestRequest() {
-				Terminal = 	terminal,
-				ShopOrderId = "payment-request-" + Guid.NewGuid().ToString(),
+				Terminal = 	GatewayConstants.terminal,
+				ShopOrderId = "payment-req-" + Guid.NewGuid().ToString(),
 				Amount = Amount.Get(42.34,Currency.EUR),
 			};
 			
@@ -53,8 +49,8 @@ namespace AltaPay.Service.Tests.Integration
 		public void CreateComplexPaymentRequest()
 		{
 			PaymentRequestRequest paymentRequest = new PaymentRequestRequest() {
-				Terminal = terminal,
-				ShopOrderId = "payment-request-" + Guid.NewGuid().ToString(),
+				Terminal = GatewayConstants.terminal,
+				ShopOrderId = "payment-req-" + Guid.NewGuid().ToString(),
 				Amount = Amount.Get(5056.93, Currency.EUR),
 				FraudService = FraudService.Test,
 
@@ -145,8 +141,8 @@ namespace AltaPay.Service.Tests.Integration
 		public void DoNotSendBothTaxAmountAndTaxPercent()
 		{
 			PaymentRequestRequest paymentRequest = new PaymentRequestRequest() {
-				Terminal = terminal,
-				ShopOrderId = "payment-request-" + Guid.NewGuid().ToString(),
+				Terminal = GatewayConstants.terminal,
+				ShopOrderId = "payment-req-" + Guid.NewGuid().ToString(),
 				Amount = Amount.Get(5056.93, Currency.EUR),
 				Type = AuthType.payment,
 				
@@ -181,7 +177,7 @@ namespace AltaPay.Service.Tests.Integration
 			// Make call to reserve fixed amount
 			var parameters = new Dictionary<string, object>();
 
-			parameters.Add("terminal", terminal);
+			parameters.Add("terminal", GatewayConstants.terminal);
 			parameters.Add("shop_orderid",  "shop api");
 			parameters.Add("amount", "123.45");
 			parameters.Add("currency", Currency.DKK.GetNumericString());
@@ -203,9 +199,9 @@ namespace AltaPay.Service.Tests.Integration
 			using (WebClient wc = new WebClient())
 			{
 				wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-				wc.Credentials = new NetworkCredential(username, password);
+				wc.Credentials = new NetworkCredential(GatewayConstants.username, GatewayConstants.password);
 				string parameterStr = ParameterHelper.Convert(parameters);
-				return wc.UploadString(gatewayUrl+method, parameterStr);
+				return wc.UploadString(GatewayConstants.gatewayUrl+method, parameterStr);
 			}
 		}
 	}

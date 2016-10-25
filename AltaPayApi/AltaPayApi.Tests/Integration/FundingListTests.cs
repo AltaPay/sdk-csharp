@@ -17,7 +17,7 @@ namespace AltaPay.Service.Tests.Integration
 		[SetUp]
 		public void Setup()
 		{
-			_api = new MerchantApi("http://gateway.dev.pensio.com/merchant.php/API/", "shop api", "testpassword");
+			_api = new MerchantApi(GatewayConstants.gatewayUrl, GatewayConstants.username, GatewayConstants.password);
 			//_api = new MerchantApi("https://ci.gateway.pensio.com/merchant.php/API/", "shop api", "testpassword");
 		}
 

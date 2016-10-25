@@ -15,20 +15,16 @@ namespace AltaPay.Service.Tests.Integration
 	[TestFixture]
 	public class CreateInvoiceReservationTests : BaseTest
 	{
-		private const string gatewayUrl = "http://gateway.dev.pensio.com/merchant.php/API/";
-		private const string username = "shop api";
-		private const string password = "testpassword";
-		private const string terminal = "AltaPay Test Invoice Terminal DK";
 
 		//private ParameterHelper ParameterHelper = new ParameterHelper();
 
 		private IMerchantApi _api;
-
+		private const String terminal = "AltaPay Test Invoice Terminal DK";
 
 		[SetUp]
 		public void Setup()
 		{
-			_api = new MerchantApi(gatewayUrl, username, password);
+			_api = new MerchantApi(GatewayConstants.gatewayUrl, GatewayConstants.username, GatewayConstants.password);
 		}
 
 		[Test]
@@ -36,7 +32,7 @@ namespace AltaPay.Service.Tests.Integration
 		{
 			InvoiceReservationRequest request = new InvoiceReservationRequest() {
 
-				Terminal = 	terminal,
+				Terminal = terminal,
 				ShopOrderId = "invoice-" + Guid.NewGuid().ToString(),
 				Amount = Amount.Get (42.42, Currency.DKK),
 
@@ -54,15 +50,16 @@ namespace AltaPay.Service.Tests.Integration
 
 			InvoiceReservationResult result = _api.CreateInvoiceReservation(request);
 
+			Assert.AreEqual(null, result.ResultMerchantMessage);
+			Assert.AreEqual(null, result.ResultMessage);
+			Assert.AreEqual(Result.Success, result.Result);
+
 			Assert.AreEqual (request.Terminal, result.Payment.Terminal);
 			Assert.AreEqual (request.ShopOrderId, result.Payment.ShopOrderId);
 			Assert.AreEqual (request.CustomerInfo.BillingAddress.Address, result.Payment.CustomerInfo.BillingAddress.Address);
 			Assert.AreEqual (request.CustomerInfo.BillingAddress.PostalCode, result.Payment.CustomerInfo.BillingAddress.PostalCode);
 			Assert.AreEqual (request.CustomerInfo.Email, result.Payment.CustomerInfo.Email);
 
-			Assert.AreEqual(Result.Success, result.Result);
-			Assert.AreEqual(null, result.ResultMessage);
-			Assert.AreEqual(null, result.ResultMerchantMessage);
 		}
 
 		[Test]
@@ -70,7 +67,7 @@ namespace AltaPay.Service.Tests.Integration
 		{
 			InvoiceReservationRequest request = new InvoiceReservationRequest() {
 
-				Terminal = 	terminal,
+				Terminal = terminal,
 				ShopOrderId = "invoice-" + Guid.NewGuid().ToString(),
 				Amount = Amount.Get (42.42, Currency.DKK),
 
@@ -136,6 +133,10 @@ namespace AltaPay.Service.Tests.Integration
 			// And make the actual invocation.
 			InvoiceReservationResult result = _api.CreateInvoiceReservation(request);
 
+			Assert.AreEqual(null, result.ResultMerchantMessage);
+			Assert.AreEqual(null, result.ResultMessage);
+			Assert.AreEqual(Result.Success, result.Result);
+
 			Assert.AreEqual(request.Terminal, result.Payment.Terminal);
 			Assert.AreEqual(request.ShopOrderId, result.Payment.ShopOrderId);
 
@@ -164,10 +165,6 @@ namespace AltaPay.Service.Tests.Integration
 			Assert.AreEqual(request.CustomerInfo.ShippingAddress.Region, ci.ShippingAddress.Region);
 			Assert.AreEqual(request.CustomerInfo.ShippingAddress.PostalCode, ci.ShippingAddress.PostalCode);
 			Assert.AreEqual(request.CustomerInfo.ShippingAddress.Country, ci.ShippingAddress.Country);
-
-			Assert.AreEqual(Result.Success, result.Result);
-			Assert.AreEqual(null, result.ResultMessage);
-			Assert.AreEqual(null, result.ResultMerchantMessage);
 
 			// System.Diagnostics.Process.Start(result.Url);
 		}
