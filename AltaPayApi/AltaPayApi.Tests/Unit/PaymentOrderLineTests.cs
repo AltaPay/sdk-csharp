@@ -28,26 +28,11 @@ namespace AltaPay.Service.Tests.Unit
 		}
 		
 		[Test]
-		[ExpectedException(typeof(InvalidOperationException))]
-		public void TaxPercent_throwIfTaxAmountHasAlreadyBeenSet()
-		{
-			this.orderline.TaxAmount = 12d;
-			this.orderline.TaxPercent = 99d;
-		}
-		
-		[Test]
 		public void TaxAmount_canSet()
 		{
 			this.orderline.TaxAmount = 12d;
 		}
-		
-		[Test]
-		[ExpectedException(typeof(InvalidOperationException))]
-		public void TaxAmount_throwIfTaxPercentHasAlreadyBeenSet()
-		{
-			this.orderline.TaxPercent = 99d;
-			this.orderline.TaxAmount = 12d;
-		}
+
 	}
 }
 

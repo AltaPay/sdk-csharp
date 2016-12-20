@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using NUnit.Framework;
 using AltaPay.Api.Tests;
 using AltaPay.Service.Loggers;
@@ -65,6 +66,20 @@ namespace AltaPay.Service.Tests.Unit
 			ApiResult actual = merchantApi.ParsePostBackXmlResponse(xmlResponse);
 
 			Assert.AreEqual(Result.Error, actual.Result);
+		}
+
+		[Test]
+		public void ParsePostBackXmlResponse_ChargebackEvent()
+		{
+			var logger = new FileAltaPayLogger("/tmp/skarptests");
+			logger.LogLevel = AltaPayLogLevel.Error;
+
+			string xmlResponse = File.ReadAllText("Unit/txt/ChargebackEvent.xml");
+
+			var merchantApi = new MerchantApi("url", "username", "password", logger);
+			ApiResult actual = merchantApi.ParsePostBackXmlResponse(xmlResponse);
+
+			Assert.AreEqual(Result.ChargebackEvent, actual.Result);
 		}
 	}
 }

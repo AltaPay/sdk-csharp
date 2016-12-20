@@ -29,11 +29,6 @@ namespace AltaPay.Service
 			
 			set
 			{
-				if (this.taxAmount != double.MinValue)
-				{
-					throw new InvalidOperationException("You are setting TaxPercent, but TaxAmount has already been set on this orderline and you are not allowed to use both");
-				}
-				
 				this.taxPercent = value;
 			}
 		}
@@ -47,11 +42,6 @@ namespace AltaPay.Service
 			
 			set
 			{
-				if (this.taxPercent != double.MinValue)
-				{
-					throw new InvalidOperationException("You are setting TaxAmount, but TaxPercent has already been set on this orderline and you are not allowed to use both");
-				}
-				
 				this.taxAmount = value;
 			}
 		}

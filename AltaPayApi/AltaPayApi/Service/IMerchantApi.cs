@@ -9,6 +9,7 @@ namespace AltaPay.Service
 		ChargeSubscriptionResult ChargeSubscription(ChargeSubscriptionRequest request);
 		ReserveSubscriptionChargeResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request);
 
+		InvoiceReservationResult CreateInvoiceReservation(InvoiceReservationRequest request);
 		PaymentRequestResult CreatePaymentRequest(PaymentRequestRequest request);
 		MultiPaymentRequestResult CreateMultiPaymentRequest(MultiPaymentRequestRequest request);
 		ReserveResult Reserve(ReserveRequest request);
