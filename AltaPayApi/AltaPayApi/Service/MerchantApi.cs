@@ -213,6 +213,24 @@ namespace AltaPay.Service
 			return new FundingContentResult(funding.DownloadLink, new NetworkCredential(_username, _password));
 		}
 
+		public void getFunding(Funding funding, String folder)
+		{
+			FundingContentResult fundingContenResult = this.GetFundingContent(funding);
+			String cvs = fundingContenResult.GetFundingContent();
+
+			String end = folder.Substring(folder.Length - 1);
+			String localPath = folder;
+			if (!end.Equals("/"))
+			{
+				localPath = localPath + "/;"			
+			}
+
+			String path = localPath + funding.Filename + ".cvs";
+			StreamWriter file = new StreamWriter(path);
+			file.WriteLine(cvs);
+			file.Close();
+		}
+
 		private Dictionary<string,Object> GetBasicCreatePaymentRequestParameters(BasePaymentRequestRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
