@@ -46,6 +46,55 @@ namespace AltaPay.Service.Tests.Integration
 		}
 
 		[Test]
+		public void TestEPaymentRelease()
+		{
+
+			string terminal = "AltaPay Test EPayment Terminal";
+			string shopOrderId = "payment-req-" + Guid.NewGuid().ToString();
+			Amount amount = Amount.Get(42.34, Currency.EUR);
+
+			// createPaymentRequest
+			PaymentRequestRequest paymentRequest = new PaymentRequestRequest() {
+				Terminal = terminal,
+				ShopOrderId = shopOrderId,
+				Amount = amount,
+			};
+
+			PaymentRequestResult result = _api.CreatePaymentRequest(paymentRequest);
+			Assert.AreEqual(null, result.ResultMerchantMessage);
+			Assert.AreEqual(Result.Success, result.Result);
+			Assert.IsNotEmpty(result.Url);
+			Assert.IsNotEmpty(result.DynamicJavascriptUrl);
+
+//			var reserveRequest = new ReserveRequest {
+//				ShopOrderId = shopOrderId,
+//				Terminal = terminal,
+//				Amount = amount,
+//				PaymentType = AuthType.payment,
+//				//Pan = "4111000011110000",
+//				//ExpiryMonth = 1,
+//				//ExpiryYear = 2012,
+//				//Cvc = "123",
+//			};
+
+			ReserveResult reserveResult = _api.Reserve(new ReserveRequest (){}/*reserveRequest*/);
+			//Assert.AreEqual(null, reserveResult.ResultMerchantMessage);
+			//Assert.AreEqual(Result.Success, reserveResult.Result);
+
+			// release
+			ReleaseRequest rel = new ReleaseRequest() {
+				PaymentId = shopOrderId
+			};
+
+			ReleaseResult relResult = _api.Release(rel);
+
+			Assert.AreEqual(null, relResult.ResultMerchantMessage);
+			Assert.AreEqual(Result.Success, relResult.Result);
+
+			//System.Diagnostics.Process.Start(result.Url);
+		}
+
+		[Test]
 		public void CreateComplexPaymentRequest()
 		{
 			PaymentRequestRequest paymentRequest = new PaymentRequestRequest() {
