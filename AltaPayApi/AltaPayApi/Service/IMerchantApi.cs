@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.IO;
 using AltaPay.Service.Dto;
 
@@ -21,7 +21,6 @@ namespace AltaPay.Service
 
 		FundingsResult GetFundings(GetFundingsRequest request);
 		FundingContentResult GetFundingContent(Funding funding);
-		void SaveFunding(Funding funding, String folder);
 
 		ApiResult ParsePostBackXmlResponse(string responseStr);
 		ApiResult ParsePostBackXmlResponse(Stream responseStr);

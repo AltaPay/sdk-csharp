@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.IO;
 using System.Net;
 using System.Xml.Serialization;
@@ -15,23 +15,23 @@ namespace AltaPay.Service
 	{
 		// Dependency
 		private ParameterHelper ParameterHelper = new ParameterHelper();
-		
+
 		private string _gatewayUrl;
 		private string _username;
 		private string _password;
 		private IAltaPayLogger logger;
 		private string _sdkVersion;
-		
+
 		public MerchantApi(string gatewayUrl, string username, string password) : this(gatewayUrl, username, password, null)
 		{
 		}
-		
+
 		public MerchantApi(string gatewayUrl, string username, string password, IAltaPayLogger logger)
 		{
 			_gatewayUrl = gatewayUrl;
 			_username = username;
 			_password = password;
-			
+
 			if (logger == null)
 			{
 				this.logger = new BlackholeAltaPayLogger();
@@ -68,7 +68,7 @@ namespace AltaPay.Service
 			if(request.CustomerCreatedDate != null){
 				parameters.Add("customer_created_date", request.CustomerCreatedDate);
 			}
-			
+
 			parameters.Add("fraud_service", request.FraudService.ToString().ToLower());
 
 			// Order lines
@@ -86,23 +86,23 @@ namespace AltaPay.Service
 				Dictionary<string,Object> orderLineParam = new Dictionary<string,Object>();
 				orderLineParam.Add("itemId", orderLine.ItemId);
 				orderLineParam.Add("quantity", orderLine.Quantity);
-				
+
 				if (orderLine.TaxPercent != double.MinValue)
 				{
 					orderLineParam.Add("taxPercent", orderLine.TaxPercent);
 				}
-				
+
 				if (orderLine.TaxAmount != double.MinValue)
 				{
 					orderLineParam.Add("taxAmount", orderLine.TaxAmount);
 				}
-				
+
 				orderLineParam.Add("unitCode", orderLine.UnitCode);
 				orderLineParam.Add("unitPrice", orderLine.UnitPrice);
 				orderLineParam.Add("description", orderLine.Description);
 				orderLineParam.Add("discount", orderLine.Discount);
 				orderLineParam.Add("goodsType", orderLine.GoodsType.ToString().ToLower());
-				
+
 				orderLinesParam.Add(lineNumber.ToString(), orderLineParam);
 				lineNumber++;
 			}
@@ -114,27 +114,27 @@ namespace AltaPay.Service
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", request.PaymentId);
-			
+
 			if (request.Amount != default(Amount))
 			{
 				parameters.Add("amount", request.Amount.GetAmountString());
 			}
-			
+
 			if (request.ReconciliationId!=null)
 			{
 				parameters.Add("reconciliation_identifier", request.ReconciliationId);
 			}
-			
+
 			if (request.InvoiceNumber!=null)
 			{
 				parameters.Add("invoice_number", request.InvoiceNumber);
 			}
-			
+
 			if (request.SalesTax.HasValue)
 			{
 				parameters.Add("sales_tax", request.SalesTax);
 			}
-			
+
 			getOrderLines(parameters, request.OrderLines);
 
 			return new CaptureResult(GetResponseFromApiCall("captureReservation", parameters));
@@ -155,13 +155,13 @@ namespace AltaPay.Service
 			getOrderLines(parameters, request.OrderLines);
 			return new RefundResult(GetResponseFromApiCall("refundCapturedReservation", parameters));
 		}
-		
+
 
 		public ReleaseResult Release(ReleaseRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", request.PaymentId);
-			
+
 			return new ReleaseResult(GetResponseFromApiCall("releaseReservation", parameters));
 		}
 
@@ -169,7 +169,7 @@ namespace AltaPay.Service
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", request.PaymentId);
-			
+
 			return new GetPaymentResult(GetResponseFromApiCall("transactions", parameters));
 		}
 
@@ -197,10 +197,10 @@ namespace AltaPay.Service
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", request.SubscriptionId);
 			parameters.Add("amount", request.Amount.GetAmountString());
-			
+
 			return new ReserveSubscriptionChargeResult(GetResponseFromApiCall("reserveSubscriptionCharge", parameters));
 		}
-		
+
 		public FundingsResult GetFundings(GetFundingsRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
@@ -213,7 +213,7 @@ namespace AltaPay.Service
 			return new FundingContentResult(funding.DownloadLink, new NetworkCredential(_username, _password));
 		}
 
-		public void SaveFunding(Funding funding, String folder)
+		public void getFunding(Funding funding, String folder)
 		{
 			FundingContentResult fundingContenResult = this.GetFundingContent(funding);
 			String cvs = fundingContenResult.GetFundingContent();
@@ -222,7 +222,7 @@ namespace AltaPay.Service
 			String localPath = folder;
 			if (!end.Equals("/"))
 			{
-				localPath = localPath + "/";			
+				localPath = localPath + "/;"			
 			}
 
 			String path = localPath + funding.Filename + ".cvs";
@@ -313,7 +313,7 @@ namespace AltaPay.Service
 
 			// Order lines
 			parameters = getOrderLines(parameters, request.OrderLines);
-			
+
 			return new PaymentRequestResult(GetResponseFromApiCall("createPaymentRequest", parameters));
 		}
 
@@ -380,7 +380,7 @@ namespace AltaPay.Service
 
 			return parameter;
 		}
-			
+
 		private string StreamToString(Stream stream)
 		{
 			var sr = new StreamReader(stream);
@@ -409,7 +409,7 @@ namespace AltaPay.Service
 				logger.Error(StreamToString(responseStream));
 				throw new Exception("Invalid response : API response header is null - check " + logger.WhereDoYouLogTo());
 			}
-			
+
 			if (apiResponse.Header.ErrorCode != 0)
 			{
 				throw new Exception("Invalid response : " + apiResponse.Header.ErrorMessage);
@@ -462,14 +462,14 @@ namespace AltaPay.Service
 		{
 			// Get the apiResponse
 			APIResponse apiResponse = GetApiResponse(responseStream);
-			
+
 			if (apiResponse.Header == null)
 			{
 				logger.Error("ParseMultiPaymentPostBackXmlResponse: Header is null - received the following...");
 				logger.Error(StreamToString(responseStream));
 				throw new Exception("Invalid response : API response header is null - check " + logger.WhereDoYouLogTo());
 			}
-			
+
 			if (apiResponse.Header.ErrorCode != 0)
 			{
 				throw new Exception("Invalid response : " + apiResponse.Header.ErrorMessage);
@@ -495,7 +495,7 @@ namespace AltaPay.Service
 				logger.Error("GetApiResponse: {0}", exception);
 				logger.Error("GetApiResponse received the following...");
 				logger.Error(StreamToString(stream));
-				
+
 				APIResponse response = new APIResponse();
 				response.Header = new Header();
 
@@ -528,7 +528,7 @@ namespace AltaPay.Service
 				return GetApiResponse(responseStream);
 			}
 		}
-		
+
 		private string GetSdkVersion()
 		{
 			if (String.IsNullOrEmpty(_sdkVersion))
@@ -536,7 +536,7 @@ namespace AltaPay.Service
 				Version v = this.GetType().Assembly.GetName().Version;
 				_sdkVersion = String.Format("{0}.{1}.{2}", v.Major, v.Minor, v.Build);
 			}
-			
+
 			return _sdkVersion;
 		}
 
@@ -568,6 +568,6 @@ namespace AltaPay.Service
 			var serializer = new XmlSerializer(typeof(T));
 			return (T)serializer.Deserialize(xml);
 		}
-		
+
 	}
 }
