@@ -6,6 +6,7 @@ using AltaPay.Service;
 using NUnit.Framework;
 using AltaPay.Api.Tests;
 using AltaPay.Service.Dto;
+using System.IO;
 
 namespace AltaPay.Service.Tests.Integration
 {
@@ -65,6 +66,31 @@ namespace AltaPay.Service.Tests.Integration
 			Assert.AreEqual(amount, record.RateBasedFeeAmount);
 			Assert.AreEqual(amount, record.RateBasedFeeVatAmount);
 
+
+		}
+
+		[Test]
+		public void SaveFundingTest()
+		{
+			String tempFolder = "/tmp";
+
+			FundingsResult result = _api.GetFundings(new GetFundingsRequest { Page = 0 });
+
+			Assert.AreEqual(Result.Success, result.Result);
+			Assert.AreEqual(1, result.Pages);
+			Assert.IsTrue(result.Fundings.Count >= 1);
+
+			Funding funding = result.Fundings[0];
+
+			String name = tempFolder + "/" + funding.Filename + ".cvs";
+
+			// Delete the file, if it exists:
+			File.Delete(name);
+			Assert.IsFalse(File.Exists(name));
+
+			// Save the file and check its existence:
+			_api.SaveFunding(funding, tempFolder);
+			Assert.IsTrue(File.Exists(name));
 
 		}
 	}

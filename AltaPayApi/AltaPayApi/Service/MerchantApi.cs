@@ -213,7 +213,7 @@ namespace AltaPay.Service
 			return new FundingContentResult(funding.DownloadLink, new NetworkCredential(_username, _password));
 		}
 
-		public void getFunding(Funding funding, String folder)
+		public void SaveFunding(Funding funding, String folder)
 		{
 			FundingContentResult fundingContenResult = this.GetFundingContent(funding);
 			String cvs = fundingContenResult.GetFundingContent();
@@ -222,7 +222,7 @@ namespace AltaPay.Service
 			String localPath = folder;
 			if (!end.Equals("/"))
 			{
-				localPath = localPath + "/;"			
+				localPath = localPath + "/";			
 			}
 
 			String path = localPath + funding.Filename + ".cvs";
