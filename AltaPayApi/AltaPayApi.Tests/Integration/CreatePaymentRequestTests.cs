@@ -41,6 +41,7 @@ namespace AltaPay.Service.Tests.Integration
 			Assert.AreEqual(Result.Success, result.Result);
 			Assert.IsNotEmpty(result.Url);
 			Assert.IsNotEmpty(result.DynamicJavascriptUrl);
+			Assert.IsNotEmpty(result.PaymentRequestId);
 			
 			//System.Diagnostics.Process.Start(result.Url);
 		}
@@ -133,6 +134,7 @@ namespace AltaPay.Service.Tests.Integration
 			Assert.AreEqual(Result.Success, result.Result);
 			Assert.IsNotEmpty(result.Url);
 			Assert.IsNotEmpty(result.DynamicJavascriptUrl);
+			Assert.IsNotEmpty(result.PaymentRequestId);
 
 			// System.Diagnostics.Process.Start(result.Url);
 		}
@@ -168,6 +170,7 @@ namespace AltaPay.Service.Tests.Integration
 			Assert.AreEqual(Result.Success, result.Result);
 			Assert.IsNotEmpty(result.Url);
 			Assert.IsNotEmpty(result.DynamicJavascriptUrl);
+			Assert.IsNotEmpty(result.PaymentRequestId);
 		}
 
 		[Test]
