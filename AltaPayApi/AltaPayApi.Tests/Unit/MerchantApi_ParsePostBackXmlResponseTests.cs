@@ -37,7 +37,10 @@ namespace AltaPay.Service.Tests.Unit
 			var merchantApi = new MerchantApi("url", "username", "password");
 			ApiResult actual = merchantApi.ParsePostBackXmlResponse(xmlResponse);
 
+			PaymentResult pr = actual as PaymentResult;
+
 			Assert.AreEqual(Result.Cancelled, actual.Result);
+			Assert.AreEqual("epayment_cancelled", pr.Payment.TransactionStatus);
 		}
 	
 		
