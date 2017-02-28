@@ -77,7 +77,7 @@ namespace AltaPay.Service.Tests.Integration
 					BillingAddress = new CustomerAddress() {
 						Address = "101 Night Street",
 						City = "Gotham City",
-						Country = "Bat Country",
+						Country = "US",
 						Firstname = "Bruce",
 						Lastname = "Wayne",
 						Region = "Dark Region",
@@ -86,7 +86,7 @@ namespace AltaPay.Service.Tests.Integration
 					ShippingAddress = new CustomerAddress() {
 						Address = "42 Joker Avenue",
 						City = "Big Smile City",
-						Country = "Laughistan",
+						Country = "FI",
 						Firstname = "Jack",
 						Lastname = "Napier",
 						Region = "Umbrella Neighbourhood",
@@ -94,7 +94,7 @@ namespace AltaPay.Service.Tests.Integration
 				},
 
 				// Many other optional parameters
-				CustomerCreatedDate = "2010-12-24 21:00:00",
+				CustomerCreatedDate = "2010-12-24",
 				Cookie = "thecookie=isgood",
 				//CreditCardToken = "424242424242424242424242",
 				Language = "fr",

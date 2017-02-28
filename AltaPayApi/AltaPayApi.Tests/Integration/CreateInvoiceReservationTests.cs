@@ -110,7 +110,7 @@ namespace AltaPay.Service.Tests.Integration
 					BillingAddress = new CustomerAddress() {
 						Address = "101 Night Street",
 						City = "Gotham City",
-						Country = "Bat Country",
+						Country = "DK",
 						Firstname = "Bruce",
 						Lastname = "Wayne",
 						Region = "Dark Region",
@@ -120,7 +120,7 @@ namespace AltaPay.Service.Tests.Integration
 					ShippingAddress = new CustomerAddress() {
 						Address = "42 Joker Avenue",
 						City = "Big Smile City",
-						Country = "Laughistan",
+						Country = "BR",
 						Firstname = "Jack",
 						Lastname = "Napier",
 						Region = "Umbrella Neighbourhood",
