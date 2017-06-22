@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.IO;
 using System.Net;
 using System.Xml.Serialization;
@@ -102,6 +102,7 @@ namespace AltaPay.Service
 				orderLineParam.Add("description", orderLine.Description);
 				orderLineParam.Add("discount", orderLine.Discount);
 				orderLineParam.Add("goodsType", orderLine.GoodsType.ToString().ToLower());
+				orderLineParam.Add("imageUrl", orderLine.ImageUrl);
 
 				orderLinesParam.Add(lineNumber.ToString(), orderLineParam);
 				lineNumber++;
@@ -282,12 +283,32 @@ namespace AltaPay.Service
 			return parameters;
 		}
 
+		private Dictionary<string,Object> GetCreateUpdateOrderRequestParameters(UpdateOrderRequest request)
+		{
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+
+			// Mandatory arguments
+			parameters.Add("payment_id", request.PaymentId);
+			parameters = getOrderLines(parameters, request.OrderLines);
+
+			return parameters;
+		}
+
 		public InvoiceReservationResult CreateInvoiceReservation(InvoiceReservationRequest request)
 		{
 
 			var parameters = GetCreateInvoiceReservationRequestParameters(request);
 
 			return new InvoiceReservationResult(GetResponseFromApiCall("createInvoiceReservation", parameters));
+
+		}
+
+		public UpdateOrderResult UpdateOrder(UpdateOrderRequest request)
+		{
+
+			var parameters = GetCreateUpdateOrderRequestParameters(request);
+
+			return new UpdateOrderResult(GetResponseFromApiCall("updateOrder", parameters));
 
 		}
 

@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.IO;
 using AltaPay.Service.Dto;
 
@@ -10,6 +10,7 @@ namespace AltaPay.Service
 		ReserveSubscriptionChargeResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request);
 
 		InvoiceReservationResult CreateInvoiceReservation(InvoiceReservationRequest request);
+		UpdateOrderResult UpdateOrder(UpdateOrderRequest request);
 		PaymentRequestResult CreatePaymentRequest(PaymentRequestRequest request);
 		MultiPaymentRequestResult CreateMultiPaymentRequest(MultiPaymentRequestRequest request);
 		ReserveResult Reserve(ReserveRequest request);
