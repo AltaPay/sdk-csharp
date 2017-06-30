@@ -13,7 +13,12 @@ namespace AltaPay.Service
 		UpdateOrderResult UpdateOrder(UpdateOrderRequest request);
 		PaymentRequestResult CreatePaymentRequest(PaymentRequestRequest request);
 		MultiPaymentRequestResult CreateMultiPaymentRequest(MultiPaymentRequestRequest request);
+
+		[System.Obsolete("Reserve is deprecated, please use ReserveAmount instead.")]
 		ReserveResult Reserve(ReserveRequest request);
+
+		ReserveResult ReserveAmount(ReserveRequest request);
+
 		ReleaseResult Release(ReleaseRequest request);
 		CaptureResult Capture(CaptureRequest request);
 		RefundResult Refund(RefundRequest request);

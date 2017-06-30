@@ -77,6 +77,41 @@ namespace AltaPay.Service
 			return new ReserveResult(GetResponseFromApiCall("reservationOfFixedAmount", parameters));
 		}
 
+		public ReserveResult ReserveAmount(ReserveRequest request) 
+		{
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+
+			parameters.Add("terminal", request.Terminal);
+			parameters.Add("shop_orderid", request.ShopOrderId);
+			parameters.Add("amount", request.Amount.GetAmountString());
+			parameters.Add("currency", request.Amount.Currency.GetNumericString());
+			parameters.Add("type", request.PaymentType);
+			parameters.Add("payment_source", request.Source);
+
+			if (request.CreditCardToken!=null) {
+				parameters.Add("credit_card_token", request.CreditCardToken);
+			} else {
+				parameters.Add("cardnum", request.Pan);
+				parameters.Add("emonth", request.ExpiryMonth);
+				parameters.Add("eyear", request.ExpiryYear);
+			}
+			parameters.Add("cvc", request.Cvc);
+
+			if (request.CustomerInfo!=null)
+				request.CustomerInfo.AddToDictionary(parameters);
+
+			if(request.CustomerCreatedDate != null){
+				parameters.Add("customer_created_date", request.CustomerCreatedDate);
+			}
+
+			parameters.Add("fraud_service", request.FraudService.ToString().ToLower());
+
+			// Order lines
+			parameters = getOrderLines(parameters, request.OrderLines);
+
+			return new ReserveResult(GetResponseFromApiCall("reservation", parameters));
+		}
+
 		private Dictionary<string,Object> getOrderLines(Dictionary<string,Object> parameters, IList<PaymentOrderLine> orderLines)
 		{
 			int lineNumber = 0;

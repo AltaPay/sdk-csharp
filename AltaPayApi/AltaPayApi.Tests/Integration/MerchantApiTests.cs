@@ -21,100 +21,108 @@ namespace AltaPay.Service.Tests.Integration
 			// _api = new MerchantApi("https://ci.gateway.pensio.com/merchant.php/API/", "shop api", "testpassword");
 		}
 
-		[Test]
-		public void CallingMerchantApiWithSuccessfulParametersReturnsSuccessfulResult()
+		[TestCase(true)]
+		[TestCase(false)]
+		public void CallingMerchantApiWithSuccessfulParametersReturnsSuccessfulResult(Boolean callReservationOfFixedAmount)
 		{
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, callReservationOfFixedAmount);
 			
 			Assert.AreEqual(Result.Success, result.Result);
 		}
 
-
-
-
-		[Test]
-		public void CallingMerchantApiWithFailParametersReturnsFailedResult()
+		[TestCase(true)]
+		[TestCase(false)]
+		public void CallingMerchantApiWithFailParametersReturnsFailedResult(Boolean callReservationOfFixedAmount)
 		{
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 5.66);
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 5.66, callReservationOfFixedAmount);
 
 			Assert.AreEqual(Result.Failed, result.Result);
 			Assert.AreEqual("Card Declined", result.ResultMessage);
 		}
 
-		[Test]
-		public void CallingMerchantApiWithErrorParametersReturnsErrorResult()
+		[TestCase(true)]
+		[TestCase(false)]
+		public void CallingMerchantApiWithErrorParametersReturnsErrorResult(Boolean callReservationOfFixedAmount)
 		{
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 5.67);
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 5.67, callReservationOfFixedAmount);
 
 			Assert.AreEqual(Result.Error, result.Result);
 			Assert.AreEqual("Internal Error", result.ResultMessage);
 		}
 
-		[Test]
-		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithAPaymentId()
+		[TestCase(true)]
+		[TestCase(false)]
+		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithAPaymentId(Boolean callReservationOfFixedAmount)
 		{
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, callReservationOfFixedAmount);
 
 			Assert.IsNotNull(result.Payment.TransactionId);
 			Assert.IsTrue(result.Payment.TransactionId.Length > 0);
 		}
 
-		[Test]
-		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithTheCorrectShopOrderId()
+		[TestCase(true)]
+		[TestCase(false)]
+		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithTheCorrectShopOrderId(Boolean callReservationOfFixedAmount)
 		{
 			string orderid = Guid.NewGuid().ToString();
-			PaymentResult result = GetMerchantApiResult(orderid, 1.23);
+			PaymentResult result = GetMerchantApiResult(orderid, 1.23, callReservationOfFixedAmount);
 
 			Assert.AreEqual(orderid, result.Payment.ShopOrderId);
 		}
 
-		[Test]
-		public void CallingMerchantApiWithAlternativeSourceReturnsSuccessfulResult()
+		[TestCase(true)]
+		[TestCase(false)]
+		public void CallingMerchantApiWithAlternativeSourceReturnsSuccessfulResult(Boolean callReservationOfFixedAmount)
 		{
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23,null,PaymentSource.eCommerce);
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, null, PaymentSource.eCommerce, callReservationOfFixedAmount);
 
 			Assert.AreEqual(Result.Success, result.Result);
 		}
 
 
 
-		[Test]
-		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithTheCorrectTerminal()
+		[TestCase(true)]
+		[TestCase(false)]
+		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithTheCorrectTerminal(Boolean callReservationOfFixedAmount)
 		{
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, callReservationOfFixedAmount);
 
 			Assert.AreEqual("AltaPay Soap Test Terminal", result.Payment.Terminal);
 		}
 
 
-		[Test]
-		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithTheCorrectReservedAmount()
+		[TestCase(true)]
+		[TestCase(false)]
+		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithTheCorrectReservedAmount(Boolean callReservationOfFixedAmount)
 		{
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, callReservationOfFixedAmount);
 
 			Assert.AreEqual(1.23, result.Payment.ReservedAmount);
 		}
 
-		[Test]
-		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithTheCorrectCapturedAmount()
+		[TestCase(true)]
+		[TestCase(false)]
+		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithTheCorrectCapturedAmount(Boolean callReservationOfFixedAmount)
 		{
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, callReservationOfFixedAmount);
 			Assert.AreEqual(1.23, result.Payment.CapturedAmount);
 		}
 
-		[Test]
-		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithTheCorrectPaymentStatus()
+		[TestCase(true)]
+		[TestCase(false)]
+		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithTheCorrectPaymentStatus(Boolean callReservationOfFixedAmount)
 		{
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, callReservationOfFixedAmount);
 
 			Assert.AreEqual("captured", result.Payment.TransactionStatus);
 		}
 
 		
-		[Test]
-		public void RefundingACapturedPayment()
+		[TestCase(true)]
+		[TestCase(false)]
+		public void RefundingACapturedPayment(Boolean callReservationOfFixedAmount)
 		{
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, callReservationOfFixedAmount);
 
 			Assert.AreEqual("captured", result.Payment.TransactionStatus);
 
@@ -134,46 +142,51 @@ namespace AltaPay.Service.Tests.Integration
 			Assert.AreEqual("refunded", result.Payment.TransactionStatus);
 		}
 
-		[Test]
-		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithACreditCardToken()
+		[TestCase(true)]
+		[TestCase(false)]
+		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithACreditCardToken(Boolean callReservationOfFixedAmount)
 		{
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, callReservationOfFixedAmount);
 			
 			Assert.NotNull(result.Payment.CreditCardToken);
 		}
 
-		[Test]
-		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithACreditCardMaskedPan()
+		[TestCase(true)]
+		[TestCase(false)]
+		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithACreditCardMaskedPan(Boolean callReservationOfFixedAmount)
 		{
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, callReservationOfFixedAmount);
 
 			Assert.AreEqual("411100******0002", result.Payment.CreditCardMaskedPan);
 		}
 
-		[Test]
-		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithCardStatus()
+		[TestCase(true)]
+		[TestCase(false)]
+		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithCardStatus(Boolean callReservationOfFixedAmount)
 		{
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, callReservationOfFixedAmount);
 
 			Assert.AreEqual(TransactionCardStatus.Valid, result.Payment.CardStatus);
 		}
 
-		[Test]
-		public void CallingMerchantApiWithCardTokenResultsInSuccessfullResult()
+		[TestCase(true)]
+		[TestCase(false)]
+		public void CallingMerchantApiWithCardTokenResultsInSuccessfullResult(Boolean callReservationOfFixedAmount)
 		{
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
-			PaymentResult secondResult = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, result.Payment.CreditCardToken);
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, callReservationOfFixedAmount);
+			PaymentResult secondResult = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, result.Payment.CreditCardToken, callReservationOfFixedAmount);
 
 			Assert.AreEqual(Result.Success, secondResult.Result);
 		}
 
-		[Test]
-		public void CallingMerchantApiWithAvsInfoReturnsAvsResult()
+		[TestCase(true)]
+		[TestCase(false)]
+		public void CallingMerchantApiWithAvsInfoReturnsAvsResult(Boolean callReservationOfFixedAmount)
 		{
 			var customerInfo = new CustomerInfo();
 			customerInfo.BillingAddress.Address="Albertslund";
 
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 3.34, customerInfo);
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 3.34, customerInfo, callReservationOfFixedAmount);
 
 			Assert.AreEqual("A", result.Payment.AddressVerification);
 			Assert.AreEqual("Address matches, but zip code does not", result.Payment.AddressVerificationDescription);
@@ -224,7 +237,16 @@ namespace AltaPay.Service.Tests.Integration
 			Console.Out.WriteLine("test: " + result.ResultMessage);
         }
 
-		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, CustomerInfo customerInfo, PaymentSource source = PaymentSource.moto)
+		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, CustomerInfo customerInfo, 
+			Boolean callReservationOfFixedAmount)
+		{
+
+			return GetMerchantApiResult(shopOrderId, amount, customerInfo, PaymentSource.moto, callReservationOfFixedAmount);
+
+		}
+
+		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, CustomerInfo customerInfo, 
+			PaymentSource source = PaymentSource.moto, Boolean callReservationOfFixedAmount = true)
 		{
 			var request = new ReserveRequest {
 				Source = source,
@@ -238,10 +260,17 @@ namespace AltaPay.Service.Tests.Integration
 				Cvc = "123",
 				CustomerInfo = customerInfo,
 			};
-			return _api.Reserve(request);
+
+			if (callReservationOfFixedAmount) {
+				return _api.Reserve(request); // reservation of fixed amount
+			} 
+			else {
+				return _api.ReserveAmount(request); // reservation
+			}
+
 		}
 
-		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount)
+		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, Boolean callReservationOfFixedAmount = true)
 		{
 			var request = new ReserveRequest {
 				Terminal = "AltaPay Soap Test Terminal",
@@ -253,10 +282,16 @@ namespace AltaPay.Service.Tests.Integration
 				ExpiryYear = 2018,
 				Cvc = "123",
 			};
-			return _api.Reserve(request);
+
+			if (callReservationOfFixedAmount) {
+				return _api.Reserve(request); // reservation of fixed amount
+			} 
+			else {
+				return _api.ReserveAmount(request); // reservation
+			}
 		}
 
-		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, string cardToken)
+		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, string cardToken, Boolean callReservationOfFixedAmount = true)
 		{
 			var request = new ReserveRequest {
 				Terminal = "AltaPay Soap Test Terminal",
@@ -266,7 +301,13 @@ namespace AltaPay.Service.Tests.Integration
 				CreditCardToken = cardToken,
 				Cvc = "123",
 			};
-			return _api.Reserve(request);
+
+			if (callReservationOfFixedAmount) {
+				return _api.Reserve(request); // reservation of fixed amount
+			} 
+			else {
+				return _api.ReserveAmount(request); // reservation
+			}
 		}
 	}
 }
