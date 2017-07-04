@@ -97,8 +97,10 @@ namespace AltaPay.Service
 			}
 			parameters.Add("cvc", request.Cvc);
 
-			if (request.CustomerInfo!=null)
-				request.CustomerInfo.AddToDictionary(parameters);
+			if (request.CustomerInfo != null) {
+				//request.CustomerInfo.AddToDictionary(parameters);
+				parameters.Add("customer_info", request.CustomerInfo.AddToDictionary(new Dictionary<string, object>()));
+			}
 
 			if(request.CustomerCreatedDate != null){
 				parameters.Add("customer_created_date", request.CustomerCreatedDate);
