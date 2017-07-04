@@ -98,7 +98,6 @@ namespace AltaPay.Service
 			parameters.Add("cvc", request.Cvc);
 
 			if (request.CustomerInfo != null) {
-				//request.CustomerInfo.AddToDictionary(parameters);
 				parameters.Add("customer_info", request.CustomerInfo.AddToDictionary(new Dictionary<string, object>()));
 			}
 
