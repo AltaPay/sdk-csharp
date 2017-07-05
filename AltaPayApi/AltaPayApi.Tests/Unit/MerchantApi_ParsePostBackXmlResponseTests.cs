@@ -84,5 +84,38 @@ namespace AltaPay.Service.Tests.Unit
 
 			Assert.AreEqual(Result.ChargebackEvent, actual.Result);
 		}
+
+		[Test]
+		public void ParsePostBackXmlResponse_ReadCardHolderMessageMustBeShown()
+		{
+			var logger = new FileAltaPayLogger("/tmp/skarptests");
+			logger.LogLevel = AltaPayLogLevel.Error;
+
+			var merchantApi = new MerchantApi("url", "username", "password", logger);
+
+			string xmlResponse = File.ReadAllText("Unit/txt/CardHolderMessageMustBeShownFalse.xml");
+			ApiResult actual = merchantApi.ParsePostBackXmlResponse(xmlResponse);
+			Assert.AreEqual(false, actual.ResultMessageMustBeShown);
+
+			xmlResponse = File.ReadAllText("Unit/txt/CardHolderMessageMustBeShownTrue.xml");
+			actual = merchantApi.ParsePostBackXmlResponse(xmlResponse);
+			Assert.AreEqual(true, actual.ResultMessageMustBeShown);
+		}
+
+		[Test]
+		public void ParsePostBackXmlResponse_ReadReasonCode()
+		{
+			var logger = new FileAltaPayLogger("/tmp/skarptests");
+			logger.LogLevel = AltaPayLogLevel.Error;
+
+			var merchantApi = new MerchantApi("url", "username", "password", logger);
+
+			string xmlResponse = File.ReadAllText("Unit/txt/ReasonCode.xml");
+			ApiResult actual = merchantApi.ParsePostBackXmlResponse(xmlResponse);
+			PaymentResult result = actual as PaymentResult;
+			Assert.AreEqual("NONE", result.Payment.ReasonCode);
+
+		}
+
 	}
 }
