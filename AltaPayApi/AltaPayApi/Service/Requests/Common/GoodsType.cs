@@ -6,7 +6,8 @@ namespace AltaPay.Service
 	{
 		Shipment,
 		Handling,
-		Item
+		Item,
+		Refund
 	}
 }
 
