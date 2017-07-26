@@ -117,5 +117,19 @@ namespace AltaPay.Service.Tests.Unit
 
 		}
 
+		[Test]
+		public void ParsePostBackXmlResponse_ReadPaymentId()
+		{
+			var logger = new FileAltaPayLogger("/tmp/skarptests");
+			logger.LogLevel = AltaPayLogLevel.Error;
+
+			var merchantApi = new MerchantApi("url", "username", "password", logger);
+
+			string xmlResponse = File.ReadAllText("Unit/txt/ReasonCode.xml");
+			ApiResult actual = merchantApi.ParsePostBackXmlResponse(xmlResponse);
+			PaymentResult result = actual as PaymentResult;
+			Assert.AreEqual("17794956-9bb6-4854-9712-bce5931e6e3a", result.Payment.PaymentId);
+
+		}
 	}
 }
