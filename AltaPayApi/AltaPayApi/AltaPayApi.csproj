@@ -75,6 +75,7 @@
     <Compile Include="Service\Requests\Common\PaymentRequestConfig.cs" />
     <Compile Include="Service\Requests\Common\PaymentSource.cs" />
     <Compile Include="Service\Requests\Common\ShippingType.cs" />
+    <Compile Include="Service\Requests\UpdateOrderRequest.cs" />
     <Compile Include="Service\Results\ApiResult.cs" />
     <Compile Include="Service\Results\CaptureResult.cs" />
     <Compile Include="Service\Results\ChargeSubscriptionResult.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Service\Requests\Common\InvoiceReservationRequest.cs" />
     <Compile Include="Service\Results\InvoiceReservationResult.cs" />
     <Compile Include="Service\Results\FundingRecord.cs" />
+    <Compile Include="Service\Results\UpdateOrderResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
