@@ -5,8 +5,10 @@ namespace AltaPay.Service
 {
 	public class UpdateOrderRequest
 	{
-		public string PaymentId { get; }
-		public IList<PaymentOrderLine> OrderLines { get; } 
+		private readonly string _paymentId;
+		private readonly IList<PaymentOrderLine> _orderLines;
+		public string PaymentId { get { return _paymentId; }  }
+		public IList<PaymentOrderLine> OrderLines { get { return _orderLines; } }
 
 		public UpdateOrderRequest(string paymentId, IList<PaymentOrderLine> orderLines)
 		{
@@ -16,8 +18,8 @@ namespace AltaPay.Service
 				throw new ArgumentException("orderLines must contain exactly two elements");
 			}
 
-			PaymentId = paymentId;
-			OrderLines = orderLines;
+			this._paymentId = paymentId;
+			this._orderLines = orderLines;
 		
 		}
 	}
