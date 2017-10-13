@@ -4,10 +4,10 @@ namespace AltaPay.Service.Tests.Integration
 {
 	public class GatewayConstants
 	{
-		public const string gatewayUrl = "http://gateway.dev.earth.pensio.com/merchant.php/API/";
+		public const string gatewayUrl = "https://vmedev.pensio.com/merchant/API/";
 		public const string username = "shop api";
 		public const string password = "testpassword";
-		public const string terminal = "AltaPay Soap Test Terminal";
+		public const string terminal = "AltaPay Dev Terminal";
 	}
 }
 

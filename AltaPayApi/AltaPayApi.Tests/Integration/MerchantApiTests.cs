@@ -272,14 +272,15 @@ namespace AltaPay.Service.Tests.Integration
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, Boolean callReservationOfFixedAmount = true)
 		{
+            DateTime sixMonthsFromNowDate = DateTime.Now.AddMonths(6);
 			var request = new ReserveRequest {
 				Terminal = "AltaPay Soap Test Terminal",
 				ShopOrderId = shopOrderId,
 				PaymentType = AuthType.paymentAndCapture,
 				Amount = Amount.Get(amount, Currency.DKK),
 				Pan = "4111000011110002",
-				ExpiryMonth = 1,
-				ExpiryYear = 2018,
+				ExpiryMonth = sixMonthsFromNowDate.Month,
+				ExpiryYear = sixMonthsFromNowDate.Year,
 				Cvc = "123",
 			};
 

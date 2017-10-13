@@ -3,12 +3,24 @@ using System.IO;
 using NUnit.Framework;
 using AltaPay.Api.Tests;
 using AltaPay.Service.Loggers;
+using System.Reflection;
 
 namespace AltaPay.Service.Tests.Unit
 {
 	public class MerchantApi_ParsePostBackXmlResponseTests : BaseTest
 	{
-		[Test]
+        private string _baseProjectPath;
+        [SetUp]
+        public void SetUp()
+        {
+            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            UriBuilder uri = new UriBuilder(codeBase);
+            string path = Uri.UnescapeDataString(uri.Path);
+            var executingAssemblyPath = Path.GetDirectoryName(path);
+            _baseProjectPath = Directory.GetParent(Directory.GetParent(executingAssemblyPath).FullName).FullName;
+        }
+
+        [Test]
 		public void ParsePostBackXmlResponse_Success()
 		{
 			string xmlResponse = @"<?xml version=""1.0""?>
@@ -48,7 +60,8 @@ namespace AltaPay.Service.Tests.Unit
 		[ExpectedException(typeof(Exception))]
 		public void ParsePostBackXmlResponse_InvalidXml()
 		{
-			var logger = new FileAltaPayLogger("/tmp/skarptests");
+            var logFileName = Path.GetTempPath() + "skarptests.log";
+			var logger = new FileAltaPayLogger(logFileName);
 			logger.LogLevel = AltaPayLogLevel.Error;
 			
 			string xmlResponse = @"<?xml version=""1.0""?><APIResponse version=""20130430""><NotValid>Not even a little bit</NotValid></APIResponse>";
@@ -60,7 +73,8 @@ namespace AltaPay.Service.Tests.Unit
 		[Test]
 		public void ParsePostBackXmlResponse_ErrorResponseWithoutTransactions()
 		{
-			var logger = new FileAltaPayLogger("/tmp/skarptests");
+            var logFileName = Path.GetTempPath() + "skarptests.log";
+            var logger = new FileAltaPayLogger(logFileName);
 			logger.LogLevel = AltaPayLogLevel.Error;
 
 			string xmlResponse = @"<?xml version=""1.0""?> <APIResponse version=""20141202""><Header><Date>2015-04-24T13:03:21+02:00</Date><Path>/</Path><ErrorCode>0</ErrorCode><ErrorMessage></ErrorMessage></Header><Body><Result>Error</Result></Body></APIResponse>";
@@ -74,7 +88,8 @@ namespace AltaPay.Service.Tests.Unit
 		[Test]
 		public void ParsePostBackXmlResponse_ChargebackEvent()
 		{
-			var logger = new FileAltaPayLogger("/tmp/skarptests");
+            var logFileName = Path.GetTempPath() + "skarptests.log";
+            var logger = new FileAltaPayLogger(logFileName);
 			logger.LogLevel = AltaPayLogLevel.Error;
 
 			string xmlResponse = File.ReadAllText("Unit/txt/ChargebackEvent.xml");
@@ -88,16 +103,21 @@ namespace AltaPay.Service.Tests.Unit
 		[Test]
 		public void ParsePostBackXmlResponse_ReadCardHolderMessageMustBeShown()
 		{
-			var logger = new FileAltaPayLogger("/tmp/skarptests");
+            var logFileName = Path.GetTempPath() + "skarptests.log";
+            var logger = new FileAltaPayLogger(logFileName);
 			logger.LogLevel = AltaPayLogLevel.Error;
 
-			var merchantApi = new MerchantApi("url", "username", "password", logger);
+            var merchantApi = new MerchantApi("url", "username", "password", logger);
 
-			string xmlResponse = File.ReadAllText("Unit/txt/CardHolderMessageMustBeShownFalse.xml");
+			string xmlResponse = File.ReadAllText(_baseProjectPath + Path.DirectorySeparatorChar 
+                + "Unit" + Path.DirectorySeparatorChar + "txt" + Path.DirectorySeparatorChar 
+                + "CardHolderMessageMustBeShownFalse.xml");
+
 			ApiResult actual = merchantApi.ParsePostBackXmlResponse(xmlResponse);
 			Assert.AreEqual(false, actual.ResultMessageMustBeShown);
-
-			xmlResponse = File.ReadAllText("Unit/txt/CardHolderMessageMustBeShownTrue.xml");
+			xmlResponse = File.ReadAllText(_baseProjectPath + Path.DirectorySeparatorChar
+                + "Unit" + Path.DirectorySeparatorChar + "txt" + Path.DirectorySeparatorChar 
+                + "CardHolderMessageMustBeShownTrue.xml");
 			actual = merchantApi.ParsePostBackXmlResponse(xmlResponse);
 			Assert.AreEqual(true, actual.ResultMessageMustBeShown);
 		}
@@ -105,12 +125,15 @@ namespace AltaPay.Service.Tests.Unit
 		[Test]
 		public void ParsePostBackXmlResponse_ReadReasonCode()
 		{
-			var logger = new FileAltaPayLogger("/tmp/skarptests");
+            var logFileName = Path.GetTempPath() + "skarptests.log";
+            var logger = new FileAltaPayLogger(logFileName);
 			logger.LogLevel = AltaPayLogLevel.Error;
 
 			var merchantApi = new MerchantApi("url", "username", "password", logger);
 
-			string xmlResponse = File.ReadAllText("Unit/txt/ReasonCode.xml");
+			string xmlResponse = File.ReadAllText(_baseProjectPath + Path.DirectorySeparatorChar
+                + "Unit" + Path.DirectorySeparatorChar + "txt" + Path.DirectorySeparatorChar
+                + "ReasonCode.xml");
 			ApiResult actual = merchantApi.ParsePostBackXmlResponse(xmlResponse);
 			PaymentResult result = actual as PaymentResult;
 			Assert.AreEqual("NONE", result.Payment.ReasonCode);
@@ -120,12 +143,15 @@ namespace AltaPay.Service.Tests.Unit
 		[Test]
 		public void ParsePostBackXmlResponse_ReadPaymentId()
 		{
-			var logger = new FileAltaPayLogger("/tmp/skarptests");
+            var logFileName = Path.GetTempPath() + "skarptests.log";
+            var logger = new FileAltaPayLogger(logFileName);
 			logger.LogLevel = AltaPayLogLevel.Error;
 
 			var merchantApi = new MerchantApi("url", "username", "password", logger);
 
-			string xmlResponse = File.ReadAllText("Unit/txt/ReasonCode.xml");
+			string xmlResponse = File.ReadAllText(_baseProjectPath + Path.DirectorySeparatorChar
+                + "Unit" + Path.DirectorySeparatorChar + "txt" + Path.DirectorySeparatorChar
+                + "ReasonCode.xml");
 			ApiResult actual = merchantApi.ParsePostBackXmlResponse(xmlResponse);
 			PaymentResult result = actual as PaymentResult;
 			Assert.AreEqual("17794956-9bb6-4854-9712-bce5931e6e3a", result.Payment.PaymentId);

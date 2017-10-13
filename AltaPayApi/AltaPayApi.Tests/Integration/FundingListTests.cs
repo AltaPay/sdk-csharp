@@ -72,9 +72,10 @@ namespace AltaPay.Service.Tests.Integration
 		[Test]
 		public void SaveFundingTest()
 		{
-			String tempFolder = "/tmp";
+			String tempFolder = Path.GetTempPath();
 
-			FundingsResult result = _api.GetFundings(new GetFundingsRequest { Page = 0 });
+
+            FundingsResult result = _api.GetFundings(new GetFundingsRequest { Page = 0 });
 
 			Assert.AreEqual(Result.Success, result.Result);
 			Assert.AreEqual(1, result.Pages);
@@ -82,7 +83,7 @@ namespace AltaPay.Service.Tests.Integration
 
 			Funding funding = result.Fundings[0];
 
-			String name = tempFolder + "/" + funding.Filename + ".cvs";
+			String name = tempFolder + funding.Filename + ".cvs";
 
 			// Delete the file, if it exists:
 			File.Delete(name);
