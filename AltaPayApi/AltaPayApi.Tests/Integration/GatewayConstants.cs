@@ -8,6 +8,8 @@ namespace AltaPay.Service.Tests.Integration
 		public const string username = "shop api";
 		public const string password = "testpassword";
 		public const string terminal = "AltaPay Dev Terminal";
+
+        public const string PreauthTransactionStatus = "preauth";
 	}
 }
 

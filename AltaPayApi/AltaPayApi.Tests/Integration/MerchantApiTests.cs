@@ -13,8 +13,11 @@ namespace AltaPay.Service.Tests.Integration
 	public class MerchantApiTests : BaseTest
 	{
 		IMerchantApi _api;
+        private CustomerInfo _testCustomerInfo;
+        private List<PaymentOrderLine> _testOrderlines;
+        private const string _testKlarnaDKTerminal = "AltaPay Klarna DK";
 
-		[SetUp]
+        [SetUp]
 		public void Setup()
 		{
 			_api = new MerchantApi(GatewayConstants.gatewayUrl, GatewayConstants.username, GatewayConstants.password);
@@ -237,7 +240,221 @@ namespace AltaPay.Service.Tests.Integration
 			Console.Out.WriteLine("test: " + result.ResultMessage);
         }
 
-		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, CustomerInfo customerInfo, 
+        #region ReserveAmount tests
+
+        [Test]
+        public void ReserveAmountWithoutOrderlines()
+        {
+            //arrange
+            var sixMonthsFromNowDate = DateTime.Now.AddMonths(6);
+            var shopOrderId = Guid.NewGuid().ToString();
+            double amount = 1.23;
+            var currency = Currency.DKK;
+
+            var request = new ReserveRequest
+            {
+                Source = PaymentSource.eCommerce,
+                ShopOrderId = shopOrderId,
+                Terminal = "AltaPay Dev Terminal",
+                PaymentType = AuthType.payment,
+                Amount = Amount.Get(amount, currency),
+                Pan = "4111000011110002",
+                ExpiryMonth = sixMonthsFromNowDate.Month,
+                ExpiryYear = sixMonthsFromNowDate.Year,
+                Cvc = "123",
+                CustomerInfo = InitializeCustomerInfoTestData(),
+            };
+
+            //act
+            ReserveResult result = _api.ReserveAmount(request);
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Result);
+            Assert.IsNotNull(result.Payment);
+
+            Assert.AreEqual(result.Result, Result.Success);
+            Assert.AreEqual(result.Payment.TransactionStatus, GatewayConstants.PreauthTransactionStatus);
+            Assert.AreEqual(result.Payment.ShopOrderId, shopOrderId);
+            Assert.AreEqual(result.Payment.ReservedAmount, amount);
+            Assert.AreEqual(result.Payment.MerchantCurrencyAlpha, currency.ShortName);
+            Assert.IsTrue(CompareCustomerInfos(result.Payment.CustomerInfo));
+        }
+
+        [Test]
+        public void ReserveAmountWithOrderlines()
+        {
+            //arrange
+            var sixMonthsFromNowDate = DateTime.Now.AddMonths(6);
+            var shopOrderId = Guid.NewGuid().ToString();
+            double amount = 42.0;
+            var currency = Currency.DKK;
+
+            var request = new ReserveRequest
+            {
+                Source = PaymentSource.eCommerce,
+                ShopOrderId = shopOrderId,
+                Terminal = "AltaPay Dev Terminal",
+                PaymentType = AuthType.payment,
+                Amount = Amount.Get(amount, currency),
+                Pan = "4111000011110002",
+                ExpiryMonth = sixMonthsFromNowDate.Month,
+                ExpiryYear = sixMonthsFromNowDate.Year,
+                Cvc = "123",
+                CustomerInfo = InitializeCustomerInfoTestData(),
+                OrderLines = InitializeOrderlinesTestData()
+            };
+
+            //act
+            ReserveResult result = _api.ReserveAmount(request);
+            
+            //assert
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Result);
+            Assert.IsNotNull(result.Payment);
+
+            Assert.AreEqual(result.Result, Result.Success);
+            Assert.AreEqual(result.Payment.TransactionStatus, GatewayConstants.PreauthTransactionStatus);
+            Assert.AreEqual(result.Payment.ShopOrderId, shopOrderId);
+            Assert.AreEqual(result.Payment.ReservedAmount, amount);
+            Assert.AreEqual(result.Payment.MerchantCurrencyAlpha, currency.ShortName);
+            Assert.IsTrue(CompareCustomerInfos(result.Payment.CustomerInfo));
+        }
+
+        #endregion ReserveAmount tests
+
+        #region UpdateOrder tests
+
+        [Test]
+        public void UpdateOrderForExistingOrder()
+        {
+            //arrange
+            InvoiceReservationRequest request = new InvoiceReservationRequest
+            {
+                Terminal = _testKlarnaDKTerminal,
+                ShopOrderId = "invoice-" + Guid.NewGuid().ToString(),
+                Amount = Amount.Get(42.00, Currency.DKK),
+                CustomerInfo = InitializeCustomerInfoTestData(),
+                OrderLines = InitializeOrderlinesTestData(),
+                PersonalIdentifyNumber = "0801363945",
+                BirthDate = "0801363945"
+            };
+            InvoiceReservationResult reservationResult = _api.CreateInvoiceReservation(request);
+
+            CaptureRequest captureRequest = new CaptureRequest
+            {
+                Amount = Amount.Get(42.00, Currency.DKK),
+                PaymentId = reservationResult.Payment.PaymentId
+            };
+            CaptureResult captureResult = _api.Capture(captureRequest);
+
+            List<PaymentOrderLine> orderlinesToUpdate = new List<PaymentOrderLine>();
+
+            PaymentOrderLine orderlineToUpdate = InitializeOrderlinesTestData()[0];
+            orderlineToUpdate.Quantity = 0 - orderlineToUpdate.Quantity;
+            orderlinesToUpdate.Add(orderlineToUpdate);
+
+            PaymentOrderLine newOrderLine = new PaymentOrderLine
+            {
+                Description = "New Item 1",
+                ItemId = "3",
+                Quantity = 2,
+                GoodsType = GoodsType.Item,
+                UnitPrice = 11.0
+            };
+
+            orderlinesToUpdate.Add(newOrderLine);
+            
+            //orderlinesToUpdate.ForEach(p => p.Quantity = 0 - p.Quantity);
+            UpdateOrderRequest updateOrderRequest = new UpdateOrderRequest(captureResult.Payment.PaymentId, orderlinesToUpdate);
+
+            //act
+            UpdateOrderResult updateOrderResult = _api.UpdateOrder(updateOrderRequest);
+
+            //assert
+            Assert.AreEqual(updateOrderResult.Result, Result.Success);
+        }
+
+        [Test]
+        public void UpdateOrderForNonExistingOrder()
+        {
+            //arrange
+            List<PaymentOrderLine> orderlinesToUpdate = new List<PaymentOrderLine>();
+
+            PaymentOrderLine orderlineToUpdate = InitializeOrderlinesTestData()[0];
+            orderlineToUpdate.Quantity = 0 - orderlineToUpdate.Quantity;
+            orderlinesToUpdate.Add(orderlineToUpdate);
+
+            PaymentOrderLine newOrderLine = new PaymentOrderLine
+            {
+                Description = "New Item 1",
+                ItemId = "3",
+                Quantity = 2,
+                GoodsType = GoodsType.Item,
+                UnitPrice = 11.0
+            };
+
+            orderlinesToUpdate.Add(newOrderLine);
+
+            UpdateOrderRequest updateOrderRequest = new UpdateOrderRequest("-1", orderlinesToUpdate);
+
+            //act
+            UpdateOrderResult updateOrderResult = _api.UpdateOrder(updateOrderRequest);
+
+            //assert
+            Assert.AreEqual(updateOrderResult.Result, Result.SystemError);
+            Assert.IsNotEmpty(updateOrderResult.ResultMessage);
+            Assert.IsNotEmpty(updateOrderResult.ResultMerchantMessage);
+        }
+
+        [Test]
+        public void UpdateOrderForNotCapturedOrder()
+        {
+            //arrange
+            InvoiceReservationRequest request = new InvoiceReservationRequest
+            {
+                Terminal = _testKlarnaDKTerminal,
+                ShopOrderId = "invoice-" + Guid.NewGuid().ToString(),
+                Amount = Amount.Get(42.00, Currency.DKK),
+                CustomerInfo = InitializeCustomerInfoTestData(),
+                OrderLines = InitializeOrderlinesTestData(),
+                PersonalIdentifyNumber = "0801363945",
+                BirthDate = "0801363945"
+            };
+            InvoiceReservationResult reservationResult = _api.CreateInvoiceReservation(request);
+
+            List<PaymentOrderLine> orderlinesToUpdate = new List<PaymentOrderLine>();
+
+            PaymentOrderLine orderlineToUpdate = InitializeOrderlinesTestData()[0];
+            orderlineToUpdate.Quantity = 0 - orderlineToUpdate.Quantity;
+            orderlinesToUpdate.Add(orderlineToUpdate);
+
+            PaymentOrderLine newOrderLine = new PaymentOrderLine
+            {
+                Description = "New Item 1",
+                ItemId = "3",
+                Quantity = 2,
+                GoodsType = GoodsType.Item,
+                UnitPrice = 11.0
+            };
+
+            orderlinesToUpdate.Add(newOrderLine);
+
+            UpdateOrderRequest updateOrderRequest = new UpdateOrderRequest(reservationResult.Payment.PaymentId,
+                                                                            orderlinesToUpdate);
+
+            //act
+            UpdateOrderResult updateOrderResult = _api.UpdateOrder(updateOrderRequest);
+
+            //assert
+            Assert.AreEqual(updateOrderResult.Result, Result.SystemError);
+            Assert.IsNotEmpty(updateOrderResult.ResultMessage);
+            Assert.IsNotEmpty(updateOrderResult.ResultMerchantMessage);
+        }
+
+        #endregion UpdateOrder tests
+
+        private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, CustomerInfo customerInfo, 
 			Boolean callReservationOfFixedAmount)
 		{
 
@@ -248,6 +465,7 @@ namespace AltaPay.Service.Tests.Integration
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, CustomerInfo customerInfo, 
 			PaymentSource source = PaymentSource.moto, Boolean callReservationOfFixedAmount = true)
 		{
+            var sixMonthsFromNowDate = DateTime.Now.AddMonths(6);
 			var request = new ReserveRequest {
 				Source = source,
 				ShopOrderId = shopOrderId,
@@ -255,8 +473,8 @@ namespace AltaPay.Service.Tests.Integration
 				PaymentType = AuthType.payment,
 				Amount = Amount.Get(amount, Currency.DKK),
 				Pan = "4111000011110002",
-				ExpiryMonth = 1,
-				ExpiryYear = 2018,
+				ExpiryMonth = sixMonthsFromNowDate.Month,
+				ExpiryYear = sixMonthsFromNowDate.Year,
 				Cvc = "123",
 				CustomerInfo = customerInfo,
 			};
@@ -310,5 +528,119 @@ namespace AltaPay.Service.Tests.Integration
 				return _api.ReserveAmount(request); // reservation
 			}
 		}
-	}
+
+        #region CustomerInfo helper methods
+
+        private CustomerInfo InitializeCustomerInfoTestData()
+        {
+            if (_testCustomerInfo == null)
+            {
+                _testCustomerInfo = new CustomerInfo
+                {
+                    BankName = "Banca Intesa",
+                    BankPhone = "+4530312781",
+                    CustomerPhone = "+4530312782",
+                    Email = "aa@test.com",
+                    Username = "aa",
+                    BillingAddress = new CustomerAddress
+                    {
+                        Address = "Byvej 97",
+                        City = "Fakse",
+                        Country = "DK",
+                        Firstname = "Andreas",
+                        Lastname = "Andresen",
+                        PostalCode = "4640",
+                        Region = "Region Sjælland"
+                    },
+                    ShippingAddress = new CustomerAddress
+                    {
+                        Address = "Byvej 97",
+                        City = "Fakse",
+                        Country = "DK",
+                        Firstname = "Andreas",
+                        Lastname = "Andresen",
+                        PostalCode = "4640",
+                        Region = "Region Sjælland"
+                    }
+                };
+            }
+
+            return _testCustomerInfo;
+        }
+
+        private List<PaymentOrderLine> InitializeOrderlinesTestData()
+        {
+            if (_testOrderlines == null)
+            {
+               _testOrderlines = new List<PaymentOrderLine>
+                {
+                    new PaymentOrderLine
+                    {
+                        Description = "Item 1",
+                        ItemId = "1",
+                        Quantity = 2,
+                        UnitPrice = 11.0,
+                        GoodsType = GoodsType.Item,
+                    },
+                    new PaymentOrderLine
+                    {
+                        Description = "Item 2",
+                        ItemId = "2",
+                        Quantity = 1,
+                        UnitPrice = 5.0,
+                        GoodsType = GoodsType.Item
+                    },
+                    new PaymentOrderLine
+                    {
+                        Description = "shipment",
+                        ItemId = "shipment",
+                        Quantity = 1,
+                        UnitPrice = 15.0,
+                        GoodsType = GoodsType.Shipment
+                    }
+                };
+            }
+
+            return _testOrderlines;
+        }
+
+        /// <summary>
+        /// Compares CustomerInfo sent from the server with private variable kept as test data 
+        /// </summary>
+        /// <param name="customerInfoToCompare"></param>
+        /// <returns>True if customer infos match, False otherwise</returns>
+        private bool CompareCustomerInfos(AltaPay.Service.Dto.CustomerInfo customerInfoToCompare)
+        {
+            if (_testCustomerInfo.Email != customerInfoToCompare.Email || _testCustomerInfo.Username != customerInfoToCompare.Username
+                || !CompareCustomerAddresses(_testCustomerInfo.BillingAddress, customerInfoToCompare.BillingAddress)
+                || !CompareCustomerAddresses(_testCustomerInfo.ShippingAddress, customerInfoToCompare.ShippingAddress))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Compares if customer address returned from the server matches with local address
+        /// </summary>
+        /// <param name="address"></param>
+        /// <param name="addressToCompare"></param>
+        /// <returns>True if addresses match, False otherwise</returns>
+        private bool CompareCustomerAddresses(CustomerAddress address, AltaPay.Service.Dto.CustomerInfoAddress addressToCompare)
+        {
+            if (address.Address != addressToCompare.Address || address.City != addressToCompare.City
+                || address.Country != addressToCompare.Country || address.Firstname != addressToCompare.Firstname
+                || address.Lastname != addressToCompare.Lastname || address.PostalCode != addressToCompare.PostalCode
+                || address.Region != addressToCompare.Region)
+
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        #endregion CustomerInfo helper methods
+    }
 }
