@@ -6,7 +6,7 @@
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{98F999A9-5FA4-44F3-9C25-935C32D08623}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>exe</OutputType>
     <RootNamespace>Examples</RootNamespace>
     <AssemblyName>Examples</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
@@ -33,7 +33,12 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CaptureExamples.cs" />
+    <Compile Include="CreatePaymentRequestExamples.cs" />
     <Compile Include="Notifications\NotificationHandlingExample.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="RefundExamples.cs" />
+    <Compile Include="ReleaseExamples.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
