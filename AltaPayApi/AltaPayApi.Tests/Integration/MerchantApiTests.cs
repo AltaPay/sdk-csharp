@@ -542,6 +542,7 @@ namespace AltaPay.Service.Tests.Integration
                     CustomerPhone = "+4530312782",
                     Email = "aa@test.com",
                     Username = "aa",
+                    BirthDate = DateTime.Now,
                     BillingAddress = new CustomerAddress
                     {
                         Address = "Byvej 97",

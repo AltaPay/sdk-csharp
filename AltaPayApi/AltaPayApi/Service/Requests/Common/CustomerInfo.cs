@@ -13,9 +13,10 @@ namespace AltaPay.Service
 		public string BankPhone { get; set; }
 		public CustomerAddress BillingAddress { get; set; }
 		public CustomerAddress ShippingAddress { get; set; }
-		
-		
-		public CustomerInfo() {
+        public DateTime BirthDate { get; set; }
+
+
+        public CustomerInfo() {
 			BillingAddress = new CustomerAddress();
 			ShippingAddress = new CustomerAddress();
 		}
@@ -28,8 +29,9 @@ namespace AltaPay.Service
 			parameters.Add("customer_phone", CustomerPhone); //The customer's telephone number.	string
 			parameters.Add("bank_name", BankName); //The name of the bank where the credit card was issued.	string
 			parameters.Add("bank_phone", BankPhone); //The phone number of the bank where the credit card was issued.	String
-			
-			parameters.Add("billing_firstname", BillingAddress.Firstname); //The first name for the customer's billing address.	String
+            parameters.Add("birthdate", BirthDate.ToString("yyyy-MM-dd")); //The customer's birth date in format yyyy-MM-dd
+
+            parameters.Add("billing_firstname", BillingAddress.Firstname); //The first name for the customer's billing address.	String
 			parameters.Add("billing_lastname", BillingAddress.Lastname); //The last name for the customer's billing address.	String
 			parameters.Add("billing_city", BillingAddress.City); //The city of the customer's billing address.	string
 			parameters.Add("billing_region", BillingAddress.Region); //The region of the customer's billing address.	string

@@ -73,6 +73,7 @@ namespace AltaPay.Service.Tests.Integration
 					CustomerPhone = "+4512345678",
 					BankName = "Gotham Bank",
 					BankPhone = "666 666 666",
+                    BirthDate = DateTime.Now,
 					
 					BillingAddress = new CustomerAddress() {
 						Address = "101 Night Street",
