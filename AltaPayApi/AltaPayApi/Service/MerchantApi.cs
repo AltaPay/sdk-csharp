@@ -497,6 +497,7 @@ namespace AltaPay.Service
 
 				case "subscriptionAndCharge":
 				case "recurringAndCapture":
+				case "subscriptionAndReserved":
 					return new SubscriptionResult(apiResponse);
 
 				default: 
