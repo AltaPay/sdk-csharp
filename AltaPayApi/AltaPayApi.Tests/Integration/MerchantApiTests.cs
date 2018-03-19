@@ -163,6 +163,14 @@ namespace AltaPay.Service.Tests.Integration
 			Assert.AreEqual("411100******0002", result.Payment.CreditCardMaskedPan);
 		}
 
+        [TestCase(true)]
+		public void CallingMerchantApiWithSuccessfulParametersReturnsPaymentSource(Boolean callReservationOfFixedAmount)
+		{
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 40, callReservationOfFixedAmount);
+
+			Assert.AreEqual(PaymentSource.eCommerce, result.Payment.PaymentSource);
+		}
+
 		[TestCase(true)]
 		[TestCase(false)]
 		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithCardStatus(Boolean callReservationOfFixedAmount)
