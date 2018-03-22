@@ -1301,6 +1301,9 @@ namespace AltaPay.Service.Dto {
         
         /// <remarks/>
         Successful,
+        
+        /// <remarks/>
+        Successful_Forced_Merchant_Liability,
     }
     
     /// <remarks/>
