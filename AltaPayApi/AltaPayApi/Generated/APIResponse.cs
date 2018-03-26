@@ -1372,16 +1372,25 @@ namespace AltaPay.Service.Dto {
         eCommerce,
         
         /// <remarks/>
-        mobi,
+        eCommerce_without3ds,
         
         /// <remarks/>
         moto,
+        
+        /// <remarks/>
+        mobi,
         
         /// <remarks/>
         mail_order,
         
         /// <remarks/>
         telephone_order,
+        
+        /// <remarks/>
+        epayment,
+        
+        /// <remarks/>
+        bankpayment,
         
         /// <remarks/>
         pos,
