@@ -619,6 +619,8 @@ namespace AltaPay.Service.Dto {
         
         private string creditCardMaskedPanField;
         
+        private bool isTokenizedField;
+        
         private string giftCardTokenField;
         
         private string maskedGiftCardField;
@@ -771,6 +773,17 @@ namespace AltaPay.Service.Dto {
             }
             set {
                 this.creditCardMaskedPanField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool IsTokenized {
+            get {
+                return this.isTokenizedField;
+            }
+            set {
+                this.isTokenizedField = value;
             }
         }
         
