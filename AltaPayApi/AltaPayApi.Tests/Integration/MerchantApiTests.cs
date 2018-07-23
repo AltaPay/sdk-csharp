@@ -167,8 +167,10 @@ namespace AltaPay.Service.Tests.Integration
 		public void CallingMerchantApiWithSuccessfulParametersReturnsPaymentSource(Boolean callReservationOfFixedAmount)
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 40, callReservationOfFixedAmount);
+			string ExpectedResult = (PaymentSource.eCommerce).ToString();
+			string ActualResult = (result.Payment.PaymentSource).ToString();
 
-			Assert.AreEqual(PaymentSource.eCommerce, result.Payment.PaymentSource);
+			Assert.AreEqual(ExpectedResult, ActualResult);
 		}
 
 		[TestCase(true)]
@@ -487,12 +489,7 @@ namespace AltaPay.Service.Tests.Integration
 				CustomerInfo = customerInfo,
 			};
 
-			if (callReservationOfFixedAmount) {
-				return _api.Reserve(request); // reservation of fixed amount
-			} 
-			else {
-				return _api.ReserveAmount(request); // reservation
-			}
+			return _api.ReserveAmount(request); // reservation
 
 		}
 
@@ -510,12 +507,7 @@ namespace AltaPay.Service.Tests.Integration
 				Cvc = "123",
 			};
 
-			if (callReservationOfFixedAmount) {
-				return _api.Reserve(request); // reservation of fixed amount
-			} 
-			else {
-				return _api.ReserveAmount(request); // reservation
-			}
+			return _api.ReserveAmount(request); // reservation
 		}
 
 		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, string cardToken, Boolean callReservationOfFixedAmount = true)
@@ -529,12 +521,7 @@ namespace AltaPay.Service.Tests.Integration
 				Cvc = "123",
 			};
 
-			if (callReservationOfFixedAmount) {
-				return _api.Reserve(request); // reservation of fixed amount
-			} 
-			else {
 				return _api.ReserveAmount(request); // reservation
-			}
 		}
 
         #region CustomerInfo helper methods
