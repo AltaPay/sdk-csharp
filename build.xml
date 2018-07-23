@@ -3,6 +3,34 @@
     <property name="build.configuration" value="Release" />
     <property name="tmp" value="_tmp" />
 
+    <!--  Tag section here   -->
+    <target name="-getGitRevisionHash">
+        <exec executable="git" outputProperty="GitHash" failonerror="true">
+            <arg value="rev-list"/>
+            <arg value="--tags"/>
+            <arg value="--max-count=1"/>
+        </exec>
+    </target>
+    <target name="-getGitLastTag" depends="-getGitRevisionHash">
+        <exec executable="git" outputProperty="GitLastTag">
+            <arg value="describe"/>
+            <arg value="--tags"/>
+            <arg value="${GitHash}"/>
+        </exec>
+        <condition property="GitLastTag" value="1.0.0">
+            <equals arg1="${GitLastTag}" arg2="" />
+        </condition>
+    </target>
+
+    <target name="SetAltaPayTagVersion" depends="-getGitLastTag">
+        <echo file="AltaPayApi/AltaPayApi/Properties/SdkVersion.cs">
+using System;
+using System.Reflection;
+[assembly: AssemblyVersion("${GitLastTag}")]
+[assembly: AssemblyFileVersion("${GitLastTag}")]</echo>
+    </target>
+    <!--  Tag section ends here   -->
+
     <target name="pensio.revision" description="Store git revision in ${pensio.revision}">
         <exec executable="git" outputproperty="pensio.revision" failifexecutionfails="true" errorproperty="">
             <arg value="describe"/>
@@ -72,7 +100,31 @@ using System.Reflection;
         <mkdir dir="${tmp}/source"/>
     </target>
 
-    <target name="Build" depends="SetAltaPayVersion,pensio.revision,Compile,EnsureTmp">
+    <target name="BuildTag" depends="SetAltaPayTagVersion,-getGitLastTag,Compile,EnsureTmp">
+
+        <copy todir="${tmp}/">
+            <fileset dir="AltaPayApi/AltaPayApi/bin/${build.configuration}/" includes="*.dll" />
+            <fileset dir="AltaPayApi/AltaPayApi/bin/${build.configuration}/" includes="*.xml" />
+        </copy>
+
+        <copy todir="${tmp}/source">
+            <fileset dir="AltaPayApi/" includes="**/*.cs" />
+            <fileset dir="AltaPayApi/" includes="**/*.csproj" />
+            <fileset dir="AltaPayApi/" includes="**/*.sln" />
+            <fileset dir="AltaPayApi/" includes="**/*.dll" />
+            <fileset dir="AltaPayApi/" includes="**/*.xml" />
+            <fileset dir="AltaPayApi/" includes="**/*.nunit" />
+        </copy>
+
+        <zip destfile="dist/${ant.project.name}_${GitLastTag}.zip">
+            <fileset dir="${tmp}">
+            </fileset>
+        </zip>
+
+        <delete dir="${tmp}" />
+    </target>
+
+    <target name="Build" depends="UnitTests,IntegrationTests,SetAltaPayVersion,pensio.release,pensio.revision,Compile,EnsureTmp">
 
         <copy todir="${tmp}/">
             <fileset dir="AltaPayApi/AltaPayApi/bin/${build.configuration}/" includes="*.dll" />
@@ -96,38 +148,24 @@ using System.Reflection;
         <delete dir="${tmp}" />
     </target>
 
-
-<!--
-    PT: Unfortunately I have been unable to get the tests to run on command line.
-    I keep getting the following error...
-
-NUnit-Console version 2.6.0.0
-Copyright (C) 2002-2012 Charlie Poole.
-Copyright (C) 2002-2004 James W. Newkirk, Michael C. Two, Alexei A. Vorontsov.
-Copyright (C) 2000-2002 Philip Craig.
-All Rights Reserved.
-
-Runtime Environment - 
-   OS Version: Unix 4.1.0.40100
-  CLR Version: 4.0.30319.17020 ( Mono 4.0 ( 3.2.8 (Debian 3.2.8+dfsg-4ubuntu1.1) ) )
-
-ProcessModel: Default    DomainUsage: Single
-Execution Runtime: v3.5
-Unhandled Exception:
-System.ArgumentException: NUnit components for version 2.0.50727 of the CLR are not installed
-
-    <target name="Tests" depends="CompileDebug">
-        <!-  -
+    <target name="UnitTests" depends="CompileDebug">
+        <!--
             apt-get install nunit-console
-        -  ->
-        <!-  -<exec executable="nunit-console" failonerror="true"> ->
+        -->
+        <!--<exec executable="nunit-console" failonerror="true"> -->
         <exec executable="/usr/bin/cli" failonerror="true">
-            <arg value="-  -runtime=v3.5" />
             <arg value="/usr/lib/nunit/nunit-console.exe" />
             <arg value="AltaPayApi/AltaPayApi.Tests/bin/Debug/AltaPayApi.Tests.dll" />
             <arg value="-run=AltaPay.Service.Tests.Unit" />
-            <arg value="-framework=3.5" />
         </exec>
     </target>
--->
+
+    <target name="IntegrationTests" depends="CompileDebug">
+        <exec executable="/usr/bin/cli" failonerror="true">
+            <arg value="/usr/lib/nunit/nunit-console.exe" />
+            <arg value="AltaPayApi/AltaPayApi.Tests/bin/Debug/AltaPayApi.Tests.dll" />
+            <arg value="-run=AltaPay.Service.Tests.Integration" />
+        </exec>
+    </target>
+
 </project>
