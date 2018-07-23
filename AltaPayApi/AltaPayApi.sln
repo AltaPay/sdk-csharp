@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltaPayApi", "AltaPayApi\AltaPayApi.csproj", "{908048BE-E5D0-4719-9E5D-E1BEDB6AB31E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltaPayApi.Tests", "AltaPayApi.Tests\AltaPayApi.Tests.csproj", "{3A49B441-7FCE-40AA-893D-B61D5E41DA62}"
@@ -26,7 +26,6 @@ Global
 		{98F999A9-5FA4-44F3-9C25-935C32D08623}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = AltaPayApi\AltaPayApi.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
 		$1.FileWidth = 120
@@ -191,6 +190,7 @@ Global
 		$27.NamingStyle = PascalCase
 		$27.IncludeInstanceMembers = True
 		$27.IncludeStaticEntities = True
+		StartupItem = AltaPayApi\AltaPayApi.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
