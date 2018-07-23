@@ -79,6 +79,11 @@ namespace AltaPay.Service
 			// TODO it would be better to implement the method Equals in class Currency
 			return (this.Value == am.Value) && (this.Currency.ToString().Equals(am.Currency.ToString()));
 		}
+        // Added due to the warning: 'Amount' overrides Object.Equals(object o) but does not override Object.GetHashCode()
+		public override int GetHashCode()
+        {
+            return GetHashCode();
+        }
 
 	}
 }
