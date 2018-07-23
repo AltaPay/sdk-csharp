@@ -594,6 +594,10 @@ namespace AltaPay.Service
 				Version v = this.GetType().Assembly.GetName().Version;
 				_sdkVersion = String.Format("{0}.{1}.{2}", v.Major, v.Minor, v.Build);
 			}
+			else
+			{
+			    _sdkVersion = "0.0.1";
+			}
 
 			return _sdkVersion;
 		}
