@@ -149,10 +149,8 @@ using System.Reflection;
     </target>
 
     <target name="UnitTests" depends="CompileDebug">
-        <!--
             apt-get install nunit-console
-        -->
-        <!--<exec executable="nunit-console" failonerror="true"> -->
+        <exec executable="nunit-console" failonerror="true">
         <exec executable="/usr/bin/cli" failonerror="true">
             <arg value="/usr/lib/nunit/nunit-console.exe" />
             <arg value="AltaPayApi/AltaPayApi.Tests/bin/Debug/AltaPayApi.Tests.dll" />
