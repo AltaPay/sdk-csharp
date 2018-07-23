@@ -4,7 +4,7 @@ namespace AltaPay.Service
 {
 	public enum PaymentSource
 	{
-		eCommerce,
+	    eCommerce,
 		mobi,
 		moto,
 		mail_order,
