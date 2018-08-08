@@ -604,6 +604,9 @@ namespace AltaPay.Service
 
 		private Stream CallApi(string method, Dictionary<string,Object> parameters)
 		{
+		    //Use either TLS 1.1 or TLS 1.2
+		    System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
 			WebRequest request = WebRequest.Create(String.Format("{0}{1}", _gatewayUrl, method));
 			request.Credentials = new NetworkCredential(_username, _password);
 
