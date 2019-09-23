@@ -112,7 +112,16 @@ namespace Examples
                     Firstname = "John",
                     Lastname = "Doe",
                     Region = "Region Sjælland",
+                },
+                CardHolder = new CardHolderData
+                {
+                    Name = "Test cardholder name",
+                    Email = "cardholder@example.com",
+                    HomePhone = "0012345678",
+                    MobilePhone = "0001234567",
+                    WorkPhone = "0123456789"
                 }
+
             };
 
             //initialize orderlines

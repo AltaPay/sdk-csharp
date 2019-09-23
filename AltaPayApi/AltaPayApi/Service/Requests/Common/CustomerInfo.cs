@@ -13,14 +13,15 @@ namespace AltaPay.Service
 		public string BankPhone { get; set; }
 		public CustomerAddress BillingAddress { get; set; }
 		public CustomerAddress ShippingAddress { get; set; }
+		public CardHolderData CardHolder { get; set; }
         public DateTime BirthDate { get; set; }
 
 
         public CustomerInfo() {
 			BillingAddress = new CustomerAddress();
 			ShippingAddress = new CustomerAddress();
+			CardHolder = new CardHolderData();
 		}
-		
 		
 		public Dictionary<string,object> AddToDictionary(Dictionary<string,object> parameters)
 		{
@@ -46,6 +47,14 @@ namespace AltaPay.Service
 			parameters.Add("shipping_region", ShippingAddress.Region); //The region of the customer's shipping address.	string
 			parameters.Add("shipping_postal", ShippingAddress.PostalCode); //The postal code of the customer's shipping address.	string
 			parameters.Add("shipping_country", ShippingAddress.Country); //The country of the customer's shipping address as a 2 character ISO-3166 country code.	[a-zA-Z]{2}
+
+			//3D Secure parameters
+			parameters.Add("cardholder_name", CardHolder.Name); //The full name of the cardholder.   string
+			parameters.Add("cardholder_email", CardHolder.Email); //The e-mail of the cardholder.   string
+			parameters.Add("cardholder_workphone", CardHolder.WorkPhone); //The work-phone number of the cardholder.   string
+			parameters.Add("cardholder_homephone", CardHolder.HomePhone); //The home-phone number of the cardholder.   string
+			parameters.Add("cardholder_mobilephone", CardHolder.MobilePhone); //The mobile-phone number of the cardholder.  string
+
 			
 			return parameters;
 		}

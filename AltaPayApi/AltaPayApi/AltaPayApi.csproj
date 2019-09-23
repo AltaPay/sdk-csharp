@@ -62,6 +62,7 @@
     <Compile Include="Service\Requests\Common\CreditCard.cs" />
     <Compile Include="Service\Requests\Common\Currency.cs" />
     <Compile Include="Service\Requests\Common\CustomerAddress.cs" />
+    <Compile Include="Service\Requests\Common\CardHolderData.cs" />
     <Compile Include="Service\Requests\Common\CustomerInfo.cs" />
     <Compile Include="Service\Requests\Common\FraudService.cs" />
     <Compile Include="Service\Requests\Common\GoodsType.cs" />

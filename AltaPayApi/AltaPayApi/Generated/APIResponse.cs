@@ -1699,6 +1699,10 @@ namespace AltaPay.Service.Dto {
         
         private string organisationNumberField;
         
+        private string companyNameField;
+        
+        private string companyTypeField;
+        
         private CountryOfOrigin countryOfOriginField;
         
         private CustomerInfoGender genderField;
@@ -1774,6 +1778,28 @@ namespace AltaPay.Service.Dto {
             }
             set {
                 this.organisationNumberField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string CompanyName {
+            get {
+                return this.companyNameField;
+            }
+            set {
+                this.companyNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string CompanyType {
+            get {
+                return this.companyTypeField;
+            }
+            set {
+                this.companyTypeField = value;
             }
         }
         

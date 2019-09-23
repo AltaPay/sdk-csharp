@@ -1,4 +1,4 @@
-<project name="AltaPayApi" default="Build">
+<project name="ValitorOmniCSharpSDK" default="Build">
 
     <property name="build.configuration" value="Release" />
     <property name="tmp" value="_tmp" />
@@ -68,7 +68,8 @@ using System.Reflection;
 
 
     <target name="SetAltaPayVersion" depends="pensio.release">
-        <echo file="AltaPayApi/AltaPayApi/Properties/SdkVersion.cs">using System;
+        <echo file="AltaPayApi/AltaPayApi/Properties/SdkVersion.cs">
+using System;
 using System.Reflection;
 [assembly: AssemblyVersion("${pensio.version}")]
 [assembly: AssemblyFileVersion("${pensio.version}")]</echo>

@@ -535,7 +535,7 @@ namespace AltaPay.Service.Tests.Integration
                     BankName = "Banca Intesa",
                     BankPhone = "+4530312781",
                     CustomerPhone = "+4530312782",
-                    Email = "aa@test.com",
+                    Email = "test@example.com",
                     Username = "aa",
                     BirthDate = DateTime.Now,
                     BillingAddress = new CustomerAddress
@@ -557,6 +557,14 @@ namespace AltaPay.Service.Tests.Integration
                         Lastname = "Andresen",
                         PostalCode = "4640",
                         Region = "Region Sjælland"
+                    },
+                    CardHolder = new CardHolderData
+                    {
+                        Name = "Test cardholder name",
+                        Email = "cardholder@example.com",
+                        WorkPhone = "0123456789",
+                        HomePhone = "0012345678",
+                        MobilePhone = "0001234567"
                     }
                 };
             }
