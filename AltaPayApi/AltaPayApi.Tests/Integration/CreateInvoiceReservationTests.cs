@@ -38,7 +38,7 @@ namespace AltaPay.Service.Tests.Integration
 
 				// Customer Data
 				CustomerInfo = {
-					Email = "customer@email.com",
+					Email = "customer@example.com",
 
 					BillingAddress = new CustomerAddress() {
 						Address = "101 Night Street",
@@ -101,7 +101,7 @@ namespace AltaPay.Service.Tests.Integration
 
 				// Customer Data
 				CustomerInfo = {
-					Email = "customer@email.com",
+					Email = "customer@example.com",
 					Username = "leatheruser",
 					CustomerPhone = "+4512345678",
 					BankName = "Gotham Bank",

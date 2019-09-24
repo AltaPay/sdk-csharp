@@ -154,7 +154,8 @@ using System.Reflection;
             apt-get install nunit-console
 -->
         <exec executable="/usr/bin/cli" failonerror="true">
-            <arg value="--runtime=v4.0" />
+            <!-- when running under Linux leave it commented out... -->
+            <!-- <arg value="- -runtime=v4.0" /> -->
             <arg value="/usr/lib/nunit/nunit-console.exe" />
             <arg value="AltaPayApi/AltaPayApi.Tests/bin/Debug/AltaPayApi.Tests.dll" />
             <arg value="-run=AltaPay.Service.Tests.Unit" />
@@ -163,9 +164,12 @@ using System.Reflection;
 
     <target name="IntegrationTests" depends="CompileDebug">
         <exec executable="/usr/bin/cli" failonerror="true">
-            <arg value="--runtime=v4.0" />
+            <!-- when running under Linux leave it commented out... -->
+            <!-- <arg value="- -runtime=v4.0" /> -->
             <arg value="/usr/lib/nunit/nunit-console.exe" />
             <arg value="AltaPayApi/AltaPayApi.Tests/bin/Debug/AltaPayApi.Tests.dll" />
+            <!-- if want to run one test -->
+            <!-- <arg value="-run=AltaPay.Service.Tests.Integration.MerchantApiTests.CreditWithCardData" /> -->
             <arg value="-run=AltaPay.Service.Tests.Integration" />
         </exec>
     </target>

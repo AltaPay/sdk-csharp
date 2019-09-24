@@ -16,12 +16,14 @@ namespace AltaPay.Service.Tests.Integration
         private CustomerInfo _testCustomerInfo;
         private List<PaymentOrderLine> _testOrderlines;
         private const string _testKlarnaDKTerminal = "AltaPay Klarna DK";
+        private const string _testTerminal = "Simion Demo Shop Test Terminal";
+        private const string _expectedTerminal = "Simion Demo Shop Test Terminal";
+        
 
         [SetUp]
 		public void Setup()
 		{
 			_api = new MerchantApi(GatewayConstants.gatewayUrl, GatewayConstants.username, GatewayConstants.password);
-			// _api = new MerchantApi("https://ci.gateway.pensio.com/merchant.php/API/", "shop api", "testpassword");
 		}
 
 		[TestCase(true)]
@@ -77,7 +79,7 @@ namespace AltaPay.Service.Tests.Integration
 		[TestCase(false)]
 		public void CallingMerchantApiWithAlternativeSourceReturnsSuccessfulResult(Boolean callReservationOfFixedAmount)
 		{
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, null, PaymentSource.eCommerce, callReservationOfFixedAmount);
+			PaymentResult result = GetMerchantApiResultWithCustomerAndSource(Guid.NewGuid().ToString(), 1.23, null, PaymentSource.eCommerce, callReservationOfFixedAmount);
 
 			Assert.AreEqual(Result.Success, result.Result);
 		}
@@ -90,7 +92,7 @@ namespace AltaPay.Service.Tests.Integration
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, callReservationOfFixedAmount);
 
-			Assert.AreEqual("AltaPay Soap Test Terminal", result.Payment.Terminal);
+			Assert.AreEqual(_expectedTerminal, result.Payment.Terminal);
 		}
 
 
@@ -166,8 +168,8 @@ namespace AltaPay.Service.Tests.Integration
         [TestCase(true)]
 		public void CallingMerchantApiWithSuccessfulParametersReturnsPaymentSource(Boolean callReservationOfFixedAmount)
 		{
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 40, callReservationOfFixedAmount);
-			string ExpectedResult = (PaymentSource.eCommerce).ToString();
+			PaymentResult result = GetMerchantApiResultWithCustomerAndSource(Guid.NewGuid().ToString(), 40, null,PaymentSource.eCommerce);
+			string ExpectedResult = (PaymentSource.eCommerce_without3ds).ToString();
 			string ActualResult = (result.Payment.PaymentSource).ToString();
 
 			Assert.AreEqual(ExpectedResult, ActualResult);
@@ -187,7 +189,7 @@ namespace AltaPay.Service.Tests.Integration
 		public void CallingMerchantApiWithCardTokenResultsInSuccessfullResult(Boolean callReservationOfFixedAmount)
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, callReservationOfFixedAmount);
-			PaymentResult secondResult = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, result.Payment.CreditCardToken, callReservationOfFixedAmount);
+			PaymentResult secondResult = GetMerchantApiResultCardToken(Guid.NewGuid().ToString(), 1.23, result.Payment.CreditCardToken, callReservationOfFixedAmount);
 
 			Assert.AreEqual(Result.Success, secondResult.Result);
 		}
@@ -199,7 +201,7 @@ namespace AltaPay.Service.Tests.Integration
 			var customerInfo = new CustomerInfo();
 			customerInfo.BillingAddress.Address="Albertslund";
 
-			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 3.34, customerInfo, callReservationOfFixedAmount);
+			PaymentResult result = GetMerchantApiResultWithCustomer(Guid.NewGuid().ToString(), 3.34, customerInfo, callReservationOfFixedAmount);
 
 			Assert.AreEqual("A", result.Payment.AddressVerification);
 			Assert.AreEqual("Address matches, but zip code does not", result.Payment.AddressVerificationDescription);
@@ -265,7 +267,7 @@ namespace AltaPay.Service.Tests.Integration
             {
                 Source = PaymentSource.eCommerce,
                 ShopOrderId = shopOrderId,
-                Terminal = "AltaPay Dev Terminal",
+                Terminal = _testTerminal,
                 PaymentType = AuthType.payment,
                 Amount = Amount.Get(amount, currency),
                 Pan = "4111000011110002",
@@ -304,7 +306,7 @@ namespace AltaPay.Service.Tests.Integration
             {
                 Source = PaymentSource.eCommerce,
                 ShopOrderId = shopOrderId,
-                Terminal = "AltaPay Dev Terminal",
+                Terminal = _testTerminal,
                 PaymentType = AuthType.payment,
                 Amount = Amount.Get(amount, currency),
                 Pan = "4111000011110002",
@@ -332,6 +334,89 @@ namespace AltaPay.Service.Tests.Integration
         }
 
         #endregion ReserveAmount tests
+
+        #region Credit tests
+        [Test]
+        public void CreditWithCardData()
+        {
+            //arrange
+            var sixMonthsFromNowDate = DateTime.Now.AddMonths(6);
+            var shopOrderId = Guid.NewGuid().ToString();
+            Double amount = 123.45;
+            var currency = Currency.DKK;
+
+            var request = new CreditRequest
+            {
+                Terminal = _testTerminal,
+                ShopOrderId = shopOrderId,
+                Amount = Amount.Get(amount, currency),
+                Pan = "4111000011110087",
+                ExpiryMonth = sixMonthsFromNowDate.Month,
+                ExpiryYear = sixMonthsFromNowDate.Year,
+                Cvc = "123",
+                PaymentSource = PaymentSource.eCommerce,
+                CardHolderName = "Test CardHolder Name"
+            };
+
+            //act
+            CreditResult result = _api.Credit(request);
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Result);
+            Assert.IsNotNull(result.Payment);
+
+            Assert.AreEqual(result.Result, Result.Success);
+            Assert.AreEqual(result.Payment.TransactionStatus, GatewayConstants.CreditedTransactionStatus);
+            Assert.AreEqual(result.Payment.ShopOrderId, shopOrderId);
+            //TODO:
+            //Assert.AreEqual(result.Payment.ReservedAmount, 0d);
+            Assert.AreEqual(result.Payment.MerchantCurrencyAlpha, currency.ShortName);
+        }
+        [Test]
+        public void CreditWithCardDataAndTransactionInfo()
+        {
+            //arrange
+            var sixMonthsFromNowDate = DateTime.Now.AddMonths(6);
+            var shopOrderId = Guid.NewGuid().ToString();
+            Double amount = 100.23;
+            var currency = Currency.DKK;
+
+            IDictionary <string, object> TransactionInfo = new Dictionary<string, object>();
+            TransactionInfo.Add("sdkName", "c sharp");
+            TransactionInfo.Add("sdkVersion","1.1.0");
+
+            var request = new CreditRequest
+            {
+                Terminal = _testTerminal,
+                ShopOrderId = shopOrderId,
+                Amount = Amount.Get(amount, currency),
+                Pan = "4111000011110087",
+                ExpiryMonth = sixMonthsFromNowDate.Month,
+                ExpiryYear = sixMonthsFromNowDate.Year,
+                Cvc = "123",
+                PaymentSource = PaymentSource.eCommerce,
+                CardHolderName = "Test CardHolder Name",
+                PaymentInfos = TransactionInfo
+            };
+
+            //act
+            CreditResult result = _api.Credit(request);
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Result);
+            Assert.IsNotNull(result.Payment);
+
+            Assert.AreEqual(result.Result, Result.Success);
+            Assert.AreEqual(result.Payment.TransactionStatus, GatewayConstants.CreditedTransactionStatus);
+            Assert.AreEqual(result.Payment.ShopOrderId, shopOrderId);
+            //TODO:
+            //Assert.AreEqual(result.Payment.ReservedAmount, 0d);
+            Assert.AreEqual(result.Payment.MerchantCurrencyAlpha, currency.ShortName);
+        }
+
+        #endregion Credit tests
 
         #region UpdateOrder tests
 
@@ -464,22 +549,22 @@ namespace AltaPay.Service.Tests.Integration
 
         #endregion UpdateOrder tests
 
-        private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, CustomerInfo customerInfo, 
+        private PaymentResult GetMerchantApiResultWithCustomer(string shopOrderId, double amount, CustomerInfo customerInfo, 
 			Boolean callReservationOfFixedAmount)
 		{
 
-			return GetMerchantApiResult(shopOrderId, amount, customerInfo, PaymentSource.moto, callReservationOfFixedAmount);
+			return GetMerchantApiResultWithCustomerAndSource(shopOrderId, amount, customerInfo, PaymentSource.moto, callReservationOfFixedAmount);
 
 		}
 
-		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, CustomerInfo customerInfo, 
+		private PaymentResult GetMerchantApiResultWithCustomerAndSource(string shopOrderId, double amount, CustomerInfo customerInfo, 
 			PaymentSource source = PaymentSource.moto, Boolean callReservationOfFixedAmount = true)
 		{
             var sixMonthsFromNowDate = DateTime.Now.AddMonths(6);
 			var request = new ReserveRequest {
 				Source = source,
 				ShopOrderId = shopOrderId,
-				Terminal = "AltaPay Soap Test Terminal",
+				Terminal = _testTerminal,
 				PaymentType = AuthType.payment,
 				Amount = Amount.Get(amount, Currency.DKK),
 				Pan = "4111000011110002",
@@ -497,7 +582,7 @@ namespace AltaPay.Service.Tests.Integration
 		{
             DateTime sixMonthsFromNowDate = DateTime.Now.AddMonths(6);
 			var request = new ReserveRequest {
-				Terminal = "AltaPay Soap Test Terminal",
+				Terminal = _testTerminal,
 				ShopOrderId = shopOrderId,
 				PaymentType = AuthType.paymentAndCapture,
 				Amount = Amount.Get(amount, Currency.DKK),
@@ -510,10 +595,10 @@ namespace AltaPay.Service.Tests.Integration
 			return _api.ReserveAmount(request); // reservation
 		}
 
-		private PaymentResult GetMerchantApiResult(string shopOrderId, double amount, string cardToken, Boolean callReservationOfFixedAmount = true)
+		private PaymentResult GetMerchantApiResultCardToken(string shopOrderId, double amount, string cardToken, Boolean callReservationOfFixedAmount = true)
 		{
 			var request = new ReserveRequest {
-				Terminal = "AltaPay Soap Test Terminal",
+				Terminal = _testTerminal,
 				ShopOrderId = shopOrderId,
 				PaymentType = AuthType.payment,
 				Amount = Amount.Get(amount, Currency.DKK),

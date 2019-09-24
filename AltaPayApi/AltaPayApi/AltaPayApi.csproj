@@ -112,6 +112,8 @@
     <Compile Include="Service\Results\InvoiceReservationResult.cs" />
     <Compile Include="Service\Results\FundingRecord.cs" />
     <Compile Include="Service\Results\UpdateOrderResult.cs" />
+    <Compile Include="Service\Requests\CreditRequest.cs" />
+    <Compile Include="Service\Results\CreditResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

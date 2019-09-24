@@ -113,6 +113,45 @@ namespace AltaPay.Service
 			return new ReserveResult(GetResponseFromApiCall("reservation", parameters));
 		}
 
+		public CreditResult Credit(CreditRequest request) 
+		{
+			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
+			// Mandatory
+			parameters.Add("terminal", request.Terminal);
+			parameters.Add("shop_orderid", request.ShopOrderId);
+			parameters.Add("amount", request.Amount.GetAmountString());
+			parameters.Add("currency", request.Amount.Currency.GetNumericString());
+
+			if (request.CreditCardToken!=null) {
+				//Second option
+				parameters.Add("credit_card_token", request.CreditCardToken);
+			} else {
+				//First option
+				parameters.Add("cardnum", request.Pan);
+				parameters.Add("emonth", request.ExpiryMonth);
+				parameters.Add("eyear", request.ExpiryYear);
+			}
+			// Optional parameters
+			if (request.Cvc!=null)
+			{
+				parameters.Add("cvc", request.Cvc);
+			}
+			// 3D Secure parameter
+			if (request.CardHolderName!=null)
+			{
+				parameters.Add("cardholder_name", request.CardHolderName);
+			}
+			if (request.PaymentInfos!=null)
+			{
+				parameters.Add("transaction_info", request.PaymentInfos);
+			}
+
+			parameters.Add("payment_source", request.PaymentSource);
+	
+
+			return new CreditResult(GetResponseFromApiCall("credit", parameters));
+		}
+
 		private Dictionary<string,Object> getOrderLines(Dictionary<string,Object> parameters, IList<PaymentOrderLine> orderLines)
 		{
 			int lineNumber = 0;

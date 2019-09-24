@@ -10,6 +10,8 @@ namespace AltaPay.Service.Tests.Integration
 		public const string terminal = "AltaPay Dev Terminal";
 
         public const string PreauthTransactionStatus = "preauth";
+		public const string CreditedTransactionStatus = "credited";
+		
 	}
 }
 
