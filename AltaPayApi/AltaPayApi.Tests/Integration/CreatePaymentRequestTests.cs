@@ -47,6 +47,32 @@ namespace AltaPay.Service.Tests.Integration
 		}
 
 		[Test]
+		public void CreateSimplePaymentRequestWithCardHolderData()
+		{
+			
+			PaymentRequestRequest paymentRequest = new PaymentRequestRequest() {
+				Terminal = 	GatewayConstants.terminal,
+				ShopOrderId = "payment-req-" + Guid.NewGuid().ToString(),
+				Amount = Amount.Get(42.34,Currency.EUR),
+				CustomerInfo = {
+					CardHolder = new CardHolderData {
+						Name = "Test Cardholder",
+						Email = "cardholder@example.com",
+						HomePhone = "00011122",
+						WorkPhone = "00011133",
+						MobilePhone = "00011144"
+					}
+				}
+			};
+			
+			PaymentRequestResult result = _api.CreatePaymentRequest(paymentRequest);
+			Assert.AreEqual(Result.Success, result.Result);
+			Assert.IsNotEmpty(result.PaymentRequestId);
+			
+			//System.Diagnostics.Process.Start(result.Url);
+		}
+
+		[Test]
 		public void CreateComplexPaymentRequest()
 		{
 			PaymentRequestRequest paymentRequest = new PaymentRequestRequest() {
@@ -68,7 +94,7 @@ namespace AltaPay.Service.Tests.Integration
 				
 				// Customer Data
 				CustomerInfo = {
-					Email = "customer@email.com",
+					Email = "customer@example.com",
 					Username = "leatheruser",
 					CustomerPhone = "+4512345678",
 					BankName = "Gotham Bank",
@@ -182,7 +208,7 @@ namespace AltaPay.Service.Tests.Integration
 			var parameters = new Dictionary<string, object>();
 
 			parameters.Add("terminal", GatewayConstants.terminal);
-			parameters.Add("shop_orderid",  "shop api");
+			parameters.Add("shop_orderid",  Guid.NewGuid().ToString());
 			parameters.Add("amount", "123.45");
 			parameters.Add("currency", Currency.DKK.GetNumericString());
 
@@ -208,5 +234,85 @@ namespace AltaPay.Service.Tests.Integration
 				return wc.UploadString(GatewayConstants.gatewayUrl+method, parameterStr);
 			}
 		}
+
+		[Test]
+        public void CreateVippsPaymentRequest()
+        {
+            PaymentRequestRequest paymentRequest = new PaymentRequestRequest() {
+                Terminal = GatewayConstants.terminal,
+                //ShopOrderId = "payment-req-" + Guid.NewGuid().ToString(),
+                ShopOrderId = "11",
+                Amount = Amount.Get(700.00, Currency.DKK),
+                FraudService = FraudService.Test,
+                // All the callback configs
+                Config = new PaymentRequestConfig() {
+                    CallbackFormUrl         = "https://www.sdvinternal.dk/paymentform?OkRedirectUrl=https://www.sdvinternal.dk/order-confirmation&FailRedirectUrl=https://www.sdvinternal.dk/error&CheckoutRedirectUrl=https://www.sdvinternal.dk/checkout",
+                    CallbackOkUrl           = "https://sdv-webapp-payment-callback-api-dev.azurewebsites.net/api/ok?OkRedirectUrl=https://www.sdvinternal.dk/order-confirmation&FailRedirectUrl=https://www.sdvinternal.dk/error&CheckoutRedirectUrl=https://www.sdvinternal.dk/checkout",
+                    CallbackFailUrl         = "https://sdv-webapp-payment-callback-api-dev.azurewebsites.net/api/fail?OkRedirectUrl=https://www.sdvinternal.dk/order-confirmation&FailRedirectUrl=https://www.sdvinternal.dk/error&CheckoutRedirectUrl=https://www.sdvinternal.dk/checkout",
+                    CallbackRedirectUrl     = "http://demoshop.pensio.com/Redirect",
+                    CallbackNotificationUrl = "https://sdv-webapp-payment-callback-api-dev.azurewebsites.net/api/notify?OkRedirectUrl=https://www.sdvinternal.dk/order-confirmation&FailRedirectUrl=https://www.sdvinternal.dk/error&CheckoutRedirectUrl=https://www.sdvinternal.dk/checkout",
+                    CallbackOpenUrl         = "https://sdv-webapp-payment-callback-api-dev.azurewebsites.net/api/open?OkRedirectUrl=https://www.sdvinternal.dk/order-confirmation&FailRedirectUrl=https://www.sdvinternal.dk/error&CheckoutRedirectUrl=https://www.sdvinternal.dk/checkout",
+                    CallbackVerifyOrderUrl  = "http://demoshop.pensio.com/VerifyOrder"
+                },
+
+                // Customer Data
+                CustomerInfo = {
+                    Email = "testValitor@impact.dk",
+                    CustomerPhone = "73577357",
+                    BirthDate = DateTime.Now,
+
+                    /*BillingAddress = new CustomerAddress() {
+                        Address = "101 Night Street",
+                        City = "Gotham City",
+                        Country = "US",
+                        Firstname = "Bruce",
+                        Lastname = "Wayne",
+                        Region = "Dark Region",
+                    },
+
+                    ShippingAddress = new CustomerAddress() {
+                        Address = "42 Joker Avenue",
+                        City = "Big Smile City",
+                        Country = "FI",
+                        Firstname = "Jack",
+                        Lastname = "Napier",
+                        Region = "Umbrella Neighbourhood",
+                    }*/
+                },
+
+                // Many other optional parameters
+                CustomerCreatedDate = "2019-06-06",
+                Language = "da",
+                SalesTax = 0.00,
+                ShippingType = ShippingType.Military,
+                Type = AuthType.payment,
+
+
+                // Orderlines
+                /*OrderLines = {
+                    new PaymentOrderLine() {
+                        Description = "The Item Desc",
+                        ItemId = "itemId1",
+                        Quantity = 10,
+                        TaxPercent = 10,
+                        UnitCode = "unitCode",
+                        UnitPrice = 500,
+                        Discount = 0.00,
+                        GoodsType = GoodsType.Item,
+                    },
+                }*/
+            };
+
+            // And make the actual invocation.
+            PaymentRequestResult result = _api.CreatePaymentRequest(paymentRequest);
+
+            Assert.AreEqual(null, result.ResultMerchantMessage);
+            Assert.AreEqual(Result.Success, result.Result);
+            Assert.IsNotEmpty(result.Url);
+            Assert.IsNotEmpty(result.DynamicJavascriptUrl);
+            Assert.IsNotEmpty(result.PaymentRequestId);
+
+            System.Diagnostics.Process.Start(result.Url);
+        }
 	}
 }
