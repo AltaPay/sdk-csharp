@@ -9,6 +9,7 @@ variables:
     test: "AltaPayApi.Tests"
 
 before_script:
+    - cd AltaPayApi/
     - nuget restore
 
 build:
