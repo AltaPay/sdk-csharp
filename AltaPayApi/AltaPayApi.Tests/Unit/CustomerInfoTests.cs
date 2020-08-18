@@ -38,7 +38,7 @@ namespace AltaPay.Service.Tests.Unit
 
 			if (!_parameters.TryGetValue ("birthdate", out object birthdate)) {
 				// the key isn't in the dictionary.
-				return;
+				Assert.Pass();
 			}
 			Assert.Fail();
 		}
