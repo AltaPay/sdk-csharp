@@ -1,5 +1,5 @@
 # C_Sharp - Denmark
-http://git.mars.pensio.com/aux/csharpsdk
+https://gitlab.com/altapay/aux/csharpsdk
 
 C_Sharp is a Client library that is used as a bridge between customer .Net solutions and Altapay gateway.
 
