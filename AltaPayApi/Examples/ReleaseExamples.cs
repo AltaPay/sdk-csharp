@@ -12,8 +12,9 @@ namespace Examples
         private readonly IMerchantApi _api;
         public ReleaseExamples()
         {
-            //URL to the gateway API
-            string gatewayUrl = "https://vmedev.pensio.com/merchant/API/";
+            //This is the URL to connect to your gateway instance. If you are in doubt contact support.
+			//For test, use: testgateway.altapaysecure.com
+            string gatewayUrl = "https://testgateway.altapaysecure.com/merchant/API/";
 
             //username to be authenticated on the gateway
             string username = "shop api";
