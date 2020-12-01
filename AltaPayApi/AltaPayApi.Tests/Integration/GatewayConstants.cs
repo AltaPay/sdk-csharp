@@ -4,7 +4,9 @@ namespace AltaPay.Service.Tests.Integration
 {
 	public class GatewayConstants
 	{
-		public const string gatewayUrl = "https://vmedev.pensio.com/merchant/API/";
+		//This is the URL to connect to your gateway instance. If you are in doubt contact support.
+		//For test, use: testgateway.altapaysecure.com
+		public const string gatewayUrl = "https://testgateway.altapaysecure.com/merchant/API/";
 		public const string username = "shop api";
 		public const string password = "testpassword";
 		public const string terminal = "AltaPay Dev Terminal";
