@@ -3,6 +3,11 @@ https://gitlab.com/altapay/aux/csharpsdk
 
 C_Sharp is a Client library that is used as a bridge between customer .Net solutions and Altapay gateway.
 
+
+### 1.1.1
+
+- Support Product URL for Klarna Payments
+
 ## Installing C_Sharp
 
 ## Other pre-requisites
