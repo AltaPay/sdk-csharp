@@ -38,10 +38,6 @@ Start the build process by going to the repository directory from the terminal a
 
     $ ant
 
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md)
-
 ## License
 
 See [LICENSE](LICENSE)
