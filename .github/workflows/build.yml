@@ -11,11 +11,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-    
-      - name: Check docker version
-        run: ls -al
         
       - name: Check docker version
         run: bash docker-build-script.sh
-        working-directory: sdk-csharp/docker
+        working-directory: docker
 
