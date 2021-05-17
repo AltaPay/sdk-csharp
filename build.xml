@@ -85,6 +85,7 @@ using System.Reflection;
         <exec executable="xbuild" failonerror="true">
             <arg value="/p:Configuration=${build.configuration}" />
             <arg value="AltaPayApi/AltaPayApi.sln" />
+            <arg value="/p:TargetFrameworkVersion=v4.5" />
         </exec>
     </target>
 
@@ -92,6 +93,7 @@ using System.Reflection;
         <exec executable="xbuild" failonerror="true">
             <arg value="/p:Configuration=Debug" />
             <arg value="AltaPayApi/AltaPayApi.sln" />
+            <arg value="/p:TargetFrameworkVersion=v4.5" />
         </exec>
     </target>
 
