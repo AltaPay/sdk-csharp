@@ -12,7 +12,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
-      - name: Check docker version
+      - name: Create build
         run: bash docker-build-script.sh
         working-directory: docker
-
+      
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Package
+          path: dist/
