@@ -13,4 +13,6 @@ jobs:
         uses: actions/checkout@v2
     
       - name: Check docker version
-        run: docker --version
+        run: bash docker-build-script.sh
+        working-directory: sdk-csharp/docker
+
