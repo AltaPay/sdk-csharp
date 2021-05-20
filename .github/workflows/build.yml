@@ -1,4 +1,4 @@
-name: Run .NET Tests
+name: Build Dotnet
 
 on:
   push:
