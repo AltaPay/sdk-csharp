@@ -38,6 +38,10 @@ Start the build process by going to the repository directory from the terminal a
 
     $ ant
 
+The package can also be built using bash script, which builds the Docker image and generates the zip package from source. Execute the script like
+
+    $ ./docker/docker-build-script.sh
+
 ## License
 
 See [LICENSE](LICENSE)
