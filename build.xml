@@ -1,4 +1,4 @@
-<project name="ValitorOmniCSharpSDK" default="Build">
+<project name="AltaPay" default="Build">
 
     <property name="build.configuration" value="Release" />
     <property name="tmp" value="_tmp" />
@@ -145,7 +145,7 @@ using System.Reflection;
             <fileset dir="AltaPayApi/" includes="**/*.csv" />
         </copy>
 
-        <zip destfile="dist/${ant.project.name}_${pensio.release}_${pensio.revision}.zip">
+        <zip destfile="dist/${ant.project.name}.zip">
             <fileset dir="${tmp}">
             </fileset>
         </zip>
