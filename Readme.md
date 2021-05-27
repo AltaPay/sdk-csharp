@@ -1,16 +1,18 @@
-# C_Sharp - Denmark
-https://gitlab.com/altapay/aux/csharpsdk
+Altapay - API C_Sharp
+=====================
 
 C_Sharp is a Client library that is used as a bridge between customer .Net solutions and Altapay gateway.
 
+### 1.1.2
+
+- Add docker image to build package
+- Supports API changes from 20210324
 
 ### 1.1.1
 
 - Support Product URL for Klarna Payments
 
-## Installing C_Sharp
-
-## Other pre-requisites
+## Requirements
 
 To build/package the C_Sharp you also need a number of build-tools.
 
@@ -30,7 +32,16 @@ Below can be seen what had to be done in order to have a complete mono instalati
     
     $ sudo apt-get install ant
 
+### Build package
 
 Start the build process by going to the repository directory from the terminal and run:
 
     $ ant
+
+The package can also be built using bash script, which builds the Docker image and generates the zip package from source. Execute the script like
+
+    $ ./docker/docker-build-script.sh
+
+## License
+
+See [LICENSE](LICENSE)

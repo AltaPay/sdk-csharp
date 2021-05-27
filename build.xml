@@ -1,4 +1,4 @@
-<project name="ValitorOmniCSharpSDK" default="Build">
+<project name="AltaPay" default="Build">
 
     <property name="build.configuration" value="Release" />
     <property name="tmp" value="_tmp" />
@@ -85,6 +85,7 @@ using System.Reflection;
         <exec executable="xbuild" failonerror="true">
             <arg value="/p:Configuration=${build.configuration}" />
             <arg value="AltaPayApi/AltaPayApi.sln" />
+            <arg value="/p:TargetFrameworkVersion=v4.5" />
         </exec>
     </target>
 
@@ -92,6 +93,7 @@ using System.Reflection;
         <exec executable="xbuild" failonerror="true">
             <arg value="/p:Configuration=Debug" />
             <arg value="AltaPayApi/AltaPayApi.sln" />
+            <arg value="/p:TargetFrameworkVersion=v4.5" />
         </exec>
     </target>
 
@@ -143,7 +145,7 @@ using System.Reflection;
             <fileset dir="AltaPayApi/" includes="**/*.csv" />
         </copy>
 
-        <zip destfile="dist/${ant.project.name}_${pensio.release}_${pensio.revision}.zip">
+        <zip destfile="dist/${ant.project.name}.zip">
             <fileset dir="${tmp}">
             </fileset>
         </zip>
