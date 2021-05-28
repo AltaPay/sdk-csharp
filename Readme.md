@@ -3,10 +3,13 @@ Altapay - API C_Sharp
 
 C_Sharp is a Client library that is used as a bridge between customer .Net solutions and Altapay gateway.
 
+### 1.1.3
+
+- Supports API changes from 20210324
+
 ### 1.1.2
 
 - Add docker image to build package
-- Supports API changes from 20210324
 
 ### 1.1.1
 
