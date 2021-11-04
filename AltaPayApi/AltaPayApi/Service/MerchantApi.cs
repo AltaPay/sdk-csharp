@@ -654,6 +654,7 @@ namespace AltaPay.Service
 			http.Method = "POST";
 			http.ContentType = "application/x-www-form-urlencoded";
 			http.Headers.Add("x-altapay-client-version", String.Format("C#SDK/{0}", GetSdkVersion()));
+			http.Headers.Add("User-Agent", String.Format("sdk-csharp/{0}", GetSdkVersion()));
 
 			string encodedData = ParameterHelper.Convert(parameters);
 			//File.AppendAllText("/tmp/multipaymentrequest", + encodedData + "\n");
