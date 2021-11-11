@@ -383,8 +383,8 @@ namespace AltaPay.Service.Tests.Integration
             var currency = Currency.DKK;
 
             IDictionary <string, object> TransactionInfo = new Dictionary<string, object>();
-            TransactionInfo.Add("sdkName", "c sharp");
-            TransactionInfo.Add("sdkVersion","1.1.2");
+            TransactionInfo.Add("sdkName", "sdk-csharp");
+            TransactionInfo.Add("sdkVersion","1.1.3");
 
             var request = new CreditRequest
             {

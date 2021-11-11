@@ -636,7 +636,7 @@ namespace AltaPay.Service
 			}
 			else
 			{
-			    _sdkVersion = "0.0.1";
+			    _sdkVersion = "1.1.3";
 			}
 
 			return _sdkVersion;
@@ -654,6 +654,7 @@ namespace AltaPay.Service
 			http.Method = "POST";
 			http.ContentType = "application/x-www-form-urlencoded";
 			http.Headers.Add("x-altapay-client-version", String.Format("C#SDK/{0}", GetSdkVersion()));
+			http.Headers.Add("User-Agent", String.Format("sdk-csharp/{0}  CLR/{1}", GetSdkVersion(), Environment.Version.ToString()));
 
 			string encodedData = ParameterHelper.Convert(parameters);
 			//File.AppendAllText("/tmp/multipaymentrequest", + encodedData + "\n");
