@@ -52,7 +52,6 @@ namespace AltaPay.Service
 			parameters.Add("currency", request.Amount.Currency.GetNumericString());
 			parameters.Add("type", request.PaymentType);
 			parameters.Add("payment_source", request.Source);
-
             parameters.Add("agreement[id]", request.AgreementId);
             parameters.Add("agreement[type]", request.AgreementType);
             parameters.Add("agreement[unscheduled]", request.AgreementUnscheduledType);
@@ -95,7 +94,6 @@ namespace AltaPay.Service
 			parameters.Add("currency", request.Amount.Currency.GetNumericString());
 			parameters.Add("type", request.PaymentType);
 			parameters.Add("payment_source", request.Source);
-
             parameters.Add("agreement[id]", request.AgreementId);
             parameters.Add("agreement[type]", request.AgreementType);
             parameters.Add("agreement[unscheduled]", request.AgreementUnscheduledType);
@@ -284,10 +282,8 @@ namespace AltaPay.Service
             }else{
                 parameters.Add("transaction_id", request.SubscriptionId);
             }
-
 			parameters.Add("amount", request.Amount.GetAmountString());
 			parameters.Add("agreement[unscheduled]", request.AgreementUnscheduledType);
-
 
 			return new ChargeSubscriptionResult(GetResponseFromApiCall("chargeSubscription",parameters));
 		}
@@ -300,10 +296,8 @@ namespace AltaPay.Service
             }else{
                 parameters.Add("transaction_id", request.SubscriptionId);
             }
-
 			parameters.Add("amount", request.Amount.GetAmountString());
 			parameters.Add("agreement[unscheduled]", request.AgreementUnscheduledType);
-
 
 			return new ReserveSubscriptionChargeResult(GetResponseFromApiCall("reserveSubscriptionCharge", parameters));
 		}
@@ -357,7 +351,6 @@ namespace AltaPay.Service
 			parameters.Add("ccToken", request.CreditCardToken);
 			parameters.Add("cookie", request.Cookie);
 			parameters.Add("fraud_service", request.FraudService.ToString().ToLower());
-
             parameters.Add("agreement[id]", request.AgreementId);
             parameters.Add("agreement[type]", request.AgreementType);
             parameters.Add("agreement[unscheduled]", request.AgreementUnscheduledType);
