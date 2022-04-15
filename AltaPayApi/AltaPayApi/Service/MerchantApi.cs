@@ -52,13 +52,13 @@ namespace AltaPay.Service
 			parameters.Add("currency", request.Amount.Currency.GetNumericString());
 			parameters.Add("type", request.PaymentType);
 			parameters.Add("payment_source", request.Source);
-            parameters.Add("agreement[id]", request.AgreementId);
-            parameters.Add("agreement[type]", request.AgreementType);
-            parameters.Add("agreement[unscheduled]", request.AgreementUnscheduledType);
-            parameters.Add("agreement[expiry]", request.AgreementExpiry);
-            parameters.Add("agreement[frequency]", request.AgreementFrequency);
-            parameters.Add("agreement[next_charge_date]", request.AgreementNextChargeDate);
-            parameters.Add("agreement[admin_url]", request.AgreementAdminUrl);
+			parameters.Add("agreement[id]", request.AgreementId);
+			parameters.Add("agreement[type]", request.AgreementType);
+			parameters.Add("agreement[unscheduled]", request.AgreementUnscheduledType);
+			parameters.Add("agreement[expiry]", request.AgreementExpiry);
+			parameters.Add("agreement[frequency]", request.AgreementFrequency);
+			parameters.Add("agreement[next_charge_date]", request.AgreementNextChargeDate);
+			parameters.Add("agreement[admin_url]", request.AgreementAdminUrl);
 
 			if (request.CreditCardToken!=null) {
 				parameters.Add("credit_card_token", request.CreditCardToken);
@@ -94,13 +94,13 @@ namespace AltaPay.Service
 			parameters.Add("currency", request.Amount.Currency.GetNumericString());
 			parameters.Add("type", request.PaymentType);
 			parameters.Add("payment_source", request.Source);
-            parameters.Add("agreement[id]", request.AgreementId);
-            parameters.Add("agreement[type]", request.AgreementType);
-            parameters.Add("agreement[unscheduled]", request.AgreementUnscheduledType);
-            parameters.Add("agreement[expiry]", request.AgreementExpiry);
-            parameters.Add("agreement[frequency]", request.AgreementFrequency);
-            parameters.Add("agreement[next_charge_date]", request.AgreementNextChargeDate);
-            parameters.Add("agreement[admin_url]", request.AgreementAdminUrl);
+			parameters.Add("agreement[id]", request.AgreementId);
+			parameters.Add("agreement[type]", request.AgreementType);
+			parameters.Add("agreement[unscheduled]", request.AgreementUnscheduledType);
+			parameters.Add("agreement[expiry]", request.AgreementExpiry);
+			parameters.Add("agreement[frequency]", request.AgreementFrequency);
+			parameters.Add("agreement[next_charge_date]", request.AgreementNextChargeDate);
+			parameters.Add("agreement[admin_url]", request.AgreementAdminUrl);
 
 			if (request.CreditCardToken!=null) {
 				parameters.Add("credit_card_token", request.CreditCardToken);
@@ -277,11 +277,11 @@ namespace AltaPay.Service
 		public ChargeSubscriptionResult ChargeSubscription(ChargeSubscriptionRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-            if (request.AgreementId!=null){
-                parameters.Add("agreement[id]", request.AgreementId);
-            }else{
-                parameters.Add("transaction_id", request.SubscriptionId);
-            }
+			if (request.AgreementId!=null){
+				parameters.Add("agreement[id]", request.AgreementId);
+			}else{
+				parameters.Add("transaction_id", request.SubscriptionId);
+			}
 			parameters.Add("amount", request.Amount.GetAmountString());
 			parameters.Add("agreement[unscheduled]", request.AgreementUnscheduledType);
 
@@ -291,11 +291,11 @@ namespace AltaPay.Service
 		public ReserveSubscriptionChargeResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-            if (request.AgreementId!=null){
-                parameters.Add("agreement[id]", request.AgreementId);
-            }else{
-                parameters.Add("transaction_id", request.SubscriptionId);
-            }
+			if (request.AgreementId!=null){
+				parameters.Add("agreement[id]", request.AgreementId);
+			}else{
+				parameters.Add("transaction_id", request.SubscriptionId);
+			}
 			parameters.Add("amount", request.Amount.GetAmountString());
 			parameters.Add("agreement[unscheduled]", request.AgreementUnscheduledType);
 
@@ -351,13 +351,13 @@ namespace AltaPay.Service
 			parameters.Add("ccToken", request.CreditCardToken);
 			parameters.Add("cookie", request.Cookie);
 			parameters.Add("fraud_service", request.FraudService.ToString().ToLower());
-            parameters.Add("agreement[id]", request.AgreementId);
-            parameters.Add("agreement[type]", request.AgreementType);
-            parameters.Add("agreement[unscheduled]", request.AgreementUnscheduledType);
-            parameters.Add("agreement[expiry]", request.AgreementExpiry);
-            parameters.Add("agreement[frequency]", request.AgreementFrequency);
-            parameters.Add("agreement[next_charge_date]", request.AgreementNextChargeDate);
-            parameters.Add("agreement[admin_url]", request.AgreementAdminUrl);
+			parameters.Add("agreement[id]", request.AgreementId);
+			parameters.Add("agreement[type]", request.AgreementType);
+			parameters.Add("agreement[unscheduled]", request.AgreementUnscheduledType);
+			parameters.Add("agreement[expiry]", request.AgreementExpiry);
+			parameters.Add("agreement[frequency]", request.AgreementFrequency);
+			parameters.Add("agreement[next_charge_date]", request.AgreementNextChargeDate);
+			parameters.Add("agreement[admin_url]", request.AgreementAdminUrl);
 
 			return parameters;
 		}
