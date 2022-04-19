@@ -61,6 +61,7 @@
     <Compile Include="Service\Requests\Common\AuthType.cs" />
     <Compile Include="Service\Requests\Common\AgreementType.cs" />
     <Compile Include="Service\Requests\Common\AgreementUnscheduledType.cs" />
+    <Compile Include="Service\Requests\Common\AgreementConfig.cs" />
     <Compile Include="Service\Requests\Common\CreditCard.cs" />
     <Compile Include="Service\Requests\Common\Currency.cs" />
     <Compile Include="Service\Requests\Common\CustomerAddress.cs" />
