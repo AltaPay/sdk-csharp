@@ -71,6 +71,11 @@ namespace AltaPay.Service
 
 			parameters.Add("fraud_service", request.FraudService.ToString().ToLower());
 
+			// Agreement parameters
+			if (request.AgreementConfig != null){
+				parameters.Add("agreement", request.AgreementConfig.ToDictionary());
+			}
+
 			// Order lines
 			parameters = getOrderLines(parameters, request.OrderLines);
 
@@ -106,6 +111,11 @@ namespace AltaPay.Service
 			}
 
 			parameters.Add("fraud_service", request.FraudService.ToString().ToLower());
+
+			// Agreement parameters
+			if (request.AgreementConfig != null){
+				parameters.Add("agreement", request.AgreementConfig.ToDictionary());
+			}
 
 			// Order lines
 			parameters = getOrderLines(parameters, request.OrderLines);
@@ -263,8 +273,13 @@ namespace AltaPay.Service
 		public ChargeSubscriptionResult ChargeSubscription(ChargeSubscriptionRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("transaction_id", request.SubscriptionId);
+			if (request.AgreementId!=null) {
+				parameters.Add("agreement[id]", request.AgreementId);
+			} else {
+				parameters.Add("transaction_id", request.SubscriptionId);
+			}
 			parameters.Add("amount", request.Amount.GetAmountString());
+			parameters.Add("agreement[unscheduled]", request.AgreementUnscheduledType);
 
 			return new ChargeSubscriptionResult(GetResponseFromApiCall("chargeSubscription",parameters));
 		}
@@ -272,8 +287,13 @@ namespace AltaPay.Service
 		public ReserveSubscriptionChargeResult ReserveSubscriptionCharge(ReserveSubscriptionChargeRequest request)
 		{
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
-			parameters.Add("transaction_id", request.SubscriptionId);
+			if (request.AgreementId!=null) {
+				parameters.Add("agreement[id]", request.AgreementId);
+			} else {
+				parameters.Add("transaction_id", request.SubscriptionId);
+			}
 			parameters.Add("amount", request.Amount.GetAmountString());
+			parameters.Add("agreement[unscheduled]", request.AgreementUnscheduledType);
 
 			return new ReserveSubscriptionChargeResult(GetResponseFromApiCall("reserveSubscriptionCharge", parameters));
 		}
@@ -327,6 +347,11 @@ namespace AltaPay.Service
 			parameters.Add("ccToken", request.CreditCardToken);
 			parameters.Add("cookie", request.Cookie);
 			parameters.Add("fraud_service", request.FraudService.ToString().ToLower());
+
+			// Agreement parameters
+			if (request.AgreementConfig != null){
+				parameters.Add("agreement", request.AgreementConfig.ToDictionary());
+			}
 
 			return parameters;
 		}
@@ -525,7 +550,7 @@ namespace AltaPay.Service
 				authType = apiResponse.Body.Transactions[0].AuthType;
 			}
 
-			// Wrap Api Respons to proper result
+			// Wrap Api Response to proper result
 			switch (authType) 
 			{
 				case "payment":
@@ -636,7 +661,7 @@ namespace AltaPay.Service
 			}
 			else
 			{
-			    _sdkVersion = "1.1.3";
+			    _sdkVersion = "1.1.4";
 			}
 
 			return _sdkVersion;
