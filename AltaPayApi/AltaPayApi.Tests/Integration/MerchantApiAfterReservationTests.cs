@@ -269,7 +269,7 @@ namespace AltaPay.Service.Tests.Integration
                 request.AgreementConfig = agreementConfig;
             }
 
-			PaymentResult result = _api.Reserve(request);
+			PaymentResult result = _api.ReserveAmount(request);
 			
 			if(result.Result != Result.Success)
 			{
