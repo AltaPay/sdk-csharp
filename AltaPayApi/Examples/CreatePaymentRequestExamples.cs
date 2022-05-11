@@ -222,7 +222,7 @@ namespace Examples
             PaymentRequestRequest paymentRequest = new PaymentRequestRequest
             {
                 Terminal = terminal,
-                ShopOrderId = "payment-req-" + Guid.NewGuid().ToString(),
+                ShopOrderId = "AGREEMENTS_UI_csharp_example_payment-req-" + Guid.NewGuid().ToString(),
                 Amount = Amount.Get(777.77, Currency.EUR),
                 //set the properties for redirection URLs
                 //where user should be redirected after submitting payment on the gateway
