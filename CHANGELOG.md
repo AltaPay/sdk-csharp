@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [1.1.5]
 
 - Fix 'Agreements Engine' parameter 'unscheduled_type'
-- Add support for new Apple Pay 
+- Add support for Apple Pay 
 
 ## [1.1.4]
 
