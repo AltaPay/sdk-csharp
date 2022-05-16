@@ -1,9 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.5]
+
+- Fix 'Agreements Engine' parameter 'unscheduled_type'
+- Add support for Apple Pay 
+
 ## [1.1.4]
 
-- Add support for new Agreements Engine parameters
+- Add support for new 'Agreements Engine' parameters
 
 ## [1.1.3]
 

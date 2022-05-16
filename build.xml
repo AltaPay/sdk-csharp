@@ -17,7 +17,7 @@
             <arg value="--tags"/>
             <arg value="${GitHash}"/>
         </exec>
-        <condition property="GitLastTag" value="1.1.4">
+        <condition property="GitLastTag" value="1.1.5">
             <equals arg1="${GitLastTag}" arg2="" />
         </condition>
     </target>

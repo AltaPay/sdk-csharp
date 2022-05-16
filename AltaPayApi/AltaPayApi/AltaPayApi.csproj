@@ -117,6 +117,10 @@
     <Compile Include="Service\Results\UpdateOrderResult.cs" />
     <Compile Include="Service\Requests\CreditRequest.cs" />
     <Compile Include="Service\Results\CreditResult.cs" />
+    <Compile Include="Service\Requests\CardWalletSessionRequest.cs" />
+    <Compile Include="Service\Results\CardWalletSessionResult.cs" />
+    <Compile Include="Service\Requests\CardWalletAuthorizeRequest.cs" />
+    <Compile Include="Service\Results\CardWalletAuthorizeResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
