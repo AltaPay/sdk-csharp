@@ -9,6 +9,6 @@ namespace AltaPay.Service
 		Item,
 		Refund,
 		Subscription_Model
-    }
+	}
 }
 
