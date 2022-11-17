@@ -8,7 +8,7 @@ namespace AltaPay.Service
 		Handling,
 		Item,
 		Refund,
-        Subscription_Model
+		Subscription_Model
     }
 }
 
