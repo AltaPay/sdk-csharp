@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.7]
+
+- Add support for redirect response in reservation, chargeSubscription & reserveSubscriptionCharge
+
 ## [1.1.6]
 
 - Add support for subscription via MobilePay
