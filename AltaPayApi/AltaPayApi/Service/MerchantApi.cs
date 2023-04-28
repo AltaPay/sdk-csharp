@@ -224,7 +224,7 @@ namespace AltaPay.Service
 
 			getOrderLines(parameters, request.OrderLines);
 
-			return new CaptureResult(GetResponseFromApiCall("captureReservation", parameters, "GET"));
+			return new CaptureResult(GetResponseFromApiCall("captureReservation", parameters));
 		}
 
 		public RefundResult Refund(RefundRequest request)
