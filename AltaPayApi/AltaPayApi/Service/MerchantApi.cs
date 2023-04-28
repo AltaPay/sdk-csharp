@@ -224,7 +224,7 @@ namespace AltaPay.Service
 
 			getOrderLines(parameters, request.OrderLines);
 
-			return new CaptureResult(GetResponseFromApiCall("captureReservation", parameters));
+			return new CaptureResult(GetResponseFromApiCall("captureReservation", parameters, "GET"));
 		}
 
 		public RefundResult Refund(RefundRequest request)
@@ -704,10 +704,10 @@ namespace AltaPay.Service
 
 			HttpWebRequest http = (HttpWebRequest)request;
 			http.Method = requestMethod;
+			http.UserAgent = String.Format ("sdk-csharp/{0}, CLR/{1}", GetSdkVersion (), Environment.Version.ToString ());
 
 			if (requestMethod == "POST") {
 				http.ContentType = "application/x-www-form-urlencoded";
-				http.UserAgent = String.Format ("sdk-csharp/{0}, CLR/{1}", GetSdkVersion (), Environment.Version.ToString ());
 
 				//File.AppendAllText("/tmp/multipaymentrequest", + encodedData + "\n");
 				Byte [] postBytes = System.Text.Encoding.ASCII.GetBytes (encodedData);
