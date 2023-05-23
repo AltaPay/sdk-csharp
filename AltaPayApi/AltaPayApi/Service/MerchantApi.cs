@@ -682,7 +682,7 @@ namespace AltaPay.Service
 			}
 			else
 			{
-			    _sdkVersion = "1.1.8";
+			    _sdkVersion = "1.1.9";
 			}
 
 			return _sdkVersion;

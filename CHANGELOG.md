@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.9]
+
+- Replace the deprecated 'transactions' endpoint with 'payments', for 'GetPayment' & 'GetPayments' methods
+
 ## [1.1.8]
 
 - Supports API changes from 20230412
