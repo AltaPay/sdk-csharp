@@ -257,7 +257,7 @@ namespace AltaPay.Service
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("transaction_id", request.PaymentId);
 
-			return new GetPaymentResult(GetResponseFromApiCall("transactions", parameters));
+			return new GetPaymentResult(GetResponseFromApiCall("payments", parameters, "GET"));
 		}
 
 		public GetPaymentsResult GetPayments(GetPaymentsRequest request)
@@ -265,7 +265,7 @@ namespace AltaPay.Service
 			Dictionary<string,Object> parameters = new Dictionary<string, Object>();
 			parameters.Add("shop_orderid", request.ShopOrderId);
 
-			return new GetPaymentsResult(GetResponseFromApiCall("transactions", parameters));
+			return new GetPaymentsResult(GetResponseFromApiCall("payments", parameters, "GET"));
 		}
 
 
@@ -682,7 +682,7 @@ namespace AltaPay.Service
 			}
 			else
 			{
-			    _sdkVersion = "1.1.8";
+			    _sdkVersion = "1.1.9";
 			}
 
 			return _sdkVersion;
