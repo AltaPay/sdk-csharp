@@ -7,7 +7,11 @@ namespace AltaPay.Service
 		Shipment,
 		Handling,
 		Item,
-		Refund,
+		Digital,
+		Discount,
+		Gift_Card,
+		Physical,
+		Sales_Tax,
 		Subscription_Model
 	}
 }
