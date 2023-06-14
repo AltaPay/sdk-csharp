@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [1.2.0]
 
-- Add `digital`, `discount`, `gift_card`, `physical` and `sales_tax` as new goodsType for OrderLine class.
+- Add `digital`, `discount`, `gift_card`, `physical` and `sales_tax` as new values for goodsType.
 
 ## [1.1.9]
 
