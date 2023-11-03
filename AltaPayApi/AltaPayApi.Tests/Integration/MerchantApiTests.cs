@@ -469,7 +469,7 @@ namespace AltaPay.Service.Tests.Integration
 
             IDictionary <string, object> TransactionInfo = new Dictionary<string, object>();
             TransactionInfo.Add("sdkName", "sdk-csharp");
-            TransactionInfo.Add("sdkVersion","1.2.0");
+            TransactionInfo.Add("sdkVersion","1.2.1");
 
             var request = new CreditRequest
             {
