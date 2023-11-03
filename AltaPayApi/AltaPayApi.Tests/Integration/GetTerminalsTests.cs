@@ -10,23 +10,23 @@ using System.IO;
 
 namespace AltaPay.Service.Tests.Integration
 {
-	[TestFixture]
-	class GetTerminalsTests : BaseTest
-	{
-		IMerchantApi _api;
+    [TestFixture]
+    class GetTerminalsTests : BaseTest
+    {
+        IMerchantApi _api;
 
-		[SetUp]
-		public void Setup()
-		{
-			_api = new MerchantApi(GatewayConstants.gatewayUrl, GatewayConstants.username, GatewayConstants.password);
-		}
-
-		[Test]
-		public void CallingMerchantApiReturnsSuccessfulResult()
-		{
-			GetTerminalsResult result = _api.GetTerminals();
-
-			Assert.AreEqual(Result.Success, result.Result);
+        [SetUp]
+        public void Setup()
+        {
+            _api = new MerchantApi(GatewayConstants.gatewayUrl, GatewayConstants.username, GatewayConstants.password);
         }
-	}
+
+        [Test]
+        public void CallingMerchantApiReturnsSuccessfulResult()
+        {
+            GetTerminalsResult result = _api.GetTerminals();
+
+            Assert.AreEqual(Result.Success, result.Result);
+        }
+    }
 }
