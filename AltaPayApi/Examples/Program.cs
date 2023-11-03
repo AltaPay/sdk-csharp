@@ -35,6 +35,11 @@ namespace Examples
             Console.WriteLine("Executing release examples...");
             ReleaseExamples releaseExamples = new ReleaseExamples();
             releaseExamples.Release();
+            //getTerminals examples
+            Console.WriteLine("Executing Get Terminals example");
+            GetTerminalsExamples getTerminalsExamples = new GetTerminalsExamples();
+            getTerminalsExamples.GetTerminals();
+            System.Console.ReadLine();
         }
     }
 }
