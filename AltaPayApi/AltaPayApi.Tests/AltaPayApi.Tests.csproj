@@ -62,6 +62,7 @@
     <Compile Include="Integration\MerchantApiAfterReservationTests.cs" />
     <Compile Include="Integration\FundingListTests.cs" />
     <Compile Include="Integration\CreatePaymentRequestTests.cs" />
+    <Compile Include="Integration\GetTerminalsTests.cs" />
     <Compile Include="Integration\CreateMultiPaymentRequestTests.cs" />
     <Compile Include="Unit\FundingContentResultTests.cs" />
     <Compile Include="Integration\GatewayConstants.cs" />
