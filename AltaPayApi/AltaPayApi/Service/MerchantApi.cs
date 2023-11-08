@@ -525,13 +525,13 @@ namespace AltaPay.Service
 			return new CardWalletAuthorizeResult(GetResponseFromApiCall("cardWallet/authorize", parameters));
 		}
 
-        public GetTerminalsResult GetTerminals()
-        {
+		public GetTerminalsResult GetTerminals()
+		{
 
-            return new GetTerminalsResult(GetResponseFromApiCall("getTerminals", new Dictionary<string, Object>(), "GET"));
-        }
+			return new GetTerminalsResult(GetResponseFromApiCall("getTerminals", new Dictionary<string, Object>(), "GET"));
+		}
 
-        private string StreamToString(Stream stream)
+		private string StreamToString(Stream stream)
 		{
 			var sr = new StreamReader(stream);
 			stream.Position = 0;

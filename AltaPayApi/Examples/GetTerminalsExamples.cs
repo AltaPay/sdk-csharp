@@ -13,7 +13,7 @@ namespace Examples
         public GetTerminalsExamples()
         {
             //This is the URL to connect to your gateway instance. If you are in doubt contact support.
-			//For test, use: testgateway.altapaysecure.com
+            //For test, use: testgateway.altapaysecure.com
             string gatewayUrl = "https://testgateway.altapaysecure.com/merchant/API/";
 
             //username to be authenticated on the gateway
