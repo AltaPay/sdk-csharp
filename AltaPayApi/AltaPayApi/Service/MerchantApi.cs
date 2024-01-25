@@ -525,6 +525,12 @@ namespace AltaPay.Service
 			return new CardWalletAuthorizeResult(GetResponseFromApiCall("cardWallet/authorize", parameters));
 		}
 
+		public GetTerminalsResult GetTerminals()
+		{
+
+			return new GetTerminalsResult(GetResponseFromApiCall("getTerminals", new Dictionary<string, Object>(), "GET"));
+		}
+
 		private string StreamToString(Stream stream)
 		{
 			var sr = new StreamReader(stream);
@@ -682,7 +688,7 @@ namespace AltaPay.Service
 			}
 			else
 			{
-			    _sdkVersion = "1.2.0";
+			    _sdkVersion = "1.2.1";
 			}
 
 			return _sdkVersion;
@@ -695,7 +701,7 @@ namespace AltaPay.Service
 
 			string encodedData = ParameterHelper.Convert (parameters);
 
-			if (requestMethod == "GET") {
+			if (requestMethod == "GET" && encodedData != null && encodedData != String.Empty) {
 				method = method + "?" + encodedData;
 			}
 

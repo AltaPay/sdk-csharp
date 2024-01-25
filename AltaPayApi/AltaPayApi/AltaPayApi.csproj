@@ -79,6 +79,7 @@
     <Compile Include="Service\Results\ChargeSubscriptionResult.cs" />
     <Compile Include="Service\Results\Common\Result.cs" />
     <Compile Include="Service\Results\FundingsResult.cs" />
+    <Compile Include="Service\Results\GetTerminalsResult.cs" />
     <Compile Include="Service\Results\GetPaymentResult.cs" />
     <Compile Include="Service\Results\PaymentRequestResult.cs" />
     <Compile Include="Service\Results\PaymentResult.cs" />

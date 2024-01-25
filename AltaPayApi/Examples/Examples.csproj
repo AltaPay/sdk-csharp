@@ -35,6 +35,7 @@
   <ItemGroup>
     <Compile Include="CaptureExamples.cs" />
     <Compile Include="CreatePaymentRequestExamples.cs" />
+    <Compile Include="GetTerminalsExamples.cs" />
     <Compile Include="Notifications\NotificationHandlingExample.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RefundExamples.cs" />

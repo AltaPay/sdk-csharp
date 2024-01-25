@@ -134,7 +134,17 @@ namespace AltaPay.Service.Dto {
         private string countryField;
         
         private string[] naturesField;
-        
+
+        private string[] methodsField;
+
+        private string merchantIdField;
+
+        private PrimaryMethod primaryMethodField;
+
+        private TerminalCanUseCredit canUseCreditField;
+
+        private TerminalCanIssueNewCredit canIssueNewCreditField;
+
         private string[] currenciesField;
         
         /// <remarks/>
@@ -170,7 +180,106 @@ namespace AltaPay.Service.Dto {
                 this.naturesField = value;
             }
         }
-        
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Method", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable = false)]
+        public string[] Methods
+        {
+            get
+            {
+                return this.methodsField;
+            }
+            set
+            {
+                this.methodsField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string MerchantId
+        {
+            get
+            {
+                return this.merchantIdField;
+            }
+            set
+            {
+                this.merchantIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public PrimaryMethod PrimaryMethod
+        {
+            get
+            {
+                return this.primaryMethodField;
+            }
+            set
+            {
+                this.primaryMethodField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public TerminalCanUseCredit CanUseCredit
+        {
+            get
+            {
+                return this.canUseCreditField;
+            }
+            set
+            {
+                this.canUseCreditField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+        [System.SerializableAttribute()]
+        [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+        public enum TerminalCanUseCredit
+        {
+
+            /// <remarks/>
+            @true,
+
+            /// <remarks/>
+            @false,
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public TerminalCanIssueNewCredit CanIssueNewCredit
+        {
+            get
+            {
+                return this.canIssueNewCreditField;
+            }
+            set
+            {
+                this.canIssueNewCreditField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+        [System.SerializableAttribute()]
+        [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+        public enum TerminalCanIssueNewCredit
+        {
+
+            /// <remarks/>
+            @true,
+
+            /// <remarks/>
+            @false,
+        }
+
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         [System.Xml.Serialization.XmlArrayItemAttribute("Currency", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
@@ -183,7 +292,51 @@ namespace AltaPay.Service.Dto {
             }
         }
     }
-    
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class PrimaryMethod
+    {
+
+        private string natureField;
+
+        private string identifierField;
+
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Nature
+        {
+            get
+            {
+                return this.natureField;
+            }
+            set
+            {
+                this.natureField = value;
+            }
+
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Identifier
+        {
+            get
+            {
+                return this.identifierField;
+            }
+            set
+            {
+                this.identifierField = value;
+            }
+        }
+
+    }
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
     [System.SerializableAttribute()]
