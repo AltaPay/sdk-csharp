@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.2.2]
+
+- Add new callback parameter `callback_mobile_app_redirect` for `createPaymentRequest`.
+
 ## [1.2.1]
 
 - Add support for endpoint `getTerminals`.
