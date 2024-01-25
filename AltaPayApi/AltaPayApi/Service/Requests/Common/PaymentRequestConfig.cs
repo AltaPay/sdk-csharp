@@ -12,6 +12,7 @@ namespace AltaPay.Service
 		public string CallbackRedirectUrl {get;set;} // Sending this will override the "callback redirect" setting on the terminal	String (Url)
 		public string CallbackOpenUrl {get;set;} // Sending this will override the "callback open" setting on the terminal	String (Url)
 		public string CallbackNotificationUrl {get;set;} // Sending this will override the "callback notification" setting on the terminal	String (Url)
+		public string CallbackMobileAppRedirectUrl {get;set;} // This is an APP URL where the customer will be redirected from wallet payment app when a payment fails or succeeds.	String (Url)
 		
 		/**
 		 * By settings this, a check will be made at the last possible time before taking the payment. This is
@@ -40,6 +41,7 @@ namespace AltaPay.Service
 			configParams.Add("callback_open", CallbackOpenUrl);
 			configParams.Add("callback_notification", CallbackNotificationUrl);
 			configParams.Add("callback_verify_order", CallbackVerifyOrderUrl);
+			configParams.Add("callback_mobile_app_redirect", CallbackMobileAppRedirectUrl);
 			
 			return configParams;
 		}
