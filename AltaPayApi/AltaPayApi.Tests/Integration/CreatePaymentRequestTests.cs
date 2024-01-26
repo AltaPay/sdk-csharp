@@ -89,7 +89,8 @@ namespace AltaPay.Service.Tests.Integration
 					CallbackRedirectUrl     = "http://demoshop.pensio.com/Redirect",
 					CallbackNotificationUrl = "http://demoshop.pensio.com/Notification",
 					CallbackOpenUrl         = "http://demoshop.pensio.com/Open",
-					CallbackVerifyOrderUrl  = "http://demoshop.pensio.com/VerifyOrder"
+					CallbackVerifyOrderUrl  = "http://demoshop.pensio.com/VerifyOrder",
+					CallbackMobileAppRedirectUrl = "http://demoshop.pensio.com/MobileAppRedirect"
 				},
 				
 				// Customer Data
@@ -252,7 +253,8 @@ namespace AltaPay.Service.Tests.Integration
                     CallbackRedirectUrl     = "http://demoshop.pensio.com/Redirect",
                     CallbackNotificationUrl = "https://sdv-webapp-payment-callback-api-dev.azurewebsites.net/api/notify?OkRedirectUrl=https://www.sdvinternal.dk/order-confirmation&FailRedirectUrl=https://www.sdvinternal.dk/error&CheckoutRedirectUrl=https://www.sdvinternal.dk/checkout",
                     CallbackOpenUrl         = "https://sdv-webapp-payment-callback-api-dev.azurewebsites.net/api/open?OkRedirectUrl=https://www.sdvinternal.dk/order-confirmation&FailRedirectUrl=https://www.sdvinternal.dk/error&CheckoutRedirectUrl=https://www.sdvinternal.dk/checkout",
-                    CallbackVerifyOrderUrl  = "http://demoshop.pensio.com/VerifyOrder"
+                    CallbackVerifyOrderUrl  = "http://demoshop.pensio.com/VerifyOrder",
+                    CallbackMobileAppRedirectUrl  = "http://demoshop.pensio.com/MobileAppRedirect"
                 },
 
                 // Customer Data
