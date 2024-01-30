@@ -54,7 +54,8 @@ namespace Examples
                     CallbackRedirectUrl = "http://demoshop.pensio.com/Redirect",
                     CallbackNotificationUrl = "http://demoshop.pensio.com/Notification",
                     CallbackOpenUrl = "http://demoshop.pensio.com/Open",
-                    CallbackVerifyOrderUrl = "http://demoshop.pensio.com/VerifyOrder"
+                    CallbackVerifyOrderUrl = "http://demoshop.pensio.com/VerifyOrder",
+                    CallbackMobileAppRedirectUrl = "http://demoshop.pensio.com/MobileAppRedirect"
                 }
                 
             };
@@ -160,7 +161,8 @@ namespace Examples
                     CallbackRedirectUrl = "http://demoshop.pensio.com/Redirect",
                     CallbackNotificationUrl = "http://demoshop.pensio.com/Notification",
                     CallbackOpenUrl = "http://demoshop.pensio.com/Open",
-                    CallbackVerifyOrderUrl = "http://demoshop.pensio.com/VerifyOrder"
+                    CallbackVerifyOrderUrl = "http://demoshop.pensio.com/VerifyOrder",
+                    CallbackMobileAppRedirectUrl = "http://demoshop.pensio.com/MobileAppRedirect"
                 },
 
                 // Customer Data
@@ -234,7 +236,8 @@ namespace Examples
                     CallbackRedirectUrl = "http://demoshop.pensio.com/Redirect",
                     CallbackNotificationUrl = "http://demoshop.pensio.com/Notification",
                     CallbackOpenUrl = "http://demoshop.pensio.com/Open",
-                    CallbackVerifyOrderUrl = "http://demoshop.pensio.com/VerifyOrder"
+                    CallbackVerifyOrderUrl = "http://demoshop.pensio.com/VerifyOrder",
+                    CallbackMobileAppRedirectUrl = "http://demoshop.pensio.com/MobileAppRedirect"
                 },
 
                 AgreementConfig = new AgreementConfig
