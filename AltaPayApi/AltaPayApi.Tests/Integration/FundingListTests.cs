@@ -27,7 +27,7 @@ namespace AltaPay.Service.Tests.Integration
 			FundingsResult result = _api.GetFundings(new GetFundingsRequest { Page = 0 });
 
 			Assert.AreEqual(Result.Success, result.Result);
-			Assert.AreEqual(1, result.Pages);
+			Assert.AreEqual(60, result.Pages);
 			Assert.IsTrue(result.Fundings.Count >= 1);
 		}
 
@@ -38,7 +38,7 @@ namespace AltaPay.Service.Tests.Integration
 			FundingsResult result = _api.GetFundings(new GetFundingsRequest { Page = 0 });
 
 			Assert.AreEqual(Result.Success, result.Result);
-			Assert.AreEqual(1, result.Pages);
+			Assert.AreEqual(60, result.Pages);
 			Assert.IsTrue(result.Fundings.Count >= 1);
 
 			Funding funding = result.Fundings[0];
@@ -79,7 +79,7 @@ namespace AltaPay.Service.Tests.Integration
             FundingsResult result = _api.GetFundings(new GetFundingsRequest { Page = 0 });
 
 			Assert.AreEqual(Result.Success, result.Result);
-			Assert.AreEqual(1, result.Pages);
+			Assert.AreEqual(60, result.Pages);
 			Assert.IsTrue(result.Fundings.Count >= 1);
 
 			Funding funding = result.Fundings[0];

@@ -1,6 +1,12 @@
-# AltaPay - API C_Sharp
+# AltaPay - API C# (C-Sharp)
 
-C_Sharp is a Client library that is used as a bridge between customer .Net solutions and Altapay gateway.
+C# (C-Sharp) is a Client library that is used as a bridge between customer .Net solutions and Altapay gateway.
+
+
+## Compatibility
+- .NetFramework 4.6.0 and below
+
+    For .NetFramework 4.6.1 and above please see [AltaPay - API C# (C-Sharp) 2.0](https://github.com/AltaPay/sdk-csharp2.0)
 
 ## Requirements
 

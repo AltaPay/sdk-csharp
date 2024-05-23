@@ -40,6 +40,10 @@ namespace Examples
             GetTerminalsExamples getTerminalsExamples = new GetTerminalsExamples();
             getTerminalsExamples.GetTerminals();
             System.Console.ReadLine();
+            //calculateSurcharge examples
+            Console.WriteLine ("Executing Calculate Surcharge example");
+            CalculateSurchargeExamples calculateSurchargeExamples = new CalculateSurchargeExamples ();
+            calculateSurchargeExamples.CalculateSurcharge ();
         }
     }
 }

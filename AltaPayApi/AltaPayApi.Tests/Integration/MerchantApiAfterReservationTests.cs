@@ -144,30 +144,32 @@ namespace AltaPay.Service.Tests.Integration
 		[Test]
 		public void ChargeSubscriptionReturnsSuccess()
 		{
-			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
+			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription, "IT_AGREEMENTS_UI_");
 			
 			this.WaitForDataToFlowIntoReporting();
 			
 			var request = new ChargeSubscriptionRequest() {
 				SubscriptionId = createPaymentResult.Payment.TransactionId,
 				Amount = Amount.Get(1, Currency.XXX),
+				AgreementUnscheduledType =  AgreementUnscheduledType.incremental
 			};
 			SubscriptionResult result = _api.ChargeSubscription(request);
 
 			Assert.AreEqual(Result.Success, result.Result);
 		}
-
+		
 		[Test]
 		public void ChargeSubscriptionReturnsBothPayments()
 		{
-			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
+			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription, "IT_AGREEMENTS_UI_");
 			
 			this.WaitForDataToFlowIntoReporting();
 			
 			var request = new ChargeSubscriptionRequest() {
 				SubscriptionId = createPaymentResult.Payment.TransactionId,
 				Amount = Amount.Get(1, Currency.XXX),
-			};
+				AgreementUnscheduledType = AgreementUnscheduledType.incremental
+		};
 			SubscriptionResult result = _api.ChargeSubscription(request);
 
 			Assert.AreEqual(createPaymentResult.Payment.TransactionId, result.Payment.TransactionId);
@@ -178,13 +180,14 @@ namespace AltaPay.Service.Tests.Integration
 		[Test]
 		public void ReserveSubscriptionChargeReturnsSuccess()
 		{
-			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
+			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription, "IT_AGREEMENTS_UI_");
 			
 			this.WaitForDataToFlowIntoReporting();
 			
 			var request = new ReserveSubscriptionChargeRequest {
 				SubscriptionId = createPaymentResult.Payment.TransactionId,
 				Amount = Amount.Get(1, Currency.XXX),
+				AgreementUnscheduledType = AgreementUnscheduledType.incremental
 			};
 			SubscriptionResult result = _api.ReserveSubscriptionCharge(request);
 			Assert.AreEqual(Result.Success, result.Result);
@@ -193,13 +196,14 @@ namespace AltaPay.Service.Tests.Integration
 		[Test]
 		public void ReserveSubscriptionChargeReturnsBothPayments()
 		{
-			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription);
+			PaymentResult createPaymentResult = ReserveAmount(1.23, AuthType.subscription, "IT_AGREEMENTS_UI_");
 			
 			this.WaitForDataToFlowIntoReporting();
 			
 			var request = new ReserveSubscriptionChargeRequest {
 				SubscriptionId = createPaymentResult.Payment.TransactionId,
 				Amount = Amount.Get(1, Currency.XXX),
+				AgreementUnscheduledType = AgreementUnscheduledType.incremental
 			};
 			SubscriptionResult result = _api.ReserveSubscriptionCharge(request);
 
@@ -252,8 +256,8 @@ namespace AltaPay.Service.Tests.Integration
 		{
 			var sixMonthsFromNowDate = DateTime.Now.AddMonths(6);
 			var request = new ReserveRequest {
-				ShopOrderId =  includeAgreementConfig +"csharptest"+Guid.NewGuid().ToString(),
-				Terminal = "AltaPay Soap Test Terminal",
+				ShopOrderId = includeAgreementConfig +"csharptest"+Guid.NewGuid().ToString(),
+				Terminal = GatewayConstants.terminal,
 				Amount = Amount.Get(amount, Currency.DKK),
 				PaymentType = type,
 				Pan = "4111000011110000",
@@ -263,7 +267,7 @@ namespace AltaPay.Service.Tests.Integration
 			};
 
 			if(includeAgreementConfig != "")
-			{
+            {
 				var agreementConfig = new AgreementConfig();
 				agreementConfig.AgreementType = AgreementType.unscheduled;
 				agreementConfig.AgreementUnscheduledType = AgreementUnscheduledType.incremental;
