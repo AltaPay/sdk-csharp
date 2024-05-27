@@ -9,6 +9,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 
 WORKDIR /tmp
 
+RUN mkdir ~/.gnupg && echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf
 RUN apt-get update && apt-get install -y --no-install-recommends openjdk-8-jdk wget
 RUN wget --no-check-certificate --no-cookies ${ANT_MIRROR}/ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz
 RUN tar -zvxf apache-ant-${ANT_VERSION}-bin.tar.gz -C /opt/
