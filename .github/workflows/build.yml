@@ -13,7 +13,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
+      - name: Fix
+        run: mkdir ~/.gnupg && echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf
       - name: Create build
         run: bash docker-build-script.sh
         working-directory: docker
