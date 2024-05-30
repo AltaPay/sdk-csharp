@@ -15,9 +15,9 @@ namespace AltaPay.Service.Tests.Integration
 		IMerchantApi _api;
         private CustomerInfo _testCustomerInfo;
         private List<PaymentOrderLine> _testOrderlines;
-        private const string _testKlarnaDKTerminal = "AltaPay Klarna DK";
-        private const string _testTerminal = "Simion Demo Shop Test Terminal";
-        private const string _expectedTerminal = "Simion Demo Shop Test Terminal";
+        private const string _testKlarnaDKTerminal = GatewayConstants.klarnaTerminal;
+        private const string _testTerminal = GatewayConstants.terminal;
+        private const string _expectedTerminal = GatewayConstants.terminal;
         
 
         [SetUp]
@@ -52,7 +52,7 @@ namespace AltaPay.Service.Tests.Integration
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 5.67, callReservationOfFixedAmount);
 
 			Assert.AreEqual(Result.Error, result.Result);
-			Assert.AreEqual("Internal Error", result.ResultMessage);
+			Assert.AreEqual("TestAcquirer[pan=0567 or amount=5670]", result.ResultMessage);
 		}
 
 		[TestCase(true)]
@@ -469,7 +469,7 @@ namespace AltaPay.Service.Tests.Integration
 
             IDictionary <string, object> TransactionInfo = new Dictionary<string, object>();
             TransactionInfo.Add("sdkName", "sdk-csharp");
-            TransactionInfo.Add("sdkVersion","1.2.2");
+            TransactionInfo.Add("sdkVersion","1.2.3");
 
             var request = new CreditRequest
             {

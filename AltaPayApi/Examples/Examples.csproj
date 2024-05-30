@@ -40,6 +40,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="RefundExamples.cs" />
     <Compile Include="ReleaseExamples.cs" />
+    <Compile Include="CalculateSurchargeExamples.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

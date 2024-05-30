@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.2.3]
+
+- Add support for endpoint `calculateSurcharge`.
+
 ## [1.2.2]
 
 - Add option to set new callback parameter `callback_mobile_app_redirect` for `createPaymentRequest`.

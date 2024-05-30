@@ -127,25 +127,28 @@ namespace AltaPay.Service.Dto {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class Terminal {
+    public partial class MerchantShop {
+        
+        private string idField;
         
         private string titleField;
         
-        private string countryField;
+        private string currencyField;
         
-        private string[] naturesField;
-
-        private string[] methodsField;
-
-        private string merchantIdField;
-
-        private PrimaryMethod primaryMethodField;
-
-        private TerminalCanUseCredit canUseCreditField;
-
-        private TerminalCanIssueNewCredit canIssueNewCreditField;
-
-        private string[] currenciesField;
+        private string apiVersionField;
+        
+        private string searchIndexField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+            }
+        }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
@@ -155,6 +158,395 @@ namespace AltaPay.Service.Dto {
             }
             set {
                 this.titleField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Currency {
+            get {
+                return this.currencyField;
+            }
+            set {
+                this.currencyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string ApiVersion {
+            get {
+                return this.apiVersionField;
+            }
+            set {
+                this.apiVersionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string SearchIndex {
+            get {
+                return this.searchIndexField;
+            }
+            set {
+                this.searchIndexField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class User {
+        
+        private string idField;
+        
+        private string usernameField;
+        
+        private PrimaryMethod firstnameField;
+        
+        private string[] lastnameField;
+        
+        private string[] emailField;
+        
+        private string[] credentialsField;
+        
+        private string[] shopsField;
+        
+        private string[] flagsField;
+        
+        private string merchantIdField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Username {
+            get {
+                return this.usernameField;
+            }
+            set {
+                this.usernameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public PrimaryMethod Firstname {
+            get {
+                return this.firstnameField;
+            }
+            set {
+                this.firstnameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Nature", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public string[] Lastname {
+            get {
+                return this.lastnameField;
+            }
+            set {
+                this.lastnameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Nature", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public string[] Email {
+            get {
+                return this.emailField;
+            }
+            set {
+                this.emailField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Credential", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public string[] Credentials {
+            get {
+                return this.credentialsField;
+            }
+            set {
+                this.credentialsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Shop", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public string[] Shops {
+            get {
+                return this.shopsField;
+            }
+            set {
+                this.shopsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Flag", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public string[] Flags {
+            get {
+                return this.flagsField;
+            }
+            set {
+                this.flagsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string MerchantId {
+            get {
+                return this.merchantIdField;
+            }
+            set {
+                this.merchantIdField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class PrimaryMethod {
+        
+        private string natureField;
+        
+        private string identifierField;
+        
+        private string[] supportedAgreementTypesField;
+        
+        private string[] supportedPrimaryPaymentAuthTypesField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Nature {
+            get {
+                return this.natureField;
+            }
+            set {
+                this.natureField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Identifier {
+            get {
+                return this.identifierField;
+            }
+            set {
+                this.identifierField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("AgreementType", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public string[] SupportedAgreementTypes {
+            get {
+                return this.supportedAgreementTypesField;
+            }
+            set {
+                this.supportedAgreementTypesField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("PrimaryPaymentAuthType", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public string[] SupportedPrimaryPaymentAuthTypes {
+            get {
+                return this.supportedPrimaryPaymentAuthTypesField;
+            }
+            set {
+                this.supportedPrimaryPaymentAuthTypesField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class Field {
+        
+        private string nameField;
+        
+        private string valueField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class Translation {
+        
+        private Field[] fieldField;
+        
+        private string languageField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("Field", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public Field[] Field {
+            get {
+                return this.fieldField;
+            }
+            set {
+                this.fieldField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string language {
+            get {
+                return this.languageField;
+            }
+            set {
+                this.languageField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class MethodConfig {
+        
+        private System.Xml.XmlElement anyField;
+        
+        private string methodField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAnyElementAttribute()]
+        public System.Xml.XmlElement Any {
+            get {
+                return this.anyField;
+            }
+            set {
+                this.anyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string method {
+            get {
+                return this.methodField;
+            }
+            set {
+                this.methodField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class Terminal {
+        
+        private string titleField;
+        
+        private string shopNameField;
+        
+        private string countryField;
+        
+        private PrimaryMethod primaryMethodField;
+        
+        private string[] productsField;
+        
+        private string[] naturesField;
+        
+        private string[] currenciesField;
+        
+        private string[] methodsField;
+        
+        private MethodConfig[] methodConfigurationsField;
+        
+        private string merchantIdField;
+        
+        private bool canUseCreditField;
+        
+        private bool canUseCreditFieldSpecified;
+        
+        private bool canIssueNewCreditField;
+        
+        private bool canIssueNewCreditFieldSpecified;
+        
+        private string logoUrlField;
+        
+        private Translation[] translationsField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Title {
+            get {
+                return this.titleField;
+            }
+            set {
+                this.titleField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string ShopName {
+            get {
+                return this.shopNameField;
+            }
+            set {
+                this.shopNameField = value;
             }
         }
         
@@ -170,6 +562,29 @@ namespace AltaPay.Service.Dto {
         }
         
         /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public PrimaryMethod PrimaryMethod {
+            get {
+                return this.primaryMethodField;
+            }
+            set {
+                this.primaryMethodField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Product", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public string[] Products {
+            get {
+                return this.productsField;
+            }
+            set {
+                this.productsField = value;
+            }
+        }
+        
+        /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         [System.Xml.Serialization.XmlArrayItemAttribute("Nature", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
         public string[] Natures {
@@ -180,106 +595,7 @@ namespace AltaPay.Service.Dto {
                 this.naturesField = value;
             }
         }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("Method", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable = false)]
-        public string[] Methods
-        {
-            get
-            {
-                return this.methodsField;
-            }
-            set
-            {
-                this.methodsField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string MerchantId
-        {
-            get
-            {
-                return this.merchantIdField;
-            }
-            set
-            {
-                this.merchantIdField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public PrimaryMethod PrimaryMethod
-        {
-            get
-            {
-                return this.primaryMethodField;
-            }
-            set
-            {
-                this.primaryMethodField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public TerminalCanUseCredit CanUseCredit
-        {
-            get
-            {
-                return this.canUseCreditField;
-            }
-            set
-            {
-                this.canUseCreditField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-        [System.SerializableAttribute()]
-        [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-        public enum TerminalCanUseCredit
-        {
-
-            /// <remarks/>
-            @true,
-
-            /// <remarks/>
-            @false,
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public TerminalCanIssueNewCredit CanIssueNewCredit
-        {
-            get
-            {
-                return this.canIssueNewCreditField;
-            }
-            set
-            {
-                this.canIssueNewCreditField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-        [System.SerializableAttribute()]
-        [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-        public enum TerminalCanIssueNewCredit
-        {
-
-            /// <remarks/>
-            @true,
-
-            /// <remarks/>
-            @false,
-        }
-
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         [System.Xml.Serialization.XmlArrayItemAttribute("Currency", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
@@ -291,52 +607,110 @@ namespace AltaPay.Service.Dto {
                 this.currenciesField = value;
             }
         }
-    }
-
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class PrimaryMethod
-    {
-
-        private string natureField;
-
-        private string identifierField;
-
-
+        
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Nature
-        {
-            get
-            {
-                return this.natureField;
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Method", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public string[] Methods {
+            get {
+                return this.methodsField;
             }
-            set
-            {
-                this.natureField = value;
-            }
-
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Identifier
-        {
-            get
-            {
-                return this.identifierField;
-            }
-            set
-            {
-                this.identifierField = value;
+            set {
+                this.methodsField = value;
             }
         }
-
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.Xml.Serialization.XmlArrayItemAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public MethodConfig[] MethodConfigurations {
+            get {
+                return this.methodConfigurationsField;
+            }
+            set {
+                this.methodConfigurationsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string MerchantId {
+            get {
+                return this.merchantIdField;
+            }
+            set {
+                this.merchantIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool CanUseCredit {
+            get {
+                return this.canUseCreditField;
+            }
+            set {
+                this.canUseCreditField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool CanUseCreditSpecified {
+            get {
+                return this.canUseCreditFieldSpecified;
+            }
+            set {
+                this.canUseCreditFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool CanIssueNewCredit {
+            get {
+                return this.canIssueNewCreditField;
+            }
+            set {
+                this.canIssueNewCreditField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool CanIssueNewCreditSpecified {
+            get {
+                return this.canIssueNewCreditFieldSpecified;
+            }
+            set {
+                this.canIssueNewCreditFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string LogoUrl {
+            get {
+                return this.logoUrlField;
+            }
+            set {
+                this.logoUrlField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.Xml.Serialization.XmlArrayItemAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public Translation[] Translations {
+            get {
+                return this.translationsField;
+            }
+            set {
+                this.translationsField = value;
+            }
+        }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
     [System.SerializableAttribute()]
@@ -774,6 +1148,8 @@ namespace AltaPay.Service.Dto {
         
         private bool isTokenizedField;
         
+        private CardInformation cardInformationField;
+        
         private string giftCardTokenField;
         
         private string maskedGiftCardField;
@@ -849,6 +1225,8 @@ namespace AltaPay.Service.Dto {
         private PaymentInfo[] paymentInfosField;
         
         private CustomerInfo customerInfoField;
+        
+        private InvoiceOrderInfo invoiceOrderInfoField;
         
         private ReconciliationIdentifier[] reconciliationIdentifiersField;
         
@@ -937,6 +1315,17 @@ namespace AltaPay.Service.Dto {
             }
             set {
                 this.isTokenizedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public CardInformation CardInformation {
+            get {
+                return this.cardInformationField;
+            }
+            set {
+                this.cardInformationField = value;
             }
         }
         
@@ -1361,6 +1750,17 @@ namespace AltaPay.Service.Dto {
         }
         
         /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public InvoiceOrderInfo InvoiceOrderInfo {
+            get {
+                return this.invoiceOrderInfoField;
+            }
+            set {
+                this.invoiceOrderInfoField = value;
+            }
+        }
+        
+        /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         [System.Xml.Serialization.XmlArrayItemAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
         public ReconciliationIdentifier[] ReconciliationIdentifiers {
@@ -1431,6 +1831,105 @@ namespace AltaPay.Service.Dto {
             }
             set {
                 this.monthField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CardInformation {
+        
+        private bool isTokenizedField;
+        
+        private string tokenField;
+        
+        private string maskedPanField;
+        
+        private CreditCardExpiry expiryField;
+        
+        private string issuingCountryField;
+        
+        private string lastFourDigitsField;
+        
+        private string schemeField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool IsTokenized {
+            get {
+                return this.isTokenizedField;
+            }
+            set {
+                this.isTokenizedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Token {
+            get {
+                return this.tokenField;
+            }
+            set {
+                this.tokenField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string MaskedPan {
+            get {
+                return this.maskedPanField;
+            }
+            set {
+                this.maskedPanField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public CreditCardExpiry Expiry {
+            get {
+                return this.expiryField;
+            }
+            set {
+                this.expiryField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string IssuingCountry {
+            get {
+                return this.issuingCountryField;
+            }
+            set {
+                this.issuingCountryField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string LastFourDigits {
+            get {
+                return this.lastFourDigitsField;
+            }
+            set {
+                this.lastFourDigitsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Scheme {
+            get {
+                return this.schemeField;
+            }
+            set {
+                this.schemeField = value;
             }
         }
     }
@@ -2202,6 +2701,251 @@ namespace AltaPay.Service.Dto {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class InvoiceOrderInfo {
+        
+        private InvoiceAddress billingAddressField;
+        
+        private paymentMethod paymentMethodField;
+        
+        private string currencyField;
+        
+        private string orderAmountField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public InvoiceAddress billingAddress {
+            get {
+                return this.billingAddressField;
+            }
+            set {
+                this.billingAddressField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public paymentMethod paymentMethod {
+            get {
+                return this.paymentMethodField;
+            }
+            set {
+                this.paymentMethodField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string currency {
+            get {
+                return this.currencyField;
+            }
+            set {
+                this.currencyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string orderAmount {
+            get {
+                return this.orderAmountField;
+            }
+            set {
+                this.orderAmountField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class InvoiceAddress {
+        
+        private string givenNameField;
+        
+        private string familyNameField;
+        
+        private string emailField;
+        
+        private string phoneField;
+        
+        private string streetAddressField;
+        
+        private string regionField;
+        
+        private string postalCodeField;
+        
+        private string countryField;
+        
+        private string cityField;
+        
+        private string attField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string givenName {
+            get {
+                return this.givenNameField;
+            }
+            set {
+                this.givenNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string familyName {
+            get {
+                return this.familyNameField;
+            }
+            set {
+                this.familyNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string email {
+            get {
+                return this.emailField;
+            }
+            set {
+                this.emailField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string phone {
+            get {
+                return this.phoneField;
+            }
+            set {
+                this.phoneField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string streetAddress {
+            get {
+                return this.streetAddressField;
+            }
+            set {
+                this.streetAddressField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string region {
+            get {
+                return this.regionField;
+            }
+            set {
+                this.regionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string postalCode {
+            get {
+                return this.postalCodeField;
+            }
+            set {
+                this.postalCodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string country {
+            get {
+                return this.countryField;
+            }
+            set {
+                this.countryField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string city {
+            get {
+                return this.cityField;
+            }
+            set {
+                this.cityField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string att {
+            get {
+                return this.attField;
+            }
+            set {
+                this.attField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class paymentMethod {
+        
+        private string typeField;
+        
+        private string descriptionField;
+        
+        private string numberOfInstallmentsField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string type {
+            get {
+                return this.typeField;
+            }
+            set {
+                this.typeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string description {
+            get {
+                return this.descriptionField;
+            }
+            set {
+                this.descriptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string numberOfInstallments {
+            get {
+                return this.numberOfInstallmentsField;
+            }
+            set {
+                this.numberOfInstallmentsField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ReconciliationIdentifier {
         
         private string idField;
@@ -2417,6 +3161,8 @@ namespace AltaPay.Service.Dto {
         
         private string cardHolderErrorMessageField;
         
+        private string merchantErrorCodeField;
+        
         private bool cardHolderMessageMustBeShownField;
         
         private bool cardHolderMessageMustBeShownFieldSpecified;
@@ -2453,6 +3199,12 @@ namespace AltaPay.Service.Dto {
         
         private string dynamicJavascriptUrlField;
         
+        private string appUrlField;
+        
+        private string orderIdField;
+        
+        private string returnUrlField;
+        
         private double recurringDefaultAmountField;
         
         private bool recurringDefaultAmountFieldSpecified;
@@ -2464,6 +3216,12 @@ namespace AltaPay.Service.Dto {
         private Account[] accountsField;
         
         private Terminal[] terminalsField;
+        
+        private User userField;
+        
+        private MerchantShop shopField;
+        
+        private Terminal terminalField;
         
         private string applePaySessionField;
         
@@ -2598,6 +3356,17 @@ namespace AltaPay.Service.Dto {
             }
             set {
                 this.cardHolderErrorMessageField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string MerchantErrorCode {
+            get {
+                return this.merchantErrorCodeField;
+            }
+            set {
+                this.merchantErrorCodeField = value;
             }
         }
         
@@ -2801,6 +3570,39 @@ namespace AltaPay.Service.Dto {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string AppUrl {
+            get {
+                return this.appUrlField;
+            }
+            set {
+                this.appUrlField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string orderId {
+            get {
+                return this.orderIdField;
+            }
+            set {
+                this.orderIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string returnUrl {
+            get {
+                return this.returnUrlField;
+            }
+            set {
+                this.returnUrlField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public double RecurringDefaultAmount {
             get {
                 return this.recurringDefaultAmountField;
@@ -2864,6 +3666,39 @@ namespace AltaPay.Service.Dto {
             }
             set {
                 this.terminalsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public User User {
+            get {
+                return this.userField;
+            }
+            set {
+                this.userField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public MerchantShop Shop {
+            get {
+                return this.shopField;
+            }
+            set {
+                this.shopField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public Terminal Terminal {
+            get {
+                return this.terminalField;
+            }
+            set {
+                this.terminalField = value;
             }
         }
         
