@@ -9,6 +9,7 @@ namespace AltaPay.Service
     {
 		public string Url { get; set; }
 		public string DynamicJavascriptUrl { get; set; }
+		public string AppUrl { get; set; }
 		public string PaymentRequestId { get; set; }
 		
 		public PaymentRequestResult(APIResponse apiResponse)
@@ -23,6 +24,7 @@ namespace AltaPay.Service
 
 				Url = apiResponse.Body.Url;
 				DynamicJavascriptUrl = apiResponse.Body.DynamicJavascriptUrl;
+				AppUrl = apiResponse.Body.AppUrl;
 				PaymentRequestId = apiResponse.Body.PaymentRequestId;
 			}
 			else
