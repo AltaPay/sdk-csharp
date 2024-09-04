@@ -11,6 +11,7 @@ namespace AltaPay.Service.Tests.Integration
 		public const string password = "testpassword";
 		public const string terminal = "AltaPay Test Terminal";
 		public const string klarnaTerminal = "AltaPay Klarna DKK Test Terminal";
+		public const string vippsTerminal = "EmbraceIT Vipps Test Terminal";
 
 		public const string PreauthTransactionStatus = "preauth";
 		public const string CreditedTransactionStatus = "credited";
