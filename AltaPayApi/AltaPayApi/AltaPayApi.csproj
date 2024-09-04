@@ -56,7 +56,6 @@
     <Compile Include="Service\IMerchantApi.cs" />
     <Compile Include="Generated\APIResponse.cs" />
     <Compile Include="Service\Helpers\ParameterHelper.cs" />
-    <Compile Include="Service\Requests\CalculateSurchargeRequest.cs" />
     <Compile Include="Service\Requests\Common\AccountOffer.cs" />
     <Compile Include="Service\Requests\Common\Amount.cs" />
     <Compile Include="Service\Requests\Common\AuthType.cs" />
@@ -78,7 +77,6 @@
     <Compile Include="Service\Requests\CreditCardWalletInitiateAppPaymentRequest.cs" />
     <Compile Include="Service\Requests\UpdateOrderRequest.cs" />
     <Compile Include="Service\Results\ApiResult.cs" />
-    <Compile Include="Service\Results\CalculateSurchargeResult.cs" />
     <Compile Include="Service\Results\CaptureResult.cs" />
     <Compile Include="Service\Results\ChargeSubscriptionResult.cs" />
     <Compile Include="Service\Results\Common\Result.cs" />
