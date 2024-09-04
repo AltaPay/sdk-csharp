@@ -542,6 +542,15 @@ namespace AltaPay.Service
 			return new CalculateSurchargeResult (GetResponseFromApiCall ("calculateSurcharge", parameters, "GET"));
 		}
 
+		public CreditCardWalletInitiateAppPaymentResult CreditCardWalletInitiateAppPayment(CreditCardWalletInitiateAppPaymentRequest request)
+		{
+			Dictionary<string, Object> parameters = new Dictionary<string, Object>();
+
+			parameters.Add("customer_info", request.CustomerInfo.AddToDictionary(new Dictionary<string, object>()));
+
+			return new CreditCardWalletInitiateAppPaymentResult(GetResponseFromApiCall(request.AppUrl, parameters, "GET", isMethodUrl: true));
+		}
+
 		private string StreamToString(Stream stream)
 		{
 			var sr = new StreamReader(stream);
@@ -670,9 +679,9 @@ namespace AltaPay.Service
 			}
 		}
 
-		private APIResponse GetResponseFromApiCall (string method, Dictionary<string, Object> parameters, String requestMethod = "POST")
+		private APIResponse GetResponseFromApiCall (string method, Dictionary<string, Object> parameters, String requestMethod = "POST", bool isMethodUrl = false)
 		{
-			using (Stream responseStream = CallApi (method, parameters, requestMethod)) {
+			using (Stream responseStream = CallApi (method, parameters, requestMethod, isMethodUrl)) {
 				/*
 				// dumping response for debugging... this would be easier with .NET 4 as it has Stream.CopyTo(..)
 				using (var fileStream = File.Create("/tmp/multipaymentrequest_response"))
@@ -705,7 +714,7 @@ namespace AltaPay.Service
 			return _sdkVersion;
 		}
 
-		private Stream CallApi (string method, Dictionary<string, Object> parameters, string requestMethod)
+		private Stream CallApi (string method, Dictionary<string, Object> parameters, string requestMethod, bool isMethodUrl = false)
 		{
 			//Use either TLS 1.1 or TLS 1.2
 			System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
@@ -716,7 +725,8 @@ namespace AltaPay.Service
 				method = method + "?" + encodedData;
 			}
 
-			WebRequest request = WebRequest.Create (String.Format ("{0}{1}", _gatewayUrl, method));
+			// When method param is a complete URL itself, then call it as is e.g. request to AppUrl in case of creditCardWalletInitiateAppPayment
+			WebRequest request = WebRequest.Create (isMethodUrl ? method : String.Format("{0}{1}", _gatewayUrl, method));
 			request.Credentials = new NetworkCredential (_username, _password);
 
 			HttpWebRequest http = (HttpWebRequest)request;

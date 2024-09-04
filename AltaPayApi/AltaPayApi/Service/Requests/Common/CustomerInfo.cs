@@ -14,10 +14,14 @@ namespace AltaPay.Service
 		public CustomerAddress BillingAddress { get; set; }
 		public CustomerAddress ShippingAddress { get; set; }
 		public CardHolderData CardHolder { get; set; }
-        public DateTime BirthDate { get; set; }
+		public DateTime BirthDate { get; set; }
+		public string ClientSessionId { get; set; }
+		public string ClientAcceptLanguage { get; set; }
+		public string ClienUserAgent { get; set; }
+		public string ClientForwardedIp { get; set; }
+		
 
-
-        public CustomerInfo() {
+		public CustomerInfo() {
 			BillingAddress = new CustomerAddress();
 			ShippingAddress = new CustomerAddress();
 			CardHolder = new CardHolderData();
@@ -33,7 +37,7 @@ namespace AltaPay.Service
 			if (BirthDate.Ticks != 0) {
 				parameters.Add ("birthdate", BirthDate.ToString ("yyyy-MM-dd")); //The customer's birth date in format yyyy-MM-dd
 			}
-            parameters.Add("billing_firstname", BillingAddress.Firstname); //The first name for the customer's billing address.	String
+			parameters.Add("billing_firstname", BillingAddress.Firstname); //The first name for the customer's billing address.	String
 			parameters.Add("billing_lastname", BillingAddress.Lastname); //The last name for the customer's billing address.	String
 			parameters.Add("billing_city", BillingAddress.City); //The city of the customer's billing address.	string
 			parameters.Add("billing_region", BillingAddress.Region); //The region of the customer's billing address.	string
@@ -56,7 +60,11 @@ namespace AltaPay.Service
 			parameters.Add("cardholder_homephone", CardHolder.HomePhone); //The home-phone number of the cardholder.   string
 			parameters.Add("cardholder_mobilephone", CardHolder.MobilePhone); //The mobile-phone number of the cardholder.  string
 
-			
+			parameters.Add("client_session_id", ClientSessionId); //A unique identifier of the customers session (eg. an md5 hash of the real session id). Used for fraud detection.  string
+			parameters.Add("client_accept_language", ClientAcceptLanguage); //The language setting of the customers browser. Used for fraud detection.  string
+			parameters.Add("client_user_agent", ClienUserAgent); //The customers browser identification. Used for fraud detection.  Required when use wallet flow with mobile app redirect url(callback_mobile_app_redirect).  string
+			parameters.Add("client_forwarded_ip", ClientForwardedIp); //The customers IP address as forwarded by transparent proxy. Used for fraud detection.  string
+
 			return parameters;
 		}
 	}
