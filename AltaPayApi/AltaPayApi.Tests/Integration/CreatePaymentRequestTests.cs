@@ -240,10 +240,9 @@ namespace AltaPay.Service.Tests.Integration
         public void CreateVippsPaymentRequest()
         {
             PaymentRequestRequest paymentRequest = new PaymentRequestRequest() {
-                Terminal = GatewayConstants.terminal,
-                //ShopOrderId = "payment-req-" + Guid.NewGuid().ToString(),
-                ShopOrderId = "11",
-                Amount = Amount.Get(700.00, Currency.DKK),
+                Terminal = GatewayConstants.vippsTerminal,
+                ShopOrderId = "payment-req-" + Guid.NewGuid().ToString(),
+                Amount = Amount.Get(700.00, Currency.NOK),
                 FraudService = FraudService.Test,
                 // All the callback configs
                 Config = new PaymentRequestConfig() {
@@ -313,8 +312,30 @@ namespace AltaPay.Service.Tests.Integration
             Assert.IsNotEmpty(result.Url);
             Assert.IsNotEmpty(result.DynamicJavascriptUrl);
             Assert.IsNotEmpty(result.PaymentRequestId);
+            Assert.IsNotEmpty(result.AppUrl);
 
-            System.Diagnostics.Process.Start(result.Url);
+            CreditCardWalletInitiateAppPaymentResult redirectResult = _api.CreditCardWalletInitiateAppPayment(new CreditCardWalletInitiateAppPaymentRequest()
+            {
+                AppUrl = result.AppUrl,
+                CustomerInfo = new CustomerInfoCreditCardWalletInitiateAppPayment()
+                {
+                    CardHolderName = "asdasd",
+                    ClientAcceptLanguage = "en",
+                    ClientUserAgent = "Mozilla/5.0 (Linux; Android 13; SM-A536B)",
+                    ClientIp = "172.0.0.1",
+                    ClientAccept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+                    ClientJavaEnabled = "false",
+                    ClientColorDepth = "24",
+                    ClientScreenHeight = "845",
+                    ClientScreenWidth = "384",
+                    ClientTimeZone = "-60",
+                    ClientJavascriptEnabled = "true"
+                }
+            });
+            Assert.IsNotEmpty(redirectResult.RedirectResponse.Url);
+
+            System.Diagnostics.Process.Start(redirectResult.RedirectResponse.Url);
+
         }
 
 		[Test]

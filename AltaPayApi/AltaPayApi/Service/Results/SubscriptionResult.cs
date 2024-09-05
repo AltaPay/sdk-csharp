@@ -9,7 +9,10 @@ namespace AltaPay.Service
 	public class SubscriptionResult : PaymentResult
 	{
 		public Transaction RecurringPayment { get; set; }
+
+        [System.Obsolete("RedirectUrl is deprecated, please use RedirectResponse instead.")]
         public string RedirectUrl { get; set; }
+        public RedirectResponse RedirectResponse { get; set; }
 
         public SubscriptionResult(APIResponse apiResponse)
 			:base(apiResponse)
@@ -30,6 +33,7 @@ namespace AltaPay.Service
                 if (apiResponse.Body.Result == Result.Redirect.ToString())
                 {
                     RedirectUrl = apiResponse.Body.RedirectResponse.Url;
+                    RedirectResponse = apiResponse.Body.RedirectResponse;
                 }
             }
             else
