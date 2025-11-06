@@ -1,6 +1,5 @@
 # Changelog
 All notable changes to this project will be documented in this file.
-
 ## [1.3.0]
 
 - Add support for endpoint `checkoutSession`.
@@ -10,7 +9,6 @@ All notable changes to this project will be documented in this file.
 - Add support to include recipient information as part of the `createPaymentRequest`.
 - Add support to provide new `customer_info` parameters: `account_identifier` and `gender`.
 - Add support to specify the `form_template` parameter in `createPaymentRequest`, allowing selection of a specific payment form template.
-
 ## [1.2.4]
 
 - Add new response property `AppUrl` for `createPaymentRequest`.
