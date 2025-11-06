@@ -56,7 +56,8 @@ namespace Examples
                     CallbackOpenUrl = "http://demoshop.pensio.com/Open",
                     CallbackVerifyOrderUrl = "http://demoshop.pensio.com/VerifyOrder",
                     CallbackMobileAppRedirectUrl = "http://demoshop.pensio.com/MobileAppRedirect"
-                }
+                },
+				FormTemplate = "form_checkout",
                 
             };
 
@@ -88,14 +89,17 @@ namespace Examples
             //dedicated terminal on the gateway
             string terminal = "AltaPay Dev Terminal";
 
-            CustomerInfo customerInfo = new CustomerInfo
+			CustomerInfo customerInfo = new CustomerInfo
             {
                 Email = "johndoe@example.com",
                 Username = "johndoe",
-                CustomerPhone = "+4512345678",
+				AccountIdentifier = "myAccount",
+				CustomerPhone = "+4512345678",
                 BankName = "Example Bank",
                 BankPhone = "+4511122356",
-                BillingAddress = new CustomerAddress
+				BirthDate = DateTime.Parse ("2000-01-01"),
+				Gender = Gender.F,
+				BillingAddress = new CustomerAddress
                 {
                     Address = "Skole Allé 63",
                     City = "København K",
@@ -123,6 +127,33 @@ namespace Examples
                     MobilePhone = "0001234567",
                     WorkPhone = "0123456789"
                 }
+            };
+
+            RecipientInfo recipientInfo = new RecipientInfo {
+                Email = "johndoe@example.com",
+                Username = "johndoe",
+				AccountIdentifier = "myAccount",
+				CustomerPhone = "+4512345678",
+				BirthDate = DateTime.Parse ("2000-01-01"),
+				Gender = Gender.F,
+				BillingAddress = new CustomerAddress {
+                    Address = "Skole Allé 63",
+                    City = "København K",
+                    Country = "DK",
+                    Firstname = "John",
+                    Lastname = "Doe",
+                    Region = "Region Sjælland",
+                    PostalCode = "1406"
+                },
+
+				ShippingAddress = new CustomerAddress {
+					Address = "Skole Allé 63",
+					City = "København K",
+					Country = "DK",
+					Firstname = "John",
+					Lastname = "Doe",
+					Region = "Region Sjælland",
+				}
 
             };
 
@@ -167,6 +198,9 @@ namespace Examples
 
                 // Customer Data
                 CustomerInfo = customerInfo,
+                
+                // Recipient Data
+                RecipientInfo = recipientInfo,
 
                 CustomerCreatedDate = "2017-11-16",
                 Cookie = "thecookie=isgood",
@@ -178,6 +212,7 @@ namespace Examples
                 ShippingType = ShippingType.TwoDayService,
                 AccountOffer = AccountOffer.disabled,
                 Type = AuthType.payment,
+				FormTemplate = "form_checkout",
 
 
                 // Orderlines

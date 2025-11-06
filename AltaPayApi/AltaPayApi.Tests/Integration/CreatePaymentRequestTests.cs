@@ -133,7 +133,7 @@ namespace AltaPay.Service.Tests.Integration
 				ShippingType = ShippingType.Military,
 				AccountOffer = AccountOffer.disabled,
 				Type = AuthType.payment,
-				
+				FormTemplate = "form_checkout",
 				
 				// Orderlines
 				OrderLines = {
@@ -241,7 +241,7 @@ namespace AltaPay.Service.Tests.Integration
         {
             PaymentRequestRequest paymentRequest = new PaymentRequestRequest() {
                 Terminal = GatewayConstants.vippsTerminal,
-                ShopOrderId = "payment-req-" + Guid.NewGuid().ToString(),
+                ShopOrderId = "payment-req-vipps-" + Guid.NewGuid().ToString(),
                 Amount = Amount.Get(700.00, Currency.NOK),
                 FraudService = FraudService.Test,
                 // All the callback configs
@@ -258,7 +258,7 @@ namespace AltaPay.Service.Tests.Integration
 
                 // Customer Data
                 CustomerInfo = {
-                    Email = "testValitor@impact.dk",
+                    Email = "testAltapay@impact.dk",
                     CustomerPhone = "73577357",
                     BirthDate = DateTime.Now,
 

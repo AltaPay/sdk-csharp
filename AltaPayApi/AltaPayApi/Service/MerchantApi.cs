@@ -424,9 +424,13 @@ namespace AltaPay.Service
 			parameters.Add("organisation_number", request.OrganisationNumber);
 			parameters.Add("account_offer", request.AccountOffer);
 			parameters.Add("payment_source", request.Source);
+			parameters.Add ("form_template", request.FormTemplate);
 
 			// Customer Info
 			parameters.Add("customer_info", request.CustomerInfo.AddToDictionary(new Dictionary<string, object>()));
+
+			// Recipient Info
+			parameters.Add ("recipient_info", request.RecipientInfo.AddToDictionary (new Dictionary<string, object> ()));
 
 			// Order lines
 			parameters = getOrderLines(parameters, request.OrderLines);
@@ -708,7 +712,7 @@ namespace AltaPay.Service
 			}
 			else
 			{
-			    _sdkVersion = "1.2.4";
+			    _sdkVersion = "1.2.5";
 			}
 
 			return _sdkVersion;
