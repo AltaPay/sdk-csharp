@@ -9,7 +9,9 @@ namespace AltaPay.Service
 		public string SalesReconciliationIdentifier { get; set; }
 		public string SalesInvoiceNumber { get; set; }
 		public double SalesTax { get; set; }
+		public string FormTemplate { get; set; }
 		public CustomerInfo CustomerInfo { get; set; }
+		public RecipientInfo RecipientInfo { get; set; }
 		/// <summary>
 		/// This will be changed to DateTime at some point.
 		/// </summary>
@@ -26,6 +28,7 @@ namespace AltaPay.Service
 		public PaymentRequestRequest()
 		{
 			CustomerInfo = new CustomerInfo();
+			RecipientInfo = new RecipientInfo();
 			OrderLines = new List<PaymentOrderLine>();
 		}
 	}

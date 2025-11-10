@@ -8,6 +8,7 @@ namespace AltaPay.Service
 	{
 		public string Email { get; set; }
 		public string Username { get; set; }
+		public string AccountIdentifier { get; set; }
 		public string CustomerPhone { get; set; }
 		public string BankName { get; set; }
 		public string BankPhone { get; set; }
@@ -15,6 +16,7 @@ namespace AltaPay.Service
 		public CustomerAddress ShippingAddress { get; set; }
 		public CardHolderData CardHolder { get; set; }
 		public DateTime BirthDate { get; set; }
+		public Gender Gender { get; set; }
 		public string ClientSessionId { get; set; }
 		public string ClientAcceptLanguage { get; set; }
 		public string ClienUserAgent { get; set; }
@@ -31,12 +33,14 @@ namespace AltaPay.Service
 		{
 			parameters.Add("email", Email); //The customer's email address.	string
 			parameters.Add("username", Username); //The customer's e-shop username.	string
+			parameters.Add ("account_identifier", AccountIdentifier); //The customer's account identifier. It can be name of customer's account or pan.	string
 			parameters.Add("customer_phone", CustomerPhone); //The customer's telephone number.	string
 			parameters.Add("bank_name", BankName); //The name of the bank where the credit card was issued.	string
 			parameters.Add("bank_phone", BankPhone); //The phone number of the bank where the credit card was issued.	String
 			if (BirthDate.Ticks != 0) {
 				parameters.Add ("birthdate", BirthDate.ToString ("yyyy-MM-dd")); //The customer's birth date in format yyyy-MM-dd
 			}
+			parameters.Add ("gender", Gender.ToString ().ToLower ()); //Gender of the recipient.FMmalefemale
 			parameters.Add("billing_firstname", BillingAddress.Firstname); //The first name for the customer's billing address.	String
 			parameters.Add("billing_lastname", BillingAddress.Lastname); //The last name for the customer's billing address.	String
 			parameters.Add("billing_city", BillingAddress.City); //The city of the customer's billing address.	string

@@ -127,6 +127,8 @@
     <Compile Include="Service\Results\CardWalletAuthorizeResult.cs" />
     <Compile Include="Service\Requests\CalculateSurchargeRequest.cs" />
     <Compile Include="Service\Results\CalculateSurchargeResult.cs" />
+    <Compile Include="Service\Requests\Common\RecipientInfo.cs" />
+    <Compile Include="Service\Requests\Common\Gender.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
