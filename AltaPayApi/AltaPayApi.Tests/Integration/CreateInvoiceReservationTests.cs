@@ -19,7 +19,7 @@ namespace AltaPay.Service.Tests.Integration
 		//private ParameterHelper ParameterHelper = new ParameterHelper();
 
 		private IMerchantApi _api;
-		private const String terminal = "AltaPay Test Invoice Terminal DK";
+		private const String terminal = "AltaPay Invoice Test Terminal";
 
 		[SetUp]
 		public void Setup()

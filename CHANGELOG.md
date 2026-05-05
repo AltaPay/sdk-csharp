@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.3.0]
+
+- Add support for endpoint `checkoutSession`.
+
 ## [1.2.5]
 
 - Add support to include recipient information as part of the `createPaymentRequest`.

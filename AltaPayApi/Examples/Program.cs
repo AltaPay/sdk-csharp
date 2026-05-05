@@ -43,6 +43,8 @@ namespace Examples
             //calculateSurcharge examples
             Console.WriteLine ("Executing Calculate Surcharge example");
             CalculateSurchargeExamples calculateSurchargeExamples = new CalculateSurchargeExamples ();
+            CheckoutSessionExamples checkoutSessionExamples = new CheckoutSessionExamples();
+            checkoutSessionExamples.CreateCheckoutSession();
             calculateSurchargeExamples.CalculateSurcharge ();
         }
     }
