@@ -408,7 +408,7 @@ namespace AltaPay.Service
 
 		}
 
-		public PaymentRequestResult CreatePaymentRequest(PaymentRequestRequest request)
+		private Dictionary<string, Object> GetPaymentRequestParameters(PaymentRequestRequest request)
 		{
 			var parameters = GetBasicCreatePaymentRequestParameters(request);
 
@@ -424,13 +424,13 @@ namespace AltaPay.Service
 			parameters.Add("organisation_number", request.OrganisationNumber);
 			parameters.Add("account_offer", request.AccountOffer);
 			parameters.Add("payment_source", request.Source);
-			parameters.Add ("form_template", request.FormTemplate);
+			parameters.Add("form_template", request.FormTemplate);
 
 			// Customer Info
 			parameters.Add("customer_info", request.CustomerInfo.AddToDictionary(new Dictionary<string, object>()));
 
 			// Recipient Info
-			parameters.Add ("recipient_info", request.RecipientInfo.AddToDictionary (new Dictionary<string, object> ()));
+			parameters.Add("recipient_info", request.RecipientInfo.AddToDictionary(new Dictionary<string, object>()));
 
 			// Order lines
 			parameters = getOrderLines(parameters, request.OrderLines);
@@ -440,6 +440,12 @@ namespace AltaPay.Service
 				parameters.Add("agreement", request.AgreementConfig.ToDictionary());
 			}
 
+			return parameters;
+		}
+
+		public PaymentRequestResult CreatePaymentRequest(PaymentRequestRequest request)
+		{
+			var parameters = GetPaymentRequestParameters(request);
 			return new PaymentRequestResult(GetResponseFromApiCall("createPaymentRequest", parameters));
 		}
 
@@ -548,22 +554,7 @@ namespace AltaPay.Service
 
 		public CheckoutSessionResult CheckoutSession(CheckoutSessionRequest request)
 		{
-			var parameters = new Dictionary<string, Object>();
-
-			if (!String.IsNullOrEmpty(request.Terminal))
-			{
-				parameters.Add("terminal", request.Terminal);
-			}
-			if (!String.IsNullOrEmpty(request.ShopOrderId))
-			{
-				parameters.Add("shop_orderid", request.ShopOrderId);
-			}
-
-			if (request.Amount != null)
-			{
-				parameters.Add("amount", request.Amount.GetAmountString());
-				parameters.Add("currency", request.Amount.Currency.GetNumericString());
-			}
+			var parameters = GetPaymentRequestParameters(request);
 
 			if (request.Terminals != null && request.Terminals.Count > 0)
 			{
