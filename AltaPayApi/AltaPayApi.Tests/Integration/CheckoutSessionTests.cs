@@ -25,8 +25,7 @@ namespace AltaPay.Service.Tests.Integration
                 Terminal = GatewayConstants.terminal,
                 SessionId = "session-" + Guid.NewGuid().ToString()
             };
-
-            // Using the test terminal defined in GatewayConstants
+            
             request.Terminals.Add(GatewayConstants.terminal);
 
             var result = _api.CheckoutSession(request);

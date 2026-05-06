@@ -9,16 +9,18 @@ namespace Examples
 
         public CheckoutSessionExamples()
         {
-            // This is the URL to connect to your gateway instance.
+            //This is the URL to connect to your gateway instance. If you are in doubt contact support.
+			//For test, use: testgateway.altapaysecure.com
             string gatewayUrl = "https://testgateway.altapaysecure.com/merchant/API/";
 
-            // username to be authenticated on the gateway
+            //username to be authenticated on the gateway
             string username = "testuser";
 
-            // provided password for user authentication
+            //provided password for user authentication
             string password = "testpassword";
 
-            // Instantiation of the API helper class which provide all necessary merchant api methods
+            //Instatiation of the API helper class which provide all necessary merchant api methods
+            //This class requires gateway URL, username and password params are forwarded in the contructor
             _api = new MerchantApi(gatewayUrl, username, password);
         }
 
@@ -27,28 +29,16 @@ namespace Examples
         /// </summary>
         public void CreateCheckoutSession()
         {
-            // Instantiation of the checkout session request class
             CheckoutSessionRequest request = new CheckoutSessionRequest();
             
-            // Add Shop Order ID
             request.ShopOrderId = "checkout-req-" + Guid.NewGuid().ToString();
-
-            // Add Amount and Currency
             request.Amount = Amount.Get(120.50, Currency.EUR);
-
-            // Add terminal
             request.Terminal = "AltaPay Test Terminal";
-
-            // Add terminals that are available for the user
             request.Terminals.Add("AltaPay Test Terminal");
-
-            // Optional identifier for a session to be created
             request.SessionId = Guid.NewGuid().ToString();
 
-            // execute checkout session method
             CheckoutSessionResult result = _api.CheckoutSession(request);
 
-            // Result property contains information if the request was successful or not
             if (result.Result == Result.Success)
             {
                 Console.WriteLine(" Checkout Session created successfully.");
