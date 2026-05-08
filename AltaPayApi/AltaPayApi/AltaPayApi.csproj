@@ -91,6 +91,8 @@
     <Compile Include="Service\Results\ReservationResult.cs" />
     <Compile Include="Service\Results\ReserveSubscriptionChargeResult.cs" />
     <Compile Include="Service\Results\SubscriptionResult.cs" />
+    <Compile Include="Service\Requests\CheckoutSessionRequest.cs" />
+    <Compile Include="Service\Results\CheckoutSessionResult.cs" />
     <Compile Include="Service\Requests\CaptureRequest.cs" />
     <Compile Include="Service\Requests\ChargeSubscriptionRequest.cs" />
     <Compile Include="Service\Requests\GetFundingsRequest.cs" />

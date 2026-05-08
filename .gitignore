@@ -8,3 +8,5 @@ dist
 *.suo
 .idea
 .vs/
+.vscode/
+AltaPayApi/packages/NUnit.Runners.2.6.4/

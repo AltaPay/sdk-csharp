@@ -68,6 +68,7 @@
     <Compile Include="Integration\GatewayConstants.cs" />
     <Compile Include="Unit\CustomerInfoTests.cs" />
     <Compile Include="Integration\CalculateSurcharge.cs" />
+    <Compile Include="Integration\CheckoutSessionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AltaPayApi\AltaPayApi.csproj">
