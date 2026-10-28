@@ -1,4 +1,5 @@
 ﻿using AltaPay.Service;
+using AltaPay.Service.Tests.Integration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +15,13 @@ namespace Examples
         {
             //This is the URL to connect to your gateway instance. If you are in doubt contact support.
 			//For test, use: testgateway.altapaysecure.com
-            string gatewayUrl = "https://testgateway.altapaysecure.com/merchant/API/";
+            string gatewayUrl = GatewayConstants.gatewayUrl;
 
             //username to be authenticated on the gateway
-            string username = "shop api";
+            string username = GatewayConstants.username;
 
             //provided password for user authentication
-            string password = "testpassword";
+            string password = GatewayConstants.password;
 
             //Instatiation of the API helper class which provide all necessary merchant api methods
             //This class requires gateway URL, username and password params are forwarded in the contructor
@@ -33,7 +34,7 @@ namespace Examples
         public void CreateSimplePaymentRequest()
         {
             //dedicated terminal on the gateway
-            string terminal = "AltaPay Dev Terminal";
+            string terminal = GatewayConstants.terminal;
 
             //Instantiation of the payment request class
             //this class is used for forwarding all the data needed for create payment request
@@ -87,7 +88,7 @@ namespace Examples
         public void CreateComplexPaymentRequest()
         {
             //dedicated terminal on the gateway
-            string terminal = "AltaPay Dev Terminal";
+            string terminal = GatewayConstants.terminal;
 
 			CustomerInfo customerInfo = new CustomerInfo
             {
@@ -250,7 +251,7 @@ namespace Examples
         public void CreateSimplePaymentRequestWithAgreement()
         {
             //dedicated terminal on the gateway
-            string terminal = "AltaPay Dev Terminal";
+            string terminal = GatewayConstants.terminal;
 
             //Instantiation of the payment request class
             //this class is used for forwarding all the data needed for create payment request
