@@ -1,4 +1,5 @@
 ﻿using AltaPay.Service;
+using AltaPay.Service.Tests.Integration;
 using AltaPay.Service.Dto;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,13 @@ namespace Examples
         {
             //This is the URL to connect to your gateway instance. If you are in doubt contact support.
 			//For test, use: testgateway.altapaysecure.com
-            string gatewayUrl = "https://testgateway.altapaysecure.com/merchant/API/";
+            string gatewayUrl = GatewayConstants.gatewayUrl;
 
             //username to be authenticated on the gateway
-            string username = "shop api";
+            string username = GatewayConstants.username;
 
             //provided password for user authentication
-            string password = "testpassword";
+            string password = GatewayConstants.password;
 
             //Instatiation of the API helper class which provide all necessary merchant api methods
             //This class requires gateway URL, username and password params are forwarded in the contructor
@@ -75,7 +76,7 @@ namespace Examples
             var request = new ReserveRequest
             {
                 ShopOrderId = "csharpexample" + Guid.NewGuid().ToString(),
-                Terminal = "AltaPay Dev Terminal",
+                Terminal = GatewayConstants.terminal,
                 Amount = amount,
                 PaymentType = type,
                 Pan = "4111000011110000",

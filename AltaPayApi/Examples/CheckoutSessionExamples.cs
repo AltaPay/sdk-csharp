@@ -1,4 +1,5 @@
 using AltaPay.Service;
+using AltaPay.Service.Tests.Integration;
 using System;
 
 namespace Examples
@@ -11,13 +12,13 @@ namespace Examples
         {
             //This is the URL to connect to your gateway instance. If you are in doubt contact support.
 			//For test, use: testgateway.altapaysecure.com
-            string gatewayUrl = "https://testgateway.altapaysecure.com/merchant/API/";
+            string gatewayUrl = GatewayConstants.gatewayUrl;
 
             //username to be authenticated on the gateway
-            string username = "testuser";
+            string username = GatewayConstants.username;
 
             //provided password for user authentication
-            string password = "testpassword";
+            string password = GatewayConstants.password;
 
             //Instatiation of the API helper class which provide all necessary merchant api methods
             //This class requires gateway URL, username and password params are forwarded in the contructor
@@ -33,8 +34,8 @@ namespace Examples
             
             request.ShopOrderId = "checkout-req-" + Guid.NewGuid().ToString();
             request.Amount = Amount.Get(120.50, Currency.EUR);
-            request.Terminal = "AltaPay Test Terminal";
-            request.Terminals.Add("AltaPay Test Terminal");
+            request.Terminal = GatewayConstants.terminal;
+            request.Terminals.Add(GatewayConstants.terminal);
             request.SessionId = Guid.NewGuid().ToString();
 
             CheckoutSessionResult result = _api.CheckoutSession(request);
@@ -45,6 +46,7 @@ namespace Examples
                 
                 Console.WriteLine(" Session ID: " + result.SessionId);
                 Console.WriteLine(" Session Status: " + result.SessionStatus);
+                Console.WriteLine(" Supported Terminals: " + string.Join(", ", System.Linq.Enumerable.ToArray(result.SupportedTerminals)));
             }
             else
             {

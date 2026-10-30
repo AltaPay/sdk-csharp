@@ -34,6 +34,7 @@ namespace AltaPay.Service.Tests.Integration
             Assert.IsNotNull(result.SessionId);
             Assert.IsNotEmpty(result.SessionId);
             Assert.AreEqual("CREATED", result.SessionStatus);
+            CollectionAssert.Contains(result.SupportedTerminals, GatewayConstants.terminal);
         }
 
         [Test]
