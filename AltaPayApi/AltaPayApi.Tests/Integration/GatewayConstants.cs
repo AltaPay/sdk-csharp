@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace AltaPay.Service.Tests.Integration
 {
@@ -7,6 +7,10 @@ namespace AltaPay.Service.Tests.Integration
 		//This is the URL to connect to your gateway instance. If you are in doubt contact support.
 		//For test, use: testgateway.altapaysecure.com
 		public const string gatewayUrl = "https://testgateway.altapaysecure.com/merchant/API/";
+		// NOTE: The username, password and terminal names below are simple placeholder examples,
+		// not real credentials for testgateway.altapaysecure.com. Replace them with the credentials
+		// of your own test account before running the integration tests or the examples,
+		// and never commit real credentials.
 		public const string username = "shop api";
 		public const string password = "testpassword";
 		public const string terminal = "AltaPay Test Terminal";
