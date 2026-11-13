@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [1.3.1]
+
+- Supports API changes from gateway version 20261026.
+
 ## [1.3.0]
 
 - Add support for endpoint `checkoutSession`.

@@ -57,6 +57,25 @@ namespace AltaPay.Service.Tests.Integration
 
 		[TestCase(true)]
 		[TestCase(false)]
+		public void CallingMerchantApiWithErrorParametersReturnsTransactionMerchantErrorFields(Boolean callReservationOfFixedAmount)
+		{
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 5.67, callReservationOfFixedAmount);
+
+			StringAssert.StartsWith("TestAcquirer[pan=0567 or amount=5670]", result.Payment.MerchantErrorMessage);
+			Assert.IsFalse(string.IsNullOrEmpty(result.Payment.MerchantErrorCode));
+		}
+
+		[Test]
+		public void CallingMerchantApiWithSuccessfulParametersReturnsCardInformationType()
+		{
+			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23);
+
+			Assert.IsTrue(result.Payment.CardInformation.TypeSpecified);
+			Assert.AreEqual(AltaPay.Service.Dto.CardType.ConsumerCredit, result.Payment.CardInformation.Type);
+		}
+
+		[TestCase(true)]
+		[TestCase(false)]
 		public void CallingMerchantApiWithSuccessfulParametersReturnsAPaymentWithAPaymentId(Boolean callReservationOfFixedAmount)
 		{
 			PaymentResult result = GetMerchantApiResult(Guid.NewGuid().ToString(), 1.23, callReservationOfFixedAmount);
